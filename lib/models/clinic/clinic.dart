@@ -6,6 +6,7 @@ class Clinic implements Equatable {
   final String id;
   final String name_en;
   final String name_ar;
+  final List<String> doc_id;
   final String phone_number;
   final int consultation_fees;
   final int followup_fees;
@@ -21,6 +22,7 @@ class Clinic implements Equatable {
     required this.id,
     required this.name_en,
     required this.name_ar,
+    required this.doc_id,
     required this.phone_number,
     required this.consultation_fees,
     required this.followup_fees,
@@ -37,6 +39,7 @@ class Clinic implements Equatable {
     String? id,
     String? name_en,
     String? name_ar,
+    List<String>? doc_id,
     String? phone_number,
     int? consultation_fees,
     int? followup_fees,
@@ -52,6 +55,7 @@ class Clinic implements Equatable {
       id: id ?? this.id,
       name_en: name_en ?? this.name_en,
       name_ar: name_ar ?? this.name_ar,
+      doc_id: doc_id ?? this.doc_id,
       phone_number: phone_number ?? this.phone_number,
       consultation_fees: consultation_fees ?? this.consultation_fees,
       followup_fees: followup_fees ?? this.followup_fees,
@@ -70,6 +74,7 @@ class Clinic implements Equatable {
       'id': id,
       'name_en': name_en,
       'name_ar': name_ar,
+      'doc_id': doc_id.map((e) => e.toString()).toList(),
       'phone_number': phone_number,
       'consultation_fees': consultation_fees,
       'followup_fees': followup_fees,
@@ -88,6 +93,7 @@ class Clinic implements Equatable {
       id: map['id'] as String,
       name_en: map['name_en'] as String,
       name_ar: map['name_ar'] as String,
+      doc_id: (map['doc_id'] as List).map((e) => e.toString()).toList(),
       phone_number: map['phone_number'] as String,
       consultation_fees: map['consultation_fees'] as int,
       followup_fees: map['followup_fees'] as int,
@@ -113,6 +119,7 @@ class Clinic implements Equatable {
       id,
       name_en,
       name_ar,
+      doc_id,
       phone_number,
       consultation_fees,
       followup_fees,

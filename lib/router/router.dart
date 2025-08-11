@@ -333,8 +333,6 @@ class AppRouter {
                                         return ChangeNotifierProvider(
                                           create: (context) => PxVisitData(
                                             api: VisitDataApi(
-                                              doc_id:
-                                                  context.read<PxAuth>().doc_id,
                                               visit_id: _visit_id!,
                                             ),
                                           ),
@@ -476,9 +474,7 @@ class AppRouter {
                             builder: (context, state) {
                               return ChangeNotifierProvider.value(
                                 value: PxPatients(
-                                  api: PatientsApi(
-                                    doc_id: context.read<PxAuth>().doc_id,
-                                  ),
+                                  api: PatientsApi(),
                                 ),
                                 child: PatientsPage(
                                   key: state.pageKey,
@@ -496,9 +492,7 @@ class AppRouter {
                             builder: (context, state) {
                               return ChangeNotifierProvider(
                                 create: (context) => PxVisitFilter(
-                                  api: VisitFilterApi(
-                                    doc_id: PxAuth.doc_id_static_getter,
-                                  ),
+                                  api: VisitFilterApi(),
                                 ),
                                 child: VisitsPage(
                                   key: state.pageKey,
@@ -628,9 +622,7 @@ class AppRouter {
                     builder: (context, state) {
                       return ChangeNotifierProvider.value(
                         value: PxForms(
-                          api: FormsApi(
-                            doc_id: context.read<PxAuth>().doc_id,
-                          ),
+                          api: const FormsApi(),
                         ),
                         child: FormsPage(
                           key: state.pageKey,

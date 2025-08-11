@@ -1,3 +1,5 @@
+import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/models/speciality.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:allevia_one/models/app_constants/account_type.dart';
@@ -17,6 +19,7 @@ class Visit extends Equatable {
   final Patient patient;
   final Clinic clinic;
   final User added_by;
+  final Doctor doctor;
   final ClinicSchedule clinic_schedule;
   final ScheduleShift clinic_schedule_shift;
   final DateTime visit_date;
@@ -31,6 +34,7 @@ class Visit extends Equatable {
     required this.patient,
     required this.clinic,
     required this.added_by,
+    required this.doctor,
     required this.clinic_schedule,
     required this.clinic_schedule_shift,
     required this.visit_date,
@@ -46,6 +50,7 @@ class Visit extends Equatable {
     Patient? patient,
     Clinic? clinic,
     User? added_by,
+    Doctor? doctor,
     ClinicSchedule? clinic_schedule,
     ScheduleShift? clinic_schedule_shift,
     DateTime? visit_date,
@@ -60,6 +65,7 @@ class Visit extends Equatable {
       patient: patient ?? this.patient,
       clinic: clinic ?? this.clinic,
       added_by: added_by ?? this.added_by,
+      doctor: doctor ?? this.doctor,
       clinic_schedule: clinic_schedule ?? this.clinic_schedule,
       clinic_schedule_shift:
           clinic_schedule_shift ?? this.clinic_schedule_shift,
@@ -79,6 +85,7 @@ class Visit extends Equatable {
       'patient': patient.toJson(),
       'clinic': clinic.toJson(),
       'added_by': added_by.toJson(),
+      'doctor': doctor.toJson(),
       'clinic_schedule': clinic_schedule.toJson(),
       'clinic_schedule_shift_id': clinic_schedule_shift.toJson(),
       'visit_date': visit_date.toIso8601String(),
@@ -96,6 +103,7 @@ class Visit extends Equatable {
       patient: Patient.fromJson(map['patient'] as Map<String, dynamic>),
       clinic: Clinic.fromJson(map['clinic'] as Map<String, dynamic>),
       added_by: User.fromJson(map['added_by'] as Map<String, dynamic>),
+      doctor: Doctor.fromJson(map['doctor'] as Map<String, dynamic>),
       clinic_schedule: ClinicSchedule.fromJson(
           map['clinic_schedule'] as Map<String, dynamic>),
       clinic_schedule_shift: ScheduleShift.fromJson(
@@ -121,6 +129,7 @@ class Visit extends Equatable {
       patient,
       clinic,
       added_by,
+      doctor,
       clinic_schedule,
       clinic_schedule_shift,
       visit_date,
@@ -144,6 +153,12 @@ class Visit extends Equatable {
       patient:
           Patient.fromJson(e.get<RecordModel>('expand.patient_id').toJson()),
       clinic: _clinic,
+      doctor: Doctor.fromJson({
+        ...e.get<RecordModel>('expand.doc_id').toJson(),
+        'speciality': Speciality.fromJson(
+          e.get<RecordModel>('expand.doc_id.expand.speciality_id').toJson(),
+        )
+      }),
       added_by: User(
         id: e.get<RecordModel>('expand.added_by_id').toJson()['id'],
         email: e.get<RecordModel>('expand.added_by_id').toJson()['email'],

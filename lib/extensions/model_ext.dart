@@ -11,11 +11,11 @@ extension Imageurl on Speciality {
 }
 
 extension PrescriptionFileUrl on Clinic {
-  String prescriptionFileUrl(String doc_id) =>
-      '${PocketbaseHelper.pb.baseURL}/api/files/${doc_id}__clinics/$id/$prescription_file';
+  String prescriptionFileUrl() =>
+      '${PocketbaseHelper.pb.baseURL}/api/files/clinics/$id/$prescription_file';
 
-  Future<Uint8List> prescImageBytes(String doc_id) async {
-    final _response = await http.get(Uri.parse(prescriptionFileUrl(doc_id)));
+  Future<Uint8List> prescImageBytes() async {
+    final _response = await http.get(Uri.parse(prescriptionFileUrl()));
     return _response.bodyBytes;
   }
 }

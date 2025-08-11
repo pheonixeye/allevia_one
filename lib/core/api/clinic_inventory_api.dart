@@ -6,11 +6,10 @@ import 'package:allevia_one/models/supplies/clinic_inventory_item.dart';
 
 class ClinicInventoryApi {
   final String clinic_id;
-  final String doc_id;
 
-  ClinicInventoryApi({required this.clinic_id, required this.doc_id});
+  ClinicInventoryApi({required this.clinic_id});
 
-  late final String collection = '${doc_id}__clinic__supplies';
+  late final String collection = 'clinic__supplies';
 
   final String _expand = 'supply_id';
 

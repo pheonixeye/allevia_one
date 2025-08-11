@@ -7,7 +7,6 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/clinic_prescription_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/clinic_schedule_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/create_edit_clinic_dialog.dart';
-import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_clinic_inventory.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -285,7 +284,6 @@ class ClinicViewCard extends StatelessWidget {
                                   create: (context) => PxClinicInventory(
                                     api: ClinicInventoryApi(
                                       clinic_id: clinic.id,
-                                      doc_id: context.read<PxAuth>().doc_id,
                                     ),
                                   ),
                                   child: ClinicInventoryDialog(),

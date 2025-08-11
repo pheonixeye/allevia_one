@@ -332,5 +332,6 @@
     "visitType" : "نوع الزيارة",
     "visitData" : "بيانات الزيارة",
     "patientCard" : "كارت المريض",
-    "scanQrCode" : "مسح الكود"
+    "scanQrCode" : "مسح الكود",
+    "sendViaWhatsapp" : "ارسال عبر الواتس اب"
     }

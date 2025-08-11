@@ -333,5 +333,6 @@
     "visitType" : "Visit Type",
     "visitData" : "Visit Data",
     "patientCard" : "Patient Card",
-    "scanQrCode" : "Scan QrCode"
+    "scanQrCode" : "Scan QrCode",
+    "sendViaWhatsapp" : "Send Via Whatsapp"
 }

@@ -200,7 +200,6 @@ class _AddSupplyMovementDialogState extends State<AddSupplyMovementDialog> {
                       create: (context) => PxClinicInventory(
                         api: ClinicInventoryApi(
                           clinic_id: _sourceClinic!.id,
-                          doc_id: context.read<PxAuth>().doc_id,
                         ),
                       ),
                       builder: (context, child) {
@@ -284,7 +283,6 @@ class _AddSupplyMovementDialogState extends State<AddSupplyMovementDialog> {
                       create: (context) => PxClinicInventory(
                         api: ClinicInventoryApi(
                           clinic_id: _destinationClinic!.id,
-                          doc_id: context.read<PxAuth>().doc_id,
                         ),
                       ),
                       builder: (context, child) {

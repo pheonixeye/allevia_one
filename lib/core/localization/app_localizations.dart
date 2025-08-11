@@ -1927,6 +1927,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scan QrCode'**
   String get scanQrCode;
+
+  /// No description provided for @sendViaWhatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Via Whatsapp'**
+  String get sendViaWhatsapp;
 }
 
 class _AppLocalizationsDelegate

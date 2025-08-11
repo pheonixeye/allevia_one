@@ -13,7 +13,6 @@ import 'package:allevia_one/models/clinic/clinic.dart';
 import 'package:allevia_one/models/visit_data/visit_data.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/pages/visit_prescription_page/widgets/prescription_printer_dialog.dart';
-import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_visit_data.dart';
@@ -61,8 +60,7 @@ class VisitPrescriptionPage extends StatelessWidget {
                         color: Colors.white,
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                            clinic.prescriptionFileUrl(
-                                context.read<PxAuth>().doc_id),
+                            clinic.prescriptionFileUrl(),
                           ),
                           fit: BoxFit.contain,
                         ),

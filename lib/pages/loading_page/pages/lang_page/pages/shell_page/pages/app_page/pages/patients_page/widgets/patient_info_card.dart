@@ -274,7 +274,6 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                               ],
                             ),
                             onTap: () async {
-                              final _doc_id = p.api.doc_id;
                               await showDialog(
                                 context: context,
                                 builder: (context) {
@@ -282,15 +281,12 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                     providers: [
                                       ChangeNotifierProvider(
                                         create: (context) => PxForms(
-                                          api: FormsApi(
-                                            doc_id: _doc_id,
-                                          ),
+                                          api: FormsApi(),
                                         ),
                                       ),
                                       ChangeNotifierProvider(
                                         create: (context) => PxPatientForms(
                                           api: PatientFormsApi(
-                                            doc_id: _doc_id,
                                             patient_id: widget.patient.id,
                                           ),
                                         ),

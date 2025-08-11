@@ -581,6 +581,7 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                       clinic_id: _clinic!.id,
                       patient_id: widget.patient.id,
                       added_by_id: context.read<PxAuth>().doc_id,
+                      doc_id: context.read<PxAuth>().doc_id,
                       clinic_schedule_id: _clinicSchedule!.id,
                       clinic_schedule_shift_id: _scheduleShift!.id,
                       visit_date: _visitDate!.toIso8601String(),

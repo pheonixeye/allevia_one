@@ -6,11 +6,9 @@ import 'package:allevia_one/models/pc_form.dart';
 import 'package:allevia_one/models/pc_form_field.dart';
 
 class FormsApi {
-  FormsApi({required this.doc_id});
+  const FormsApi();
 
-  final String doc_id;
-
-  late final String collection = '${doc_id}__forms';
+  final String collection = 'forms';
 
   Future<void> createPcForm(PcForm form) async {
     await PocketbaseHelper.pb.collection(collection).create(

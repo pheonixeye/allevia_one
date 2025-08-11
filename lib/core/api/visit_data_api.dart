@@ -13,17 +13,15 @@ import 'package:allevia_one/models/visit_data/visit_data.dart';
 import 'package:allevia_one/models/visit_data/visit_form_item.dart';
 
 class VisitDataApi {
-  final String doc_id;
   final String visit_id;
 
   VisitDataApi({
-    required this.doc_id,
     required this.visit_id,
   });
 
-  late final String collection = '${doc_id}__visit__data';
+  late final String collection = 'visit__data';
 
-  late final String forms_data_collection = '${doc_id}__visit__formdata';
+  late final String forms_data_collection = 'visit__formdata';
 
   final String _expand =
       'patient_id, labs_ids, rads_ids, procedures_ids, drugs_ids, supplies_ids, forms_data_ids, forms_data_ids.form_id';
@@ -177,7 +175,7 @@ class VisitDataApi {
         );
 
         //todo: send bookkeeping request
-        await BookkeepingApi(doc_id: doc_id).addBookkeepingItem(_item);
+        await BookkeepingApi().addBookkeepingItem(_item);
       }
     }
   }
@@ -222,7 +220,7 @@ class VisitDataApi {
         );
 
         //todo: send bookkeeping request
-        await BookkeepingApi(doc_id: doc_id).addBookkeepingItem(_item);
+        await BookkeepingApi().addBookkeepingItem(_item);
       }
     }
   }
@@ -247,7 +245,7 @@ class VisitDataApi {
 
     final _visit_data = VisitData.fromRecordModel(_response);
 
-    final _supplyMovementApi = SupplyMovementApi(doc_id: doc_id);
+    final _supplyMovementApi = SupplyMovementApi();
     print('quantity_change ==>> $quantity_change');
     final _movement = SupplyMovementTransformer()
         .fromSuppliesOfVisit(_visit_data, item, quantity_change);

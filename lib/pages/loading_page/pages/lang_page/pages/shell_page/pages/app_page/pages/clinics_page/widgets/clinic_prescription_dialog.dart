@@ -7,7 +7,6 @@ import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/clinic/prescription_details.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/logic/pdf_prescription_builder.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
-import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/floating_ax_menu_bubble.dart';
@@ -228,9 +227,7 @@ class _ClinicPrescriptionDialogState extends State<ClinicPrescriptionDialog>
                               _ => Align(
                                   alignment: Alignment.center,
                                   child: Image.network(
-                                    c.clinic!.prescriptionFileUrl(
-                                      context.read<PxDoctor>().doctor!.id,
-                                    ),
+                                    c.clinic!.prescriptionFileUrl(),
                                   ),
                                 ),
                             },

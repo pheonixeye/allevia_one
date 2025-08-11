@@ -26,7 +26,7 @@ class DoctorProfileItemsApi<T extends DoctorItem> {
   final String doc_id;
   final ProfileSetupItem item;
 
-  late final String collection = '${doc_id}__${item.name}';
+  late final String collection = item.name;
 
   late final _box = Hive.box<String>(collection);
 

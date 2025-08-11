@@ -10,7 +10,6 @@ import 'package:allevia_one/models/doctor_items/profile_setup_item.dart';
 import 'package:allevia_one/models/visit_data/visit_data.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/pages/visit_single_items_page/widgets/supply_item_tile.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/visit_details_page_info_header.dart';
-import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_clinic_inventory.dart';
 import 'package:allevia_one/providers/px_doctor_profile_items.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -150,7 +149,6 @@ class VisitSingleItemsPage<T extends DoctorItem> extends StatelessWidget {
                         return PxClinicInventory(
                           api: ClinicInventoryApi(
                             clinic_id: clinic_id,
-                            doc_id: context.read<PxAuth>().doc_id,
                           ),
                         );
                       },

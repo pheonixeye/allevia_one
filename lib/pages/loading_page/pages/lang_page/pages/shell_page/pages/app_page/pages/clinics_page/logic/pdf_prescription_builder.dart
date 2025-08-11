@@ -55,7 +55,7 @@ class PrescriptionPdfBuilder {
 
   Future<Uint8List> _getImageBytes() async {
     if (_imageBytesCache[clinic.prescription_file] == null) {
-      final _imgBytes = await clinic.prescImageBytes(doc_id);
+      final _imgBytes = await clinic.prescImageBytes();
       _imageBytesCache[clinic.prescription_file] = _imgBytes;
       return _imgBytes;
     } else {

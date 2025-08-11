@@ -7,11 +7,9 @@ import 'package:allevia_one/models/bookkeeping/bookkeeping_item.dart';
 import 'package:allevia_one/models/bookkeeping/bookkeeping_item_dto.dart';
 
 class BookkeepingApi {
-  final String doc_id;
+  BookkeepingApi();
 
-  BookkeepingApi({required this.doc_id});
-
-  late final String collection = '${doc_id}__bookkeeping';
+  late final String collection = 'bookkeeping';
 
   Future<void> addBookkeepingItem(BookkeepingItemDto item) async {
     await PocketbaseHelper.pb.collection(collection).create(

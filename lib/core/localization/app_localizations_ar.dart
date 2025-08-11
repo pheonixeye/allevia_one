@@ -953,4 +953,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get scanQrCode => 'مسح الكود';
+
+  @override
+  String get sendViaWhatsapp => 'ارسال عبر الواتس اب';
 }

@@ -6,11 +6,9 @@ import 'package:allevia_one/errors/code_to_error.dart';
 import 'package:allevia_one/models/patient.dart';
 
 class PatientsApi {
-  PatientsApi({required this.doc_id});
+  const PatientsApi();
 
-  final String doc_id;
-
-  late final String _collection = '${doc_id}__patients';
+  final String _collection = 'patients';
 
   Future<ApiResult> fetchPatients({
     required int page,

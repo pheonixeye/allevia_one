@@ -4,6 +4,7 @@ class VisitCreateDto extends Equatable {
   final String clinic_id;
   final String patient_id;
   final String added_by_id;
+  final String doc_id;
   final String clinic_schedule_id;
   final String clinic_schedule_shift_id;
   final String visit_date;
@@ -17,6 +18,7 @@ class VisitCreateDto extends Equatable {
     required this.clinic_id,
     required this.patient_id,
     required this.added_by_id,
+    required this.doc_id,
     required this.clinic_schedule_id,
     required this.clinic_schedule_shift_id,
     required this.visit_date,
@@ -31,6 +33,7 @@ class VisitCreateDto extends Equatable {
     String? clinic_id,
     String? patient_id,
     String? added_by_id,
+    String? doc_id,
     String? clinic_schedule_id,
     String? clinic_schedule_shift_id,
     String? visit_date,
@@ -44,6 +47,7 @@ class VisitCreateDto extends Equatable {
       clinic_id: clinic_id ?? this.clinic_id,
       patient_id: patient_id ?? this.patient_id,
       added_by_id: added_by_id ?? this.added_by_id,
+      doc_id: doc_id ?? this.doc_id,
       clinic_schedule_id: clinic_schedule_id ?? this.clinic_schedule_id,
       clinic_schedule_shift_id:
           clinic_schedule_shift_id ?? this.clinic_schedule_shift_id,
@@ -62,6 +66,7 @@ class VisitCreateDto extends Equatable {
       'clinic_id': clinic_id,
       'patient_id': patient_id,
       'added_by_id': added_by_id,
+      'doc_id': doc_id,
       'clinic_schedule_id': clinic_schedule_id,
       'clinic_schedule_shift_id': clinic_schedule_shift_id,
       'visit_date': visit_date,
@@ -78,6 +83,7 @@ class VisitCreateDto extends Equatable {
       clinic_id: map['clinic_id'] as String,
       patient_id: map['patient_id'] as String,
       added_by_id: map['added_by_id'] as String,
+      doc_id: map['doc_id'] as String,
       clinic_schedule_id: map['clinic_schedule_id'] as String,
       clinic_schedule_shift_id: map['clinic_schedule_shift_id'] as String,
       visit_date: map['visit_date'] as String,
@@ -98,6 +104,7 @@ class VisitCreateDto extends Equatable {
       clinic_id,
       patient_id,
       added_by_id,
+      doc_id,
       clinic_schedule_id,
       clinic_schedule_shift_id,
       visit_date,

@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -326,10 +327,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 width: 50,
                                                 progressIndicatorBuilder:
                                                     (context, url, progress) {
-                                                  return CircularProgressIndicator
-                                                      .adaptive(
-                                                    value: progress.progress,
-                                                  );
+                                                  return CupertinoActivityIndicator();
                                                 },
                                               ),
                                               const SizedBox(

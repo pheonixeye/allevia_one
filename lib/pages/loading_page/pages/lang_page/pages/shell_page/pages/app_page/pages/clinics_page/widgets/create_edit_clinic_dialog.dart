@@ -1,3 +1,4 @@
+import 'package:allevia_one/providers/px_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -272,6 +273,7 @@ class _CreateEditClinicDialogState extends State<CreateEditClinicDialog> {
                 id: widget.clinic?.id ?? '',
                 name_en: _nameEnController.text,
                 name_ar: _nameArController.text,
+                doc_id: [PxAuth.doc_id_static_getter],
                 phone_number: _phoneController.text,
                 consultation_fees: int.parse(_consultationFeesController.text),
                 followup_fees: int.parse(_followupFeesController.text),

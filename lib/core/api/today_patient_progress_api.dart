@@ -40,7 +40,7 @@ class TodayPatientProgressApi {
     _date = date ?? DateTime.now();
   }
 
-  late final collection = '${doc_id}__visits';
+  late final collection = 'visits';
 
   Future<UnsubscribeFunc> listenToVisitsCollectionStream(
       void Function(RecordSubscriptionEvent) callback) async {

@@ -59,6 +59,12 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
         while (c.result == null) {
           return const CentralLoading();
         }
+        while (c.result is ApiErrorResult) {
+          return CentralError(
+            code: (c.result as ApiErrorResult).errorCode,
+            toExecute: c.retry,
+          );
+        }
 
         while ((c.result as ApiDataResult<List<Clinic>>).data.isEmpty) {
           return CentralNoItems(

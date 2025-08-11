@@ -8,15 +8,13 @@ import 'package:allevia_one/models/pc_form.dart';
 import 'package:collection/collection.dart';
 
 class PatientFormsApi {
-  final String doc_id;
   final String patient_id;
 
   PatientFormsApi({
-    required this.doc_id,
     required this.patient_id,
   });
 
-  late final String collection = '${doc_id}__patient__formdata';
+  late final String collection = 'patient__formdata';
 
   Future<ApiResult<List<PatientFormItem>>> fetchPatientForms() async {
     try {

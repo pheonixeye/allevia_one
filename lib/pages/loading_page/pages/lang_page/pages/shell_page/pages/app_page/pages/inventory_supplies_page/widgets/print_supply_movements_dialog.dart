@@ -53,7 +53,13 @@ class _PrintSupplyMovementsDialogState
 
     Map<int, List<SupplyMovement>> _splitted = {};
 
-    final _pages = (widget.movements.length / _perPage).round();
+    int _pages = 0;
+
+    if (widget.movements.length < _perPage) {
+      _pages = 1;
+    } else {
+      _pages = (widget.movements.length / _perPage).round();
+    }
 
     for (var i = 0; i < _pages; i++) {
       final _from = i * _perPage;

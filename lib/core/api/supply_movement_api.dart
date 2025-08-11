@@ -13,11 +13,9 @@ import 'package:allevia_one/models/supplies/supply_movement.dart';
 import 'package:allevia_one/models/supplies/supply_movement_dto.dart';
 
 class SupplyMovementApi {
-  final String doc_id;
+  SupplyMovementApi();
 
-  SupplyMovementApi({required this.doc_id});
-
-  late final String collection = '${doc_id}__supply__movements';
+  late final String collection = 'supply__movements';
 
   final _expandList = [
     'clinic_id',
@@ -58,7 +56,6 @@ class SupplyMovementApi {
         //TODO: mutate clinic_supplies with the movement
         final _clinicInventoryApi = ClinicInventoryApi(
           clinic_id: x.clinic.id,
-          doc_id: doc_id,
         );
         //TODO: get the supplies of the clinic
         final _invItemsRequest =
@@ -99,15 +96,15 @@ class SupplyMovementApi {
         );
         if (x.visit_id == null || x.visit_id == '') {
           final _bk = _bookkeepingTransformer.fromManualSupplyMovement(x);
-          await BookkeepingApi(doc_id: doc_id).addBookkeepingItem(_bk);
+          await BookkeepingApi().addBookkeepingItem(_bk);
         } else {
           if (x.movement_type == 'out_to_in') {
             final _bk =
                 _bookkeepingTransformer.fromVisitRemoveSupplyMovement(x);
-            await BookkeepingApi(doc_id: doc_id).addBookkeepingItem(_bk);
+            await BookkeepingApi().addBookkeepingItem(_bk);
           } else if (x.movement_type == 'in_to_out') {
             final _bk = _bookkeepingTransformer.fromVisitAddSupplyMovement(x);
-            await BookkeepingApi(doc_id: doc_id).addBookkeepingItem(_bk);
+            await BookkeepingApi().addBookkeepingItem(_bk);
           }
         }
       }).toList();

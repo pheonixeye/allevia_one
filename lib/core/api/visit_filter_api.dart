@@ -5,11 +5,9 @@ import 'package:allevia_one/errors/code_to_error.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 
 class VisitFilterApi {
-  final String doc_id;
+  VisitFilterApi();
 
-  VisitFilterApi({required this.doc_id});
-
-  late final String collection = '${doc_id}__visits';
+  late final String collection = 'visits';
 
   static final String _expand =
       'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id';

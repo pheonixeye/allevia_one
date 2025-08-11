@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/models/patient.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/paient_id_card_printer_dialog.dart';
-import 'package:allevia_one/providers/px_auth.dart';
-import 'package:allevia_one/providers/px_doctor.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -65,31 +63,18 @@ class _PatientIdCardDialogState extends State<PatientIdCardDialog> {
                       child: Column(
                         children: [
                           Text('كارت متابعة'),
-                          Text('دكتور'),
-                          Consumer<PxDoctor>(
-                            builder: (context, d, _) {
-                              while (d.doctor == null) {
-                                return SizedBox(
-                                  width: 80,
-                                  height: 10,
-                                  child: LinearProgressIndicator(),
-                                );
-                              }
-                              return Text(
-                                '${d.doctor?.name_ar}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              );
-                            },
+                          Text(
+                            'عيادات اليفيا',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                           SizedBox(
                             width: 120,
                             height: 120,
                             child: QrImageView.withQr(
                               qr: QrCode.fromData(
-                                data:
-                                    '{doc_id : ${context.read<PxAuth>().doc_id}, pt_id: ${widget.patient.id}}',
+                                data: widget.patient.id,
                                 errorCorrectLevel: QrErrorCorrectLevel.Q,
                               ),
                               embeddedImage: AssetImage(AppAssets.icon),
@@ -162,6 +147,19 @@ class _PatientIdCardDialogState extends State<PatientIdCardDialog> {
           label: Text(context.loc.print),
           icon: Icon(
             Icons.print,
+            color: Colors.green.shade100,
+          ),
+        ),
+        ElevatedButton.icon(
+          onPressed: () async {
+            final _data = await _controller.capture();
+            if (_data != null && context.mounted) {
+              //TODO: send to patient via whatsapp
+            }
+          },
+          label: Text(context.loc.sendViaWhatsapp),
+          icon: Icon(
+            FontAwesomeIcons.whatsapp,
             color: Colors.green.shade100,
           ),
         ),

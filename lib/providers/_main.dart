@@ -109,9 +109,7 @@ final List<SingleChildWidget> providers = [
   //profile items providers##
   ChangeNotifierProvider(
     create: (context) => PxForms(
-      api: FormsApi(
-        doc_id: context.read<PxAuth>().doc_id,
-      ),
+      api: FormsApi(),
     ),
   ),
   ChangeNotifierProvider(
@@ -123,33 +121,25 @@ final List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => PxPatients(
-      api: PatientsApi(
-        doc_id: context.read<PxAuth>().doc_id,
-      ),
+      api: PatientsApi(),
     ),
   ),
 
   ChangeNotifierProvider(
     create: (context) => PxVisits(
-      api: VisitsApi(
-        doc_id: context.read<PxAuth>().doc_id,
-      ),
+      api: VisitsApi(),
     ),
   ),
 
   ChangeNotifierProvider(
     create: (context) => PxSupplyMovements(
-      api: SupplyMovementApi(
-        doc_id: context.read<PxAuth>().doc_id,
-      ),
+      api: SupplyMovementApi(),
     ),
   ),
 
   ChangeNotifierProvider(
     create: (context) => PxBookkeeping(
-      api: BookkeepingApi(
-        doc_id: context.read<PxAuth>().doc_id,
-      ),
+      api: BookkeepingApi(),
     ),
   ),
 ];

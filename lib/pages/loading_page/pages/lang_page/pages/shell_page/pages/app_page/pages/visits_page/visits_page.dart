@@ -9,7 +9,6 @@ import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_data_view_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visits_filter_header.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
-import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/providers/px_visit_filter.dart';
@@ -118,11 +117,10 @@ class VisitsPage extends StatelessWidget {
                                                     return ChangeNotifierProvider(
                                                       create: (context) =>
                                                           PxVisitData(
-                                                              api: VisitDataApi(
-                                                        doc_id: PxAuth
-                                                            .doc_id_static_getter,
-                                                        visit_id: x.id,
-                                                      )),
+                                                        api: VisitDataApi(
+                                                          visit_id: x.id,
+                                                        ),
+                                                      ),
                                                       child:
                                                           VisitDataViewDialog(),
                                                     );
