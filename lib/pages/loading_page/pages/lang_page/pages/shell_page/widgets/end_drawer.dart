@@ -54,13 +54,6 @@ class EndDrawer extends StatelessWidget {
                 selected: selected(AppRouter.app),
               ),
               const ThinDivider(),
-              // DrawerNavBtn(
-              //   title: context.loc.patients,
-              //   icondata: FontAwesomeIcons.person,
-              //   routePath: AppRouter.patients,
-              //   selected: selected(AppRouter.patients),
-              // ),
-              // const ThinDivider(),
               DrawerNavBtn(
                 title: context.loc.myClinics,
                 icondata: Icons.calendar_month,
@@ -87,6 +80,13 @@ class EndDrawer extends StatelessWidget {
                 icondata: Icons.warehouse,
                 routePath: AppRouter.inventory_supplies,
                 selected: selected(AppRouter.inventory_supplies),
+              ),
+              const ThinDivider(),
+              DrawerNavBtn(
+                title: context.loc.assistantAccounts,
+                icondata: FontAwesomeIcons.personHalfDress,
+                routePath: AppRouter.assistants,
+                selected: selected(AppRouter.assistants),
               ),
               const ThinDivider(),
               DrawerNavBtn(

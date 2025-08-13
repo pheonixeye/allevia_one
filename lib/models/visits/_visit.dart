@@ -1,5 +1,4 @@
 import 'package:allevia_one/models/doctor.dart';
-import 'package:allevia_one/models/speciality.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:allevia_one/models/app_constants/account_type.dart';
@@ -155,9 +154,8 @@ class Visit extends Equatable {
       clinic: _clinic,
       doctor: Doctor.fromJson({
         ...e.get<RecordModel>('expand.doc_id').toJson(),
-        'speciality': Speciality.fromJson(
-          e.get<RecordModel>('expand.doc_id.expand.speciality_id').toJson(),
-        )
+        'speciality':
+            e.get<RecordModel>('expand.doc_id.expand.speciality_id').toJson(),
       }),
       added_by: User(
         id: e.get<RecordModel>('expand.added_by_id').toJson()['id'],

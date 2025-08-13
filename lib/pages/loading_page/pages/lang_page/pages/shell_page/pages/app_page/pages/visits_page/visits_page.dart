@@ -74,6 +74,9 @@ class VisitsPage extends StatelessWidget {
                                     label: Text(context.loc.patientName),
                                   ),
                                   DataColumn(
+                                    label: Text(context.loc.doctor),
+                                  ),
+                                  DataColumn(
                                     label: Text(context.loc.attendanceStatus),
                                   ),
                                   DataColumn(
@@ -110,7 +113,7 @@ class VisitsPage extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(12),
                                               onTap: () async {
-                                                //TODO: Go to visit Data View Dialog
+                                                //todo: Go to visit Data View Dialog
                                                 await showDialog<void>(
                                                   context: context,
                                                   builder: (context) {
@@ -132,6 +135,15 @@ class VisitsPage extends StatelessWidget {
                                                     const EdgeInsets.all(8.0),
                                                 child: Text(x.patient.name),
                                               ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataCell(
+                                          Center(
+                                            child: Text(
+                                              l.isEnglish
+                                                  ? x.doctor.name_en
+                                                  : x.doctor.name_ar,
                                             ),
                                           ),
                                         ),

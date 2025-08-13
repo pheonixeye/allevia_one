@@ -97,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   width: 10,
                                 ),
                                 const Text(
-                                  'ProKliniK-One',
+                                  'Allevia-One',
                                   style: TextStyle(
                                     fontSize: 32,
                                     fontWeight: FontWeight.bold,

@@ -956,5 +956,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scanQrCode => 'Scan QrCode';
 
   @override
+  String get doctor => 'Doctor';
+
+  @override
   String get sendViaWhatsapp => 'Send Via Whatsapp';
+
+  @override
+  String get assistantAccounts => 'Assistant Accounts';
 }

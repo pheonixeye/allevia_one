@@ -334,5 +334,7 @@
     "visitData" : "Visit Data",
     "patientCard" : "Patient Card",
     "scanQrCode" : "Scan QrCode",
-    "sendViaWhatsapp" : "Send Via Whatsapp"
+    "doctor" : "Doctor",
+    "sendViaWhatsapp" : "Send Via Whatsapp",
+    "assistantAccounts" : "Assistant Accounts"
 }

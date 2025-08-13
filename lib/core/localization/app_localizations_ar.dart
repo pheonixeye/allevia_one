@@ -955,5 +955,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get scanQrCode => 'مسح الكود';
 
   @override
+  String get doctor => 'الدكتور';
+
+  @override
   String get sendViaWhatsapp => 'ارسال عبر الواتس اب';
+
+  @override
+  String get assistantAccounts => 'حسابات السكيرتارية';
 }

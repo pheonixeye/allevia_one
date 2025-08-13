@@ -246,7 +246,7 @@ class VisitDataApi {
     final _visit_data = VisitData.fromRecordModel(_response);
 
     final _supplyMovementApi = SupplyMovementApi();
-    print('quantity_change ==>> $quantity_change');
+    // dprint('quantity_change ==>> $quantity_change');
     final _movement = SupplyMovementTransformer()
         .fromSuppliesOfVisit(_visit_data, item, quantity_change);
 

@@ -33,7 +33,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 const SizedBox(width: 20),
                 const Text(
-                  "ProKliniK-One",
+                  "Allevia-One",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,

@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                                   width: 10,
                                 ),
                                 const Text(
-                                  'ProKliniK-One',
+                                  'Allevia-One',
                                   style: TextStyle(
                                     fontSize: 32,
                                     fontWeight: FontWeight.bold,
@@ -262,38 +262,38 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            Focus(
-                              canRequestFocus: true,
-                              child: Text.rich(
-                                TextSpan(
-                                  text: '',
-                                  children: [
-                                    TextSpan(
-                                      text: context.loc.notRegisteredYet,
-                                      style: const TextStyle(
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    const TextSpan(text: '   '),
-                                    TextSpan(
-                                      text: context.loc.createAccount,
-                                      style: const TextStyle(
-                                        color: Colors.blue,
-                                      ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          GoRouter.of(context).goNamed(
-                                            AppRouter.register,
-                                            pathParameters:
-                                                defaultPathParameters(context),
-                                          );
-                                        },
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                            // Focus(
+                            //   canRequestFocus: true,
+                            //   child: Text.rich(
+                            //     TextSpan(
+                            //       text: '',
+                            //       children: [
+                            //         TextSpan(
+                            //           text: context.loc.notRegisteredYet,
+                            //           style: const TextStyle(
+                            //             color: Colors.black87,
+                            //           ),
+                            //         ),
+                            //         const TextSpan(text: '   '),
+                            //         TextSpan(
+                            //           text: context.loc.createAccount,
+                            //           style: const TextStyle(
+                            //             color: Colors.blue,
+                            //           ),
+                            //           recognizer: TapGestureRecognizer()
+                            //             ..onTap = () {
+                            //               GoRouter.of(context).goNamed(
+                            //                 AppRouter.register,
+                            //                 pathParameters:
+                            //                     defaultPathParameters(context),
+                            //               );
+                            //             },
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     textAlign: TextAlign.center,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

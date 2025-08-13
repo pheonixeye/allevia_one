@@ -1928,11 +1928,23 @@ abstract class AppLocalizations {
   /// **'Scan QrCode'**
   String get scanQrCode;
 
+  /// No description provided for @doctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor'**
+  String get doctor;
+
   /// No description provided for @sendViaWhatsapp.
   ///
   /// In en, this message translates to:
   /// **'Send Via Whatsapp'**
   String get sendViaWhatsapp;
+
+  /// No description provided for @assistantAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant Accounts'**
+  String get assistantAccounts;
 }
 
 class _AppLocalizationsDelegate

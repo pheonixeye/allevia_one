@@ -333,5 +333,7 @@
     "visitData" : "بيانات الزيارة",
     "patientCard" : "كارت المريض",
     "scanQrCode" : "مسح الكود",
-    "sendViaWhatsapp" : "ارسال عبر الواتس اب"
+    "doctor" : "الدكتور",
+    "sendViaWhatsapp" : "ارسال عبر الواتس اب",
+    "assistantAccounts" : "حسابات السكيرتارية"
     }

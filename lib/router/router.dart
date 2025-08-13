@@ -1,3 +1,4 @@
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/assistants_page/assistants_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/core/api/clinics_api.dart';
@@ -18,7 +19,7 @@ import 'package:allevia_one/pages/loading_page/loading_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/login_page/login_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/patient_portal_page/pages/patient_information_page/patient_information_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/patient_portal_page/patient_portal_page.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/register_page/register_page.dart';
+// import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/register_page/register_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/app_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/app_profile_setup/app_profile_setup.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/app_profile_setup/pages/profile_item_page/profile_item_page.dart';
@@ -47,7 +48,7 @@ import 'package:allevia_one/providers/px_doctor_profile_items.dart';
 import 'package:allevia_one/providers/px_forms.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_patients.dart';
-import 'package:allevia_one/providers/px_speciality.dart';
+// import 'package:allevia_one/providers/px_speciality.dart';
 import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/providers/px_visit_filter.dart';
 import 'package:allevia_one/providers/px_visit_prescription_state.dart';
@@ -89,6 +90,7 @@ class AppRouter {
   static const String transaction = "transaction";
   static const String clinics_patients_movements = "clinics_patients_movements";
   static const String inventory_supplies = "inventory_supplies";
+  static const String assistants = "assistants";
   //begining of stateful_shell_route
   static const String app = "app";
   //visit_data
@@ -232,25 +234,25 @@ class AppRouter {
                   return null;
                 },
               ),
-              GoRoute(
-                path: register, // /:lang/register
-                name: register,
-                builder: (context, state) {
-                  return ChangeNotifierProvider.value(
-                    key: state.pageKey,
-                    value: PxSpec(),
-                    child: RegisterPage(
-                      key: state.pageKey,
-                    ),
-                  );
-                },
-                redirect: (context, state) {
-                  if (context.read<PxAuth>().isLoggedIn) {
-                    return '/${state.pathParameters['lang']}/$app';
-                  }
-                  return null;
-                },
-              ),
+              // GoRoute(
+              //   path: register, // /:lang/register
+              //   name: register,
+              //   builder: (context, state) {
+              //     return ChangeNotifierProvider.value(
+              //       key: state.pageKey,
+              //       value: PxSpec(),
+              //       child: RegisterPage(
+              //         key: state.pageKey,
+              //       ),
+              //     );
+              //   },
+              //   redirect: (context, state) {
+              //     if (context.read<PxAuth>().isLoggedIn) {
+              //       return '/${state.pathParameters['lang']}/$app';
+              //     }
+              //     return null;
+              //   },
+              // ),
               GoRoute(
                 path: thankyou, // /:lang/thankyou
                 name: thankyou,
@@ -584,22 +586,15 @@ class AppRouter {
                     ],
                   ),
 
-                  // GoRoute(
-                  //   path: patients,
-                  //   name: patients,
-                  //   builder: (context, state) {
-                  //     return ChangeNotifierProvider.value(
-                  //       value: PxPatients(
-                  //         api: PatientsApi(
-                  //           doc_id: context.read<PxAuth>().doc_id,
-                  //         ),
-                  //       ),
-                  //       child: PatientsPage(
-                  //         key: state.pageKey,
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
+                  GoRoute(
+                    path: assistants,
+                    name: assistants,
+                    builder: (context, state) {
+                      return AssistantsPage(
+                        key: state.pageKey,
+                      );
+                    },
+                  ),
                   GoRoute(
                     path: clinics,
                     name: clinics,
