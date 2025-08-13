@@ -53,7 +53,7 @@ class ClinicsPage extends StatelessWidget {
                   child: ListTile(
                     title: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(context.loc.myClinics),
+                      child: Text(context.loc.clinics),
                     ),
                     subtitle: const Divider(),
                   ),

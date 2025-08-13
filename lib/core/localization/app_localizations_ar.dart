@@ -962,4 +962,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get assistantAccounts => 'حسابات السكيرتارية';
+
+  @override
+  String get download => 'تنزيل';
+
+  @override
+  String get clinics => 'العيادات';
+
+  @override
+  String get addAssistantAccount => 'اضافة حساب سكيرتارية';
 }

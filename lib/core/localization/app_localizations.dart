@@ -1945,6 +1945,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Assistant Accounts'**
   String get assistantAccounts;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @clinics.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinics'**
+  String get clinics;
+
+  /// No description provided for @addAssistantAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Assistant Account'**
+  String get addAssistantAccount;
 }
 
 class _AppLocalizationsDelegate

@@ -963,4 +963,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get assistantAccounts => 'Assistant Accounts';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get clinics => 'Clinics';
+
+  @override
+  String get addAssistantAccount => 'Add Assistant Account';
 }

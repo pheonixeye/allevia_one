@@ -48,8 +48,13 @@ class _PrintBookkeepingDialogState extends State<PrintBookkeepingDialog> {
 
     Map<int, List<BookkeepingItem>> _splitted = {};
 
-    final _pages = (widget.items.length / _perPage).round();
+    int _pages = 0;
 
+    if (widget.items.length < _perPage) {
+      _pages = 1;
+    } else {
+      _pages = (widget.items.length / _perPage).round();
+    }
     for (var i = 0; i < _pages; i++) {
       final _from = i * _perPage;
 

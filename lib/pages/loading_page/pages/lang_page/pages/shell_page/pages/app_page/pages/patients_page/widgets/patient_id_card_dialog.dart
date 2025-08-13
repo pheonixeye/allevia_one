@@ -1,3 +1,4 @@
+import 'package:allevia_one/functions/download_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -154,15 +155,32 @@ class _PatientIdCardDialogState extends State<PatientIdCardDialog> {
           onPressed: () async {
             final _data = await _controller.capture();
             if (_data != null && context.mounted) {
-              //TODO: send to patient via whatsapp
+              //todo: download image card
+              downloadUint8ListAsFile(_data, widget.patient.name);
             }
           },
-          label: Text(context.loc.sendViaWhatsapp),
+          label: Text(context.loc.download),
           icon: Icon(
-            FontAwesomeIcons.whatsapp,
+            FontAwesomeIcons.download,
             color: Colors.green.shade100,
           ),
         ),
+        // ElevatedButton.icon(
+        //   onPressed: () async {
+        //     final _data = await _controller.capture();
+        //     if (_data != null && context.mounted) {
+        //       web.window.open(
+        //         'https://wa.me/+2${widget.patient.phone}',
+        //         '_blank',
+        //       );
+        //     }
+        //   },
+        //   label: Text(context.loc.sendViaWhatsapp),
+        //   icon: Icon(
+        //     FontAwesomeIcons.whatsapp,
+        //     color: Colors.green.shade100,
+        //   ),
+        // ),
       ],
     );
   }

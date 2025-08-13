@@ -26,6 +26,8 @@ class PxAppConstants extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> retry() async => await _init();
+
 //account types
   AccountType get doctorAccountType =>
       _constants!.accountTypes.firstWhere((acc) => acc.name_en == 'Doctor');

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       builder: (context, l, _) {
         return MaterialApp.router(
           scaffoldMessengerKey: UtilsKeys.scaffoldMessengerKey,
-          title: "ProKliniK-One",
+          title: "Allevia-One",
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
           locale: l.locale,
