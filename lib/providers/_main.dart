@@ -1,3 +1,6 @@
+import 'package:allevia_one/constants/app_business_constants.dart';
+import 'package:allevia_one/core/api/assistant_accounts_api.dart';
+import 'package:allevia_one/providers/px_assistant_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/auth/api_auth.dart';
 import 'package:allevia_one/core/api/bookkeeping_api.dart';
@@ -55,6 +58,13 @@ final List<SingleChildWidget> providers = [
     ),
   ),
   ChangeNotifierProvider(
+    create: (context) => PxAssistantAccounts(
+      api: AssistantAccountsApi(
+        AppBusinessConstants.ASSISTANT_ACCOUNT_TYPE_ID,
+      ),
+    ),
+  ),
+  ChangeNotifierProvider(
     create: (context) => PxDocSubscriptionInfo(
       api: DoctorSubscriptionInfoApi(doc_id: context.read<PxAuth>().doc_id),
     ),
@@ -65,7 +75,6 @@ final List<SingleChildWidget> providers = [
     key: ValueKey(ProfileSetupItem.drugs),
     create: (context) => PxDoctorProfileItems<DoctorDrugItem>(
       api: DoctorProfileItemsApi<DoctorDrugItem>(
-        doc_id: context.read<PxAuth>().doc_id,
         item: ProfileSetupItem.drugs,
       ),
     ),
@@ -74,7 +83,6 @@ final List<SingleChildWidget> providers = [
     key: ValueKey(ProfileSetupItem.labs),
     create: (context) => PxDoctorProfileItems<DoctorLabItem>(
       api: DoctorProfileItemsApi<DoctorLabItem>(
-        doc_id: context.read<PxAuth>().doc_id,
         item: ProfileSetupItem.labs,
       ),
     ),
@@ -83,7 +91,6 @@ final List<SingleChildWidget> providers = [
     key: ValueKey(ProfileSetupItem.rads),
     create: (context) => PxDoctorProfileItems<DoctorRadItem>(
       api: DoctorProfileItemsApi<DoctorRadItem>(
-        doc_id: context.read<PxAuth>().doc_id,
         item: ProfileSetupItem.rads,
       ),
     ),
@@ -92,7 +99,6 @@ final List<SingleChildWidget> providers = [
     key: ValueKey(ProfileSetupItem.supplies),
     create: (context) => PxDoctorProfileItems<DoctorSupplyItem>(
       api: DoctorProfileItemsApi<DoctorSupplyItem>(
-        doc_id: context.read<PxAuth>().doc_id,
         item: ProfileSetupItem.supplies,
       ),
     ),
@@ -101,7 +107,6 @@ final List<SingleChildWidget> providers = [
     key: ValueKey(ProfileSetupItem.procedures),
     create: (context) => PxDoctorProfileItems<DoctorProcedureItem>(
       api: DoctorProfileItemsApi<DoctorProcedureItem>(
-        doc_id: context.read<PxAuth>().doc_id,
         item: ProfileSetupItem.procedures,
       ),
     ),
@@ -114,6 +119,7 @@ final List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => PxClinics(
+      context: context,
       api: ClinicsApi(
         doc_id: context.read<PxAuth>().doc_id,
       ),

@@ -19,6 +19,8 @@ class TodayPatientProgressApi {
     'visit_status_id',
     'visit_type_id',
     'patient_progress_status_id',
+    'doc_id',
+    'doc_id.speciality_id',
   ];
 
   late final String _expand = _expandList.join(',');

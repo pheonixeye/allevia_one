@@ -1,3 +1,4 @@
+import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -54,9 +55,9 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<PxVisits, PxClinics, PxLocale>(
-      builder: (context, v, c, l, _) {
-        while (c.result == null) {
+    return Consumer4<PxAppConstants, PxVisits, PxClinics, PxLocale>(
+      builder: (context, a, v, c, l, _) {
+        while (a.constants == null || c.result == null) {
           return const CentralLoading();
         }
         while (c.result is ApiErrorResult) {

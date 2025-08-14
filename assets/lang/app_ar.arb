@@ -339,5 +339,7 @@
     "download": "تنزيل",
     "clinics": "العيادات",
     "@@assistants_page": "",
-    "addAssistantAccount": "اضافة حساب سكيرتارية"
+    "addAssistantAccount": "اضافة حساب سكيرتارية",
+    "cannotChangeAccountType": "لا يمكن تغيير نوع الحساب",
+    "pickDoctor": "اختر الدكتور"
 }

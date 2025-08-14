@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:allevia_one/providers/px_app_constants.dart';
+import 'package:allevia_one/providers/px_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/clinics_api.dart';
@@ -8,20 +10,34 @@ import 'package:allevia_one/models/clinic/clinic.dart';
 import 'package:allevia_one/models/clinic/clinic_schedule.dart';
 import 'package:allevia_one/models/clinic/prescription_details.dart';
 import 'package:allevia_one/models/clinic/schedule_shift.dart';
+import 'package:provider/provider.dart';
 
 class PxClinics extends ChangeNotifier {
   final ClinicsApi api;
+  final BuildContext context;
 
-  PxClinics({required this.api}) {
+  PxClinics({
+    required this.api,
+    required this.context,
+  }) {
     _fetchDoctorClinics();
   }
 
   static ApiResult<List<Clinic>>? _result;
   ApiResult<List<Clinic>>? get result => _result;
 
-  Future<void> _fetchDoctorClinics() async {
-    _result = await api.fetchDoctorClinics();
-    notifyListeners();
+  Future<void> _fetchDoctorClinics({int retries = 3}) async {
+    if (!context.mounted || context.read<PxAppConstants>().constants == null) {
+      await Future.delayed(const Duration(seconds: 1));
+      await _fetchDoctorClinics(retries: retries - 1);
+    }
+    if (PxAuth.isUserNotDoctor) {
+      _result = await api.fetchAllClinics();
+      notifyListeners();
+    } else {
+      _result = await api.fetchDoctorClinics();
+      notifyListeners();
+    }
   }
 
   Future<void> retry() async => await _fetchDoctorClinics();

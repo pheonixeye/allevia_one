@@ -8,6 +8,13 @@ import 'package:allevia_one/utils/shared_prefs.dart';
 class AuthApi {
   const AuthApi();
 
+  static const _expandList = [
+    'account_type_id',
+    'app_permissions_ids',
+  ];
+
+  static final _expand = _expandList.join(',');
+
   Future<RecordModel?> createAccount(DtoCreateDoctorAccount dto) async {
     try {
       final result = await PocketbaseHelper.pb.collection('users').create(
@@ -43,9 +50,11 @@ class AuthApi {
   ]) async {
     RecordAuth? _result;
     try {
-      _result = await PocketbaseHelper.pb
-          .collection('users')
-          .authWithPassword(email, password);
+      _result = await PocketbaseHelper.pb.collection('users').authWithPassword(
+            email,
+            password,
+            expand: _expand,
+          );
     } on ClientException catch (e) {
       dprint(e.toString());
       throw AuthException(e);
@@ -73,7 +82,9 @@ class AuthApi {
     }
     PocketbaseHelper.pb.authStore.save(_token!, null);
     try {
-      result = await PocketbaseHelper.pb.collection('users').authRefresh();
+      result = await PocketbaseHelper.pb.collection('users').authRefresh(
+            expand: _expand,
+          );
     } on ClientException catch (e) {
       dprint(e.toString());
       throw AuthException(e);

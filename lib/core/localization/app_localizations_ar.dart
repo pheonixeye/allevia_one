@@ -971,4 +971,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addAssistantAccount => 'اضافة حساب سكيرتارية';
+
+  @override
+  String get cannotChangeAccountType => 'لا يمكن تغيير نوع الحساب';
+
+  @override
+  String get pickDoctor => 'اختر الدكتور';
 }

@@ -70,7 +70,10 @@ class ConstantsApi {
         PocketbaseHelper.pb.collection(patient_progress_status).getList();
 
     final _appPermissionRequest =
-        PocketbaseHelper.pb.collection(app_permissions).getList();
+        PocketbaseHelper.pb.collection(app_permissions).getList(
+              //TODO: CHANGE CONSTANT
+              perPage: 200,
+            );
 
     final _result = await Future.wait([
       _accountTypesRequest,

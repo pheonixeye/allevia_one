@@ -18,32 +18,39 @@ class ClinicsApi {
 
   final String _collection = 'clinics';
 
-  // late final _boxName = '${doc_id}_clinics';
-
-  // late final _box = Hive.box<String>(_boxName);
-
   Future<ApiResult<List<Clinic>>> fetchDoctorClinics() async {
-    // await Hive.openBox<String>(_boxName);
-
     late List<Clinic> _clinics;
 
-    // if (_box.get(_boxName) != null && _box.isNotEmpty) {
-    //   _clinics = (json.decode(_box.get(_boxName)!) as List<dynamic>)
-    //       .map((e) => Clinic.fromJson(e))
-    //       .toList();
-    //   return ApiDataResult<List<Clinic>>(data: _clinics);
-    // }
     try {
       final _response =
           await PocketbaseHelper.pb.collection(_collection).getList(
                 filter: "doc_id ~ '$doc_id'",
               );
-      // prettyPrint(_response);
       try {
         _clinics =
             _response.items.map((e) => Clinic.fromJson(e.toJson())).toList();
-        // await _box.put(
-        //     _collection, json.encode(_clinics.map((x) => x.toJson()).toList()));
+      } catch (e) {
+        dprint('parsing Error => ${e.toString()}');
+      }
+
+      return ApiDataResult<List<Clinic>>(data: _clinics);
+    } catch (e) {
+      return ApiErrorResult<List<Clinic>>(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<ApiResult<List<Clinic>>> fetchAllClinics() async {
+    late List<Clinic> _clinics;
+
+    try {
+      final _response =
+          await PocketbaseHelper.pb.collection(_collection).getList();
+      try {
+        _clinics =
+            _response.items.map((e) => Clinic.fromJson(e.toJson())).toList();
       } catch (e) {
         dprint('parsing Error => ${e.toString()}');
       }

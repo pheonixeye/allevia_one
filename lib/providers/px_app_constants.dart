@@ -34,6 +34,7 @@ class PxAppConstants extends ChangeNotifier {
 
   AccountType get assistantAccountType =>
       _constants!.accountTypes.firstWhere((acc) => acc.name_en == 'Assistant');
+
 //visit statuses
   VisitStatus get attended =>
       _constants!.visitStatus.firstWhere((vs) => vs.name_en == 'Attended');

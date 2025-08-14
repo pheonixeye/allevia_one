@@ -1963,6 +1963,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Assistant Account'**
   String get addAssistantAccount;
+
+  /// No description provided for @cannotChangeAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot Change Account Type'**
+  String get cannotChangeAccountType;
+
+  /// No description provided for @pickDoctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Attending Doctor'**
+  String get pickDoctor;
 }
 
 class _AppLocalizationsDelegate

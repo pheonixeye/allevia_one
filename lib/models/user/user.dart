@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:allevia_one/models/app_constants/account_type.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:pocketbase/pocketbase.dart';
 
 class User extends Equatable {
   final String id;
@@ -49,6 +50,19 @@ class User extends Equatable {
           (x) => AppPermission.fromJson(x as Map<String, dynamic>),
         ),
       ),
+    );
+  }
+
+  factory User.fromRecordModel(RecordModel e) {
+    return User(
+      id: e.getStringValue('id'),
+      email: e.getStringValue('email'),
+      account_type: AccountType.fromJson(
+          e.get<RecordModel>('expand.account_type_id').toJson()),
+      app_permissions: e
+          .get<List<RecordModel>>('expand.app_permissions_ids')
+          .map((x) => AppPermission.fromJson(x.toJson()))
+          .toList(),
     );
   }
 

@@ -1,3 +1,5 @@
+import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -46,6 +48,7 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
   ClinicSchedule? _clinicSchedule;
   ScheduleShift? _scheduleShift;
   DateTime? _visitDate;
+  Doctor? _doctor;
   late VisitType? _visitType = context.read<PxAppConstants>().consultation;
   late VisitStatus? _visitStatus = context.read<PxAppConstants>().notAttended;
   late PatientProgressStatus? _patientProgressStatus =
@@ -102,9 +105,12 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer4<PxAppConstants, PxClinics, PxVisits, PxLocale>(
-      builder: (context, a, c, v, l, _) {
-        while (a.constants == null || c.result == null || v.visits == null) {
+    return Consumer5<PxAppConstants, PxDoctor, PxClinics, PxVisits, PxLocale>(
+      builder: (context, a, d, c, v, l, _) {
+        while (a.constants == null ||
+            c.result == null ||
+            v.visits == null ||
+            (PxAuth.isUserNotDoctor && d.allDoctors == null)) {
           return CentralLoading();
         }
         return AlertDialog(
@@ -199,6 +205,53 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                       ),
                     ),
                   ),
+                  if (PxAuth.isUserNotDoctor)
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(context.loc.pickDoctor),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FormField<Doctor>(
+                          builder: (field) {
+                            return Column(
+                              spacing: 8,
+                              children: [
+                                ...(d.allDoctors as List<Doctor>).map((e) {
+                                  bool _isSelected = e == _doctor;
+                                  return RadioListTile<Doctor>(
+                                    shape: _tileBorder(_isSelected),
+                                    selected: _isSelected,
+                                    tileColor: _unSelectedColor,
+                                    selectedTileColor: _selectedColor,
+                                    title: Text(
+                                      l.isEnglish ? e.name_en : e.name_ar,
+                                    ),
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    value: e,
+                                    groupValue: _doctor,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _doctor = value;
+                                      });
+                                    },
+                                  );
+                                }),
+                                _validationErrorWidget<Doctor>(field),
+                              ],
+                            );
+                          },
+                          validator: (value) {
+                            if (_doctor == null) {
+                              return context.loc.pickDoctor;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
                   if (_clinic != null)
                     ListTile(
                       title: Padding(
@@ -580,8 +633,10 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                     final _visitDto = VisitCreateDto(
                       clinic_id: _clinic!.id,
                       patient_id: widget.patient.id,
-                      added_by_id: context.read<PxAuth>().doc_id,
-                      doc_id: context.read<PxAuth>().doc_id,
+                      added_by_id: context.read<PxAuth>().user!.id,
+                      doc_id: PxAuth.isUserNotDoctor
+                          ? _doctor!.id
+                          : context.read<PxAuth>().doc_id,
                       clinic_schedule_id: _clinicSchedule!.id,
                       clinic_schedule_shift_id: _scheduleShift!.id,
                       visit_date: _visitDate!.toIso8601String(),

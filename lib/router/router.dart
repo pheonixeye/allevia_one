@@ -539,7 +539,6 @@ class AppRouter {
                                     return ChangeNotifierProvider.value(
                                       value: PxDoctorProfileItems(
                                         api: DoctorProfileItemsApi(
-                                          doc_id: context.read<PxAuth>().doc_id,
                                           item: e,
                                         ),
                                       ),
@@ -601,6 +600,7 @@ class AppRouter {
                     builder: (context, state) {
                       return ChangeNotifierProvider.value(
                         value: PxClinics(
+                          context: context,
                           api: ClinicsApi(
                             doc_id: context.read<PxAuth>().doc_id,
                           ),

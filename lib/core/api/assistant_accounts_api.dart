@@ -5,7 +5,8 @@ import 'package:allevia_one/models/user/user.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 class AssistantAccountsApi {
-  const AssistantAccountsApi();
+  const AssistantAccountsApi(this.assistantAccountTypeId);
+  final String assistantAccountTypeId;
 
   static const String collection = 'users';
 
@@ -29,6 +30,9 @@ class AssistantAccountsApi {
           'emailVisibility': true,
           'password': password,
           'passwordConfirm': passwordConfirm,
+          'account_type_id': account.account_type.id,
+          'app_permissions_ids':
+              account.app_permissions.map((e) => e.id).toList(),
         },
         expand: _expand,
       );
@@ -44,16 +48,17 @@ class AssistantAccountsApi {
     }
   }
 
-  Future<ApiResult<List<User>>> fetchAssistantAccounts(
-      String assistantAccountTypeId) async {
+  Future<ApiResult<List<User>>> fetchAssistantAccounts() async {
     try {
       final result = await PocketbaseHelper.pb.collection(collection).getList(
             filter: "account_type_id = '$assistantAccountTypeId'",
             expand: _expand,
           );
 
+      // prettyPrint(result);
+
       final _accounts =
-          result.items.map((e) => User.fromJson(e.toJson())).toList();
+          result.items.map((e) => User.fromRecordModel(e)).toList();
 
       return ApiDataResult<List<User>>(data: _accounts);
     } on ClientException catch (e) {
@@ -83,7 +88,7 @@ class AssistantAccountsApi {
     await PocketbaseHelper.pb.collection(collection).update(
       account_id,
       body: {
-        'app_permissions_ids': permission_id,
+        'app_permissions_ids-': permission_id,
       },
     );
   }

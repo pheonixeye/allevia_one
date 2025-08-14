@@ -1,3 +1,4 @@
+import 'package:allevia_one/providers/px_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/doctor_api.dart';
 import 'package:allevia_one/models/doctor.dart';
@@ -12,8 +13,16 @@ class PxDoctor extends ChangeNotifier {
   static Doctor? _doctor;
   Doctor? get doctor => _doctor;
 
+  static List<Doctor>? _allDoctors;
+  List<Doctor>? get allDoctors => _allDoctors;
+
   Future<void> _init() async {
-    _doctor = await api.fetchDoctorProfile();
-    notifyListeners();
+    if (PxAuth.isUserNotDoctor) {
+      _allDoctors = await api.fetchAllDoctors();
+      notifyListeners();
+    } else {
+      _doctor = await api.fetchDoctorProfile();
+      notifyListeners();
+    }
   }
 }

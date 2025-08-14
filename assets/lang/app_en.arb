@@ -340,5 +340,7 @@
     "download": "Download",
     "clinics": "Clinics",
     "@@assistants_page": "",
-    "addAssistantAccount": "Add Assistant Account"
+    "addAssistantAccount": "Add Assistant Account",
+    "cannotChangeAccountType": "Cannot Change Account Type",
+    "pickDoctor": "Select Attending Doctor"
 }

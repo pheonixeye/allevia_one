@@ -19,11 +19,9 @@ import 'package:allevia_one/models/doctor_items/profile_setup_item.dart';
 
 class DoctorProfileItemsApi<T extends DoctorItem> {
   DoctorProfileItemsApi({
-    required this.doc_id,
     required this.item,
   });
 
-  final String doc_id;
   final ProfileSetupItem item;
 
   late final String collection = item.name;

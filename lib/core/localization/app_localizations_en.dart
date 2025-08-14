@@ -972,4 +972,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addAssistantAccount => 'Add Assistant Account';
+
+  @override
+  String get cannotChangeAccountType => 'Cannot Change Account Type';
+
+  @override
+  String get pickDoctor => 'Select Attending Doctor';
 }
