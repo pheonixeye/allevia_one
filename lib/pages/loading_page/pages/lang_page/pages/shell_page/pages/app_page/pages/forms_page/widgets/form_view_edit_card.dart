@@ -1,3 +1,6 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -81,6 +84,23 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                                 tooltip: context.loc.editFormFieldName,
                                 heroTag: '${field.field_name}+${field.id}',
                                 onPressed: () async {
+                                  //@permission
+                                  final _perm =
+                                      context.read<PxAuth>().isActionPermitted(
+                                            PermissionEnum.User_Forms_Modify,
+                                            context,
+                                          );
+                                  if (!_perm.isAllowed) {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return NotPermittedDialog(
+                                          permission: _perm.permission,
+                                        );
+                                      },
+                                    );
+                                    return;
+                                  }
                                   final _newFieldName =
                                       await showDialog<String?>(
                                     context: context,
@@ -117,6 +137,23 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                                 heroTag:
                                     '${field.field_name}+${field.id}+remove',
                                 onPressed: () async {
+                                  //@permission
+                                  final _perm =
+                                      context.read<PxAuth>().isActionPermitted(
+                                            PermissionEnum.User_Forms_Modify,
+                                            context,
+                                          );
+                                  if (!_perm.isAllowed) {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return NotPermittedDialog(
+                                          permission: _perm.permission,
+                                        );
+                                      },
+                                    );
+                                    return;
+                                  }
                                   final _toRemove = await showDialog<bool>(
                                     context: context,
                                     builder: (context) {
@@ -161,6 +198,24 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                                       selected: type == field.field_type,
                                       label: Text(type.name),
                                       onSelected: (value) async {
+                                        //@permission
+                                        final _perm = context
+                                            .read<PxAuth>()
+                                            .isActionPermitted(
+                                              PermissionEnum.User_Forms_Modify,
+                                              context,
+                                            );
+                                        if (!_perm.isAllowed) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return NotPermittedDialog(
+                                                permission: _perm.permission,
+                                              );
+                                            },
+                                          );
+                                          return;
+                                        }
                                         //todo: update field type
                                         final _newFieldWithUpdatedType =
                                             field.copyWith(
@@ -222,6 +277,26 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                                               field.field_name +
                                               field.field_type.name,
                                           onPressed: () async {
+                                            //@permission
+                                            final _perm = context
+                                                .read<PxAuth>()
+                                                .isActionPermitted(
+                                                  PermissionEnum
+                                                      .User_Forms_Modify,
+                                                  context,
+                                                );
+                                            if (!_perm.isAllowed) {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return NotPermittedDialog(
+                                                    permission:
+                                                        _perm.permission,
+                                                  );
+                                                },
+                                              );
+                                              return;
+                                            }
                                             //todo: save default values / selections
                                             final _fieldToUpdate =
                                                 field.copyWith(
@@ -269,6 +344,22 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                         ],
                       ),
                       onTap: () async {
+                        //@permission
+                        final _perm = context.read<PxAuth>().isActionPermitted(
+                              PermissionEnum.User_Forms_Modify,
+                              context,
+                            );
+                        if (!_perm.isAllowed) {
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return NotPermittedDialog(
+                                permission: _perm.permission,
+                              );
+                            },
+                          );
+                          return;
+                        }
                         final _newField = PcFormField(
                           id: const Uuid().v4(),
                           field_name: 'new_field',
@@ -294,6 +385,22 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                         ],
                       ),
                       onTap: () async {
+                        //@permission
+                        final _perm = context.read<PxAuth>().isActionPermitted(
+                              PermissionEnum.User_Forms_Modify,
+                              context,
+                            );
+                        if (!_perm.isAllowed) {
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return NotPermittedDialog(
+                                permission: _perm.permission,
+                              );
+                            },
+                          );
+                          return;
+                        }
                         final _toUpdate = await showDialog<PcForm?>(
                           context: context,
                           builder: (context) {
@@ -323,6 +430,22 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                         ],
                       ),
                       onTap: () async {
+                        //@permission
+                        final _perm = context.read<PxAuth>().isActionPermitted(
+                              PermissionEnum.User_Forms_Delete,
+                              context,
+                            );
+                        if (!_perm.isAllowed) {
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return NotPermittedDialog(
+                                permission: _perm.permission,
+                              );
+                            },
+                          );
+                          return;
+                        }
                         final _toDelete = await showDialog<bool?>(
                           context: context,
                           builder: (context) {

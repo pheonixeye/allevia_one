@@ -58,33 +58,37 @@ enum PermissionEnum {
   User_Patient_Whatsapp, //done
   User_Patient_Email, //done
   User_Patient_Forms, //done
-  User_Visits_Read,
-  User_Bookkeeping_Read,
-  User_Bookkeeping_Add,
-  User_AccountSettings_Read,
-  User_AccountSettings_Modify,
-  User_TodayVisits_Read,
-  User_TodayVisits_Modify,
-  User_TodayVisits_EnterVisit,
-  User_Clinics_Read,
-  User_Clinics_Modify,
-  User_Clinics_Add,
-  User_Clinics_Activity,
-  User_Clinics_Schedule,
-  User_Clinics_Prescription,
-  User_Clinics_Store,
-  User_Clinics_Delete,
-  User_SupplyMovements_Read,
-  User_SupplyMovement_Add,
+  User_Visits_Read, //done
+  User_Bookkeeping_Read, //done
+  User_Bookkeeping_Add, //done
+  User_AccountSettings_Read, //done
+  User_AccountSettings_Add, //done
+  User_AccountSettings_Modify, //done
+  User_AccountSettings_Delete, //done
+  User_TodayVisits_Read, //done
+  User_TodayVisits_Modify_Entry_Number, //done
+  User_TodayVisits_Modify_Attendance, //done
+  User_TodayVisits_Modify_Visit_Type, //done
+  User_TodayVisits_Modify_Visit_Progress, //done
+  User_Clinics_Read, //done
+  User_Clinics_Modify, //done
+  User_Clinics_Add, //done
+  User_Clinics_Activity, //done
+  User_Clinics_Schedule, //done
+  User_Clinics_Prescription, //done
+  User_Clinics_Store, //done
+  User_Clinics_Delete, //done
+  User_SupplyMovements_Read, //done
+  User_SupplyMovement_Add, //done
   User_Subscription_Read,
   User_Subscription_Modify,
   // User_AssistantAccounts_Read,
   // User_AssistantAccounts_Modify,
   // User_AssistantAccounts_Delete,
-  User_Forms_Read,
-  User_Forms_Add,
-  User_Forms_Modify,
-  User_Forms_Delete;
+  User_Forms_Read, //done
+  User_Forms_Add, //done
+  User_Forms_Modify, //done
+  User_Forms_Delete; //done
 
   factory PermissionEnum.fromString(String value) {
     return PermissionEnum.values.firstWhere((x) => x.name == value);

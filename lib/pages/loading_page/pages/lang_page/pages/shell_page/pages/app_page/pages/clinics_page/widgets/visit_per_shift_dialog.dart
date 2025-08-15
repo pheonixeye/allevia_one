@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 
-class VisitCountDialog extends StatelessWidget {
-  const VisitCountDialog({super.key});
+class VisitPerShiftDialog extends StatelessWidget {
+  const VisitPerShiftDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

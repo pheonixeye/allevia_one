@@ -11,6 +11,7 @@ import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,35 +24,7 @@ class AssistantsPage extends StatelessWidget {
     return Consumer3<PxAppConstants, PxAssistantAccounts, PxLocale>(
       builder: (context, a, c, l, _) {
         while (PxAuth.isUserNotDoctor) {
-          return Scaffold(
-            body: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(context.loc.assistantAccounts),
-                    ),
-                    subtitle: const Divider(),
-                  ),
-                ),
-                const Spacer(),
-                Center(
-                  child: Card.outlined(
-                    elevation: 6,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        context.loc.notAnAdminAccount,
-                      ),
-                    ),
-                  ),
-                ),
-                const Spacer(),
-              ],
-            ),
-          );
+          return NotPermittedTemplatePage(title: context.loc.assistantAccounts);
         }
         return Scaffold(
           floatingActionButton: FloatingActionButton.small(

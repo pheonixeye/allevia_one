@@ -1,3 +1,8 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -26,8 +31,19 @@ class BookkeepingPage extends StatefulWidget {
 class _BookkeepingPageState extends State<BookkeepingPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer2<PxBookkeeping, PxLocale>(
-      builder: (context, b, l, _) {
+    return Consumer3<PxAppConstants, PxBookkeeping, PxLocale>(
+      builder: (context, a, b, l, _) {
+        while (b.result == null || a.constants == null) {
+          return CentralLoading();
+        }
+        //@permission
+        final _perm = context.read<PxAuth>().isActionPermitted(
+              PermissionEnum.User_Bookkeeping_Read,
+              context,
+            );
+        while (!_perm.isAllowed) {
+          return NotPermittedTemplatePage(title: context.loc.bookkeeping);
+        }
         return Scaffold(
           body: Column(
             children: [
@@ -182,6 +198,22 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
             tooltip: context.loc.addBookkeepingEntry,
             heroTag: UniqueKey(),
             onPressed: () async {
+              //@permission
+              final _perm = context.read<PxAuth>().isActionPermitted(
+                    PermissionEnum.User_Bookkeeping_Add,
+                    context,
+                  );
+              if (!_perm.isAllowed) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return NotPermittedDialog(
+                      permission: _perm.permission,
+                    );
+                  },
+                );
+                return;
+              }
               final _bookkeepingDto = await showDialog<BookkeepingItemDto?>(
                 context: context,
                 builder: (context) {

@@ -5,7 +5,7 @@ import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/clinic/clinic_schedule.dart';
 import 'package:allevia_one/models/clinic/schedule_shift.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/select_weekday_dialog.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/visit_count_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/visit_per_shift_dialog.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
@@ -519,7 +519,7 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                                                               int?>(
                                                         context: context,
                                                         builder: (context) {
-                                                          return VisitCountDialog();
+                                                          return VisitPerShiftDialog();
                                                         },
                                                       );
                                                       if (_visitCount == null) {

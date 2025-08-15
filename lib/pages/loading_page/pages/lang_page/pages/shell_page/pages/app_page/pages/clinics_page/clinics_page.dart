@@ -1,3 +1,7 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -19,11 +23,35 @@ class ClinicsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<PxClinics, PxLocale>(
       builder: (context, c, l, _) {
+        //@permission
+        final _perm = context.read<PxAuth>().isActionPermitted(
+              PermissionEnum.User_Clinics_Read,
+              context,
+            );
+        while (!_perm.isAllowed) {
+          return NotPermittedTemplatePage(title: context.loc.clinics);
+        }
         return Scaffold(
           floatingActionButton: FloatingActionButton.small(
             heroTag: 'create-clinic-btn',
             tooltip: context.loc.addNewClinic,
             onPressed: () async {
+              //@permission
+              final _perm = context.read<PxAuth>().isActionPermitted(
+                    PermissionEnum.User_Clinics_Add,
+                    context,
+                  );
+              if (!_perm.isAllowed) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return NotPermittedDialog(
+                      permission: _perm.permission,
+                    );
+                  },
+                );
+                return;
+              }
               final _clinic = await showDialog<Clinic?>(
                 context: context,
                 builder: (context) {

@@ -1,3 +1,6 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/clinic_inventory_api.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -78,6 +81,22 @@ class ClinicViewCard extends StatelessWidget {
                     heroTag: clinic.id,
                     tooltip: context.loc.editClinic,
                     onPressed: () async {
+                      //@permission
+                      final _perm = context.read<PxAuth>().isActionPermitted(
+                            PermissionEnum.User_Clinics_Modify,
+                            context,
+                          );
+                      if (!_perm.isAllowed) {
+                        await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return NotPermittedDialog(
+                              permission: _perm.permission,
+                            );
+                          },
+                        );
+                        return;
+                      }
                       final _toUpdate = await showDialog<Clinic?>(
                         context: context,
                         builder: (context) {
@@ -206,6 +225,23 @@ class ClinicViewCard extends StatelessWidget {
                             ],
                           ),
                           onTap: () async {
+                            //@permission
+                            final _perm =
+                                context.read<PxAuth>().isActionPermitted(
+                                      PermissionEnum.User_Clinics_Activity,
+                                      context,
+                                    );
+                            if (!_perm.isAllowed) {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return NotPermittedDialog(
+                                    permission: _perm.permission,
+                                  );
+                                },
+                              );
+                              return;
+                            }
                             await shellFunction(
                               context,
                               toExecute: () async {
@@ -224,6 +260,23 @@ class ClinicViewCard extends StatelessWidget {
                             ],
                           ),
                           onTap: () async {
+                            //@permission
+                            final _perm =
+                                context.read<PxAuth>().isActionPermitted(
+                                      PermissionEnum.User_Clinics_Schedule,
+                                      context,
+                                    );
+                            if (!_perm.isAllowed) {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return NotPermittedDialog(
+                                    permission: _perm.permission,
+                                  );
+                                },
+                              );
+                              return;
+                            }
                             c.selectClinic(clinic);
                             await showDialog(
                               context: context,
@@ -250,6 +303,23 @@ class ClinicViewCard extends StatelessWidget {
                             ],
                           ),
                           onTap: () async {
+                            //@permission
+                            final _perm =
+                                context.read<PxAuth>().isActionPermitted(
+                                      PermissionEnum.User_Clinics_Prescription,
+                                      context,
+                                    );
+                            if (!_perm.isAllowed) {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return NotPermittedDialog(
+                                    permission: _perm.permission,
+                                  );
+                                },
+                              );
+                              return;
+                            }
                             c.selectClinic(clinic);
                             await showDialog<void>(
                               context: context,
@@ -276,6 +346,23 @@ class ClinicViewCard extends StatelessWidget {
                             ],
                           ),
                           onTap: () async {
+                            //@permission
+                            final _perm =
+                                context.read<PxAuth>().isActionPermitted(
+                                      PermissionEnum.User_Clinics_Store,
+                                      context,
+                                    );
+                            if (!_perm.isAllowed) {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return NotPermittedDialog(
+                                    permission: _perm.permission,
+                                  );
+                                },
+                              );
+                              return;
+                            }
                             c.selectClinic(clinic);
                             await showDialog<void>(
                               context: context,
@@ -306,6 +393,23 @@ class ClinicViewCard extends StatelessWidget {
                             ],
                           ),
                           onTap: () async {
+                            //@permission
+                            final _perm =
+                                context.read<PxAuth>().isActionPermitted(
+                                      PermissionEnum.User_Clinics_Delete,
+                                      context,
+                                    );
+                            if (!_perm.isAllowed) {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return NotPermittedDialog(
+                                    permission: _perm.permission,
+                                  );
+                                },
+                              );
+                              return;
+                            }
                             final _toDelete = await showDialog<bool?>(
                               context: context,
                               builder: (context) {

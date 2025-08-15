@@ -1,4 +1,8 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -59,6 +63,14 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
       builder: (context, a, v, c, l, _) {
         while (a.constants == null || c.result == null) {
           return const CentralLoading();
+        }
+        //@permission
+        final _perm = context.read<PxAuth>().isActionPermitted(
+              PermissionEnum.User_TodayVisits_Read,
+              context,
+            );
+        while (!_perm.isAllowed) {
+          return NotPermittedTemplatePage(title: context.loc.todayVisits);
         }
         while (c.result is ApiErrorResult) {
           return CentralError(
@@ -179,6 +191,22 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
                 ),
                 onPress: () async {
                   _animationController.reverse();
+                  //@permission
+                  final _perm = context.read<PxAuth>().isActionPermitted(
+                        PermissionEnum.User_Patient_AddNewVisit,
+                        context,
+                      );
+                  if (!_perm.isAllowed) {
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return NotPermittedDialog(
+                          permission: _perm.permission,
+                        );
+                      },
+                    );
+                    return;
+                  }
                   GoRouter.of(context).goNamed(
                     AppRouter.patients,
                     pathParameters: defaultPathParameters(context),
@@ -196,6 +224,22 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
                 ),
                 onPress: () async {
                   _animationController.reverse();
+                  //@permission
+                  final _perm = context.read<PxAuth>().isActionPermitted(
+                        PermissionEnum.User_Patient_AddNewVisit,
+                        context,
+                      );
+                  if (!_perm.isAllowed) {
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return NotPermittedDialog(
+                          permission: _perm.permission,
+                        );
+                      },
+                    );
+                    return;
+                  }
                   //TODO: scan code
                   //TODO: get patient data
                   //TODO: open new visit dialog

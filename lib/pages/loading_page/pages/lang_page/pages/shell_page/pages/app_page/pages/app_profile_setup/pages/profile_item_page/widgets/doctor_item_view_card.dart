@@ -1,3 +1,6 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/doctor_item_widgets_ext.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -61,6 +64,22 @@ class DoctorItemViewCard extends StatelessWidget {
                     child: FloatingActionButton.small(
                       heroTag: item.id + item.item.name,
                       onPressed: () async {
+                        //@permission
+                        final _perm = context.read<PxAuth>().isActionPermitted(
+                              PermissionEnum.User_AccountSettings_Modify,
+                              context,
+                            );
+                        if (!_perm.isAllowed) {
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return NotPermittedDialog(
+                                permission: _perm.permission,
+                              );
+                            },
+                          );
+                          return;
+                        }
                         final _doctorItem =
                             await showDialog<Map<String, dynamic>?>(
                           context: context,
@@ -95,6 +114,22 @@ class DoctorItemViewCard extends StatelessWidget {
                     child: FloatingActionButton.small(
                       heroTag: '${item.id}${item.item.name}delete',
                       onPressed: () async {
+                        //@permission
+                        final _perm = context.read<PxAuth>().isActionPermitted(
+                              PermissionEnum.User_AccountSettings_Delete,
+                              context,
+                            );
+                        if (!_perm.isAllowed) {
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return NotPermittedDialog(
+                                permission: _perm.permission,
+                              );
+                            },
+                          );
+                          return;
+                        }
                         final _doctorItem = await showDialog<bool>(
                           context: context,
                           builder: (context) {

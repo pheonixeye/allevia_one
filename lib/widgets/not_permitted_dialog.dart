@@ -32,7 +32,7 @@ class NotPermittedDialog extends StatelessWidget {
         child: Consumer<PxLocale>(
           builder: (context, l, _) {
             return Text(
-              '${context.loc.accountNotAuthorizedToPerformAction}\n${l.isEnglish ? permission.name_en : permission.name_ar}',
+              '${context.loc.accountNotAuthorizedToPerformAction}\n(-${l.isEnglish ? permission.name_en : permission.name_ar}-)',
               textAlign: TextAlign.center,
             );
           },

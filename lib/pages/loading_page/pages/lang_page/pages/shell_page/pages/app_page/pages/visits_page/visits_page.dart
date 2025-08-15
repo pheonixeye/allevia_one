@@ -1,3 +1,6 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -24,6 +27,17 @@ class VisitsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer3<PxVisitFilter, PxAppConstants, PxLocale>(
       builder: (context, v, a, l, _) {
+        while (v.visits == null || a.constants == null) {
+          return CentralLoading();
+        }
+        //@permission
+        final _perm = context.read<PxAuth>().isActionPermitted(
+              PermissionEnum.User_Visits_Read,
+              context,
+            );
+        while (!_perm.isAllowed) {
+          return NotPermittedTemplatePage(title: context.loc.visits);
+        }
         return Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,

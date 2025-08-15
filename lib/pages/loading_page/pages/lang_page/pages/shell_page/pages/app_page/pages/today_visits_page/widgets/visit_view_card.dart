@@ -1,3 +1,6 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -68,6 +71,24 @@ class VisitViewCard extends StatelessWidget {
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () async {
+                          //@permission
+                          final _perm =
+                              context.read<PxAuth>().isActionPermitted(
+                                    PermissionEnum
+                                        .User_TodayVisits_Modify_Entry_Number,
+                                    context,
+                                  );
+                          if (!_perm.isAllowed) {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return NotPermittedDialog(
+                                  permission: _perm.permission,
+                                );
+                              },
+                            );
+                            return;
+                          }
                           await shellFunction(
                             context,
                             toExecute: () async {
@@ -91,6 +112,24 @@ class VisitViewCard extends StatelessWidget {
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () async {
+                          //@permission
+                          final _perm =
+                              context.read<PxAuth>().isActionPermitted(
+                                    PermissionEnum
+                                        .User_TodayVisits_Modify_Entry_Number,
+                                    context,
+                                  );
+                          if (!_perm.isAllowed) {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return NotPermittedDialog(
+                                  permission: _perm.permission,
+                                );
+                              },
+                            );
+                            return;
+                          }
                           if (visit.patient_entry_number <= 1) {
                             return;
                           }
@@ -180,6 +219,26 @@ class VisitViewCard extends StatelessWidget {
                                             ),
                                           ),
                                           onTap: () async {
+                                            //@permission
+                                            final _perm = context
+                                                .read<PxAuth>()
+                                                .isActionPermitted(
+                                                  PermissionEnum
+                                                      .User_TodayVisits_Modify_Visit_Type,
+                                                  context,
+                                                );
+                                            if (!_perm.isAllowed) {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return NotPermittedDialog(
+                                                    permission:
+                                                        _perm.permission,
+                                                  );
+                                                },
+                                              );
+                                              return;
+                                            }
                                             await shellFunction(
                                               context,
                                               toExecute: () async {
@@ -277,6 +336,26 @@ class VisitViewCard extends StatelessWidget {
                                             await shellFunction(
                                               context,
                                               toExecute: () async {
+                                                //@permission
+                                                final _perm = context
+                                                    .read<PxAuth>()
+                                                    .isActionPermitted(
+                                                      PermissionEnum
+                                                          .User_TodayVisits_Modify_Attendance,
+                                                      context,
+                                                    );
+                                                if (!_perm.isAllowed) {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return NotPermittedDialog(
+                                                        permission:
+                                                            _perm.permission,
+                                                      );
+                                                    },
+                                                  );
+                                                  return;
+                                                }
                                                 await v.updateVisit(
                                                   visit: visit,
                                                   key: 'visit_status_id',
@@ -356,6 +435,26 @@ class VisitViewCard extends StatelessWidget {
                                             ),
                                           ),
                                           onTap: () async {
+                                            //@permission
+                                            final _perm = context
+                                                .read<PxAuth>()
+                                                .isActionPermitted(
+                                                  PermissionEnum
+                                                      .User_TodayVisits_Modify_Visit_Progress,
+                                                  context,
+                                                );
+                                            if (!_perm.isAllowed) {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return NotPermittedDialog(
+                                                    permission:
+                                                        _perm.permission,
+                                                  );
+                                                },
+                                              );
+                                              return;
+                                            }
                                             await shellFunction(
                                               context,
                                               toExecute: () async {
@@ -402,7 +501,24 @@ class VisitViewCard extends StatelessWidget {
                         heroTag: visit.id +
                             visit.patient_progress_status.id +
                             visit.patient.id,
-                        onPressed: () {
+                        onPressed: () async {
+                          //@permission
+                          final _perm =
+                              context.read<PxAuth>().isActionPermitted(
+                                    PermissionEnum.Admin,
+                                    context,
+                                  );
+                          if (!_perm.isAllowed) {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return NotPermittedDialog(
+                                  permission: _perm.permission,
+                                );
+                              },
+                            );
+                            return;
+                          }
                           if (visit.visit_status.id == a.notAttended.id) {
                             showIsnackbar(context.loc.visitNotAttended);
                             return;

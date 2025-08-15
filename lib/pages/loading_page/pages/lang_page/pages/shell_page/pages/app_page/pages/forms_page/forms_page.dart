@@ -1,3 +1,7 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -18,10 +22,34 @@ class FormsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PxForms>(
       builder: (context, f, _) {
+        //@permission
+        final _perm = context.read<PxAuth>().isActionPermitted(
+              PermissionEnum.User_Forms_Read,
+              context,
+            );
+        while (!_perm.isAllowed) {
+          return NotPermittedTemplatePage(title: context.loc.forms);
+        }
         return Scaffold(
           floatingActionButton: FloatingActionButton.small(
             heroTag: 'add-new-form',
             onPressed: () async {
+              //@permission
+              final _perm = context.read<PxAuth>().isActionPermitted(
+                    PermissionEnum.User_Forms_Add,
+                    context,
+                  );
+              if (!_perm.isAllowed) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return NotPermittedDialog(
+                      permission: _perm.permission,
+                    );
+                  },
+                );
+                return;
+              }
               //todo: add new form Dialog
               final _form = await showDialog<PcForm?>(
                 context: context,

@@ -1,3 +1,7 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +13,8 @@ import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/supplies/supply_movement.dart';
 import 'package:allevia_one/models/supplies/supply_movement_dto.dart';
 import 'package:allevia_one/models/supplies/supply_movement_type.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/inventory_supplies_page/widgets/add_supply_movement_dialog.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/inventory_supplies_page/widgets/print_supply_movements_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/supply_movements_page/widgets/add_supply_movement_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/supply_movements_page/widgets/print_supply_movements_dialog.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_supply_movements.dart';
 import 'package:allevia_one/widgets/central_error.dart';
@@ -262,6 +266,15 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
     //todo: Change to table layout
     return Consumer2<PxSupplyMovements, PxLocale>(
       builder: (context, s, l, _) {
+        //@permission
+        final _perm = context.read<PxAuth>().isActionPermitted(
+              PermissionEnum.User_SupplyMovements_Read,
+              context,
+            );
+        while (!_perm.isAllowed) {
+          return NotPermittedTemplatePage(
+              title: context.loc.supplyItemsMovement);
+        }
         return Scaffold(
           body: Column(
             children: [
@@ -439,6 +452,22 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
             heroTag: UniqueKey(),
             tooltip: context.loc.newSupplyMovement,
             onPressed: () async {
+              //@permission
+              final _perm = context.read<PxAuth>().isActionPermitted(
+                    PermissionEnum.User_SupplyMovement_Add,
+                    context,
+                  );
+              if (!_perm.isAllowed) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return NotPermittedDialog(
+                      permission: _perm.permission,
+                    );
+                  },
+                );
+                return;
+              }
               final _dtos = await showDialog<List<SupplyMovementDto?>?>(
                 context: context,
                 builder: (context) {
