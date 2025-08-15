@@ -108,6 +108,8 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
             );
           },
           child: CachedNetworkImage(
+            key: ValueKey(s.specialities![_index].imageUrl),
+            cacheKey: s.specialities![_index].imageUrl,
             imageUrl: s.specialities![_index].imageUrl,
             height: 50,
             width: 50,
