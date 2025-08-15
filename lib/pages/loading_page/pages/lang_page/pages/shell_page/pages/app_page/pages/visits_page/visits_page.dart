@@ -139,7 +139,9 @@ class VisitsPage extends StatelessWidget {
                                                         ),
                                                       ),
                                                       child:
-                                                          VisitDataViewDialog(),
+                                                          VisitDataViewDialog(
+                                                        visit: x,
+                                                      ),
                                                     );
                                                   },
                                                 );

@@ -60,8 +60,8 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Timer _timer;
-  int _index = 0;
-  final _duration = Duration(milliseconds: 2000);
+  static int _index = 0;
+  static const _duration = Duration(milliseconds: 2000);
 
   @override
   void initState() {

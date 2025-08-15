@@ -52,15 +52,13 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-  //TODO: add caching for pdf.min.js via cdn "https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"
+  //todo: add caching for pdf.min.js via cdn "https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js" => no need
   //todo: implement api cache over the whole app - done what can be done
   //TODO: add application error codes && messages
-  //TODO: add initialization logic / workflow for newly registered doctors (backend)
-  //TODO: migrate (create doctor_subscription) to the backend
   //---------------------------------------------------------------------------------//
   //todo: supply movements in table form
   //todo: bookkeeping in table form
-  //TODO: subscription controlles access
+  //todo: subscription controlles access => add entry in database
   //TODO: patient documents
   //todo: doctor visits in table form
   //todo: create / link assistant account => add permissions +/-

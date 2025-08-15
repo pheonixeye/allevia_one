@@ -1,3 +1,5 @@
+import 'package:allevia_one/models/visits/_visit.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/previous_visit_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -9,8 +11,11 @@ import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:provider/provider.dart';
 
 class VisitDataViewDialog extends StatelessWidget {
-  const VisitDataViewDialog({super.key});
-
+  const VisitDataViewDialog({
+    super.key,
+    required this.visit,
+  });
+  final Visit visit;
   @override
   Widget build(BuildContext context) {
     return Consumer2<PxVisitData, PxLocale>(
@@ -62,7 +67,246 @@ class VisitDataViewDialog extends StatelessWidget {
           content: SizedBox(
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
-            //TODO: add visit data in an easy to view way
+            //todo: add visit data in an easy to view way
+            child: ListView(
+              children: [
+                PreviousVisitViewCard(
+                  item: visit,
+                  index: 0,
+                  showIndexNumber: false,
+                ),
+                //forms
+                Card.outlined(
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      leading: FloatingActionButton.small(
+                        heroTag: UniqueKey(),
+                        onPressed: null,
+                      ),
+                      title: Text(context.loc.visitForms),
+                      children: [
+                        ..._data.forms.map((f) {
+                          return ExpansionTile(
+                            initiallyExpanded: true,
+                            title: Row(
+                              spacing: 8,
+                              children: [
+                                CircleAvatar(),
+                                Text(l.isEnglish ? f.name_en : f.name_ar),
+                              ],
+                            ),
+                            children: [
+                              ..._data.forms_data
+                                  .firstWhere((x) => x.form_id == f.id)
+                                  .form_data
+                                  .map((d) {
+                                return ListTile(
+                                  title: Row(
+                                    spacing: 8,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 8,
+                                      ),
+                                      CircleAvatar(
+                                        radius: 8,
+                                      ),
+                                      Text(d.field_name),
+                                    ],
+                                  ),
+                                  subtitle: Padding(
+                                    padding: const EdgeInsetsDirectional.only(
+                                      start: 50.0,
+                                    ),
+                                    child: Wrap(
+                                      spacing: 8,
+                                      children: [
+                                        Text(d.field_value),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })
+                            ],
+                          );
+                        })
+                      ],
+                    ),
+                  ),
+                ),
+                //drugs
+                Card.outlined(
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      leading: FloatingActionButton.small(
+                        heroTag: UniqueKey(),
+                        onPressed: null,
+                      ),
+                      title: Text(context.loc.visitDrugs),
+                      children: [
+                        ..._data.drugs.map((x) {
+                          return ListTile(
+                            title: Row(
+                              spacing: 8,
+                              children: [
+                                CircleAvatar(),
+                                Text(
+                                  l.isEnglish
+                                      ? x.prescriptionNameEn
+                                      : x.prescriptionNameAr,
+                                )
+                              ],
+                            ),
+                            subtitle: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 50.0),
+                              child: Builder(
+                                builder: (context) {
+                                  final _dose = _data.drug_data[x.id];
+                                  return Text(_dose);
+                                },
+                              ),
+                            ),
+                          );
+                        })
+                      ],
+                    ),
+                  ),
+                ),
+                //labs
+                Card.outlined(
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      leading: FloatingActionButton.small(
+                        heroTag: UniqueKey(),
+                        onPressed: null,
+                      ),
+                      title: Text(context.loc.visitLabs),
+                      children: [
+                        ..._data.labs.map((x) {
+                          return ListTile(
+                            title: Row(
+                              spacing: 8,
+                              children: [
+                                CircleAvatar(),
+                                Text(
+                                  l.isEnglish ? x.name_en : x.name_ar,
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+                //rads
+                Card.outlined(
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      leading: FloatingActionButton.small(
+                        heroTag: UniqueKey(),
+                        onPressed: null,
+                      ),
+                      title: Text(context.loc.visitRads),
+                      children: [
+                        ..._data.rads.map((x) {
+                          return ListTile(
+                            title: Row(
+                              spacing: 8,
+                              children: [
+                                CircleAvatar(),
+                                Text(
+                                  l.isEnglish ? x.name_en : x.name_ar,
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+                //procedures
+                Card.outlined(
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      leading: FloatingActionButton.small(
+                        heroTag: UniqueKey(),
+                        onPressed: null,
+                      ),
+                      title: Text(context.loc.visitProcedures),
+                      children: [
+                        ..._data.procedures.map((x) {
+                          return ListTile(
+                            title: Row(
+                              spacing: 8,
+                              children: [
+                                CircleAvatar(),
+                                Text(
+                                  l.isEnglish ? x.name_en : x.name_ar,
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+                //supplies
+                Card.outlined(
+                  elevation: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      leading: FloatingActionButton.small(
+                        heroTag: UniqueKey(),
+                        onPressed: null,
+                      ),
+                      title: Text(context.loc.visitSupplies),
+                      children: [
+                        ..._data.supplies.map((x) {
+                          return ListTile(
+                            title: Row(
+                              spacing: 8,
+                              children: [
+                                CircleAvatar(),
+                                Text(
+                                  l.isEnglish ? x.name_en : x.name_ar,
+                                ),
+                                Builder(
+                                  builder: (context) {
+                                    final _itemAmount =
+                                        _data.supplies_data?[x.id];
+                                    return Text('(${_itemAmount.toString()})');
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
