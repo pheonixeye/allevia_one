@@ -181,7 +181,7 @@ class _DrugDoseViewEditCardState extends State<DrugDoseViewEditCard> {
                     );
                   })
                 else if (_state == DrugCardState.new_dose)
-                  //TODO: formulate a point & click ui
+                  //todo: formulate a point & click ui
                   Form(
                     key: formKey,
                     child: Padding(

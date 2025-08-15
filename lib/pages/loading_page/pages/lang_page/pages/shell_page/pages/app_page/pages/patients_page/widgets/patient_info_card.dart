@@ -1,5 +1,8 @@
+import 'package:allevia_one/core/api/patient_previous_visits_api.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/previous_visits_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_patient_previous_visits.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -312,7 +315,7 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                     await context
                                         .read<PxVisits>()
                                         .addNewVisit(_visitDto);
-                                    //TODO: notify patient with visit details && entry number
+                                    //todo: notify patient with visit details && entry number => manual
                                     //todo: generate bookkeeping entry based on the state of the visit
                                   },
                                   duration: const Duration(milliseconds: 500),
@@ -354,7 +357,22 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                 );
                                 return;
                               }
-                              //TODO:
+                              //TODO: build previous visits dialog ui && logic
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return ChangeNotifierProvider(
+                                    key: ValueKey(widget.patient.id),
+                                    create: (context) =>
+                                        PxPatientPreviousVisits(
+                                      api: PatientPreviousVisitsApi(
+                                        patient_id: widget.patient.id,
+                                      ),
+                                    ),
+                                    child: PreviousVisitsDialog(),
+                                  );
+                                },
+                              );
                             },
                           ),
                           PopupMenuItem(

@@ -448,7 +448,7 @@ class VisitPrescriptionPage extends StatelessWidget {
                                         .screenshotControllerWithImage
                                         .capture();
                                     //TODO: Add to patient documents collection
-                                    //TODO: Send patient the link
+                                    //todo: Send patient the link => no need / can login through portal
                                     _bytesWithoutImage = await s
                                         .screenshotControllerWithoutImage
                                         .capture();

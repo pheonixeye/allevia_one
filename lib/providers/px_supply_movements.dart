@@ -39,10 +39,7 @@ class PxSupplyMovements extends ChangeNotifier {
   }
 
   Future<void> addSupplyMovements(List<SupplyMovementDto?> dtos) async {
-    //TODO: Check if movement is permitted
-    //TODO: Apply clinic__supplies collection mutation
     await api.addSupplyMovements(dtos);
-    //TODO: Apply bookkeeping collection mutation
     await _fetchSupplyMovements();
   }
 }

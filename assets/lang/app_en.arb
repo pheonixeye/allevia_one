@@ -345,5 +345,6 @@
     "pickDoctor": "Select Attending Doctor",
     "unAuthorized": "Un Authorized",
     "accountNotAuthorizedToPerformAction": "Your Account Is Not Authorized To Perform This Action.",
-    "notAnAdminAccount": "Not An Admin Account"
+    "notAnAdminAccount": "Not An Admin Account",
+    "noVisitsFoundForThisPatient": "No Visits Found For This Patient"
 }

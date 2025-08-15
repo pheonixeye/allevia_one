@@ -59,23 +59,23 @@ class CodeToError {
     //TODO: error messages need to be less generic
     10: TranslatedError(
       en: 'No Payment Reference Found.',
-      ar: 'No Payment Reference Found.', //TODO
+      ar: 'No Payment Reference Found.', //@translate
     ),
     11: TranslatedError(
       en: 'Transaction Has Already Been Processed.',
-      ar: 'Transaction Has Already Been Processed.', //TODO
+      ar: 'Transaction Has Already Been Processed.', //@translate
     ),
     12: TranslatedError(
       en: 'Unable To Update Payment Reference, Kindly Contact Our Support Team.',
-      ar: 'Unable To Update Payment Reference, Kindly Contact Our Support Team.', //TODO
+      ar: 'Unable To Update Payment Reference, Kindly Contact Our Support Team.', //@translate
     ),
     13: TranslatedError(
       en: 'Unable To Activate Subscription, Kindly Contact Our Support Team.',
-      ar: 'Unable To Activate Subscription, Kindly Contact Our Support Team.', //TODO
+      ar: 'Unable To Activate Subscription, Kindly Contact Our Support Team.', //@translate
     ),
     14: TranslatedError(
       en: 'Unable To Update Subscription Payment Reference, Kindly Contact Our Support Team.',
-      ar: 'Unable To Update Subscription Payment Reference, Kindly Contact Our Support Team.', //TODO
+      ar: 'Unable To Update Subscription Payment Reference, Kindly Contact Our Support Team.', //@translate
     ),
 
     ///createDoctorSubscriptionAndSubscriptionPaymentRefrences
@@ -85,7 +85,7 @@ class CodeToError {
           e,
           TranslatedError(
             en: 'Unable To Update Subscription & Payment Reference, Kindly Contact Our Support Team.',
-            ar: 'Unable To Update Subscription & Payment Reference, Kindly Contact Our Support Team.', //TODO
+            ar: 'Unable To Update Subscription & Payment Reference, Kindly Contact Our Support Team.', //@translate
           ),
         );
       }),

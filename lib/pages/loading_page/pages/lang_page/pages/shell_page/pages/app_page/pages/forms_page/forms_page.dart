@@ -1,4 +1,5 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
@@ -20,8 +21,11 @@ class FormsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PxForms>(
-      builder: (context, f, _) {
+    return Consumer2<PxAppConstants, PxForms>(
+      builder: (context, a, f, _) {
+        while (a.constants == null || f.result == null) {
+          return const CentralLoading();
+        }
         //@permission
         final _perm = context.read<PxAuth>().isActionPermitted(
               PermissionEnum.User_Forms_Read,

@@ -987,4 +987,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notAnAdminAccount => 'لا يوجد صلاحيات في هذا الحساب';
+
+  @override
+  String get noVisitsFoundForThisPatient =>
+      'لم يتم العثور علي زيارات سابقة لهذا المريض';
 }

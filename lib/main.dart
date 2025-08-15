@@ -62,7 +62,14 @@ class MyApp extends StatelessWidget {
   //todo: bookkeeping in table form
   //TODO: subscription controlles access
   //TODO: patient documents
-  //TODO: doctor visits in table form
-  //TODO: create / link assistant account => add permissions +/-
-  //TODO: patient visit progression view => listen to todays visits realtime => assistant app (same app vs another)
+  //todo: doctor visits in table form
+  //todo: create / link assistant account => add permissions +/-
+  //todo: patient visit progression view => listen to todays visits realtime => assistant app (same app vs another)
 }
+
+
+//code_nav
+//@permission => navigate to permissions in app
+//@SUPPLY_MOVEMENT => navigate to supply movement handling sequence
+//@handle => errors that need handling
+//@translate => error messages need translation

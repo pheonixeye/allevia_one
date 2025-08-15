@@ -4,6 +4,7 @@ import 'package:web/web.dart' as web;
 
 void downloadUint8ListAsFile(Uint8List data, String filename) {
   final blob = web.Blob(
+      // ignore: invalid_runtime_check_with_js_interop_types
       [data] as JSArray<JSAny>,
       web.BlobPropertyBag(
         type: 'img',

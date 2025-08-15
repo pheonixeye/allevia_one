@@ -1993,6 +1993,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not An Admin Account'**
   String get notAnAdminAccount;
+
+  /// No description provided for @noVisitsFoundForThisPatient.
+  ///
+  /// In en, this message translates to:
+  /// **'No Visits Found For This Patient'**
+  String get noVisitsFoundForThisPatient;
 }
 
 class _AppLocalizationsDelegate

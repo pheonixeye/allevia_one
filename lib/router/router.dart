@@ -501,9 +501,6 @@ class AppRouter {
                                 ),
                               );
                             },
-                            routes: [
-                              //TODO
-                            ],
                           ),
                         ],
                       ),
@@ -594,6 +591,15 @@ class AppRouter {
                       );
                     },
                   ),
+                  // GoRoute(
+                  //   path: 'test',
+                  //   name: 'test',
+                  //   builder: (context, state) {
+                  //     return TestPage(
+                  //       key: state.pageKey,
+                  //     );
+                  //   },
+                  // ),
                   GoRoute(
                     path: clinics,
                     name: clinics,

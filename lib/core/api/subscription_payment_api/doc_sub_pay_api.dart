@@ -27,7 +27,7 @@ class DocSubPayApi {
           .getFirstListItem(
               "x_pay_payment_id = '$x_pay_payment_id' && doc_id = '$doc_id'");
     } catch (e) {
-      //TODO:
+      //@handle
       dprint(e);
       throw CodedException(
         message: 'No Payment Reference Found.',
@@ -37,7 +37,7 @@ class DocSubPayApi {
     final _payment = Payment.fromJson(_subPaymentGetQuery.toJson());
 
     if (_payment.x_pay_transaction_id != '') {
-      //TODO:
+      //@handle
       throw CodedException(
         message: 'Transaction Has Already Been Processed.',
         code: 11,
@@ -56,7 +56,7 @@ class DocSubPayApi {
         },
       );
     } catch (e) {
-      //TODO:
+      //@handle
       dprint(e);
       throw CodedException(
         message:
@@ -73,7 +73,7 @@ class DocSubPayApi {
         body: {'subscription_status': 'active'},
       );
     } catch (e) {
-      //TODO:
+      //@handle
       dprint(e);
       throw CodedException(
         code: 13,
@@ -121,7 +121,7 @@ class DocSubPayApi {
           );
       _docSubRefId = _docSubRequest.id;
     } catch (e) {
-      //TODO: handle
+      //@handle
       dprint(e);
       throw CodedException(
         code: 150,
@@ -142,7 +142,7 @@ class DocSubPayApi {
       );
       _subPayRefId = _subPayRequest.id;
     } catch (e) {
-      //TODO: handle
+      //@handle
       dprint(e);
       throw CodedException(
         code: 151,
@@ -161,7 +161,7 @@ class DocSubPayApi {
         },
       );
     } catch (e) {
-      //TODO: handle
+      //@handle
       dprint(e);
       throw CodedException(
         code: 152,
@@ -180,7 +180,7 @@ class DocSubPayApi {
         },
       );
     } catch (e) {
-      //TODO: handle
+      //@handle
       dprint(e);
       throw CodedException(
         code: 153,

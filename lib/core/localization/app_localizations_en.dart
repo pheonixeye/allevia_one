@@ -988,4 +988,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notAnAdminAccount => 'Not An Admin Account';
+
+  @override
+  String get noVisitsFoundForThisPatient => 'No Visits Found For This Patient';
 }

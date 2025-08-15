@@ -53,23 +53,23 @@ class SupplyMovementApi {
           .toList();
 
       _movements.map((x) async {
-        //TODO: mutate clinic_supplies with the movement
+        //@SUPPLY_MOVEMENT: mutate clinic_supplies with the movement
         final _clinicInventoryApi = ClinicInventoryApi(
           clinic_id: x.clinic.id,
         );
-        //TODO: get the supplies of the clinic
+        //@SUPPLY_MOVEMENT: get the supplies of the clinic
         final _invItemsRequest =
             await _clinicInventoryApi.fetchClinicInventoryItems();
 
-        //TODO: parse into list of clinicInventoryItems
+        //@SUPPLY_MOVEMENT: parse into list of clinicInventoryItems
         final _items =
             (_invItemsRequest as ApiDataResult<List<ClinicInventoryItem>>).data;
 
-        //TODO: find the item that needs mutation
+        //@SUPPLY_MOVEMENT: find the item that needs mutation
         ClinicInventoryItem? _item = _items
             .firstWhereOrNull((i) => i.supply_item.id == x.supply_item.id);
 
-        //TODO: if the item is not found
+        //@SUPPLY_MOVEMENT: if the item is not found
         if (_item == null) {
           final _unfoundItem = ClinicInventoryItem(
             id: '',
@@ -77,19 +77,19 @@ class SupplyMovementApi {
             supply_item: x.supply_item,
             available_quantity: x.movement_quantity,
           );
-          //TODO: create a new entry in the clinic__supplies collection with the movement amount
+          //@SUPPLY_MOVEMENT: create a new entry in the clinic__supplies collection with the movement amount
           await _clinicInventoryApi.addNewInventoryItems([_unfoundItem]);
         } else {
-          //TODO: transform the item based on the movement
+          //@SUPPLY_MOVEMENT: transform the item based on the movement
           final _transformedItem =
               SupplyMovementTransformer().toClinicInventoryItem(x, _item);
 
-          //TODO: add/update item in the collection
+          //@SUPPLY_MOVEMENT: add/update item in the collection
           await _clinicInventoryApi.updateInventoryItemAvailableQuantity(
             inventoryItem: _transformedItem,
           );
         }
-        //TODO: mutate bookkeeping with the movement
+        //@SUPPLY_MOVEMENT: mutate bookkeeping with the movement
         final _bookkeepingTransformer = BookkeepingTransformer(
           item_id: x.id,
           collection_id: collection,

@@ -11,7 +11,6 @@ class DoctorSupplyItem extends DoctorItem implements Equatable {
   final double buying_price;
   final double selling_price;
   final bool notify_on_reorder_quantity;
-  //TODO: add clinic_id
 
   const DoctorSupplyItem({
     required super.id,
