@@ -357,7 +357,7 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                 );
                                 return;
                               }
-                              //TODO: build previous visits dialog ui && logic
+                              //todo: build previous visits dialog ui && logic
                               await showDialog(
                                 context: context,
                                 builder: (context) {

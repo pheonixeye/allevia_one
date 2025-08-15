@@ -91,4 +91,17 @@ class PatientsApi {
           body: patient.toJson(),
         );
   }
+
+  static Future<Patient> getPatientById(String patientId) async {
+    try {
+      final _result =
+          await PocketbaseHelper.pb.collection('patients').getOne(patientId);
+
+      final _patient = Patient.fromJson(_result.toJson());
+
+      return _patient;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

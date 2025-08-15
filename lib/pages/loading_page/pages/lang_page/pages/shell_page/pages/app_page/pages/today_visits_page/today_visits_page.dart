@@ -1,8 +1,15 @@
+import 'package:allevia_one/core/api/patients_api.dart';
+import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/models/patient.dart';
+import 'package:allevia_one/models/visits/visit_create_dto.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/add_new_visit_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/widgets/scan_patient_qr_dialog.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -240,9 +247,53 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
                     );
                     return;
                   }
-                  //TODO: scan code
-                  //TODO: get patient data
-                  //TODO: open new visit dialog
+                  Patient? _patientFromDb;
+                  //todo: scan code
+                  final _patientId = await showDialog<String?>(
+                    context: context,
+                    builder: (context) {
+                      return ScanPatientQrDialog();
+                    },
+                  );
+                  if (_patientId == null) {
+                    return;
+                  }
+                  //todo: get patient data
+                  if (context.mounted) {
+                    await shellFunction(
+                      context,
+                      toExecute: () async {
+                        _patientFromDb =
+                            await PatientsApi.getPatientById(_patientId);
+                      },
+                      duration: const Duration(milliseconds: 260),
+                    );
+                  }
+                  if (context.mounted) {
+                    if (_patientFromDb == null) {
+                      showIsnackbar(context.loc.noPatientsFound);
+                      return;
+                    }
+                    //todo: open new visit dialog
+                    final _visitDto = await showDialog<VisitCreateDto?>(
+                      context: context,
+                      builder: (context) {
+                        return AddNewVisitDialog(patient: _patientFromDb!);
+                      },
+                    );
+                    //todo: create new visit
+                    if (_visitDto == null) {
+                      return;
+                    }
+                    if (context.mounted) {
+                      await shellFunction(
+                        context,
+                        toExecute: () async {
+                          await v.addNewVisit(_visitDto);
+                        },
+                      );
+                    }
+                  }
                 },
               ),
             ],
