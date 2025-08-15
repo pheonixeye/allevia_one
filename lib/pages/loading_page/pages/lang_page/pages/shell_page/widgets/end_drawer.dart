@@ -1,3 +1,4 @@
+import 'package:allevia_one/providers/px_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -17,8 +18,8 @@ class EndDrawer extends StatelessWidget {
       elevation: 8.0,
       width: MediaQuery.sizeOf(context).width * 0.65,
       backgroundColor: Colors.blue.shade500.withValues(alpha: 0.9),
-      child: Consumer<GoRouteInformationProvider>(
-        builder: (context, r, _) {
+      child: Consumer2<GoRouteInformationProvider, PxAuth>(
+        builder: (context, r, auth, _) {
           bool selected(String path) => r.value.uri.path.endsWith('/$path');
           // print(r.value.uri.path);
           return ListView(
@@ -27,8 +28,32 @@ class EndDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      SizedBox(width: 10),
+                      CircleAvatar(
+                        child: Icon(
+                          Icons.account_box,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Builder(
+                          builder: (context) {
+                            while (auth.user == null) {
+                              return SizedBox(
+                                height: 10,
+                                child: LinearProgressIndicator(),
+                              );
+                            }
+                            return Text(
+                              '${auth.user?.email}',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                       Builder(
                         builder: (context) {
                           return IconButton(

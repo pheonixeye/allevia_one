@@ -977,4 +977,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pickDoctor => 'اختر الدكتور';
+
+  @override
+  String get unAuthorized => 'غير مصرح';
+
+  @override
+  String get accountNotAuthorizedToPerformAction =>
+      'هذا الحساب لا يحتوي علي الصلاحيات لاجراء هذه العملية.';
+
+  @override
+  String get notAnAdminAccount => 'لا يوجد صلاحيات في هذا الحساب';
 }

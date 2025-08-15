@@ -66,6 +66,7 @@ class _CreateEditPatientDialogState extends State<CreateEditPatientDialog> {
         ],
       ),
       contentPadding: const EdgeInsets.all(8),
+      scrollable: true,
       content: Form(
         key: formKey,
         child: Column(

@@ -978,4 +978,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pickDoctor => 'Select Attending Doctor';
+
+  @override
+  String get unAuthorized => 'Un Authorized';
+
+  @override
+  String get accountNotAuthorizedToPerformAction =>
+      'Your Account Is Not Authorized To Perform This Action.';
+
+  @override
+  String get notAnAdminAccount => 'Not An Admin Account';
 }

@@ -342,5 +342,8 @@
     "@@assistants_page": "",
     "addAssistantAccount": "Add Assistant Account",
     "cannotChangeAccountType": "Cannot Change Account Type",
-    "pickDoctor": "Select Attending Doctor"
+    "pickDoctor": "Select Attending Doctor",
+    "unAuthorized": "Un Authorized",
+    "accountNotAuthorizedToPerformAction": "Your Account Is Not Authorized To Perform This Action.",
+    "notAnAdminAccount": "Not An Admin Account"
 }

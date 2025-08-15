@@ -6,6 +6,7 @@ import 'package:allevia_one/models/user/user_with_password.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/assistants_page/widgets/add_assistant_account_dialog.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_assistant_accounts.dart';
+import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
@@ -21,6 +22,37 @@ class AssistantsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer3<PxAppConstants, PxAssistantAccounts, PxLocale>(
       builder: (context, a, c, l, _) {
+        while (PxAuth.isUserNotDoctor) {
+          return Scaffold(
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(context.loc.assistantAccounts),
+                    ),
+                    subtitle: const Divider(),
+                  ),
+                ),
+                const Spacer(),
+                Center(
+                  child: Card.outlined(
+                    elevation: 6,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        context.loc.notAnAdminAccount,
+                      ),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+              ],
+            ),
+          );
+        }
         return Scaffold(
           floatingActionButton: FloatingActionButton.small(
             heroTag: 'add-assistant-account',

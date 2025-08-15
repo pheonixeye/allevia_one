@@ -1,3 +1,6 @@
+import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,7 +76,22 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                     heroTag: '${widget.patient.id}+${widget.index}',
                     onPressed: () async {
                       //todo: edit patient name/phone/dob
-
+                      //@permission
+                      final _perm = context.read<PxAuth>().isActionPermitted(
+                            PermissionEnum.User_Patient_EditInfo,
+                            context,
+                          );
+                      if (!_perm.isAllowed) {
+                        await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return NotPermittedDialog(
+                              permission: _perm.permission,
+                            );
+                          },
+                        );
+                        return;
+                      }
                       final _patient = await showDialog<Patient?>(
                         context: context,
                         builder: (context) {
@@ -139,7 +157,25 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                 WidgetSpan(
                                   child: InkWell(
                                     child: const Icon(Icons.call),
-                                    onTap: () {
+                                    onTap: () async {
+                                      //@permission
+                                      final _perm = context
+                                          .read<PxAuth>()
+                                          .isActionPermitted(
+                                            PermissionEnum.User_Patient_Call,
+                                            context,
+                                          );
+                                      if (!_perm.isAllowed) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return NotPermittedDialog(
+                                              permission: _perm.permission,
+                                            );
+                                          },
+                                        );
+                                        return;
+                                      }
                                       web.window.open(
                                         'tel://+2${widget.patient.phone}',
                                         '_blank',
@@ -152,7 +188,26 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                   child: InkWell(
                                     child:
                                         const Icon(FontAwesomeIcons.whatsapp),
-                                    onTap: () {
+                                    onTap: () async {
+                                      //@permission
+                                      final _perm = context
+                                          .read<PxAuth>()
+                                          .isActionPermitted(
+                                            PermissionEnum
+                                                .User_Patient_Whatsapp,
+                                            context,
+                                          );
+                                      if (!_perm.isAllowed) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return NotPermittedDialog(
+                                              permission: _perm.permission,
+                                            );
+                                          },
+                                        );
+                                        return;
+                                      }
                                       web.window.open(
                                         'https://wa.me/+2${widget.patient.phone}',
                                         '_blank',
@@ -175,7 +230,25 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                       decoration: TextDecoration.underline,
                                     ),
                                     recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
+                                      ..onTap = () async {
+                                        //@permission
+                                        final _perm = context
+                                            .read<PxAuth>()
+                                            .isActionPermitted(
+                                              PermissionEnum.User_Patient_Email,
+                                              context,
+                                            );
+                                        if (!_perm.isAllowed) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return NotPermittedDialog(
+                                                permission: _perm.permission,
+                                              );
+                                            },
+                                          );
+                                          return;
+                                        }
                                         web.window.open(
                                           'mailto://${widget.patient.email}',
                                           '_blank',
@@ -202,6 +275,23 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                               ],
                             ),
                             onTap: () async {
+                              //@permission
+                              final _perm =
+                                  context.read<PxAuth>().isActionPermitted(
+                                        PermissionEnum.User_Patient_AddNewVisit,
+                                        context,
+                                      );
+                              if (!_perm.isAllowed) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return NotPermittedDialog(
+                                      permission: _perm.permission,
+                                    );
+                                  },
+                                );
+                                return;
+                              }
                               final _visitDto =
                                   await showDialog<VisitCreateDto?>(
                                 context: context,
@@ -245,6 +335,27 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                 Text(context.loc.previousPatientVisits),
                               ],
                             ),
+                            onTap: () async {
+                              //@permission
+                              final _perm = context
+                                  .read<PxAuth>()
+                                  .isActionPermitted(
+                                    PermissionEnum.User_Patient_PreviousVisits,
+                                    context,
+                                  );
+                              if (!_perm.isAllowed) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return NotPermittedDialog(
+                                      permission: _perm.permission,
+                                    );
+                                  },
+                                );
+                                return;
+                              }
+                              //TODO:
+                            },
                           ),
                           PopupMenuItem(
                             child: Row(
@@ -255,6 +366,23 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                               ],
                             ),
                             onTap: () async {
+                              //@permission
+                              final _perm =
+                                  context.read<PxAuth>().isActionPermitted(
+                                        PermissionEnum.User_Patient_InfoCard,
+                                        context,
+                                      );
+                              if (!_perm.isAllowed) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return NotPermittedDialog(
+                                      permission: _perm.permission,
+                                    );
+                                  },
+                                );
+                                return;
+                              }
                               await showDialog(
                                 context: context,
                                 builder: (context) {
@@ -274,6 +402,23 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                               ],
                             ),
                             onTap: () async {
+                              //@permission
+                              final _perm =
+                                  context.read<PxAuth>().isActionPermitted(
+                                        PermissionEnum.User_Patient_Forms,
+                                        context,
+                                      );
+                              if (!_perm.isAllowed) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return NotPermittedDialog(
+                                      permission: _perm.permission,
+                                    );
+                                  },
+                                );
+                                return;
+                              }
                               await showDialog(
                                 context: context,
                                 builder: (context) {

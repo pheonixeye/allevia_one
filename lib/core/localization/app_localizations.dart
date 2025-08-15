@@ -1975,6 +1975,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Attending Doctor'**
   String get pickDoctor;
+
+  /// No description provided for @unAuthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Un Authorized'**
+  String get unAuthorized;
+
+  /// No description provided for @accountNotAuthorizedToPerformAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Account Is Not Authorized To Perform This Action.'**
+  String get accountNotAuthorizedToPerformAction;
+
+  /// No description provided for @notAnAdminAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Not An Admin Account'**
+  String get notAnAdminAccount;
 }
 
 class _AppLocalizationsDelegate

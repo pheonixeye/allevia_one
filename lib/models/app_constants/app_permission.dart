@@ -45,3 +45,64 @@ class AppPermission extends Equatable {
   @override
   List<Object> get props => [id, name_en, name_ar];
 }
+
+enum PermissionEnum {
+  Admin,
+  User,
+  User_Patient_AddNew, //done
+  User_Patient_EditInfo, //done
+  User_Patient_AddNewVisit, //done
+  User_Patient_PreviousVisits, //done
+  User_Patient_InfoCard, //done
+  User_Patient_Call, //done
+  User_Patient_Whatsapp, //done
+  User_Patient_Email, //done
+  User_Patient_Forms, //done
+  User_Visits_Read,
+  User_Bookkeeping_Read,
+  User_Bookkeeping_Add,
+  User_AccountSettings_Read,
+  User_AccountSettings_Modify,
+  User_TodayVisits_Read,
+  User_TodayVisits_Modify,
+  User_TodayVisits_EnterVisit,
+  User_Clinics_Read,
+  User_Clinics_Modify,
+  User_Clinics_Add,
+  User_Clinics_Activity,
+  User_Clinics_Schedule,
+  User_Clinics_Prescription,
+  User_Clinics_Store,
+  User_Clinics_Delete,
+  User_SupplyMovements_Read,
+  User_SupplyMovement_Add,
+  User_Subscription_Read,
+  User_Subscription_Modify,
+  // User_AssistantAccounts_Read,
+  // User_AssistantAccounts_Modify,
+  // User_AssistantAccounts_Delete,
+  User_Forms_Read,
+  User_Forms_Add,
+  User_Forms_Modify,
+  User_Forms_Delete;
+
+  factory PermissionEnum.fromString(String value) {
+    return PermissionEnum.values.firstWhere((x) => x.name == value);
+  }
+}
+
+class PermissionWithPermission extends Equatable {
+  final AppPermission permission;
+  final bool isAllowed;
+
+  const PermissionWithPermission({
+    required this.permission,
+    required this.isAllowed,
+  });
+
+  @override
+  List<Object> get props => [
+        permission,
+        isAllowed,
+      ];
+}
