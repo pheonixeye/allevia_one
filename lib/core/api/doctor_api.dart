@@ -1,4 +1,3 @@
-import 'package:allevia_one/functions/dprint.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/models/doctor.dart';
@@ -32,7 +31,7 @@ class DoctorApi {
               expand: expand,
             );
 
-    prettyPrint(_response);
+    // prettyPrint(_response);
     final _doctors = _response.map((e) {
       return Doctor.fromJson({
         ...e.toJson(),

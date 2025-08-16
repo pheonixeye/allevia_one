@@ -991,4 +991,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noVisitsFoundForThisPatient => 'No Visits Found For This Patient';
+
+  @override
+  String get changePassword => 'Change Password';
 }

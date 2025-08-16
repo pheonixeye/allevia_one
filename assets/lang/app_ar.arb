@@ -345,5 +345,6 @@
     "unAuthorized": "غير مصرح",
     "accountNotAuthorizedToPerformAction": "هذا الحساب لا يحتوي علي الصلاحيات لاجراء هذه العملية.",
     "notAnAdminAccount": "لا يوجد صلاحيات في هذا الحساب",
-    "noVisitsFoundForThisPatient": "لم يتم العثور علي زيارات سابقة لهذا المريض"
+    "noVisitsFoundForThisPatient": "لم يتم العثور علي زيارات سابقة لهذا المريض",
+    "changePassword": "تغيير كلمة السر"
 }

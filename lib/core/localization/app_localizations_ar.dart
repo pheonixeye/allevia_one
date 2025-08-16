@@ -991,4 +991,7 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noVisitsFoundForThisPatient =>
       'لم يتم العثور علي زيارات سابقة لهذا المريض';
+
+  @override
+  String get changePassword => 'تغيير كلمة السر';
 }

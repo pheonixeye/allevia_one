@@ -118,4 +118,10 @@ class PxAuth extends ChangeNotifier {
       );
     }
   }
+
+  Future<void> changePassword() async {
+    if (_user != null) {
+      await api.requestResetPassword(user!.email);
+    }
+  }
 }
