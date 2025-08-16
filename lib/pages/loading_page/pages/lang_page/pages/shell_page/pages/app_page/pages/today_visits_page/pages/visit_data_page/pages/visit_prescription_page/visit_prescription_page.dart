@@ -179,7 +179,11 @@ class VisitPrescriptionPage extends StatelessWidget {
                                               (draggable, context, position) {
                                             return draggable.feedbackOffset;
                                           },
-                                          feedback: Text(x.key),
+                                          feedback: Text(
+                                            l.isEnglish
+                                                ? x.value.name_en
+                                                : x.value.name_ar,
+                                          ),
                                           child: InkWell(
                                             onDoubleTap: () {
                                               s.increaseItemFontSize(x.key);
@@ -252,7 +256,7 @@ class VisitPrescriptionPage extends StatelessWidget {
                                                 ),
                                               'visit_procedures' => Text.rich(
                                                   TextSpan(
-                                                    text: '',
+                                                    text: 'اجراءات الزيارة\n',
                                                     children: [
                                                       ...visit_data.procedures
                                                           .map((e) {
@@ -261,6 +265,28 @@ class VisitPrescriptionPage extends StatelessWidget {
                                                               '${e.name_en}\n',
                                                         );
                                                       })
+                                                    ],
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        s.visitPrescriptionItemsFontSize[
+                                                            x.key],
+                                                  ),
+                                                ),
+                                              'doctor_name' => Text.rich(
+                                                  TextSpan(
+                                                    text: '',
+                                                    children: [
+                                                      TextSpan(
+                                                        text: l.isEnglish
+                                                            ? visit
+                                                                ?.doctor.name_en
+                                                            : visit?.doctor
+                                                                .name_ar,
+                                                      )
                                                     ],
                                                   ),
                                                   overflow:
