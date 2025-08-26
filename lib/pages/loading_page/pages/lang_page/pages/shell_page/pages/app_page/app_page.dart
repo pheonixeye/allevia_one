@@ -1,3 +1,4 @@
+import 'package:allevia_one/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -52,40 +53,43 @@ class _AppPageState extends State<AppPage> with SingleTickerProviderStateMixin {
       body: Row(
         children: [
           if (!context.isMobile)
-            NavigationRail(
-              useIndicator: true,
-              indicatorColor: Colors.amber.shade300,
-              elevation: 6,
-              backgroundColor: Colors.blue.shade300,
-              extended: _isExtended,
-              destinations: _navDestinationItems,
-              selectedIndex: widget.navigationShell.currentIndex,
-              leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.amber.shade200,
-                  child:
-                      _navDestinationItems[widget.navigationShell.currentIndex]
-                          .selectedIcon,
+            Visibility(
+              visible: !AppRouter.router.isInVisitDataPage,
+              child: NavigationRail(
+                useIndicator: true,
+                indicatorColor: Colors.amber.shade300,
+                elevation: 6,
+                backgroundColor: Colors.blue.shade300,
+                extended: _isExtended,
+                destinations: _navDestinationItems,
+                selectedIndex: widget.navigationShell.currentIndex,
+                leading: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.amber.shade200,
+                    child: _navDestinationItems[
+                            widget.navigationShell.currentIndex]
+                        .selectedIcon,
+                  ),
                 ),
-              ),
-              onDestinationSelected: (value) {
-                widget.navigationShell.goBranch(value);
-                setState(() {
-                  _isExtended = false;
-                });
-              },
-              trailing: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FloatingActionButton.small(
-                  heroTag: 'nav-rail-exp-btn--app',
-                  onPressed: () {
-                    setState(() {
-                      _isExtended = !_isExtended;
-                    });
-                  },
-                  child: Icon(
-                    _isExtended ? Icons.arrow_back : Icons.arrow_forward,
+                onDestinationSelected: (value) {
+                  widget.navigationShell.goBranch(value);
+                  setState(() {
+                    _isExtended = false;
+                  });
+                },
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton.small(
+                    heroTag: 'nav-rail-exp-btn--app',
+                    onPressed: () {
+                      setState(() {
+                        _isExtended = !_isExtended;
+                      });
+                    },
+                    child: Icon(
+                      _isExtended ? Icons.arrow_back : Icons.arrow_forward,
+                    ),
                   ),
                 ),
               ),
@@ -96,44 +100,52 @@ class _AppPageState extends State<AppPage> with SingleTickerProviderStateMixin {
         ],
       ),
       bottomNavigationBar: context.isMobile
-          ? BottomNavigationBar(
-              useLegacyColorScheme: false,
-              currentIndex: widget.navigationShell.currentIndex,
-              type: BottomNavigationBarType.shifting,
-              elevation: 6,
-              mouseCursor: SystemMouseCursors.click,
-              showSelectedLabels: true,
-              onTap: (value) {
-                widget.navigationShell.goBranch(value);
+          ? Builder(
+              builder: (context) {
+                return Visibility(
+                  visible: !AppRouter.router.isInVisitDataPage,
+                  child: BottomNavigationBar(
+                    useLegacyColorScheme: false,
+                    currentIndex: widget.navigationShell.currentIndex,
+                    type: BottomNavigationBarType.shifting,
+                    elevation: 6,
+                    mouseCursor: SystemMouseCursors.click,
+                    showSelectedLabels: true,
+                    onTap: (value) {
+                      widget.navigationShell.goBranch(value);
+                    },
+                    items: [
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.perm_contact_calendar_outlined),
+                        activeIcon: const Icon(Icons.perm_contact_calendar),
+                        label: context.loc.todayVisits,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(FontAwesomeIcons.hospitalUser),
+                        activeIcon: const Icon(FontAwesomeIcons.wheelchair),
+                        label: context.loc.patients,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.person),
+                        activeIcon:
+                            const Icon(FontAwesomeIcons.personCirclePlus),
+                        label: context.loc.visits,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.monetization_on),
+                        activeIcon: const Icon(FontAwesomeIcons.moneyCheck),
+                        label: context.loc.bookkeeping,
+                      ),
+                      BottomNavigationBarItem(
+                        tooltip: context.loc.profileSetup,
+                        icon: const Icon(Icons.settings),
+                        activeIcon: const Icon(Icons.settings_suggest),
+                        label: context.loc.profileSetup,
+                      ),
+                    ],
+                  ),
+                );
               },
-              items: [
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.perm_contact_calendar_outlined),
-                  activeIcon: const Icon(Icons.perm_contact_calendar),
-                  label: context.loc.todayVisits,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(FontAwesomeIcons.hospitalUser),
-                  activeIcon: const Icon(FontAwesomeIcons.wheelchair),
-                  label: context.loc.patients,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.person),
-                  activeIcon: const Icon(FontAwesomeIcons.personCirclePlus),
-                  label: context.loc.visits,
-                ),
-                BottomNavigationBarItem(
-                  icon: const Icon(Icons.monetization_on),
-                  activeIcon: const Icon(FontAwesomeIcons.moneyCheck),
-                  label: context.loc.bookkeeping,
-                ),
-                BottomNavigationBarItem(
-                  tooltip: context.loc.profileSetup,
-                  icon: const Icon(Icons.settings),
-                  activeIcon: const Icon(Icons.settings_suggest),
-                  label: context.loc.profileSetup,
-                ),
-              ],
             )
           : null,
     );

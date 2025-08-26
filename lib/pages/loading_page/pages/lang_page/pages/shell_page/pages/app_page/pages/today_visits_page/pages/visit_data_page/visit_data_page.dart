@@ -1,3 +1,4 @@
+import 'package:allevia_one/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
@@ -21,48 +22,61 @@ class _VisitDataPageState extends State<VisitDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          if (!context.isMobile)
-            NavigationRail(
-              useIndicator: true,
-              indicatorColor: Colors.amber.shade200,
-              elevation: 6,
-              backgroundColor: Colors.blue.shade200,
-              extended: _isExtended,
-              destinations: _items.map((e) {
-                return NavigationRailDestination(
-                  icon: e.icon,
-                  selectedIcon: e.selectedIcon,
-                  label: Text(e.title),
-                );
-              }).toList(),
-              selectedIndex: widget.navigationShell.currentIndex,
-              onDestinationSelected: (value) {
-                widget.navigationShell.goBranch(value);
-                setState(() {
-                  _isExtended = false;
-                });
-              },
-              trailing: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FloatingActionButton.small(
-                  heroTag: 'nav-rail-exp-btn--visit-data',
-                  onPressed: () {
-                    setState(() {
-                      _isExtended = !_isExtended;
-                    });
-                  },
-                  child: Icon(
-                    _isExtended ? Icons.arrow_back : Icons.arrow_forward,
+      body: GestureDetector(
+        onVerticalDragDown: (details) {
+          //TODO: test vertical drag down
+          if (details.localPosition.dy >
+                  (MediaQuery.sizeOf(context).height / 2) &&
+              details.localPosition.direction.isNegative) {
+            GoRouter.of(context).goNamed(
+              AppRouter.app,
+              pathParameters: defaultPathParameters(context),
+            );
+          }
+        },
+        child: Row(
+          children: [
+            if (!context.isMobile)
+              NavigationRail(
+                useIndicator: true,
+                indicatorColor: Colors.amber.shade200,
+                elevation: 6,
+                backgroundColor: Colors.blue.shade200,
+                extended: _isExtended,
+                destinations: _items.map((e) {
+                  return NavigationRailDestination(
+                    icon: e.icon,
+                    selectedIcon: e.selectedIcon,
+                    label: Text(e.title),
+                  );
+                }).toList(),
+                selectedIndex: widget.navigationShell.currentIndex,
+                onDestinationSelected: (value) {
+                  widget.navigationShell.goBranch(value);
+                  setState(() {
+                    _isExtended = false;
+                  });
+                },
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton.small(
+                    heroTag: 'nav-rail-exp-btn--visit-data',
+                    onPressed: () {
+                      setState(() {
+                        _isExtended = !_isExtended;
+                      });
+                    },
+                    child: Icon(
+                      _isExtended ? Icons.arrow_back : Icons.arrow_forward,
+                    ),
                   ),
                 ),
               ),
+            Expanded(
+              child: widget.navigationShell,
             ),
-          Expanded(
-            child: widget.navigationShell,
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: context.isMobile
           ? BottomNavigationBar(

@@ -65,6 +65,9 @@ Map<String, String> defaultPathParameters(BuildContext context) {
 extension GoRouterExtension on GoRouter {
   String? get currentRouteName =>
       routerDelegate.currentConfiguration.last.route.name;
+
+  bool get isInVisitDataPage =>
+      routerDelegate.currentConfiguration.fullPath.contains('/app/data');
 }
 
 /// GoRouter configuration

@@ -59,7 +59,7 @@ class CoreCentralLoading extends StatefulWidget {
 class _CoreCentralLoadingState extends State<CoreCentralLoading>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  late final Timer _timer;
+  Timer? _timer;
   static int _index = 0;
   static const _duration = Duration(milliseconds: 2000);
 
@@ -85,7 +85,8 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
+    _timer = null;
     _animationController.dispose();
     super.dispose();
   }
@@ -93,11 +94,13 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
   @override
   Widget build(BuildContext context) {
     return Consumer<PxSpec>(
+      // key: _globalConsumerKey,
       builder: (context, s, _) {
         while (s.specialities == null) {
           return CircularProgressIndicator();
         }
         return AnimatedBuilder(
+          // key: _globalLoadingKey,
           animation: _animationController,
           builder: (context, child) {
             return Transform(

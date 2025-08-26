@@ -48,7 +48,7 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
                     tooltip: context.loc.previousPatientVisits,
                     heroTag: UniqueKey(),
                     onPressed: () async {
-                      //TODO: show previous patient visits
+                      //todo: show previous patient visits
                       await showDialog(
                         context: context,
                         builder: (context) {
@@ -74,7 +74,7 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
                     onPressed: () {
                       //TODO: show previous patient Documents
                     },
-                    child: const Icon(FontAwesomeIcons.squarePersonConfined),
+                    child: const Icon(Icons.document_scanner),
                   ),
                 ),
                 Padding(
