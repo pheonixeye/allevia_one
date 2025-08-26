@@ -347,5 +347,6 @@
     "accountNotAuthorizedToPerformAction": "Your Account Is Not Authorized To Perform This Action.",
     "notAnAdminAccount": "Not An Admin Account",
     "noVisitsFoundForThisPatient": "No Visits Found For This Patient",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "patientDocuments": "Patient Documents"
 }

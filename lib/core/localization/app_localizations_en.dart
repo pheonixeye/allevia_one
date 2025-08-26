@@ -994,4 +994,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changePassword => 'Change Password';
+
+  @override
+  String get patientDocuments => 'Patient Documents';
 }

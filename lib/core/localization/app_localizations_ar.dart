@@ -994,4 +994,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get changePassword => 'تغيير كلمة السر';
+
+  @override
+  String get patientDocuments => 'مستندات المريض';
 }

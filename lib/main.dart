@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
   //todo: bookkeeping in table form
   //todo: subscription controlles access => add entry in database
   //TODO: patient documents
+  //TODO: notifications
   //todo: doctor visits in table form
   //todo: create / link assistant account => add permissions +/-
   //todo: patient visit progression view => listen to todays visits realtime => assistant app (same app vs another)

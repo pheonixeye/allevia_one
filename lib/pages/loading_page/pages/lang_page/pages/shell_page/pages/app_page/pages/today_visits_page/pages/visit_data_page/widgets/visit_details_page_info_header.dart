@@ -1,3 +1,6 @@
+import 'package:allevia_one/core/api/patient_previous_visits_api.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/detailed_previous_patient_visits_dialog.dart';
+import 'package:allevia_one/providers/px_patient_previous_visits.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -37,6 +40,41 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
                 Flexible(
                   child: Text(
                     patient.name,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: FloatingActionButton.small(
+                    tooltip: context.loc.previousPatientVisits,
+                    heroTag: UniqueKey(),
+                    onPressed: () async {
+                      //TODO: show previous patient visits
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return ChangeNotifierProvider(
+                            create: (context) => PxPatientPreviousVisits(
+                              api: PatientPreviousVisitsApi(
+                                patient_id: patient.id,
+                              ),
+                            ),
+                            child: DetailedPreviousPatientVisitsDialog(),
+                          );
+                        },
+                      );
+                    },
+                    child: const Icon(FontAwesomeIcons.personWalkingArrowRight),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: FloatingActionButton.small(
+                    tooltip: context.loc.patientDocuments,
+                    heroTag: UniqueKey(),
+                    onPressed: () {
+                      //TODO: show previous patient Documents
+                    },
+                    child: const Icon(FontAwesomeIcons.squarePersonConfined),
                   ),
                 ),
                 Padding(

@@ -2005,6 +2005,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change Password'**
   String get changePassword;
+
+  /// No description provided for @patientDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient Documents'**
+  String get patientDocuments;
 }
 
 class _AppLocalizationsDelegate
