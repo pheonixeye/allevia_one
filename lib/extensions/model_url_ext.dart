@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/models/clinic/clinic.dart';
+import 'package:allevia_one/models/patient_document/patient_document.dart';
 import 'package:allevia_one/models/speciality.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,4 +19,9 @@ extension PrescriptionFileUrl on Clinic {
     final _response = await http.get(Uri.parse(prescriptionFileUrl()));
     return _response.bodyBytes;
   }
+}
+
+extension PatientDocumentUrl on PatientDocument {
+  String patientDocumentUrl() =>
+      '${PocketbaseHelper.pb.baseURL}/api/files/patient__documents/$id/$document';
 }

@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
-import 'package:allevia_one/extensions/model_ext.dart';
+import 'package:allevia_one/extensions/model_url_ext.dart';
 import 'package:allevia_one/models/dto_create_doctor_account.dart';
 import 'package:allevia_one/models/speciality.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';

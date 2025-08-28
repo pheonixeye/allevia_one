@@ -23,7 +23,7 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
   final Patient patient;
   final String title;
   final IconData iconData;
-  final Widget? actionButton;
+  final FloatingActionButton? actionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -38,69 +38,99 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
             title: Row(
               children: [
                 Flexible(
-                  child: Text(
-                    patient.name,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: FloatingActionButton.small(
-                    tooltip: context.loc.previousPatientVisits,
-                    heroTag: UniqueKey(),
-                    onPressed: () async {
-                      //todo: show previous patient visits
-                      await showDialog(
-                        context: context,
-                        builder: (context) {
-                          return ChangeNotifierProvider(
-                            create: (context) => PxPatientPreviousVisits(
-                              api: PatientPreviousVisitsApi(
-                                patient_id: patient.id,
-                              ),
-                            ),
-                            child: DetailedPreviousPatientVisitsDialog(),
-                          );
-                        },
-                      );
-                    },
-                    child: const Icon(FontAwesomeIcons.personWalkingArrowRight),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: FloatingActionButton.small(
-                    tooltip: context.loc.patientDocuments,
-                    heroTag: UniqueKey(),
-                    onPressed: () {
-                      //TODO: show previous patient Documents
-                    },
-                    child: const Icon(Icons.document_scanner),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: FloatingActionButton.small(
-                    tooltip: context.loc.visitPrescription,
-                    heroTag: UniqueKey(),
-                    onPressed: () {
-                      //todo: go to prescription page
-                      GoRouter.of(context).goNamed(
-                        AppRouter.visit_prescription,
-                        pathParameters: defaultPathParameters(context)
-                          ..addAll({
-                            'visit_id': (v.result as ApiDataResult<VisitData>)
-                                .data
-                                .visit_id,
-                          }),
-                      );
-                    },
-                    child: const Icon(FontAwesomeIcons.prescription),
-                  ),
+                  child: Text(patient.name),
                 ),
               ],
             ),
             subtitle: Text(title),
-            trailing: actionButton,
+            trailing: FloatingActionButton.small(
+              heroTag: UniqueKey(),
+              onPressed: null,
+              child: PopupMenuButton<void>(
+                offset: Offset(0, 48),
+                elevation: 6,
+                icon: const Icon(Icons.settings),
+                shadowColor: Colors.transparent,
+                color: Colors.lightBlue.withValues(alpha: 0.8),
+                borderRadius: BorderRadius.circular(12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(),
+                ),
+                itemBuilder: (context) {
+                  return [
+                    PopupMenuItem(
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          const Icon(FontAwesomeIcons.personWalkingArrowRight),
+                          Text(context.loc.previousPatientVisits),
+                        ],
+                      ),
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ChangeNotifierProvider(
+                              create: (context) => PxPatientPreviousVisits(
+                                api: PatientPreviousVisitsApi(
+                                  patient_id: patient.id,
+                                ),
+                              ),
+                              child: DetailedPreviousPatientVisitsDialog(),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          const Icon(Icons.document_scanner),
+                          Text(context.loc.patientDocuments),
+                        ],
+                      ),
+                      onTap: () async {
+                        //TODO: show previous patient Documents
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          const Icon(FontAwesomeIcons.prescription),
+                          Text(context.loc.visitPrescription),
+                        ],
+                      ),
+                      onTap: () {
+                        //todo: go to prescription page
+                        GoRouter.of(context).goNamed(
+                          AppRouter.visit_prescription,
+                          pathParameters: defaultPathParameters(context)
+                            ..addAll({
+                              'visit_id': (v.result as ApiDataResult<VisitData>)
+                                  .data
+                                  .visit_id,
+                            }),
+                        );
+                      },
+                    ),
+                    if (actionButton != null)
+                      PopupMenuItem(
+                        onTap: actionButton?.onPressed,
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            actionButton?.child ?? SizedBox(),
+                            Text(actionButton?.tooltip ?? ''),
+                          ],
+                        ),
+                      ),
+                  ];
+                },
+              ),
+            ),
           ),
         );
       },

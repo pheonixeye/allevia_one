@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:allevia_one/extensions/model_ext.dart';
+import 'package:allevia_one/extensions/model_url_ext.dart';
 import 'package:allevia_one/providers/px_speciality.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

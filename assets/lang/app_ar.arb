@@ -347,5 +347,8 @@
     "notAnAdminAccount": "لا يوجد صلاحيات في هذا الحساب",
     "noVisitsFoundForThisPatient": "لم يتم العثور علي زيارات سابقة لهذا المريض",
     "changePassword": "تغيير كلمة السر",
-    "patientDocuments": "مستندات المريض"
+    "patientDocuments": "مستندات المريض",
+    "pickImageSource": "اختر ملف او تصوير",
+    "camera": "تصوير",
+    "file": "ملف"
 }

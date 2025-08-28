@@ -6,7 +6,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
-import 'package:allevia_one/extensions/model_ext.dart';
+import 'package:allevia_one/extensions/model_url_ext.dart';
 import 'package:allevia_one/functions/first_where_or_null.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/clinic/clinic.dart';

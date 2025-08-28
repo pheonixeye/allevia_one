@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
-import 'package:allevia_one/extensions/model_ext.dart';
+import 'package:allevia_one/extensions/model_url_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/clinic/prescription_details.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/logic/pdf_prescription_builder.dart';

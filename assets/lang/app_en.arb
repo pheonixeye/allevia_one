@@ -348,5 +348,8 @@
     "notAnAdminAccount": "Not An Admin Account",
     "noVisitsFoundForThisPatient": "No Visits Found For This Patient",
     "changePassword": "Change Password",
-    "patientDocuments": "Patient Documents"
+    "patientDocuments": "Patient Documents",
+    "pickImageSource": "Pick Image Source",
+    "camera": "Camera",
+    "file": "File"
 }

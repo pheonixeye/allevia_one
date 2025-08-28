@@ -5,7 +5,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:allevia_one/assets/assets.dart';
-import 'package:allevia_one/extensions/model_ext.dart';
+import 'package:allevia_one/extensions/model_url_ext.dart';
 import 'package:allevia_one/models/clinic/clinic.dart';
 import 'package:allevia_one/models/clinic/prescription_details.dart';
 
