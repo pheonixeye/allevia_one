@@ -134,7 +134,7 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
                                         DataCell(
                                           InkWell(
                                             onTap: x.auto_add
-                                                ? () {
+                                                ? () async {
                                                     //TODO: allow for finding item details
                                                   }
                                                 : null,

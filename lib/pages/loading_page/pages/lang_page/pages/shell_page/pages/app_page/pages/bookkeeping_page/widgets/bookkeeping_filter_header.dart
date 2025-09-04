@@ -141,7 +141,7 @@ class _BookkeepingFilterHeaderState extends State<BookkeepingFilterHeader> {
                         firstDate: DateTime.now().copyWith(
                           year: DateTime.now().year - 5,
                         ),
-                        lastDate: DateTime.now(),
+                        lastDate: DateTime.now().add(const Duration(days: 30)),
                       );
                       if (_from != null) {
                         _fromController.text =
@@ -182,7 +182,7 @@ class _BookkeepingFilterHeaderState extends State<BookkeepingFilterHeader> {
                         firstDate: DateTime.now().copyWith(
                           year: DateTime.now().year - 5,
                         ),
-                        lastDate: DateTime.now(),
+                        lastDate: DateTime.now().add(const Duration(days: 30)),
                       );
                       if (_to != null) {
                         _toController.text =

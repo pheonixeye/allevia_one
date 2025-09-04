@@ -190,15 +190,15 @@ class _CreateEditPatientDialogState extends State<CreateEditPatientDialog> {
                     border: OutlineInputBorder(),
                     hintText: 'test@example.com',
                   ),
-                  validator: _emailController.text.trim().isEmpty
-                      ? null
-                      : (value) {
-                          if (value != null &&
-                              !EmailValidator.validate(value)) {
-                            return context.loc.invalidEmailAddress;
-                          }
-                          return null;
-                        },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    }
+                    if (!EmailValidator.validate(value)) {
+                      return context.loc.invalidEmailAddress;
+                    }
+                    return null;
+                  },
                 ),
               ),
             ),

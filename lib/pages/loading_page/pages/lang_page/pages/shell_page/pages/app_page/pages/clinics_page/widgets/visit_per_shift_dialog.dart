@@ -27,7 +27,7 @@ class VisitPerShiftDialog extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: [
-          ...List.generate(10, (index) => (index + 1) * 5).map((e) {
+          ...[1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40].map((e) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: FilterChip.elevated(

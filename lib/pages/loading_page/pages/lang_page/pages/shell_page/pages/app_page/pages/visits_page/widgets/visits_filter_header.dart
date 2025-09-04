@@ -117,7 +117,7 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                         firstDate: DateTime.now().copyWith(
                           year: DateTime.now().year - 5,
                         ),
-                        lastDate: DateTime.now(),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
                       );
                       if (_from != null) {
                         _fromController.text =
@@ -158,7 +158,7 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                         firstDate: DateTime.now().copyWith(
                           year: DateTime.now().year - 5,
                         ),
-                        lastDate: DateTime.now(),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
                       );
                       if (_to != null) {
                         _toController.text =
