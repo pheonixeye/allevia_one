@@ -238,8 +238,10 @@ class BookkeepingTransformer {
 
     final double _bk_item_amount =
         switch (SupplyMovementType.fromString(supplyMovement.movement_type)) {
-      SupplyMovementType.OUT_IN => -supplyMovement.supply_item.buying_price,
-      SupplyMovementType.IN_OUT => supplyMovement.supply_item.selling_price,
+      SupplyMovementType.OUT_IN => -supplyMovement.supply_item.buying_price *
+          supplyMovement.movement_quantity,
+      SupplyMovementType.IN_OUT => supplyMovement.supply_item.selling_price *
+          supplyMovement.movement_quantity,
       SupplyMovementType.IN_IN => 0,
     };
 
@@ -264,7 +266,7 @@ class BookkeepingTransformer {
 
     final String _type = 'out';
 
-    final double _bk_item_amount = supplyMovement.supply_item.selling_price;
+    final double _bk_item_amount = supplyMovement.movement_amount;
 
     final _item = BookkeepingItemDto(
       id: '',
@@ -288,7 +290,7 @@ class BookkeepingTransformer {
 
     final String _type = 'in';
 
-    final double _bk_item_amount = -supplyMovement.supply_item.selling_price;
+    final double _bk_item_amount = -supplyMovement.movement_amount;
 
     final _item = BookkeepingItemDto(
       id: '',
