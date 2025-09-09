@@ -29,6 +29,23 @@ class BookkeepingPage extends StatefulWidget {
 }
 
 class _BookkeepingPageState extends State<BookkeepingPage> {
+  late final ScrollController _verticalScroll;
+  late final ScrollController _horizontalScroll;
+
+  @override
+  void initState() {
+    super.initState();
+    _verticalScroll = ScrollController();
+    _horizontalScroll = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _verticalScroll.dispose();
+    _horizontalScroll.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer3<PxAppConstants, PxBookkeeping, PxLocale>(
@@ -75,118 +92,130 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
                     final _items =
                         (b.result as ApiDataResult<List<BookkeepingItem>>).data;
 
-                    return SingleChildScrollView(
-                      restorationId: 'bk-vertical',
-                      scrollDirection: Axis.vertical,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              restorationId: 'bk-horizontal',
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                border: TableBorder.all(),
-                                dividerThickness: 2,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
+                    return Scrollbar(
+                      controller: _verticalScroll,
+                      thumbVisibility: true,
+                      child: SingleChildScrollView(
+                        controller: _verticalScroll,
+                        restorationId: 'bk-vertical',
+                        scrollDirection: Axis.vertical,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Scrollbar(
+                                thumbVisibility: true,
+                                controller: _horizontalScroll,
+                                child: SingleChildScrollView(
+                                  controller: _horizontalScroll,
+                                  restorationId: 'bk-horizontal',
+                                  scrollDirection: Axis.horizontal,
+                                  child: DataTable(
+                                    border: TableBorder.all(),
+                                    dividerThickness: 2,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    headingRowColor: WidgetStatePropertyAll(
+                                      Colors.amber.shade50,
+                                    ),
+                                    columns: [
+                                      DataColumn(
+                                        label: Text(context.loc.number),
+                                      ),
+                                      DataColumn(
+                                        label: Text(context.loc.date),
+                                      ),
+                                      DataColumn(
+                                        label: Text(context.loc.operation),
+                                      ),
+                                      DataColumn(
+                                        label: Text(context.loc.bkType),
+                                      ),
+                                      DataColumn(
+                                        label: Text(context.loc.amount),
+                                      ),
+                                      DataColumn(
+                                        label: Text(context.loc.autoAdd),
+                                      ),
+                                      DataColumn(
+                                        label: Text(context.loc.addedBy),
+                                      ),
+                                    ],
+                                    rows: [
+                                      ..._items.map((x) {
+                                        final _index = _items.indexOf(x);
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Text('${_index + 1}'
+                                                  .toArabicNumber(context)),
+                                            ),
+                                            DataCell(
+                                              Text(
+                                                DateFormat('dd - MM - yyyy',
+                                                        l.lang)
+                                                    .format(x.created),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              InkWell(
+                                                onTap: x.auto_add
+                                                    ? () async {
+                                                        //TODO: allow for finding item details
+                                                      }
+                                                    : null,
+                                                child: Text(x.item_name),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              switch (x.type) {
+                                                BookkeepingDirection.IN =>
+                                                  const Icon(
+                                                    Icons.arrow_downward,
+                                                    color: Colors.green,
+                                                  ),
+                                                BookkeepingDirection.OUT =>
+                                                  const Icon(
+                                                    Icons.arrow_upward,
+                                                    color: Colors.red,
+                                                  ),
+                                                BookkeepingDirection.NONE =>
+                                                  const Icon(
+                                                    Icons
+                                                        .mobiledata_off_rounded,
+                                                    color: Colors.blue,
+                                                  ),
+                                              },
+                                            ),
+                                            DataCell(
+                                              Text(
+                                                '${x.amount} ${context.loc.egp}'
+                                                    .toArabicNumber(context),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Icon(
+                                                x.auto_add
+                                                    ? Icons.check
+                                                    : Icons.close,
+                                                color: x.auto_add
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Text(x.added_by.email),
+                                            ),
+                                          ],
+                                        );
+                                      })
+                                    ],
+                                  ),
                                 ),
-                                headingRowColor: WidgetStatePropertyAll(
-                                  Colors.amber.shade50,
-                                ),
-                                columns: [
-                                  DataColumn(
-                                    label: Text(context.loc.number),
-                                  ),
-                                  DataColumn(
-                                    label: Text(context.loc.date),
-                                  ),
-                                  DataColumn(
-                                    label: Text(context.loc.operation),
-                                  ),
-                                  DataColumn(
-                                    label: Text(context.loc.bkType),
-                                  ),
-                                  DataColumn(
-                                    label: Text(context.loc.amount),
-                                  ),
-                                  DataColumn(
-                                    label: Text(context.loc.autoAdd),
-                                  ),
-                                  DataColumn(
-                                    label: Text(context.loc.addedBy),
-                                  ),
-                                ],
-                                rows: [
-                                  ..._items.map((x) {
-                                    final _index = _items.indexOf(x);
-                                    return DataRow(
-                                      cells: [
-                                        DataCell(
-                                          Text('${_index + 1}'
-                                              .toArabicNumber(context)),
-                                        ),
-                                        DataCell(
-                                          Text(
-                                            DateFormat('dd - MM - yyyy', l.lang)
-                                                .format(x.created),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          InkWell(
-                                            onTap: x.auto_add
-                                                ? () async {
-                                                    //TODO: allow for finding item details
-                                                  }
-                                                : null,
-                                            child: Text(x.item_name),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          switch (x.type) {
-                                            BookkeepingDirection.IN =>
-                                              const Icon(
-                                                Icons.arrow_downward,
-                                                color: Colors.green,
-                                              ),
-                                            BookkeepingDirection.OUT =>
-                                              const Icon(
-                                                Icons.arrow_upward,
-                                                color: Colors.red,
-                                              ),
-                                            BookkeepingDirection.NONE =>
-                                              const Icon(
-                                                Icons.mobiledata_off_rounded,
-                                                color: Colors.blue,
-                                              ),
-                                          },
-                                        ),
-                                        DataCell(
-                                          Text(
-                                            '${x.amount} ${context.loc.egp}'
-                                                .toArabicNumber(context),
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Icon(
-                                            x.auto_add
-                                                ? Icons.check
-                                                : Icons.close,
-                                            color: x.auto_add
-                                                ? Colors.green
-                                                : Colors.red,
-                                          ),
-                                        ),
-                                        DataCell(
-                                          Text(x.added_by.email),
-                                        ),
-                                      ],
-                                    );
-                                  })
-                                ],
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
