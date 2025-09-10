@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:allevia_one/models/app_constants/document_type.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/models/app_constants/account_type.dart';
@@ -13,6 +14,7 @@ import 'package:allevia_one/models/app_constants/visit_type.dart';
 class ConstantsApi {
   const ConstantsApi();
   static final _n = DateTime.now();
+  static const _perPage = 200;
 
   static const String account_types = 'account_types';
   static const String visit_status = 'visit_status';
@@ -20,6 +22,7 @@ class ConstantsApi {
   static const String subscription_plan = 'subscription_plans';
   static const String patient_progress_status = 'patient_progress_status';
   static const String app_permissions = 'app_permissions';
+  static const String document_type = 'document_type';
 
   static const String collection = 'constants';
   static String collectionSaveDate = 'constants_save_date';
@@ -28,7 +31,7 @@ class ConstantsApi {
   static final _boxSaveDate = Hive.box<String>(collectionSaveDate);
 
   Future<AppConstants> fetchConstants() async {
-    late AppConstants _constants;
+    AppConstants? _constants;
 
     await Hive.openBox<String>(collection);
     await Hive.openBox<String>(collectionSaveDate);
@@ -43,8 +46,15 @@ class ConstantsApi {
       }
     }
     if (_box.get(collection) != null && _box.isNotEmpty) {
-      _constants = AppConstants.fromJson((json.decode(_box.get(collection)!)));
-      return _constants;
+      try {
+        _constants =
+            AppConstants.fromJson((json.decode(_box.get(collection)!)));
+        return _constants;
+      } catch (e) {
+        //TODO:
+        print('Saved Constants Could Not Be Parsed.');
+        _constants = null;
+      }
     }
 
     late final List<AccountType> accountTypes;
@@ -53,26 +63,41 @@ class ConstantsApi {
     late final List<SubscriptionPlan> subscriptionPlan;
     late final List<PatientProgressStatus> patientProgressStatus;
     late final List<AppPermission> appPermission;
+    late final List<DocumentType> documentType;
 
     final _accountTypesRequest =
-        PocketbaseHelper.pb.collection(account_types).getList();
+        PocketbaseHelper.pb.collection(account_types).getList(
+              perPage: _perPage,
+            );
 
     final _visitStatusRequest =
-        PocketbaseHelper.pb.collection(visit_status).getList();
+        PocketbaseHelper.pb.collection(visit_status).getList(
+              perPage: _perPage,
+            );
 
     final _visitTypeRequest =
-        PocketbaseHelper.pb.collection(visit_type).getList();
+        PocketbaseHelper.pb.collection(visit_type).getList(
+              perPage: _perPage,
+            );
 
     final _subscriptionPlanRequest =
-        PocketbaseHelper.pb.collection(subscription_plan).getList();
+        PocketbaseHelper.pb.collection(subscription_plan).getList(
+              perPage: _perPage,
+            );
 
     final _patientProgressStatusRequest =
-        PocketbaseHelper.pb.collection(patient_progress_status).getList();
+        PocketbaseHelper.pb.collection(patient_progress_status).getList(
+              perPage: _perPage,
+            );
 
     final _appPermissionRequest =
         PocketbaseHelper.pb.collection(app_permissions).getList(
-              //TODO: CHANGE CONSTANT
-              perPage: 200,
+              perPage: _perPage,
+            );
+
+    final _documentTypeRequest =
+        PocketbaseHelper.pb.collection(document_type).getList(
+              perPage: _perPage,
             );
 
     final _result = await Future.wait([
@@ -82,6 +107,7 @@ class ConstantsApi {
       _subscriptionPlanRequest,
       _patientProgressStatusRequest,
       _appPermissionRequest,
+      _documentTypeRequest,
     ]);
 
     accountTypes =
@@ -107,6 +133,8 @@ class ConstantsApi {
         .items
         .map((e) => AppPermission.fromJson(e.toJson()))
         .toList();
+    documentType =
+        _result[6].items.map((e) => DocumentType.fromJson(e.toJson())).toList();
 
     _constants = AppConstants(
       accountTypes: accountTypes,
@@ -115,6 +143,7 @@ class ConstantsApi {
       subscriptionPlan: subscriptionPlan,
       patientProgressStatus: patientProgressStatus,
       appPermission: appPermission,
+      documentType: documentType,
     );
 
     await _box.put(collection, json.encode(_constants.toJson()));

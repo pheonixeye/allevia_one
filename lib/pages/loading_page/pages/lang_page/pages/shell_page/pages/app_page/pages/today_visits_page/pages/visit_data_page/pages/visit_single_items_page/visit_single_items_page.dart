@@ -1,8 +1,3 @@
-import 'package:allevia_one/core/api/patient_document_api.dart';
-import 'package:allevia_one/models/patient_document/document_type.dart';
-import 'package:allevia_one/models/patient_document/patient_document.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/pages/visit_single_items_page/widgets/image_source_dialog.dart';
-import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -21,7 +16,6 @@ import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class VisitSingleItemsPage<T extends DoctorItem> extends StatelessWidget {
@@ -70,115 +64,30 @@ class VisitSingleItemsPage<T extends DoctorItem> extends StatelessWidget {
               final _data = (v.result as ApiDataResult<VisitData>).data;
               return Column(
                 children: [
-                  ChangeNotifierProvider(
-                    create: (context) => PxPatientDocuments(
-                      api: PatientDocumentApi(
-                        patient_id: _data.patient.id,
-                      ),
-                    ),
-                    child: Builder(
-                      builder: (context) {
-                        return VisitDetailsPageInfoHeader(
-                          patient: (v.result as ApiDataResult<VisitData>)
-                              .data
-                              .patient,
-                          title: switch (setupItem) {
-                            ProfileSetupItem.labs => context.loc.visitLabs,
-                            ProfileSetupItem.rads => context.loc.visitRads,
-                            ProfileSetupItem.procedures =>
-                              context.loc.visitProcedures,
-                            ProfileSetupItem.supplies =>
-                              context.loc.visitSupplies,
-                            _ => '',
-                          },
-                          iconData: switch (setupItem) {
-                            ProfileSetupItem.labs => FontAwesomeIcons.droplet,
-                            ProfileSetupItem.rads => FontAwesomeIcons.radiation,
-                            ProfileSetupItem.procedures =>
-                              FontAwesomeIcons.userDoctor,
-                            ProfileSetupItem.supplies =>
-                              FontAwesomeIcons.warehouse,
-                            _ => Icons.vpn_key_rounded,
-                          },
-                          actionButton: switch (setupItem) {
-                            ProfileSetupItem.labs ||
-                            ProfileSetupItem.rads =>
-                              FloatingActionButton.small(
-                                tooltip: switch (setupItem) {
-                                  ProfileSetupItem.labs =>
-                                    context.loc.attachLabResult,
-                                  ProfileSetupItem.rads =>
-                                    context.loc.attachRadResult,
-                                  _ => ''
-                                },
-                                heroTag: '${setupItem.name}add-documents',
-                                onPressed: () async {
-                                  //TODO:
-
-                                  final _picker = ImagePicker();
-
-                                  final _imgSrc =
-                                      await showDialog<ImageSource?>(
-                                    context: context,
-                                    builder: (context) {
-                                      return ImageSourceDialog();
-                                    },
-                                  );
-
-                                  if (_imgSrc == null) {
-                                    return;
-                                  }
-
-                                  final _image =
-                                      await _picker.pickImage(source: _imgSrc);
-                                  if (_image == null) {
-                                    return;
-                                  }
-
-                                  final _filename = _image.name;
-
-                                  final _file_bytes =
-                                      await _image.readAsBytes();
-
-                                  final _document = PatientDocument(
-                                    id: '',
-                                    patient_id: _data.patient.id,
-                                    related_visit_id: _data.visit_id,
-                                    related_visit_data_id: _data.id,
-                                    document_type: switch (setupItem) {
-                                      ProfileSetupItem.labs =>
-                                        DocumentType.lab_res,
-                                      ProfileSetupItem.rads =>
-                                        DocumentType.rad_res,
-                                      _ => throw UnimplementedError(),
-                                    },
-                                    document: '',
-                                  );
-
-                                  if (context.mounted) {
-                                    await shellFunction(
-                                      context,
-                                      toExecute: () async {
-                                        await context
-                                            .read<PxPatientDocuments>()
-                                            .addPatientDocument(
-                                              _document,
-                                              _file_bytes,
-                                              _filename,
-                                            );
-                                      },
-                                    );
-                                  }
-                                },
-                                child: const Icon(Icons.upload_file),
-                              ),
-                            _ => null,
-                          },
-                        );
-                      },
-                    ),
-                    builder: (context, child) {
-                      return child ?? SizedBox();
+                  Builder(
+                    builder: (context) {
+                      return VisitDetailsPageInfoHeader(
+                        patient:
+                            (v.result as ApiDataResult<VisitData>).data.patient,
+                        title: switch (setupItem) {
+                          ProfileSetupItem.labs => context.loc.visitLabs,
+                          ProfileSetupItem.rads => context.loc.visitRads,
+                          ProfileSetupItem.procedures =>
+                            context.loc.visitProcedures,
+                          ProfileSetupItem.supplies =>
+                            context.loc.visitSupplies,
+                          _ => '',
+                        },
+                        iconData: switch (setupItem) {
+                          ProfileSetupItem.labs => FontAwesomeIcons.droplet,
+                          ProfileSetupItem.rads => FontAwesomeIcons.radiation,
+                          ProfileSetupItem.procedures =>
+                            FontAwesomeIcons.userDoctor,
+                          ProfileSetupItem.supplies =>
+                            FontAwesomeIcons.warehouse,
+                          _ => Icons.vpn_key_rounded,
+                        },
+                      );
                     },
                   ),
                   Card.outlined(
@@ -221,9 +130,7 @@ class VisitSingleItemsPage<T extends DoctorItem> extends StatelessWidget {
                   Expanded(
                     child: ChangeNotifierProvider(
                       create: (context) {
-                        final clinic_id = (v.result as ApiDataResult<VisitData>)
-                            .data
-                            .clinic_id;
+                        final clinic_id = _data.clinic_id;
                         return PxClinicInventory(
                           api: ClinicInventoryApi(
                             clinic_id: clinic_id,

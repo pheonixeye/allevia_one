@@ -13,6 +13,8 @@ class PatientDocumentApi {
 
   static const collection = 'patient__documents';
 
+  static const String _expand = 'document_type_id';
+
   Future<ApiResult<PatientDocument>> addPatientDocument(
     PatientDocument document,
     Uint8List file_bytes,
@@ -20,15 +22,16 @@ class PatientDocumentApi {
   ) async {
     try {
       final _result = await PocketbaseHelper.pb.collection(collection).create(
-        body: document.toJson(),
-        files: [
-          http.MultipartFile.fromBytes(
-            'document',
-            file_bytes,
-            filename: filename,
-          ),
-        ],
-      );
+            body: document.toJson(),
+            files: [
+              http.MultipartFile.fromBytes(
+                'document',
+                file_bytes,
+                filename: filename,
+              ),
+            ],
+            expand: _expand,
+          );
       final _patientDoc = PatientDocument.fromJson(_result.toJson());
 
       return ApiDataResult<PatientDocument>(data: _patientDoc);
@@ -45,6 +48,7 @@ class PatientDocumentApi {
       final _result =
           await PocketbaseHelper.pb.collection(collection).getFullList(
                 filter: "patient_id = '$patient_id'",
+                expand: _expand,
               );
 
       final _docs =

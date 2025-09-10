@@ -348,7 +348,10 @@
     "noVisitsFoundForThisPatient": "لم يتم العثور علي زيارات سابقة لهذا المريض",
     "changePassword": "تغيير كلمة السر",
     "patientDocuments": "مستندات المريض",
-    "pickImageSource": "اختر ملف او تصوير",
     "camera": "تصوير",
-    "file": "ملف"
+    "file": "ملف",
+    "attachDocument": "الحاق مستند",
+    "pickImageSourceAndDocumentType": "اختر نوع و مكان المستند",
+    "pickImageSource": "اختر ملف او تصوير",
+    "pickDocumentType": "اختر نوع المستند"
 }

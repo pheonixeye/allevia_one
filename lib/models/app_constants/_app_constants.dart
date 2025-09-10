@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/app_constants/document_type.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:allevia_one/models/app_constants/account_type.dart';
@@ -14,6 +15,7 @@ class AppConstants extends Equatable {
   final List<SubscriptionPlan> subscriptionPlan;
   final List<PatientProgressStatus> patientProgressStatus;
   final List<AppPermission> appPermission;
+  final List<DocumentType> documentType;
 
   const AppConstants({
     required this.accountTypes,
@@ -22,6 +24,7 @@ class AppConstants extends Equatable {
     required this.subscriptionPlan,
     required this.patientProgressStatus,
     required this.appPermission,
+    required this.documentType,
   });
 
   AppConstants copyWith({
@@ -31,6 +34,7 @@ class AppConstants extends Equatable {
     List<SubscriptionPlan>? subscriptionPlan,
     List<PatientProgressStatus>? patientProgressStatus,
     List<AppPermission>? appPermission,
+    List<DocumentType>? documentType,
   }) {
     return AppConstants(
       accountTypes: accountTypes ?? this.accountTypes,
@@ -40,6 +44,7 @@ class AppConstants extends Equatable {
       patientProgressStatus:
           patientProgressStatus ?? this.patientProgressStatus,
       appPermission: appPermission ?? this.appPermission,
+      documentType: documentType ?? this.documentType,
     );
   }
 
@@ -52,6 +57,7 @@ class AppConstants extends Equatable {
       'patientProgressStatus':
           patientProgressStatus.map((x) => x.toJson()).toList(),
       'appPermission': appPermission.map((x) => x.toJson()).toList(),
+      'documentType': documentType.map((x) => x.toJson()).toList(),
     };
   }
 
@@ -88,6 +94,11 @@ class AppConstants extends Equatable {
           (x) => AppPermission.fromJson(x as Map<String, dynamic>),
         ),
       ),
+      documentType: List<DocumentType>.from(
+        (map['documentType'] as List<dynamic>).map<DocumentType>(
+          (x) => DocumentType.fromJson(x as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 
@@ -102,5 +113,6 @@ class AppConstants extends Equatable {
         subscriptionPlan,
         patientProgressStatus,
         appPermission,
+        documentType,
       ];
 }

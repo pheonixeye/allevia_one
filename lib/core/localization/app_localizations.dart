@@ -2012,12 +2012,6 @@ abstract class AppLocalizations {
   /// **'Patient Documents'**
   String get patientDocuments;
 
-  /// No description provided for @pickImageSource.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick Image Source'**
-  String get pickImageSource;
-
   /// No description provided for @camera.
   ///
   /// In en, this message translates to:
@@ -2029,6 +2023,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'File'**
   String get file;
+
+  /// No description provided for @attachDocument.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach Document'**
+  String get attachDocument;
+
+  /// No description provided for @pickImageSourceAndDocumentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Image Source And Document Type'**
+  String get pickImageSourceAndDocumentType;
+
+  /// No description provided for @pickImageSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Image Source'**
+  String get pickImageSource;
+
+  /// No description provided for @pickDocumentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Document Type'**
+  String get pickDocumentType;
 }
 
 class _AppLocalizationsDelegate

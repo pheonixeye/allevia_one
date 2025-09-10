@@ -1,4 +1,3 @@
-import 'package:allevia_one/models/patient_document/document_type.dart';
 import 'package:equatable/equatable.dart';
 
 class PatientDocument extends Equatable {
@@ -6,7 +5,7 @@ class PatientDocument extends Equatable {
   final String patient_id;
   final String related_visit_id;
   final String related_visit_data_id;
-  final DocumentType document_type;
+  final String document_type_id;
   final String document;
 
   const PatientDocument({
@@ -14,7 +13,7 @@ class PatientDocument extends Equatable {
     required this.patient_id,
     required this.related_visit_id,
     required this.related_visit_data_id,
-    required this.document_type,
+    required this.document_type_id,
     required this.document,
   });
 
@@ -23,7 +22,7 @@ class PatientDocument extends Equatable {
     String? patient_id,
     String? related_visit_id,
     String? related_visit_data_id,
-    DocumentType? document_type,
+    String? document_type_id,
     String? document,
   }) {
     return PatientDocument(
@@ -32,7 +31,7 @@ class PatientDocument extends Equatable {
       related_visit_id: related_visit_id ?? this.related_visit_id,
       related_visit_data_id:
           related_visit_data_id ?? this.related_visit_data_id,
-      document_type: document_type ?? this.document_type,
+      document_type_id: document_type_id ?? this.document_type_id,
       document: document ?? this.document,
     );
   }
@@ -43,7 +42,7 @@ class PatientDocument extends Equatable {
       'patient_id': patient_id,
       'related_visit_id': related_visit_id,
       'related_visit_data_id': related_visit_data_id,
-      'document_type': document_type.name,
+      'document_type_id': document_type_id,
       'document': document,
     };
   }
@@ -54,7 +53,7 @@ class PatientDocument extends Equatable {
       patient_id: map['patient_id'] as String,
       related_visit_id: map['related_visit_id'] as String,
       related_visit_data_id: map['related_visit_data_id'] as String,
-      document_type: DocumentType.fromString(map['document_type'] as String),
+      document_type_id: map['document_type_id'] as String,
       document: map['document'] as String,
     );
   }
@@ -69,7 +68,7 @@ class PatientDocument extends Equatable {
       patient_id,
       related_visit_id,
       related_visit_data_id,
-      document_type,
+      document_type_id,
       document,
     ];
   }

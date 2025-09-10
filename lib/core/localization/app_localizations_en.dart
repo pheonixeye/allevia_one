@@ -999,11 +999,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get patientDocuments => 'Patient Documents';
 
   @override
-  String get pickImageSource => 'Pick Image Source';
-
-  @override
   String get camera => 'Camera';
 
   @override
   String get file => 'File';
+
+  @override
+  String get attachDocument => 'Attach Document';
+
+  @override
+  String get pickImageSourceAndDocumentType =>
+      'Pick Image Source And Document Type';
+
+  @override
+  String get pickImageSource => 'Pick Image Source';
+
+  @override
+  String get pickDocumentType => 'Pick Document Type';
 }

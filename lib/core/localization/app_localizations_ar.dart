@@ -999,11 +999,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get patientDocuments => 'مستندات المريض';
 
   @override
-  String get pickImageSource => 'اختر ملف او تصوير';
-
-  @override
   String get camera => 'تصوير';
 
   @override
   String get file => 'ملف';
+
+  @override
+  String get attachDocument => 'الحاق مستند';
+
+  @override
+  String get pickImageSourceAndDocumentType => 'اختر نوع و مكان المستند';
+
+  @override
+  String get pickImageSource => 'اختر ملف او تصوير';
+
+  @override
+  String get pickDocumentType => 'اختر نوع المستند';
 }
