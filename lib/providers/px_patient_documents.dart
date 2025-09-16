@@ -16,9 +16,23 @@ class PxPatientDocuments extends ChangeNotifier {
   ApiResult<List<ExpandedPatientDocument>>? _documents;
   ApiResult<List<ExpandedPatientDocument>>? get documents => _documents;
 
+  List<ExpandedPatientDocument>? _filteredDocuments;
+  // List<ExpandedPatientDocument>? get filteredDocuments => _filteredDocuments;
+
+  Map<DateTime, List<ExpandedPatientDocument>>? _groupedDocuments;
+  Map<DateTime, List<ExpandedPatientDocument>>? get groupedDocuments =>
+      _groupedDocuments;
+
   Future<void> _init() async {
     _documents = await api.fetchPatientDocuments();
     notifyListeners();
+    try {
+      _filteredDocuments =
+          (_documents as ApiDataResult<List<ExpandedPatientDocument>>).data;
+      notifyListeners();
+    } catch (e) {
+      //TODO: handle
+    }
   }
 
   Future<void> retry() async => await _init();
@@ -34,5 +48,28 @@ class PxPatientDocuments extends ChangeNotifier {
       filename,
     );
     await _init();
+  }
+
+  void filterAndGroup(String documentTypeId) {
+    _filteredDocuments =
+        (_documents as ApiDataResult<List<ExpandedPatientDocument>>)
+            .data
+            .where((e) {
+      return e.documentType.id == documentTypeId;
+    }).toList();
+    _groupedDocuments = Map.fromEntries(_filteredDocuments!.map((doc) {
+      //TODO: check grouping implementation
+      final date = doc.created;
+      final key = DateTime(date.year, date.month, date.day);
+      return MapEntry(key, [
+        ..._filteredDocuments!.where((e) {
+          final _date1 = DateTime(date.year, date.month, date.day);
+          final _date2 =
+              DateTime(e.created.year, e.created.month, e.created.day);
+          return _date1.isAtSameMomentAs(_date2);
+        })
+      ]);
+    }));
+    notifyListeners();
   }
 }

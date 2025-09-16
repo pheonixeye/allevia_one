@@ -58,6 +58,8 @@ enum PermissionEnum {
   User_Patient_Whatsapp, //done
   User_Patient_Email, //done
   User_Patient_Forms, //done
+  User_Patient_AddDocument,
+  User_Patient_ViewDocuments,
   User_Visits_Read, //done
   User_Bookkeeping_Read, //done
   User_Bookkeeping_Add, //done

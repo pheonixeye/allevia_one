@@ -1,13 +1,19 @@
+import 'package:allevia_one/core/api/patient_document_api.dart';
 import 'package:allevia_one/core/api/patient_previous_visits_api.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/models/patient_document/patient_document.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/previous_visits_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/image_source_and_document_type_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/patient_documents_view_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/providers/px_patient_previous_visits.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/forms_api.dart';
 import 'package:allevia_one/core/api/patient_forms_api.dart';
@@ -460,6 +466,125 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                                 },
                               );
                             },
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              spacing: 8,
+                              children: [
+                                const Icon(Icons.document_scanner),
+                                Text(context.loc.patientDocuments),
+                              ],
+                            ),
+                            onTap: () async {
+                              //@permission
+                              final _perm = context
+                                  .read<PxAuth>()
+                                  .isActionPermitted(
+                                    PermissionEnum.User_Patient_ViewDocuments,
+                                    context,
+                                  );
+                              if (!_perm.isAllowed) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return NotPermittedDialog(
+                                      permission: _perm.permission,
+                                    );
+                                  },
+                                );
+                                return;
+                              }
+                              await showDialog<void>(
+                                context: context,
+                                builder: (context) {
+                                  return ChangeNotifierProvider.value(
+                                    key: ValueKey(widget.patient),
+                                    value: PxPatientDocuments(
+                                      api: PatientDocumentApi(
+                                        patient_id: widget.patient.id,
+                                      ),
+                                    ),
+                                    child: PatientDocumentsViewDialog(),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          PopupMenuItem(
+                            onTap: () async {
+                              //@permission
+                              final _perm =
+                                  context.read<PxAuth>().isActionPermitted(
+                                        PermissionEnum.User_Patient_AddDocument,
+                                        context,
+                                      );
+                              if (!_perm.isAllowed) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return NotPermittedDialog(
+                                      permission: _perm.permission,
+                                    );
+                                  },
+                                );
+                                return;
+                              }
+                              final _picker = ImagePicker();
+
+                              final _imgSrcDocType = await showDialog<
+                                  ImageSourceAndDocumentTypeId?>(
+                                context: context,
+                                builder: (context) {
+                                  return ImageSourceAndDocumentTypeDialog();
+                                },
+                              );
+
+                              if (_imgSrcDocType == null) {
+                                return;
+                              }
+
+                              final _image = await _picker.pickImage(
+                                  source: _imgSrcDocType.imageSource);
+                              if (_image == null) {
+                                return;
+                              }
+
+                              final _filename = _image.name;
+
+                              final _file_bytes = await _image.readAsBytes();
+
+                              final _document = PatientDocument(
+                                id: '',
+                                patient_id: widget.patient.id,
+                                related_visit_id: '',
+                                related_visit_data_id: '',
+                                document_type_id:
+                                    _imgSrcDocType.document_type_id,
+                                document: '',
+                              );
+
+                              if (context.mounted) {
+                                await shellFunction(
+                                  context,
+                                  toExecute: () async {
+                                    await context
+                                        .read<PxPatientDocuments>()
+                                        .addPatientDocument(
+                                          _document,
+                                          _file_bytes,
+                                          _filename,
+                                        );
+                                  },
+                                );
+                              }
+                            },
+                            child: Row(
+                              spacing: 8,
+                              children: [
+                                const Icon(Icons.upload_file),
+                                Text(context.loc.attachDocument),
+                              ],
+                            ),
                           ),
                         ];
                       },

@@ -1,3 +1,4 @@
+import 'package:allevia_one/constants/app_business_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/assets/assets.dart';
@@ -32,8 +33,24 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                   height: 40,
                 ),
                 const SizedBox(width: 20),
-                const Text(
-                  "Allevia-One",
+                const Text.rich(
+                  TextSpan(
+                    text: "Allevia-One",
+                    children: [
+                      TextSpan(
+                        text: '\n',
+                        style: TextStyle(
+                          fontSize: 8,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'v${AppBusinessConstants.ALLEVIA_VERSION}',
+                        style: TextStyle(
+                          fontSize: 8,
+                        ),
+                      ),
+                    ],
+                  ),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,

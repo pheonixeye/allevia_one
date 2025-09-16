@@ -1,5 +1,7 @@
+import 'package:allevia_one/core/api/patient_document_api.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -96,9 +98,17 @@ class PatientsPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item =
                               (p.data! as PatientDataResult).data[index];
-                          return PatientInfoCard(
-                            patient: item,
-                            index: index,
+                          return ChangeNotifierProvider.value(
+                            key: ValueKey(item),
+                            value: PxPatientDocuments(
+                              api: PatientDocumentApi(
+                                patient_id: item.id,
+                              ),
+                            ),
+                            child: PatientInfoCard(
+                              patient: item,
+                              index: index,
+                            ),
                           );
                         },
                       );
