@@ -353,5 +353,6 @@
     "attachDocument": "الحاق مستند",
     "pickImageSourceAndDocumentType": "اختر نوع و مكان المستند",
     "pickImageSource": "اختر ملف او تصوير",
-    "pickDocumentType": "اختر نوع المستند"
+    "pickDocumentType": "اختر نوع المستند",
+    "refresh" : "تحديث"
 }

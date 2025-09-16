@@ -7,7 +7,6 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/widgets/scan_patient_qr_dialog.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
-import 'package:allevia_one/theme/app_theme.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
@@ -186,12 +185,52 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
             // Flaoting Action button Icon
             // iconData: Icons.settings,
             animatedIconData: AnimatedIcons.menu_arrow,
-            backGroundColor: AppTheme.secondaryOrangeColor,
+            backGroundColor:
+                Theme.of(context).floatingActionButtonTheme.backgroundColor!,
             items: [
+              Bubble(
+                title: context.loc.refresh,
+                iconColor: Colors.white,
+                bubbleColor: Theme.of(context)
+                    .floatingActionButtonTheme
+                    .backgroundColor!,
+                icon: Icons.refresh,
+                titleStyle: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+                onPress: () async {
+                  _animationController.reverse();
+                  //@permission
+                  final _perm = context.read<PxAuth>().isActionPermitted(
+                        PermissionEnum.User_TodayVisits_Read,
+                        context,
+                      );
+                  if (!_perm.isAllowed) {
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return NotPermittedDialog(
+                          permission: _perm.permission,
+                        );
+                      },
+                    );
+                    return;
+                  }
+                  await shellFunction(
+                    context,
+                    toExecute: () async {
+                      await v.retry();
+                    },
+                  );
+                },
+              ),
               Bubble(
                 title: context.loc.addNewVisit,
                 iconColor: Colors.white,
-                bubbleColor: AppTheme.secondaryOrangeColor,
+                bubbleColor: Theme.of(context)
+                    .floatingActionButtonTheme
+                    .backgroundColor!,
                 icon: Icons.add,
                 titleStyle: TextStyle(
                   fontSize: 16,
@@ -224,7 +263,9 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
               Bubble(
                 title: context.loc.scanQrCode,
                 iconColor: Colors.white,
-                bubbleColor: AppTheme.secondaryOrangeColor,
+                bubbleColor: Theme.of(context)
+                    .floatingActionButtonTheme
+                    .backgroundColor!,
                 icon: Icons.qr_code,
                 titleStyle: TextStyle(
                   fontSize: 16,

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/errors/code_to_error.dart';
+import 'package:allevia_one/models/patient_document/expanded_patient_document.dart';
 import 'package:allevia_one/models/patient_document/patient_document.dart';
 import 'package:http/http.dart' as http;
 import 'package:pocketbase/pocketbase.dart';
@@ -13,9 +14,33 @@ class PatientDocumentApi {
 
   static const collection = 'patient__documents';
 
-  static const String _expand = 'document_type_id';
+  static const _expandList = [
+    'patient_id',
+    'document_type_id',
+    'related_visit_id',
+    'related_visit_id.patient_id',
+    'related_visit_id.clinic_id',
+    'related_visit_id.added_by_id',
+    'related_visit_id.added_by_id.account_type_id',
+    'related_visit_id.added_by_id.app_permissions_ids',
+    'related_visit_id.visit_status_id',
+    'related_visit_id.visit_type_id',
+    'related_visit_id.patient_progress_status_id',
+    'related_visit_id.doc_id',
+    'related_visit_id.doc_id.speciality_id',
+    'related_visit_data_id',
+    'related_visit_data_id.patient_id',
+    'related_visit_data_id.labs_ids',
+    'related_visit_data_id.rads_ids',
+    'related_visit_data_id.procedures_ids',
+    'related_visit_data_id.drugs_ids',
+    'related_visit_data_id.supplies_ids',
+    'related_visit_data_id.form_data_ids',
+    'related_visit_data_id.form_data_ids.form_id',
+  ];
+  static final String _expand = _expandList.join(',');
 
-  Future<ApiResult<PatientDocument>> addPatientDocument(
+  Future<ApiResult<ExpandedPatientDocument>> addPatientDocument(
     PatientDocument document,
     Uint8List file_bytes,
     String filename,
@@ -32,18 +57,19 @@ class PatientDocumentApi {
             ],
             expand: _expand,
           );
-      final _patientDoc = PatientDocument.fromJson(_result.toJson());
+      final _patientDoc = ExpandedPatientDocument.fromRecordModel(_result);
 
-      return ApiDataResult<PatientDocument>(data: _patientDoc);
+      return ApiDataResult<ExpandedPatientDocument>(data: _patientDoc);
     } on ClientException catch (e) {
-      return ApiErrorResult<PatientDocument>(
+      return ApiErrorResult<ExpandedPatientDocument>(
         errorCode: AppErrorCode.clientException.code,
         originalErrorMessage: e.toString(),
       );
     }
   }
 
-  Future<ApiResult<List<PatientDocument>>> fetchPatientDocuments() async {
+  Future<ApiResult<List<ExpandedPatientDocument>>>
+      fetchPatientDocuments() async {
     try {
       final _result =
           await PocketbaseHelper.pb.collection(collection).getFullList(
@@ -51,12 +77,13 @@ class PatientDocumentApi {
                 expand: _expand,
               );
 
-      final _docs =
-          _result.map((e) => PatientDocument.fromJson(e.toJson())).toList();
+      final _docs = _result
+          .map((e) => ExpandedPatientDocument.fromRecordModel(e))
+          .toList();
 
-      return ApiDataResult<List<PatientDocument>>(data: _docs);
+      return ApiDataResult<List<ExpandedPatientDocument>>(data: _docs);
     } on ClientException catch (e) {
-      return ApiErrorResult<List<PatientDocument>>(
+      return ApiErrorResult<List<ExpandedPatientDocument>>(
         errorCode: AppErrorCode.clientException.code,
         originalErrorMessage: e.toString(),
       );

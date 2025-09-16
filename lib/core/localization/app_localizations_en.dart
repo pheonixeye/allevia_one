@@ -1016,4 +1016,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pickDocumentType => 'Pick Document Type';
+
+  @override
+  String get refresh => 'Refresh';
 }

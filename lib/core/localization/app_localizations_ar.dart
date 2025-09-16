@@ -1015,4 +1015,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pickDocumentType => 'اختر نوع المستند';
+
+  @override
+  String get refresh => 'تحديث';
 }

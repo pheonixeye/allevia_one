@@ -4,6 +4,7 @@ import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/patient_document/patient_document.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/image_source_and_document_type_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/detailed_previous_patient_visits_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/patient_documents_view_dialog.dart';
 import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/providers/px_patient_previous_visits.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +109,19 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
                         ),
                         onTap: () async {
                           //TODO: show previous patient Documents
+                          await showDialog<void>(
+                            context: context,
+                            builder: (context) {
+                              return ChangeNotifierProvider.value(
+                                value: PxPatientDocuments(
+                                  api: PatientDocumentApi(
+                                    patient_id: patient.id,
+                                  ),
+                                ),
+                                child: PatientDocumentsViewDialog(),
+                              );
+                            },
+                          );
                         },
                       ),
                       PopupMenuItem(

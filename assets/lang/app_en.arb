@@ -354,5 +354,6 @@
     "attachDocument": "Attach Document",
     "pickImageSourceAndDocumentType": "Pick Image Source And Document Type",
     "pickImageSource": "Pick Image Source",
-    "pickDocumentType": "Pick Document Type"
+    "pickDocumentType": "Pick Document Type",
+    "refresh" : "Refresh"
 }
