@@ -355,5 +355,7 @@
     "pickImageSourceAndDocumentType": "Pick Image Source And Document Type",
     "pickImageSource": "Pick Image Source",
     "pickDocumentType": "Pick Document Type",
-    "refresh" : "Refresh"
+    "refresh": "Refresh",
+    "visitsCalender": "Visits Calender",
+    "selectMonth": "Select Month"
 }

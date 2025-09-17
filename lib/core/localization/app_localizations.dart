@@ -2053,6 +2053,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Refresh'**
   String get refresh;
+
+  /// No description provided for @visitsCalender.
+  ///
+  /// In en, this message translates to:
+  /// **'Visits Calender'**
+  String get visitsCalender;
+
+  /// No description provided for @selectMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Month'**
+  String get selectMonth;
 }
 
 class _AppLocalizationsDelegate

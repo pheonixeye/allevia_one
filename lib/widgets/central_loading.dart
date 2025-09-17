@@ -33,14 +33,16 @@ class CentralLoading extends StatelessWidget {
               ],
             ),
             alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CoreCentralLoading(),
-                const SizedBox(height: 10),
-                Text(context.loc.loading)
-              ],
+            child: Material(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CoreCentralLoading(),
+                  const SizedBox(height: 10),
+                  Text(context.loc.loading)
+                ],
+              ),
             ),
           ),
         );

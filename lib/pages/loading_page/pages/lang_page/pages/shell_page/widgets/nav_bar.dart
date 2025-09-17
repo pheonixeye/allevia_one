@@ -1,4 +1,6 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
+import 'package:allevia_one/extensions/loc_ext.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/widgets/monthly_visits_calendar_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/assets/assets.dart';
@@ -57,6 +59,34 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const Spacer(),
+                IconButton.outlined(
+                  tooltip: context.loc.visitsCalender,
+                  style: IconButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    side: const BorderSide(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    await showGeneralDialog<void>(
+                      context: context,
+                      pageBuilder: (context, a1, a2) {
+                        return MonthlyVisitsCalendarDialog();
+                      },
+                      anchorPoint: Offset(100, 100),
+                      transitionDuration: const Duration(milliseconds: 600),
+                      transitionBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return ScaleTransition(
+                          alignment: Alignment.topLeft,
+                          scale: animation,
+                          child: child,
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.calendar_month),
+                ),
+                const SizedBox(width: 10),
               ],
             ),
           ),

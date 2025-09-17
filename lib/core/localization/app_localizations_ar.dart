@@ -1018,4 +1018,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get refresh => 'تحديث';
+
+  @override
+  String get visitsCalender => 'نتيجة الزيارات';
+
+  @override
+  String get selectMonth => 'اختر الشهر';
 }

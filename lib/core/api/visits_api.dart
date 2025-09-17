@@ -117,7 +117,42 @@ class VisitsApi {
     await BookkeepingApi().addBookkeepingItem(_item);
   }
 
-  // Future<UnsubscribeFunc> todayVisitsSubscription(
+  Future<ApiResult<List<Visit>>> fetctVisitsOfOneMonth({
+    required int month,
+    required int year,
+  }) async {
+    final _month_date = DateTime(year, month, 1);
+    final _month_plus_date = DateTime(year, month + 1, 1);
+
+    final _formatted_month_date =
+        DateFormat('yyyy-MM-dd', 'en').format(_month_date);
+    final _formatted_month_plus_date =
+        DateFormat('yyyy-MM-dd', 'en').format(_month_plus_date);
+
+    try {
+      final _result =
+          await PocketbaseHelper.pb.collection(collection).getFullList(
+                filter:
+                    "visit_date >= '$_formatted_month_date' && visit_date <= '$_formatted_month_plus_date'",
+                expand: _expand,
+              );
+
+      final _visits = _result.map((e) {
+        return Visit.fromRecordModel(e);
+      }).toList();
+
+      return ApiDataResult<List<Visit>>(data: _visits);
+    } on ClientException catch (e) {
+      return ApiErrorResult(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+}
+
+
+// Future<UnsubscribeFunc> todayVisitsSubscription(
   //   void Function(RecordSubscriptionEvent) callback,
   // ) async {
   //   final visit_date = _now;
@@ -140,4 +175,3 @@ class VisitsApi {
   //       );
   //   return sub;
   // }
-}

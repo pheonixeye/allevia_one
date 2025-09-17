@@ -11,6 +11,7 @@ class PxVisits extends ChangeNotifier {
 
   PxVisits({required this.api}) {
     _fetchVisitsOfToday();
+    fetchVisitsOfOneMonth();
   }
 
   ApiResult<List<Visit>>? _visits;
@@ -102,5 +103,24 @@ class PxVisits extends ChangeNotifier {
   }) async {
     await api.updateVisit(visit, key, value);
     await _fetchVisitsOfToday();
+  }
+
+  ApiResult<List<Visit>>? _monthlyVisits;
+  ApiResult<List<Visit>>? get monthlyVisits => _monthlyVisits;
+
+  DateTime _nowMonth = DateTime.now().copyWith(day: 1);
+  DateTime get nowMonth => _nowMonth;
+
+  Future<void> fetchVisitsOfOneMonth({
+    int? month,
+    int? year,
+  }) async {
+    _nowMonth = _nowMonth.copyWith(month: month, year: year);
+    notifyListeners();
+    _monthlyVisits = await api.fetctVisitsOfOneMonth(
+      month: _nowMonth.month,
+      year: _nowMonth.year,
+    );
+    notifyListeners();
   }
 }

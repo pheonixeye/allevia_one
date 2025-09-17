@@ -57,8 +57,9 @@ class PxPatientDocuments extends ChangeNotifier {
             .where((e) {
       return e.documentType.id == documentTypeId;
     }).toList();
+    _filteredDocuments?.sort((a, b) => b.created.compareTo(a.created));
     _groupedDocuments = Map.fromEntries(_filteredDocuments!.map((doc) {
-      //TODO: check grouping implementation
+      //todo: check grouping implementation
       final date = doc.created;
       final key = DateTime(date.year, date.month, date.day);
       return MapEntry(key, [
@@ -70,6 +71,7 @@ class PxPatientDocuments extends ChangeNotifier {
         })
       ]);
     }));
+
     notifyListeners();
   }
 }
