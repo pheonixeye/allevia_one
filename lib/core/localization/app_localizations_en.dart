@@ -1025,4 +1025,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectMonth => 'Select Month';
+
+  @override
+  String get printReciept => 'Print Reciept';
 }

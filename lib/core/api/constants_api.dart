@@ -33,29 +33,29 @@ class ConstantsApi {
   Future<AppConstants> fetchConstants() async {
     AppConstants? _constants;
 
-    await Hive.openBox<String>(collection);
-    await Hive.openBox<String>(collectionSaveDate);
+    // await Hive.openBox<String>(collection);
+    // await Hive.openBox<String>(collectionSaveDate);
 
-    if (_boxSaveDate.get(collectionSaveDate) != null &&
-        _boxSaveDate.isNotEmpty) {
-      final _saveDate = DateTime.parse(_boxSaveDate.get(collectionSaveDate)!);
-      if (_saveDate.add(const Duration(days: 7)).isAfter(_n)) {
-        _box.clear();
-        await _boxSaveDate.put(collectionSaveDate,
-            DateTime(_n.year, _n.month, _n.day).toIso8601String());
-      }
-    }
-    if (_box.get(collection) != null && _box.isNotEmpty) {
-      try {
-        _constants =
-            AppConstants.fromJson((json.decode(_box.get(collection)!)));
-        return _constants;
-      } catch (e) {
-        //TODO:
-        print('Saved Constants Could Not Be Parsed.');
-        _constants = null;
-      }
-    }
+    // if (_boxSaveDate.get(collectionSaveDate) != null &&
+    //     _boxSaveDate.isNotEmpty) {
+    //   final _saveDate = DateTime.parse(_boxSaveDate.get(collectionSaveDate)!);
+    //   if (_saveDate.add(const Duration(days: 7)).isAfter(_n)) {
+    //     _box.clear();
+    //     await _boxSaveDate.put(collectionSaveDate,
+    //         DateTime(_n.year, _n.month, _n.day).toIso8601String());
+    //   }
+    // }
+    // if (_box.get(collection) != null && _box.isNotEmpty) {
+    //   try {
+    //     _constants =
+    //         AppConstants.fromJson((json.decode(_box.get(collection)!)));
+    //     return _constants;
+    //   } catch (e) {
+    //     //TODO:
+    //     print('Saved Constants Could Not Be Parsed.');
+    //     _constants = null;
+    //   }
+    // }
 
     late final List<AccountType> accountTypes;
     late final List<VisitStatus> visitStatus;
@@ -146,9 +146,9 @@ class ConstantsApi {
       documentType: documentType,
     );
 
-    await _box.put(collection, json.encode(_constants.toJson()));
-    await _boxSaveDate.put(collectionSaveDate,
-        DateTime(_n.year, _n.month, _n.day).toIso8601String());
+    // await _box.put(collection, json.encode(_constants.toJson()));
+    // await _boxSaveDate.put(collectionSaveDate,
+    //     DateTime(_n.year, _n.month, _n.day).toIso8601String());
 
     return _constants;
   }

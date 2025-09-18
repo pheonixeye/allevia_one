@@ -7,7 +7,8 @@ import 'package:allevia_one/models/bookkeeping/bookkeeping_item.dart';
 import 'package:allevia_one/models/bookkeeping/bookkeeping_item_dto.dart';
 
 class BookkeepingApi {
-  BookkeepingApi();
+  BookkeepingApi({this.visit_id});
+  final String? visit_id;
 
   late final String collection = 'bookkeeping';
 
@@ -38,6 +39,7 @@ class BookkeepingApi {
             filter: "created >= '$formattedFrom' && created <= '$formattedTo'",
             sort: '-created',
             expand: _expand,
+            //TODO: CHANGE CONSTANT
             batch: 5000,
           );
 
@@ -65,6 +67,28 @@ class BookkeepingApi {
           await PocketbaseHelper.pb.collection(collection).getFullList(
                 filter: 'created >= $formattedFrom && created <= $formattedTo',
                 sort: 'created-',
+              );
+
+      final _items = _response
+          .map((e) => BookkeepingItemDto.fromJson(e.toJson()))
+          .toList();
+
+      return ApiDataResult<List<BookkeepingItemDto>>(data: _items);
+    } on ClientException catch (e) {
+      return ApiErrorResult<List<BookkeepingItemDto>>(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<ApiResult<List<BookkeepingItemDto>>>
+      fetchBookkeepingOfOneVisit() async {
+    try {
+      final _response =
+          await PocketbaseHelper.pb.collection(collection).getFullList(
+                filter: "item_id = '$visit_id' && amount != 0",
+                sort: 'created',
               );
 
       final _items = _response

@@ -1,5 +1,8 @@
+import 'package:allevia_one/core/api/bookkeeping_api.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/reciept_prepare_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -153,37 +156,77 @@ class _VisitsPageState extends State<VisitsPage> {
                                             ),
                                             DataCell(
                                               Center(
-                                                child: InkWell(
-                                                  hoverColor:
-                                                      Colors.amber.shade50,
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  onTap: () async {
-                                                    //todo: Go to visit Data View Dialog
-                                                    await showDialog<void>(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return ChangeNotifierProvider(
-                                                          create: (context) =>
-                                                              PxVisitData(
-                                                            api: VisitDataApi(
-                                                              visit_id: x.id,
-                                                            ),
-                                                          ),
-                                                          child:
-                                                              VisitDataViewDialog(
-                                                            visit: x,
-                                                          ),
+                                                child: Row(
+                                                  children: [
+                                                    InkWell(
+                                                      hoverColor:
+                                                          Colors.amber.shade50,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                      onTap: () async {
+                                                        //todo: Go to visit Data View Dialog
+                                                        await showDialog<void>(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return ChangeNotifierProvider(
+                                                              create: (context) =>
+                                                                  PxVisitData(
+                                                                api:
+                                                                    VisitDataApi(
+                                                                  visit_id:
+                                                                      x.id,
+                                                                ),
+                                                              ),
+                                                              child:
+                                                                  VisitDataViewDialog(
+                                                                visit: x,
+                                                              ),
+                                                            );
+                                                          },
                                                         );
                                                       },
-                                                    );
-                                                  },
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(x.patient.name),
-                                                  ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                            x.patient.name),
+                                                      ),
+                                                    ),
+                                                    const Spacer(),
+                                                    FloatingActionButton.small(
+                                                      tooltip: context
+                                                          .loc.printReciept,
+                                                      key: UniqueKey(),
+                                                      onPressed: () async {
+                                                        await showDialog<void>(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return ChangeNotifierProvider
+                                                                .value(
+                                                              value:
+                                                                  PxOneVisitBookkeeping(
+                                                                api:
+                                                                    BookkeepingApi(
+                                                                  visit_id:
+                                                                      x.id,
+                                                                ),
+                                                              ),
+                                                              child:
+                                                                  RecieptPrepareDialog(
+                                                                visit: x,
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.receipt_long,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
                                                 ),
                                               ),
                                             ),

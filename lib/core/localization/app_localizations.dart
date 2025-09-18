@@ -2065,6 +2065,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Month'**
   String get selectMonth;
+
+  /// No description provided for @printReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Print Reciept'**
+  String get printReciept;
 }
 
 class _AppLocalizationsDelegate

@@ -1024,4 +1024,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectMonth => 'اختر الشهر';
+
+  @override
+  String get printReciept => 'طباعة ايصال';
 }

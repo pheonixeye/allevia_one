@@ -356,5 +356,6 @@
     "pickDocumentType": "اختر نوع المستند",
     "refresh": "تحديث",
     "visitsCalender": "نتيجة الزيارات",
-    "selectMonth": "اختر الشهر"
+    "selectMonth": "اختر الشهر",
+    "printReciept": "طباعة ايصال"
 }

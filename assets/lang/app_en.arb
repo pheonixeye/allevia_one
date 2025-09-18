@@ -357,5 +357,6 @@
     "pickDocumentType": "Pick Document Type",
     "refresh": "Refresh",
     "visitsCalender": "Visits Calender",
-    "selectMonth": "Select Month"
+    "selectMonth": "Select Month",
+    "printReciept": "Print Reciept"
 }
