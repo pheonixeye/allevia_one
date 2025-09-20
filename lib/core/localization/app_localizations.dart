@@ -2071,6 +2071,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Print Reciept'**
   String get printReciept;
+
+  /// No description provided for @changeLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Log'**
+  String get changeLog;
 }
 
 class _AppLocalizationsDelegate

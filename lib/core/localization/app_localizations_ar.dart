@@ -1027,4 +1027,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get printReciept => 'طباعة ايصال';
+
+  @override
+  String get changeLog => 'سجل التحديث';
 }

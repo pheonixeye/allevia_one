@@ -1028,4 +1028,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get printReciept => 'Print Reciept';
+
+  @override
+  String get changeLog => 'Change Log';
 }

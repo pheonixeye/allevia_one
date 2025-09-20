@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:typed_data' show ByteData, Uint8List;
+
+import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/extensions/visit_ext.dart';
 import 'package:allevia_one/models/bookkeeping/bookkeeping_item_dto.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -8,7 +13,28 @@ import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
+import 'package:pdf/widgets.dart' as pw;
+
+final Map<String, ByteData> _fontBytesCache = {};
+
+Future<ByteData> _getFontBytes(String key) async {
+  if (_fontBytesCache[key] == null) {
+    final _bytes = switch (key) {
+      'base' => await rootBundle.load(AppAssets.ibm_base),
+      'bold' => await rootBundle.load(AppAssets.ibm_bold),
+      _ => throw UnimplementedError(),
+    };
+    _fontBytesCache[key] = _bytes;
+    return _bytes;
+  } else {
+    return _fontBytesCache[key]!;
+  }
+}
 
 class RecieptPrepareDialog extends StatefulWidget {
   const RecieptPrepareDialog({
@@ -22,7 +48,242 @@ class RecieptPrepareDialog extends StatefulWidget {
 }
 
 class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
-  final List<String> _state = [];
+  ByteData? _logoBytes;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLogo();
+  }
+
+  Future<void> _loadLogo() async {
+    _logoBytes = await rootBundle.load(AppAssets.icon);
+    setState(() {});
+  }
+
+  pw.Widget _buildInfoRow(String title, String info) {
+    return pw.Row(
+      mainAxisAlignment: pw.MainAxisAlignment.start,
+      children: [
+        pw.SizedBox(width: 16),
+        pw.Text(
+          title,
+          style: pw.TextStyle(
+            decoration: pw.TextDecoration.underline,
+            fontWeight: pw.FontWeight.bold,
+          ),
+        ),
+        pw.Text(' : '),
+        pw.SizedBox(width: 16),
+        pw.Text(info),
+      ],
+    );
+  }
+
+  Future<Uint8List> _build(
+    PdfPageFormat format,
+    List<BookkeepingItemDto> data,
+  ) async {
+    final doc = pw.Document();
+    final _font_base = await _getFontBytes('base');
+    final _font_bold = await _getFontBytes('bold');
+
+    pw.Page _buildPage() => pw.Page(
+          pageTheme: pw.PageTheme(
+            theme: pw.ThemeData.withFont(
+              base: pw.Font.ttf(_font_base),
+              bold: pw.Font.ttf(_font_bold),
+              icons: pw.Font.zapfDingbats(),
+            ),
+            orientation: pw.PageOrientation.portrait,
+            textDirection: pw.TextDirection.rtl,
+            clip: true,
+            margin: pw.EdgeInsets.all(0),
+            pageFormat: format,
+          ),
+          build: (pw.Context ctx) {
+            return pw.Center(
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.ConstrainedBox(
+                      constraints: pw.BoxConstraints(
+                        maxHeight: 100,
+                        maxWidth: 100,
+                      ),
+                      child: pw.Image(
+                        pw.MemoryImage(
+                          _logoBytes == null
+                              ? Uint8List(0)
+                              : Uint8List.sublistView(_logoBytes!),
+                        ),
+                        width: 100,
+                        height: 100,
+                        dpi: 300,
+                        fit: pw.BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  pw.SizedBox(height: 4),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Text(
+                      'عيادات اليفيا',
+                      style: pw.TextStyle(
+                        fontSize: 20,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                      textAlign: pw.TextAlign.center,
+                    ),
+                  ),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Text(
+                      'لعلاج الالام',
+                      style: pw.TextStyle(
+                        fontSize: 8,
+                      ),
+                      textAlign: pw.TextAlign.center,
+                    ),
+                  ),
+                  pw.SizedBox(height: 4),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Container(
+                      alignment: pw.Alignment.center,
+                      width: 80,
+                      height: 30,
+                      decoration: pw.BoxDecoration(
+                        border: pw.Border.all(),
+                        borderRadius: pw.BorderRadius.circular(8),
+                      ),
+                      child: pw.Text(
+                        'ايصال مدفوعات',
+                        style: pw.TextStyle(
+                          fontSize: 12,
+                        ),
+                        textAlign: pw.TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'تاريخ الزيارة',
+                    DateFormat('dd - MM - yyyy', 'ar')
+                        .format(widget.visit.visit_date),
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'اسم المستفيد',
+                    'ا/ ${widget.visit.patient.name}',
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'رقم الموبايل',
+                    widget.visit.patient.phone.toArabicNumber(context),
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'الطبيب المعالج',
+                    'د/ ${widget.visit.doctor.name_ar}',
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'نوع الزيارة',
+                    widget.visit.visit_type.name_ar,
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'حالة الزيارة',
+                    widget.visit.visit_status.name_ar,
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'الموعد',
+                    widget.visit.formattedShift(context),
+                  ),
+                  pw.SizedBox(height: 4),
+                  _buildInfoRow(
+                    'اجمالي المدفوع',
+                    '${data.map((e) => e.amount).toList().fold<double>(0, (a, b) => a + b)} ${context.loc.egp}'
+                        .toForcedArabicNumber(context),
+                  ),
+                  pw.SizedBox(height: 12),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Text(
+                      'مع اخلص تمنياتنا بالشفاء العاجل',
+                      style: pw.TextStyle(
+                        fontSize: 8,
+                      ),
+                      textAlign: pw.TextAlign.center,
+                    ),
+                  ),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Text(
+                      'عيادات اليفيا لعلاج الالم',
+                      style: pw.TextStyle(
+                        fontSize: 8,
+                      ),
+                      textAlign: pw.TextAlign.center,
+                    ),
+                  ),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Text(
+                      '٧٤ شارع الملتقي العربي - مساكن شيراتون - الدور الثالث',
+                      style: pw.TextStyle(
+                        fontSize: 8,
+                      ),
+                      textAlign: pw.TextAlign.center,
+                    ),
+                  ),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Text(
+                      '01016075325',
+                      style: pw.TextStyle(
+                        fontSize: 8,
+                      ),
+                      textAlign: pw.TextAlign.center,
+                    ),
+                  ),
+                  pw.SizedBox(height: 4),
+                  pw.Align(
+                    alignment: pw.Alignment.center,
+                    child: pw.Container(
+                      alignment: pw.Alignment.center,
+                      decoration: pw.BoxDecoration(
+                        border: pw.Border.all(),
+                        borderRadius: pw.BorderRadius.circular(8),
+                      ),
+                      width: 58,
+                      height: 58,
+                      padding: pw.EdgeInsets.all(8),
+                      child: pw.BarcodeWidget.fromBytes(
+                        data: utf8.encode(widget.visit.patient.id),
+                        barcode: pw.Barcode.fromType(
+                          pw.BarcodeType.QrCode,
+                        ),
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                  ),
+                  pw.SizedBox(height: 4),
+                ],
+              ),
+            );
+          },
+        );
+
+    doc.addPage(_buildPage());
+
+    return doc.save();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,70 +334,29 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
           contentPadding: const EdgeInsets.all(8),
           insetPadding: const EdgeInsets.all(8),
           content: SizedBox(
-            width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
-            child: ListView.builder(
-              itemCount: _data.length,
-              itemBuilder: (context, index) {
-                final _item = _data[index];
-                return Card.outlined(
-                  elevation: 6,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CheckboxListTile(
-                      secondary: FloatingActionButton.small(
-                        onPressed: null,
-                        heroTag: UniqueKey(),
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(_item.item_name),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            "${_item.amount.toString().toArabicNumber(context)} ${context.loc.egp}"),
-                      ),
-                      value: _state.contains(_item.id),
-                      onChanged: (val) {
-                        setState(() {
-                          if (_state.contains(_item.id)) {
-                            _state.remove(_item.id);
-                          } else {
-                            _state.add(_item.id);
-                          }
-                        });
-                      },
-                    ),
-                  ),
-                );
-              },
+            width: MediaQuery.sizeOf(context).width,
+            child: Scaffold(
+              body: PdfPreview(
+                initialPageFormat: PdfPageFormat.roll80,
+                pageFormats: {
+                  'roll-80mm': PdfPageFormat.roll80,
+                  'roll-57mm': PdfPageFormat.roll57,
+                  'A4': PdfPageFormat.a4,
+                  'A5': PdfPageFormat.a5,
+                },
+                dpi: 300,
+                build: (pageFormat) async {
+                  return _build(pageFormat, _data);
+                },
+                allowPrinting: true,
+                allowSharing: true,
+                canChangeOrientation: true,
+                canChangePageFormat: true,
+                canDebug: false,
+              ),
             ),
           ),
-          actionsAlignment: MainAxisAlignment.center,
-          actionsPadding: const EdgeInsets.all(8),
-          actions: [
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-              label: Text(context.loc.printReciept),
-              icon: Icon(
-                Icons.print_rounded,
-                color: Colors.green.shade100,
-              ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pop(context, null);
-              },
-              label: Text(context.loc.cancel),
-              icon: const Icon(
-                Icons.close,
-                color: Colors.red,
-              ),
-            ),
-          ],
         );
       },
     );

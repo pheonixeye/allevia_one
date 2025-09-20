@@ -358,5 +358,6 @@
     "refresh": "Refresh",
     "visitsCalender": "Visits Calender",
     "selectMonth": "Select Month",
-    "printReciept": "Print Reciept"
+    "printReciept": "Print Reciept",
+    "changeLog": "Change Log"
 }
