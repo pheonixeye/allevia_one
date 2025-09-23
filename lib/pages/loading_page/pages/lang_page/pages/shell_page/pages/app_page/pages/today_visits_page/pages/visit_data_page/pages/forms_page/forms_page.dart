@@ -196,7 +196,7 @@ class _VisitFormsPageState extends State<VisitFormsPage>
                 ),
                 onPress: () async {
                   _animationController.reverse();
-                  //TODO: open visual sheet dialog
+                  //todo: open visual sheet dialog
                   final _data = (v.result as ApiDataResult<VisitData>).data;
                   Uint8List? _imageData;
                   String? _documentTypeId;
@@ -212,7 +212,7 @@ class _VisitFormsPageState extends State<VisitFormsPage>
                     return;
                   }
                   if (context.mounted) {
-                    //TODO: select document type
+                    //todo: select document type
                     _documentTypeId = await showDialog<String?>(
                       context: context,
                       builder: (context) {
@@ -235,7 +235,7 @@ class _VisitFormsPageState extends State<VisitFormsPage>
                     await shellFunction(
                       context,
                       toExecute: () async {
-                        //TODO: save document to patient
+                        //todo: save document to patient
                         await PatientDocumentApi(patient_id: _data.patient.id)
                             .addPatientDocument(
                           _document,

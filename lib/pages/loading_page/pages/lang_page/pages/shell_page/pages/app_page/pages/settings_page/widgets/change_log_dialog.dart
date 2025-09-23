@@ -61,9 +61,10 @@ class ChangeLogDialog extends StatelessWidget {
                         children: [
                           ..._item.entries.map((log) {
                             final _index = _item.entries.indexOf(log);
-                            return Row(
+                            return Wrap(
                               spacing: 8,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              runSpacing: 8,
+                              runAlignment: WrapAlignment.start,
                               children: [
                                 IconButton.outlined(
                                   onPressed: null,

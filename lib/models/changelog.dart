@@ -74,9 +74,21 @@ class Changelog extends Equatable {
       ],
     );
   }
+  factory Changelog.v004() {
+    return Changelog(
+      version: '0.0.4',
+      entries: [
+        ChangelogEntry(
+          ar: 'تمت إضافة ورقة الرسم إلى صفحة النماذج في زيارات اليوم، يمكنك الآن استخدام أي صورة / صور افتراضية كخلفية للرسم / التعيين فوقها وحفظ هذه الصورة كجزء من مستندات المريض.',
+          en: 'Added Drawing Sheet To Forms Page In Today Visits, You Can Now Use Any Image / Default Images As A Background For Drawing / Mapping Over It And Save This Image As A part Of The Patient Documents.',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v004(),
   Changelog.v003(),
   Changelog.v002(),
   Changelog.v001(),
