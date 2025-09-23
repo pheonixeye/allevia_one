@@ -2077,6 +2077,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change Log'**
   String get changeLog;
+
+  /// No description provided for @addDrawingSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Drawing Sheet'**
+  String get addDrawingSheet;
+
+  /// No description provided for @drawingSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawing Sheet'**
+  String get drawingSheet;
+
+  /// No description provided for @pickDrawingColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Drawing Color'**
+  String get pickDrawingColor;
 }
 
 class _AppLocalizationsDelegate

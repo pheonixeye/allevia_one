@@ -1030,4 +1030,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get changeLog => 'سجل التحديث';
+
+  @override
+  String get addDrawingSheet => 'اضافة نموذج مرسوم';
+
+  @override
+  String get drawingSheet => 'نموذج الرسم';
+
+  @override
+  String get pickDrawingColor => 'اختر لون الرسم';
 }

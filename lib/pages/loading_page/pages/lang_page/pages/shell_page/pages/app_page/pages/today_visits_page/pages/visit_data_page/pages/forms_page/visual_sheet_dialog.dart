@@ -1,0 +1,191 @@
+import 'dart:typed_data';
+
+import 'package:allevia_one/assets/assets.dart';
+import 'package:allevia_one/extensions/loc_ext.dart';
+import 'package:allevia_one/models/visit_data/visit_data.dart';
+import 'package:allevia_one/widgets/color_picker_dialog.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_drawing_board/flutter_drawing_board.dart';
+
+class VisualSheetDialog extends StatefulWidget {
+  const VisualSheetDialog({
+    super.key,
+    required this.visitData,
+  });
+  final VisitData visitData;
+
+  @override
+  State<VisualSheetDialog> createState() => _VisualSheetDialogState();
+}
+
+class _VisualSheetDialogState extends State<VisualSheetDialog> {
+  late final _controller = DrawingController();
+  Uint8List? _backgroudImage;
+  bool _showFront = true;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Row(
+        children: [
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                text: context.loc.drawingSheet,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                children: [
+                  TextSpan(text: '\n'),
+                  TextSpan(
+                    text: '(${widget.visitData.patient.name})',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: 10),
+          IconButton.outlined(
+            onPressed: () {
+              Navigator.pop(context, null);
+            },
+            icon: const Icon(Icons.close),
+          ),
+        ],
+      ),
+      contentPadding: const EdgeInsets.all(8),
+      insetPadding: const EdgeInsets.all(8),
+      content: SizedBox(
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height,
+        child: DrawingBoard(
+          defaultToolsBuilder: (Type t, _) {
+            return DrawingBoard.defaultTools(t, _controller)
+              ..insert(
+                0,
+                DefToolItem(
+                  icon: _backgroudImage == null
+                      ? Icons.image
+                      : Icons.image_not_supported,
+                  isActive: false,
+                  onTap: _backgroudImage == null
+                      ? () async {
+                          final _result = await FilePicker.platform.pickFiles(
+                            type: FileType.image,
+                            allowMultiple: false,
+                            withData: true,
+                          );
+
+                          if (_result != null) {
+                            setState(() {
+                              _backgroudImage = _result.files.first.bytes;
+                            });
+                          }
+                        }
+                      : () {
+                          setState(() {
+                            _backgroudImage = null;
+                          });
+                        },
+                ),
+              )
+              ..insert(
+                1,
+                DefToolItem(
+                  icon: Icons.rotate_left,
+                  isActive: false,
+                  onTap: () {
+                    setState(() {
+                      _showFront = !_showFront;
+                    });
+                  },
+                ),
+              )
+              ..insert(
+                2,
+                DefToolItem(
+                  icon: Icons.color_lens,
+                  isActive: false,
+                  onTap: () async {
+                    final _color = await showDialog<Color?>(
+                      context: context,
+                      builder: (context) {
+                        return ColorPickerDialog();
+                      },
+                    );
+                    if (_color == null) {
+                      return;
+                    }
+                    _controller.setStyle(
+                      color: _color,
+                    );
+                  },
+                ),
+              );
+            //TODO: add hand tool
+          },
+          controller: _controller,
+          alignment: Alignment.center,
+          background: Container(
+            width: MediaQuery.sizeOf(context).width,
+            height: MediaQuery.sizeOf(context).height,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              image: DecorationImage(
+                image: _backgroudImage == null
+                    ? AssetImage(
+                        _showFront ? AppAssets.body_front : AppAssets.body_back,
+                      )
+                    : MemoryImage(_backgroudImage!),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          showDefaultActions: true,
+          showDefaultTools: true,
+        ),
+      ),
+      actionsAlignment: MainAxisAlignment.center,
+      actionsPadding: const EdgeInsets.all(8),
+      actions: [
+        ElevatedButton.icon(
+          onPressed: () async {
+            final _data = await _controller.getImageData();
+            if (_data != null) {
+              final _bytes = Uint8List.sublistView(_data);
+              if (context.mounted) {
+                Navigator.pop(context, _bytes);
+              }
+            }
+          },
+          label: Text(context.loc.confirm),
+          icon: Icon(
+            Icons.check,
+            color: Colors.green.shade100,
+          ),
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            Navigator.pop(context, null);
+          },
+          label: Text(context.loc.cancel),
+          icon: const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,3 +1,10 @@
+import 'dart:typed_data';
+
+import 'package:allevia_one/core/api/patient_document_api.dart';
+import 'package:allevia_one/models/patient_document/patient_document.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/pages/forms_page/document_type_picker_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/pages/forms_page/visual_sheet_dialog.dart';
+import 'package:allevia_one/widgets/floating_ax_menu_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -14,10 +21,41 @@ import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class VisitFormsPage extends StatelessWidget {
+class VisitFormsPage extends StatefulWidget {
   const VisitFormsPage({super.key});
+
+  @override
+  State<VisitFormsPage> createState() => _VisitFormsPageState();
+}
+
+class _VisitFormsPageState extends State<VisitFormsPage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 260),
+    );
+
+    final curvedAnimation =
+        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+    _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +92,8 @@ class VisitFormsPage extends StatelessWidget {
                   ],
                 );
               }
-              final _items = (v.result as ApiDataResult<VisitData>).data.forms;
+              final _data = (v.result as ApiDataResult<VisitData>).data;
+              final _items = _data.forms;
               return Column(
                 children: [
                   VisitDetailsPageInfoHeader(
@@ -83,43 +122,132 @@ class VisitFormsPage extends StatelessWidget {
               );
             },
           ),
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: 'add-form-to-visit',
-            tooltip: context.loc.addNewForm,
-            onPressed: () async {
-              final _form = await showDialog<PcForm?>(
-                context: context,
-                builder: (context) {
-                  return const FormPickerDialog();
+          floatingActionButton: FloatingActionMenuBubble(
+            animation: _animation,
+            // On pressed change animation state
+            onPress: () => _animationController.isCompleted
+                ? _animationController.reverse()
+                : _animationController.forward(),
+            // Floating Action button Icon color
+            iconColor: Colors.white,
+            // Flaoting Action button Icon
+            // iconData: Icons.settings,
+            animatedIconData: AnimatedIcons.menu_arrow,
+            backGroundColor:
+                Theme.of(context).floatingActionButtonTheme.backgroundColor!,
+            items: [
+              Bubble(
+                title: context.loc.addNewForm,
+                iconColor: Colors.white,
+                bubbleColor: Theme.of(context)
+                    .floatingActionButtonTheme
+                    .backgroundColor!,
+                icon: Icons.add,
+                titleStyle: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+                onPress: () async {
+                  _animationController.reverse();
+                  final _form = await showDialog<PcForm?>(
+                    context: context,
+                    builder: (context) {
+                      return const FormPickerDialog();
+                    },
+                  );
+                  if (_form == null) {
+                    return;
+                  }
+                  final _visit_form_data = VisitFormItem(
+                    id: '',
+                    visit_id:
+                        (v.result as ApiDataResult<VisitData>).data.visit_id,
+                    patient_id:
+                        (v.result as ApiDataResult<VisitData>).data.patient.id,
+                    form_id: _form.id,
+                    form_data: _form.form_fields
+                        .map((x) => SingleFieldData(
+                              id: x.id,
+                              field_name: x.field_name,
+                              field_value: '',
+                            ))
+                        .toList(),
+                  );
+                  if (context.mounted) {
+                    await shellFunction(
+                      context,
+                      toExecute: () async {
+                        await v.attachForm(_visit_form_data);
+                      },
+                    );
+                  }
                 },
-              );
-              if (_form == null) {
-                return;
-              }
-              final _visit_form_data = VisitFormItem(
-                id: '',
-                visit_id: (v.result as ApiDataResult<VisitData>).data.visit_id,
-                patient_id:
-                    (v.result as ApiDataResult<VisitData>).data.patient.id,
-                form_id: _form.id,
-                form_data: _form.form_fields
-                    .map((x) => SingleFieldData(
-                          id: x.id,
-                          field_name: x.field_name,
-                          field_value: '',
-                        ))
-                    .toList(),
-              );
-              if (context.mounted) {
-                await shellFunction(
-                  context,
-                  toExecute: () async {
-                    await v.attachForm(_visit_form_data);
-                  },
-                );
-              }
-            },
-            child: const Icon(Icons.add),
+              ),
+              Bubble(
+                title: context.loc.addDrawingSheet,
+                iconColor: Colors.white,
+                bubbleColor: Theme.of(context)
+                    .floatingActionButtonTheme
+                    .backgroundColor!,
+                icon: FontAwesomeIcons.personChalkboard,
+                titleStyle: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+                onPress: () async {
+                  _animationController.reverse();
+                  //TODO: open visual sheet dialog
+                  final _data = (v.result as ApiDataResult<VisitData>).data;
+                  Uint8List? _imageData;
+                  String? _documentTypeId;
+                  _imageData = await showDialog<Uint8List?>(
+                    context: context,
+                    builder: (context) {
+                      return VisualSheetDialog(
+                        visitData: _data,
+                      );
+                    },
+                  );
+                  if (_imageData == null) {
+                    return;
+                  }
+                  if (context.mounted) {
+                    //TODO: select document type
+                    _documentTypeId = await showDialog<String?>(
+                      context: context,
+                      builder: (context) {
+                        return DocumentTypePickerDialog();
+                      },
+                    );
+                  }
+                  if (_documentTypeId == null) {
+                    return;
+                  }
+                  if (context.mounted) {
+                    final _document = PatientDocument(
+                      id: '',
+                      patient_id: _data.patient.id,
+                      related_visit_id: _data.visit_id,
+                      related_visit_data_id: _data.id,
+                      document_type_id: _documentTypeId,
+                      document: '',
+                    );
+                    await shellFunction(
+                      context,
+                      toExecute: () async {
+                        //TODO: save document to patient
+                        await PatientDocumentApi(patient_id: _data.patient.id)
+                            .addPatientDocument(
+                          _document,
+                          _imageData!,
+                          '${DateFormat('dd-MM-yyyy', 'en').format(DateTime.now())}.jpg',
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         );
       },

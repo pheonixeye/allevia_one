@@ -1031,4 +1031,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changeLog => 'Change Log';
+
+  @override
+  String get addDrawingSheet => 'Add Drawing Sheet';
+
+  @override
+  String get drawingSheet => 'Drawing Sheet';
+
+  @override
+  String get pickDrawingColor => 'Pick Drawing Color';
 }

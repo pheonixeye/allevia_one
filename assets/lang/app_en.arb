@@ -359,5 +359,8 @@
     "visitsCalender": "Visits Calender",
     "selectMonth": "Select Month",
     "printReciept": "Print Reciept",
-    "changeLog": "Change Log"
+    "changeLog": "Change Log",
+    "addDrawingSheet": "Add Drawing Sheet",
+    "drawingSheet": "Drawing Sheet",
+    "pickDrawingColor": "Pick Drawing Color"
 }

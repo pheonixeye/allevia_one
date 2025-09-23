@@ -358,5 +358,8 @@
     "visitsCalender": "نتيجة الزيارات",
     "selectMonth": "اختر الشهر",
     "printReciept": "طباعة ايصال",
-    "changeLog": "سجل التحديث"
+    "changeLog": "سجل التحديث",
+    "addDrawingSheet": "اضافة نموذج مرسوم",
+    "drawingSheet": "نموذج الرسم",
+    "pickDrawingColor": "اختر لون الرسم"
 }

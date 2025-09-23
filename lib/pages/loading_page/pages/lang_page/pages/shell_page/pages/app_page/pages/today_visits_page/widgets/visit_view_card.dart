@@ -103,8 +103,7 @@ class VisitViewCard extends StatelessWidget {
                         child: Icon(Icons.arrow_drop_up),
                       ),
                       FloatingActionButton.small(
-                        heroTag:
-                            '${visit.id}_${visit.patient_entry_number}_${visit.patient_progress_status}',
+                        heroTag: UniqueKey(),
                         onPressed: null,
                         child: Text('${visit.patient_entry_number}'
                             .toArabicNumber(context)),
@@ -498,9 +497,7 @@ class VisitViewCard extends StatelessWidget {
                   Column(
                     children: [
                       FloatingActionButton.small(
-                        heroTag: visit.id +
-                            visit.patient_progress_status.id +
-                            visit.patient.id,
+                        heroTag: UniqueKey(),
                         onPressed: () async {
                           //@permission
                           final _perm =
