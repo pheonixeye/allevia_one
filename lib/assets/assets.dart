@@ -11,6 +11,7 @@ class AppAssets {
   static const String errorIcon = 'assets/images/error.png';
   static const String body_front = 'assets/images/body_front.webp';
   static const String body_back = 'assets/images/body_back.webp';
+  static const String body_side = 'assets/images/body_side.webp';
 
   ///json files
   static const String specialities = "assets/json/specialities.json";

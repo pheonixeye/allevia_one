@@ -7,6 +7,22 @@ import 'package:allevia_one/widgets/color_picker_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
+import 'package:flutter_drawing_board/paint_contents.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+enum ShowWhichSide {
+  front,
+  back,
+  side;
+
+  factory ShowWhichSide.next(ShowWhichSide side) {
+    try {
+      return ShowWhichSide.values[side.index + 1];
+    } catch (e) {
+      return ShowWhichSide.values[0];
+    }
+  }
+}
 
 class VisualSheetDialog extends StatefulWidget {
   const VisualSheetDialog({
@@ -22,7 +38,13 @@ class VisualSheetDialog extends StatefulWidget {
 class _VisualSheetDialogState extends State<VisualSheetDialog> {
   late final _controller = DrawingController();
   Uint8List? _backgroudImage;
-  bool _showFront = true;
+  ShowWhichSide _showWhichSide = ShowWhichSide.front;
+
+  String get asset => switch (_showWhichSide) {
+        ShowWhichSide.front => AppAssets.body_front,
+        ShowWhichSide.back => AppAssets.body_back,
+        ShowWhichSide.side => AppAssets.body_side,
+      };
 
   @override
   void dispose() {
@@ -107,7 +129,7 @@ class _VisualSheetDialogState extends State<VisualSheetDialog> {
                   isActive: false,
                   onTap: () {
                     setState(() {
-                      _showFront = !_showFront;
+                      _showWhichSide = ShowWhichSide.next(_showWhichSide);
                     });
                   },
                 ),
@@ -132,8 +154,18 @@ class _VisualSheetDialogState extends State<VisualSheetDialog> {
                     );
                   },
                 ),
+              )
+              //todo: add hand tool
+              ..insert(
+                3,
+                DefToolItem(
+                  icon: FontAwesomeIcons.hand,
+                  isActive: t == EmptyContent,
+                  onTap: () {
+                    _controller.setPaintContent(EmptyContent());
+                  },
+                ),
               );
-            //TODO: add hand tool
           },
           controller: _controller,
           alignment: Alignment.center,
@@ -144,9 +176,7 @@ class _VisualSheetDialogState extends State<VisualSheetDialog> {
               color: Colors.white,
               image: DecorationImage(
                 image: _backgroudImage == null
-                    ? AssetImage(
-                        _showFront ? AppAssets.body_front : AppAssets.body_back,
-                      )
+                    ? AssetImage(asset)
                     : MemoryImage(_backgroudImage!),
                 fit: BoxFit.contain,
               ),
