@@ -1040,4 +1040,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pickDrawingColor => 'Pick Drawing Color';
+
+  @override
+  String get exportToExcel => 'Export To Excel';
 }

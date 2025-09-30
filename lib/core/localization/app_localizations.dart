@@ -2095,6 +2095,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick Drawing Color'**
   String get pickDrawingColor;
+
+  /// No description provided for @exportToExcel.
+  ///
+  /// In en, this message translates to:
+  /// **'Export To Excel'**
+  String get exportToExcel;
 }
 
 class _AppLocalizationsDelegate

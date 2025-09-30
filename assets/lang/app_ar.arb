@@ -361,5 +361,6 @@
     "changeLog": "سجل التحديث",
     "addDrawingSheet": "اضافة نموذج مرسوم",
     "drawingSheet": "نموذج الرسم",
-    "pickDrawingColor": "اختر لون الرسم"
+    "pickDrawingColor": "اختر لون الرسم",
+    "exportToExcel": "تنزيل ملف اكسيل"
 }

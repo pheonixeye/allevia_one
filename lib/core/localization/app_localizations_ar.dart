@@ -1039,4 +1039,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pickDrawingColor => 'اختر لون الرسم';
+
+  @override
+  String get exportToExcel => 'تنزيل ملف اكسيل';
 }

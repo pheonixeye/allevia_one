@@ -61,6 +61,8 @@ enum PermissionEnum {
   User_Patient_AddDocument,
   User_Patient_ViewDocuments,
   User_Visits_Read, //done
+  User_Visits_PrintReciept,
+  User_Visits_PrintExcel,
   User_Bookkeeping_Read, //done
   User_Bookkeeping_Add, //done
   User_AccountSettings_Read, //done

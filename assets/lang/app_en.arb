@@ -362,5 +362,6 @@
     "changeLog": "Change Log",
     "addDrawingSheet": "Add Drawing Sheet",
     "drawingSheet": "Drawing Sheet",
-    "pickDrawingColor": "Pick Drawing Color"
+    "pickDrawingColor": "Pick Drawing Color",
+    "exportToExcel": "Export To Excel"
 }

@@ -1,4 +1,5 @@
 enum BookkeepingName {
+  //TODO: Add to app constants
   visit_create,
   visit_no_update,
   //visit_attendance
@@ -20,4 +21,39 @@ enum BookkeepingName {
   supplies_movement_add_manual,
   supplies_movement_remove_manual,
   supplies_movement_no_update_manual,
+}
+
+extension ToArabic on BookkeepingName {
+  String ar() {
+    return switch (this) {
+      BookkeepingName.visit_create => 'الزيارات - اضافة',
+      BookkeepingName.visit_no_update => "الزيارات - بدون تعديل",
+      BookkeepingName.visit_attendance_update_attended =>
+        "الزيارات - تم حضور الزيارة",
+      BookkeepingName.visit_attendance_update_not_attended =>
+        "الزيارات - تم الغاء حضور الويارة",
+      BookkeepingName.visit_type_update => "نوع الزيارة - تعديل",
+      BookkeepingName.visit_type_update_consultation =>
+        "نوع الزيارة - تعديل الي كشف",
+      BookkeepingName.visit_type_update_followup =>
+        "نوع الزيارة - تعديل الي استشارة",
+      BookkeepingName.visit_type_update_procedure =>
+        "نوع الزيارة - تعديل الي اجراء طبي",
+      BookkeepingName.visit_procedure_add =>
+        "الزيارات - اضافة اجراء طبي للزيارة",
+      BookkeepingName.visit_procedure_remove =>
+        "الزيارات - ازالة اجراء طبي من الزيارة",
+      BookkeepingName.visit_supplies_add => "الزيارات - اضافة مستلزم للزيارة",
+      BookkeepingName.visit_supplies_remove =>
+        "الزيارات - ازالة مستلزم من الزيارة",
+      BookkeepingName.visit_supplies_no_update =>
+        "الزيارات - لا تعديل علي مستلومات الزيارة",
+      BookkeepingName.supplies_movement_add_manual =>
+        "حركة المستلزمات - اضافة حركة مستلزمات يدويا",
+      BookkeepingName.supplies_movement_remove_manual =>
+        "حركة المستلومات - ازالة حركة مستلزمات يدويا",
+      BookkeepingName.supplies_movement_no_update_manual =>
+        "حركة المستلزمات - لا تعديل",
+    };
+  }
 }

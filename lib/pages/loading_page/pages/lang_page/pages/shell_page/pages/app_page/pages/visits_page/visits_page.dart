@@ -1,9 +1,12 @@
 import 'package:allevia_one/core/api/bookkeeping_api.dart';
 import 'package:allevia_one/extensions/visit_ext.dart';
+import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/logic/excel_file_prep.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/reciept_prepare_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -200,6 +203,27 @@ class _VisitsPageState extends State<VisitsPage> {
                                                           .loc.printReciept,
                                                       key: UniqueKey(),
                                                       onPressed: () async {
+                                                        //@permission
+                                                        final _perm = context
+                                                            .read<PxAuth>()
+                                                            .isActionPermitted(
+                                                              PermissionEnum
+                                                                  .User_Visits_PrintReciept,
+                                                              context,
+                                                            );
+                                                        if (!_perm.isAllowed) {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return NotPermittedDialog(
+                                                                permission: _perm
+                                                                    .permission,
+                                                              );
+                                                            },
+                                                          );
+                                                          return;
+                                                        }
+
                                                         await showDialog<void>(
                                                           context: context,
                                                           builder: (context) {
@@ -315,6 +339,37 @@ class _VisitsPageState extends State<VisitsPage> {
                 ),
               ),
             ],
+          ),
+          floatingActionButton: FloatingActionButton.small(
+            heroTag: UniqueKey(),
+            tooltip: context.loc.exportToExcel,
+            onPressed: () async {
+              //@permission
+              final _perm = context.read<PxAuth>().isActionPermitted(
+                    PermissionEnum.User_Visits_PrintReciept,
+                    context,
+                  );
+              if (!_perm.isAllowed) {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return NotPermittedDialog(
+                      permission: _perm.permission,
+                    );
+                  },
+                );
+                return;
+              }
+              final _visits = (v.visits as ApiDataResult<List<Visit>>).data;
+              final _excel = ExcelFilePrep(_visits);
+              await shellFunction(
+                context,
+                toExecute: () async {
+                  await _excel.save();
+                },
+              );
+            },
+            child: const Icon(Icons.file_open),
           ),
         );
       },

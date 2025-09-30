@@ -85,6 +85,21 @@ class Changelog extends Equatable {
       ],
     );
   }
+  factory Changelog.v0044() {
+    return Changelog(
+      version: '0.0.4+4',
+      entries: [
+        ChangelogEntry(
+          ar: 'اصلاح خطا برمجي يمنع الزيارت من الفتح بعد تغيير مواعيد العيادات',
+          en: 'Hotfix: Visits Not Opening',
+        ),
+        ChangelogEntry(
+          ar: 'تم اضافة امكانية طباعة ملف اكسيل بالزيارات مع حساب ايرادات الزيارات',
+          en: 'Added Printing An Excel File With Visits & Calculate Visits Income.',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
