@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -25,10 +27,36 @@ class ClinicsPatientsMovementsPage extends StatefulWidget {
 class _ClinicsPatientsMovementsPageState
     extends State<ClinicsPatientsMovementsPage> with TickerProviderStateMixin {
   TabController? _tabController;
+  Timer? _timer;
+  final _changeDuration = const Duration(seconds: 10);
+  final _animationDuration = const Duration(microseconds: 500);
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(
+      _changeDuration,
+      (tim) {
+        if (_tabController != null) {
+          try {
+            _tabController!.animateTo(
+              _tabController!.index + 1,
+              duration: _animationDuration,
+            );
+          } catch (e) {
+            _tabController!.animateTo(
+              0,
+              duration: _animationDuration,
+            );
+          }
+        }
+      },
+    );
+  }
 
   @override
   void dispose() {
     _tabController?.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -60,6 +88,7 @@ class _ClinicsPatientsMovementsPageState
           return CentralLoading();
         }
         //TODO: add shifts in the top beside the clinics
+        //TODO: change ui or make tabs animate on timer
         return Scaffold(
           body: ChangeNotifierProvider(
             create: (context) => PxTodayPatientProgress(
