@@ -25,6 +25,7 @@ class PatientDocumentApi {
     'related_visit_id.added_by_id.app_permissions_ids',
     'related_visit_id.visit_status_id',
     'related_visit_id.visit_type_id',
+    'related_visit_id.visit_schedule_id',
     'related_visit_id.patient_progress_status_id',
     'related_visit_id.doc_id',
     'related_visit_id.doc_id.speciality_id',

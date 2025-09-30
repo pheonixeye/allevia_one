@@ -100,9 +100,23 @@ class Changelog extends Equatable {
       ],
     );
   }
+
+  factory Changelog.v0045() {
+    return Changelog(
+      version: '0.0.4+5',
+      entries: [
+        ChangelogEntry(
+          ar: 'اصلاح خطا برمجي يمنع اضافة النموذج المرسوم',
+          en: 'Hotfix: Patient Documents Not Being Added Correctly',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v0045(),
+  Changelog.v0044(),
   Changelog.v004(),
   Changelog.v003(),
   Changelog.v002(),
