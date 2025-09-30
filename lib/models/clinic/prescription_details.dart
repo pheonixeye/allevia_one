@@ -53,8 +53,8 @@ class ItemDetail implements Equatable {
     return ItemDetail(
       name_en: map['name_en'] as String,
       name_ar: map['name_ar'] as String,
-      x_coord: map['x_coord'] as double,
-      y_coord: map['y_coord'] as double,
+      x_coord: double.parse(map['x_coord'].toString()),
+      y_coord: double.parse(map['y_coord'].toString()),
     );
   }
 

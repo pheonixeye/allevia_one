@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/clinic/clinic_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/visits_api.dart';
@@ -48,17 +49,13 @@ class PxVisits extends ChangeNotifier {
   Future<int> nextEntryNumber(
     DateTime visit_date,
     String clinic_id,
-    String schedule_shift_id,
   ) async {
     toggleIsUpdating();
     final _result = (await _fetchVisitsOfASpecificDate(visit_date)
             as ApiDataResult<List<Visit>>)
         .data;
-    final _clinicVisits = _result
-        .where((e) =>
-            e.clinic.id == clinic_id &&
-            e.clinic_schedule_shift.id == schedule_shift_id)
-        .toList();
+    final _clinicVisits =
+        _result.where((e) => e.clinic.id == clinic_id).toList();
 
     toggleIsUpdating();
     return _clinicVisits.length + 1;
@@ -66,17 +63,18 @@ class PxVisits extends ChangeNotifier {
 
   //todo:
   Future<int?> calculateRemainingVisitsPerClinicShift(
+    ClinicSchedule? schedule,
     ScheduleShift? shift,
     DateTime? visit_date,
   ) async {
-    if (shift == null || visit_date == null) {
+    if (schedule == null || shift == null || visit_date == null) {
       return null;
     }
     toggleIsUpdating();
     final _visits = await _fetchVisitsOfASpecificDate(visit_date)
         as ApiDataResult<List<Visit>>;
     final _shift_visits = _visits.data
-        .where((e) => e.clinic_schedule_shift.id == shift.id)
+        .where((e) => e.visitSchedule.isInSameShift(schedule, shift))
         .toList();
     toggleIsUpdating();
     _remainingVisitsPerClinicShift = _shift_visits.length;

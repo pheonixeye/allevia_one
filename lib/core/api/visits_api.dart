@@ -16,8 +16,10 @@ class VisitsApi {
 
   late final String visit_data_collection = 'visit__data';
 
+  late final String visit_schedule_collection = 'visit__schedule';
+
   static final String _expand =
-      'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id';
+      'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id, visit_schedule_id';
 
   final _now = DateTime.now();
 
@@ -63,10 +65,13 @@ class VisitsApi {
   }
 
   Future<void> addNewVisit(VisitCreateDto dto) async {
+    //create visit reference
     final _result = await PocketbaseHelper.pb.collection(collection).create(
           body: dto.toJson(),
           expand: _expand,
         );
+
+    //create visit_data reference
     await PocketbaseHelper.pb.collection(visit_data_collection).create(
           body: VisitDataDto.initial(
             visit_id: _result.id,
@@ -75,8 +80,28 @@ class VisitsApi {
           ).toJson(),
         );
 
+    //modify visit_schedule reference with visit_id
+    final _visitSchedule = dto.visit_schedule.copyWith(
+      visit_id: _result.id,
+    );
+
+    //create visit_schedule reference
+    final visit_schedule =
+        await PocketbaseHelper.pb.collection('visit__schedule').create(
+              body: _visitSchedule.toJson(),
+            );
+    //update visit with visit_schedule id
+    final _updatedResult =
+        await PocketbaseHelper.pb.collection(collection).update(
+              _result.id,
+              body: {
+                'visit_schedule_id': visit_schedule.id,
+              },
+              expand: _expand,
+            );
+
     //todo: parse result
-    final _visit = Visit.fromRecordModel(_result);
+    final _visit = Visit.fromRecordModel(_updatedResult);
 
     //todo: initialize transformer
     final _bk_transformer = BookkeepingTransformer(
@@ -149,6 +174,7 @@ class VisitsApi {
       );
     }
   }
+  //TODO: add update visit schedule function
 }
 
 

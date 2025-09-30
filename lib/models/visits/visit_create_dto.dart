@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/visit_schedule.dart';
 import 'package:equatable/equatable.dart';
 
 class VisitCreateDto extends Equatable {
@@ -13,6 +14,7 @@ class VisitCreateDto extends Equatable {
   final String visit_type_id;
   final String patient_progress_status_id;
   final String comments;
+  final VisitSchedule visit_schedule;
 
   const VisitCreateDto({
     required this.clinic_id,
@@ -27,6 +29,7 @@ class VisitCreateDto extends Equatable {
     required this.visit_type_id,
     required this.patient_progress_status_id,
     required this.comments,
+    required this.visit_schedule,
   });
 
   VisitCreateDto copyWith({
@@ -42,6 +45,7 @@ class VisitCreateDto extends Equatable {
     String? visit_type_id,
     String? patient_progress_status_id,
     String? comments,
+    VisitSchedule? visit_schedule,
   }) {
     return VisitCreateDto(
       clinic_id: clinic_id ?? this.clinic_id,
@@ -58,6 +62,7 @@ class VisitCreateDto extends Equatable {
       patient_progress_status_id:
           patient_progress_status_id ?? this.patient_progress_status_id,
       comments: comments ?? this.comments,
+      visit_schedule: visit_schedule ?? this.visit_schedule,
     );
   }
 
@@ -75,6 +80,7 @@ class VisitCreateDto extends Equatable {
       'visit_type_id': visit_type_id,
       'patient_progress_status_id': patient_progress_status_id,
       'comments': comments,
+      'visit_schedule': visit_schedule.toJson(),
     };
   }
 
@@ -92,6 +98,8 @@ class VisitCreateDto extends Equatable {
       visit_type_id: map['visit_type_id'] as String,
       patient_progress_status_id: map['patient_progress_status_id'] as String,
       comments: map['comments'] as String,
+      visit_schedule:
+          VisitSchedule.fromJson(map['visit_schedule'] as Map<String, dynamic>),
     );
   }
 
@@ -113,6 +121,7 @@ class VisitCreateDto extends Equatable {
       visit_type_id,
       patient_progress_status_id,
       comments,
+      visit_schedule,
     ];
   }
 }

@@ -219,10 +219,16 @@ class _MonthlyVisitsCalendarDialogState
                                           titleAlignment: ListTileTitleAlignment
                                               .titleHeight,
                                           leading: Text('•'),
-                                          title: Text(
-                                            l.isEnglish
-                                                ? clinic.name_en
-                                                : clinic.name_ar,
+                                          title: Card.outlined(
+                                            elevation: 2,
+                                            color: Colors.blue.shade50,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(2.0),
+                                              child: Text(l.isEnglish
+                                                  ? clinic.name_en
+                                                  : clinic.name_ar),
+                                            ),
                                           ),
                                           subtitle: Column(
                                             crossAxisAlignment:
@@ -248,9 +254,19 @@ class _MonthlyVisitsCalendarDialogState
                                                               ListTileTitleAlignment
                                                                   .titleHeight,
                                                           leading: Text('•'),
-                                                          title: Text(shift
-                                                              .formattedFromTo(
-                                                                  context)),
+                                                          title: Card.outlined(
+                                                            elevation: 2,
+                                                            color: Colors
+                                                                .amber.shade50,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(2.0),
+                                                              child: Text(shift
+                                                                  .formattedFromTo(
+                                                                      context)),
+                                                            ),
+                                                          ),
                                                           subtitle: Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
@@ -262,14 +278,11 @@ class _MonthlyVisitsCalendarDialogState
                                                             children: [
                                                               ..._data
                                                                   .map((visit) {
-                                                                if (visit.clinic_schedule_shift
-                                                                            .id ==
-                                                                        shift
-                                                                            .id &&
-                                                                    visit.clinic_schedule
-                                                                            .id ==
-                                                                        sch
-                                                                            .id &&
+                                                                if (visit
+                                                                        .visitSchedule
+                                                                        .isInSameShift(
+                                                                            sch,
+                                                                            shift) &&
                                                                     _calculatedDate
                                                                         .isTheSameDate(
                                                                             visit.visit_date)) {

@@ -68,12 +68,12 @@ extension FormattedVisitScheduleShift on Visit {
     final _lx = context.read<PxLocale>();
     final _now = DateTime.now();
     final _start_time = _now.copyWith(
-      hour: clinic_schedule_shift.start_hour,
-      minute: clinic_schedule_shift.start_min,
+      hour: visitSchedule.start_hour,
+      minute: visitSchedule.start_min,
     );
     final _end_time = _now.copyWith(
-      hour: clinic_schedule_shift.end_hour,
-      minute: clinic_schedule_shift.end_min,
+      hour: visitSchedule.end_hour,
+      minute: visitSchedule.end_min,
     );
     final _formattedStart = DateFormat.jmv(_lx.lang).format(_start_time);
     final _formattedEnd = DateFormat.jmv(_lx.lang).format(_end_time);

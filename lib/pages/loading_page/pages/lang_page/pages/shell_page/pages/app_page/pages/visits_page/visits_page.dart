@@ -1,4 +1,5 @@
 import 'package:allevia_one/core/api/bookkeeping_api.dart';
+import 'package:allevia_one/extensions/visit_ext.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/reciept_prepare_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/visit_data_api.dart';
-import 'package:allevia_one/extensions/clinic_schedule_shift_ext.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
@@ -288,8 +288,7 @@ class _VisitsPageState extends State<VisitsPage> {
                                             DataCell(
                                               Center(
                                                 child: Text(
-                                                  x.clinic_schedule_shift
-                                                      .formattedFromTo(context),
+                                                  x.formattedShift(context),
                                                 ),
                                               ),
                                             ),

@@ -1,4 +1,5 @@
 import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/models/visit_schedule.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -295,7 +296,9 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
 
                                       await v
                                           .calculateRemainingVisitsPerClinicShift(
-                                              _scheduleShift, _visitDate);
+                                              _clinicSchedule,
+                                              _scheduleShift,
+                                              _visitDate);
                                     },
                                   );
                                 }),
@@ -369,7 +372,9 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       });
                                       await v
                                           .calculateRemainingVisitsPerClinicShift(
-                                              _scheduleShift, _visitDate);
+                                              _clinicSchedule,
+                                              _scheduleShift,
+                                              _visitDate);
                                     },
                                   );
                                 }),
@@ -438,7 +443,10 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                 });
 
                                 await v.calculateRemainingVisitsPerClinicShift(
-                                    _scheduleShift, _visitDate);
+                                  _clinicSchedule,
+                                  _scheduleShift,
+                                  _visitDate,
+                                );
                               },
                               child: const Icon(Icons.calendar_month),
                             ),
@@ -624,7 +632,6 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                   final _nextEntryNumber = await v.nextEntryNumber(
                     _visitDate!,
                     _clinic!.id,
-                    _scheduleShift!.id,
                   );
                   setState(() {
                     _isLoading = false;
@@ -645,6 +652,16 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                       visit_type_id: _visitType!.id,
                       patient_progress_status_id: _patientProgressStatus!.id,
                       comments: _commentsController.text,
+                      visit_schedule: VisitSchedule(
+                        id: '',
+                        clinic_id: _clinic!.id,
+                        visit_id: '',
+                        intday: _clinicSchedule!.intday,
+                        start_hour: _scheduleShift!.start_hour,
+                        start_min: _scheduleShift!.start_min,
+                        end_hour: _scheduleShift!.end_hour,
+                        end_min: _scheduleShift!.end_min,
+                      ),
                     );
                     Navigator.pop(context, _visitDto);
                   }
