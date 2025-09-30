@@ -284,8 +284,12 @@ class _MonthlyVisitsCalendarDialogState
                                                                             sch,
                                                                             shift) &&
                                                                     _calculatedDate
-                                                                        .isTheSameDate(
-                                                                            visit.visit_date)) {
+                                                                        .isTheSameDate(visit
+                                                                            .visit_date) &&
+                                                                    visit.clinic
+                                                                            .id ==
+                                                                        clinic
+                                                                            .id) {
                                                                   return ListTile(
                                                                     titleAlignment:
                                                                         ListTileTitleAlignment
