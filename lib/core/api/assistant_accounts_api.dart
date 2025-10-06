@@ -37,7 +37,7 @@ class AssistantAccountsApi {
         expand: _expand,
       );
 
-      final _account = User.fromJson(result.toJson());
+      final _account = User.fromRecordModel(result);
 
       return ApiDataResult(data: _account);
     } on ClientException catch (e) {

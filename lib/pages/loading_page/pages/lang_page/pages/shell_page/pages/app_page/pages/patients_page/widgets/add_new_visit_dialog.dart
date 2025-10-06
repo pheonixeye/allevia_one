@@ -344,7 +344,8 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                         ),
                                         if (_visitDate != null &&
                                             v.remainingVisitsPerClinicShiftVar !=
-                                                null)
+                                                null &&
+                                            _isSelected)
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
@@ -372,9 +373,10 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       });
                                       await v
                                           .calculateRemainingVisitsPerClinicShift(
-                                              _clinicSchedule,
-                                              _scheduleShift,
-                                              _visitDate);
+                                        _clinicSchedule,
+                                        _scheduleShift,
+                                        _visitDate,
+                                      );
                                     },
                                   );
                                 }),
