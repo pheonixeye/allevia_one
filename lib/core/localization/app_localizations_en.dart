@@ -1043,4 +1043,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exportToExcel => 'Export To Excel';
+
+  @override
+  String get whatsappSettings => 'Whatsapp Settings';
+
+  @override
+  String get connectWhatsapp => 'Connect Whatsapp';
+
+  @override
+  String get whatsappDevices => 'Whatsapp Devices';
 }

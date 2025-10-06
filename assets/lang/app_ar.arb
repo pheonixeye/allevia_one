@@ -362,5 +362,8 @@
     "addDrawingSheet": "اضافة نموذج مرسوم",
     "drawingSheet": "نموذج الرسم",
     "pickDrawingColor": "اختر لون الرسم",
-    "exportToExcel": "تنزيل ملف اكسيل"
+    "exportToExcel": "تنزيل ملف اكسيل",
+    "whatsappSettings" : "اعدادات الواتس ابب",
+    "connectWhatsapp" : "الاتصال بالواتساب",
+    "whatsappDevices" : "الاجهزة المتصلة"
 }

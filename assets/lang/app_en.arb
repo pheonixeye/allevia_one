@@ -363,5 +363,8 @@
     "addDrawingSheet": "Add Drawing Sheet",
     "drawingSheet": "Drawing Sheet",
     "pickDrawingColor": "Pick Drawing Color",
-    "exportToExcel": "Export To Excel"
+    "exportToExcel": "Export To Excel",
+    "whatsappSettings" : "Whatsapp Settings",
+    "connectWhatsapp" : "Connect Whatsapp",
+    "whatsappDevices" : "Whatsapp Devices"
 }

@@ -1,8 +1,11 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
+import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_log_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_password_btn.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/connect_wa_btn.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_locale.dart';
+import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -109,6 +112,62 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                const Divider(),
+                Consumer<PxWhatsapp>(
+                  builder: (context, w, _) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card.outlined(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(context.loc.whatsappSettings),
+                                  const Spacer(),
+                                  const ConnectWaBtn(),
+                                  const SizedBox(width: 10),
+                                  FloatingActionButton.small(
+                                    heroTag: UniqueKey(),
+                                    onPressed: () async {
+                                      await shellFunction(
+                                        context,
+                                        toExecute: () async {
+                                          await w.fetchConnectedDevices();
+                                        },
+                                      );
+                                    },
+                                    child: const Icon(Icons.device_hub),
+                                  ),
+                                  const SizedBox(width: 10),
+                                ],
+                              ),
+                            ),
+                            subtitle: Column(
+                              children: [
+                                if (w.connectedDevices != null) ...[
+                                  Text(context.loc.whatsappDevices),
+                                  ...w.connectedDevices!.map((e) {
+                                    return Column(
+                                      children: [
+                                        ...e.entries.map((x) {
+                                          return Text('${x.key} : ${x.value}');
+                                        }),
+                                      ],
+                                    );
+                                  })
+                                ],
+                                const Divider(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

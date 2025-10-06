@@ -2101,6 +2101,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Export To Excel'**
   String get exportToExcel;
+
+  /// No description provided for @whatsappSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Whatsapp Settings'**
+  String get whatsappSettings;
+
+  /// No description provided for @connectWhatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Whatsapp'**
+  String get connectWhatsapp;
+
+  /// No description provided for @whatsappDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Whatsapp Devices'**
+  String get whatsappDevices;
 }
 
 class _AppLocalizationsDelegate

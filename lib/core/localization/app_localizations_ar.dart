@@ -1042,4 +1042,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exportToExcel => 'تنزيل ملف اكسيل';
+
+  @override
+  String get whatsappSettings => 'اعدادات الواتس ابب';
+
+  @override
+  String get connectWhatsapp => 'الاتصال بالواتساب';
+
+  @override
+  String get whatsappDevices => 'الاجهزة المتصلة';
 }
