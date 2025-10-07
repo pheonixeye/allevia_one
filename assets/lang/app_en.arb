@@ -366,5 +366,7 @@
     "exportToExcel": "Export To Excel",
     "whatsappSettings" : "Whatsapp Settings",
     "connectWhatsapp" : "Connect Whatsapp",
-    "whatsappDevices" : "Whatsapp Devices"
+    "whatsappDevices" : "Whatsapp Devices",
+    "showConnectedwhatsappDevices" : "Show Connected whatsapp Devices",
+    "noConnectedDevices" : "No Connected Devices"
 }

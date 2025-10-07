@@ -20,7 +20,6 @@ class PxWhatsapp extends ChangeNotifier {
   Future<void> login() async {
     _qrLink = await api.login();
     notifyListeners();
-    await fetchConnectedDevices();
   }
 
   Future<void> fetchConnectedDevices() async {

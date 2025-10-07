@@ -1051,4 +1051,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get whatsappDevices => 'الاجهزة المتصلة';
+
+  @override
+  String get showConnectedwhatsappDevices => 'اظهار اجهزة الواتس ابب المتصلة';
+
+  @override
+  String get noConnectedDevices => 'لا يوجد اجهزة متصلة';
 }

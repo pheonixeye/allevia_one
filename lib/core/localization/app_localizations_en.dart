@@ -1052,4 +1052,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whatsappDevices => 'Whatsapp Devices';
+
+  @override
+  String get showConnectedwhatsappDevices => 'Show Connected whatsapp Devices';
+
+  @override
+  String get noConnectedDevices => 'No Connected Devices';
 }

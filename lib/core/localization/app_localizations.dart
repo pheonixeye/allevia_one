@@ -2119,6 +2119,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Whatsapp Devices'**
   String get whatsappDevices;
+
+  /// No description provided for @showConnectedwhatsappDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Connected whatsapp Devices'**
+  String get showConnectedwhatsappDevices;
+
+  /// No description provided for @noConnectedDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'No Connected Devices'**
+  String get noConnectedDevices;
 }
 
 class _AppLocalizationsDelegate

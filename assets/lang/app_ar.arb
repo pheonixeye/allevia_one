@@ -365,5 +365,7 @@
     "exportToExcel": "تنزيل ملف اكسيل",
     "whatsappSettings" : "اعدادات الواتس ابب",
     "connectWhatsapp" : "الاتصال بالواتساب",
-    "whatsappDevices" : "الاجهزة المتصلة"
+    "whatsappDevices" : "الاجهزة المتصلة",
+    "showConnectedwhatsappDevices" : "اظهار اجهزة الواتس ابب المتصلة",
+    "noConnectedDevices" : "لا يوجد اجهزة متصلة"
 }

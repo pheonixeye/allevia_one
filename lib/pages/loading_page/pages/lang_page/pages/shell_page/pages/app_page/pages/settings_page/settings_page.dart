@@ -131,6 +131,8 @@ class SettingsPage extends StatelessWidget {
                                   const ConnectWaBtn(),
                                   const SizedBox(width: 10),
                                   FloatingActionButton.small(
+                                    tooltip: context
+                                        .loc.showConnectedwhatsappDevices,
                                     heroTag: UniqueKey(),
                                     onPressed: () async {
                                       await shellFunction(
@@ -147,19 +149,36 @@ class SettingsPage extends StatelessWidget {
                               ),
                             ),
                             subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(context.loc.whatsappDevices),
+                                ),
                                 if (w.connectedDevices != null) ...[
-                                  Text(context.loc.whatsappDevices),
                                   ...w.connectedDevices!.map((e) {
                                     return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         ...e.entries.map((x) {
-                                          return Text('${x.key} : ${x.value}');
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ListTile(
+                                              title: Text('${x.key}'),
+                                              subtitle: Text('${x.value}'),
+                                            ),
+                                          );
                                         }),
                                       ],
                                     );
                                   })
                                 ],
+                                if (w.connectedDevices == null)
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(context.loc.noConnectedDevices),
+                                  ),
                                 const Divider(),
                               ],
                             ),

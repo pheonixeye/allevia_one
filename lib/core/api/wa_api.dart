@@ -30,7 +30,7 @@ class WaApi {
     }
   }
 
-  Future<List<dynamic>> fetchDevices() async {
+  Future<List<dynamic>?> fetchDevices() async {
     final _url = Uri.parse('$_wa_url/app/devices');
     try {
       final _response = await http.get(
@@ -39,6 +39,8 @@ class WaApi {
       );
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
+
+      print(_result);
 
       return _result['results'];
     } catch (e) {
