@@ -36,8 +36,14 @@ class WhatsappQrDialog extends StatelessWidget {
       content: SizedBox(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        child: CachedNetworkImage(
-          imageUrl: qrLink,
+        child: Column(
+          children: [
+            Expanded(
+              child: CachedNetworkImage(
+                imageUrl: qrLink,
+              ),
+            ),
+          ],
         ),
       ),
     );

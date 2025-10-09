@@ -23,6 +23,8 @@ class WaApi {
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
 
+      print(_result);
+
       return _result['results']['qr_link'] as String;
     } catch (e) {
       print(e);
@@ -52,10 +54,14 @@ class WaApi {
   Future<void> reconnect() async {
     final _url = Uri.parse('$_wa_url/app/reconnect');
     try {
-      await http.get(
+      final _response = await http.get(
         _url,
         headers: _headers,
       );
+
+      final _result = jsonDecode(_response.body) as Map<String, dynamic>;
+
+      print(_result);
     } catch (e) {
       print(e);
       throw Exception(e.toString());

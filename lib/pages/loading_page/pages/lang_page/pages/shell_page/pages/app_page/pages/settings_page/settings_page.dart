@@ -1,11 +1,10 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
-import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_log_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_password_btn.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/connect_wa_btn.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/single_btn_tile.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/whatsapp_tile/whatsapp_tile.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_locale.dart';
-import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -65,128 +64,18 @@ class SettingsPage extends StatelessWidget {
                     );
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card.outlined(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(context.loc.appLanguage),
-                        ),
-                        trailing: const LanguageBtn(),
-                        subtitle: const Divider(),
-                      ),
-                    ),
-                  ),
+                const WhatsappTile(),
+                SingleBtnTile(
+                  title: context.loc.appLanguage,
+                  btn: const LanguageBtn(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card.outlined(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(context.loc.changePassword),
-                        ),
-                        trailing: const ChangePasswordBtn(),
-                        subtitle: const Divider(),
-                      ),
-                    ),
-                  ),
+                SingleBtnTile(
+                  title: context.loc.changePassword,
+                  btn: const ChangePasswordBtn(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card.outlined(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(context.loc.logout),
-                        ),
-                        trailing: const LogoutBtn(),
-                        subtitle: const Divider(),
-                      ),
-                    ),
-                  ),
-                ),
-                const Divider(),
-                Consumer<PxWhatsapp>(
-                  builder: (context, w, _) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card.outlined(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            title: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(context.loc.whatsappSettings),
-                                  const Spacer(),
-                                  const ConnectWaBtn(),
-                                  const SizedBox(width: 10),
-                                  FloatingActionButton.small(
-                                    tooltip: context
-                                        .loc.showConnectedwhatsappDevices,
-                                    heroTag: UniqueKey(),
-                                    onPressed: () async {
-                                      await shellFunction(
-                                        context,
-                                        toExecute: () async {
-                                          await w.fetchConnectedDevices();
-                                        },
-                                      );
-                                    },
-                                    child: const Icon(Icons.device_hub),
-                                  ),
-                                  const SizedBox(width: 10),
-                                ],
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(context.loc.whatsappDevices),
-                                ),
-                                if (w.connectedDevices != null) ...[
-                                  ...w.connectedDevices!.map((e) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ...e.entries.map((x) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: ListTile(
-                                              title: Text('${x.key}'),
-                                              subtitle: Text('${x.value}'),
-                                            ),
-                                          );
-                                        }),
-                                      ],
-                                    );
-                                  })
-                                ],
-                                if (w.connectedDevices == null)
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(context.loc.noConnectedDevices),
-                                  ),
-                                const Divider(),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                SingleBtnTile(
+                  title: context.loc.logout,
+                  btn: const LogoutBtn(),
                 ),
               ],
             ),
