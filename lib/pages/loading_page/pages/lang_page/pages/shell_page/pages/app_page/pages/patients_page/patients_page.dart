@@ -18,8 +18,21 @@ import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:provider/provider.dart';
 
-class PatientsPage extends StatelessWidget {
+class PatientsPage extends StatefulWidget {
   const PatientsPage({super.key});
+
+  @override
+  State<PatientsPage> createState() => _PatientsPageState();
+}
+
+class _PatientsPageState extends State<PatientsPage> {
+  late final ScrollController _controller = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +107,7 @@ class PatientsPage extends StatelessWidget {
                         );
                       }
                       return ListView.builder(
+                        controller: _controller,
                         itemCount: (p.data! as PatientDataResult).data.length,
                         itemBuilder: (context, index) {
                           final item =
@@ -129,6 +143,12 @@ class PatientsPage extends StatelessWidget {
                           toExecute: () async {
                             await p.previousPage();
                           },
+                          duration: const Duration(milliseconds: 100),
+                        );
+                        _controller.animateTo(
+                          0,
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.easeIn,
                         );
                       },
                       icon: const Icon(Icons.arrow_back),
@@ -145,6 +165,12 @@ class PatientsPage extends StatelessWidget {
                           toExecute: () async {
                             await p.nextPage();
                           },
+                          duration: const Duration(milliseconds: 100),
+                        );
+                        _controller.animateTo(
+                          0,
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.easeIn,
                         );
                       },
                       icon: const Icon(Icons.arrow_forward),

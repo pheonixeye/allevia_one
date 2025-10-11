@@ -1057,4 +1057,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noConnectedDevices => 'لا يوجد اجهزة متصلة';
+
+  @override
+  String get conntectedToWhatsappServer => 'متصل بالواتس ابب';
+
+  @override
+  String get notConntectedToWhatsappServer => 'غير متصل بالواتس ابب';
+
+  @override
+  String get patientVisits => 'زيارات المريض';
 }

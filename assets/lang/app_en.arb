@@ -368,5 +368,8 @@
     "connectWhatsapp" : "Connect Whatsapp",
     "whatsappDevices" : "Whatsapp Devices",
     "showConnectedwhatsappDevices" : "Show Connected whatsapp Devices",
-    "noConnectedDevices" : "No Connected Devices"
+    "noConnectedDevices" : "No Connected Devices",
+    "conntectedToWhatsappServer" : "Conntected To Whatsapp Server",
+    "notConntectedToWhatsappServer" : "Not Conntected To Whatsapp Server",
+    "patientVisits" : "Patient Visits"
 }

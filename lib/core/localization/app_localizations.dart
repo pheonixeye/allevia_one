@@ -2131,6 +2131,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Connected Devices'**
   String get noConnectedDevices;
+
+  /// No description provided for @conntectedToWhatsappServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Conntected To Whatsapp Server'**
+  String get conntectedToWhatsappServer;
+
+  /// No description provided for @notConntectedToWhatsappServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Conntected To Whatsapp Server'**
+  String get notConntectedToWhatsappServer;
+
+  /// No description provided for @patientVisits.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient Visits'**
+  String get patientVisits;
 }
 
 class _AppLocalizationsDelegate

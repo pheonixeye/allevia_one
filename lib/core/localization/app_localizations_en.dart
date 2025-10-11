@@ -1058,4 +1058,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noConnectedDevices => 'No Connected Devices';
+
+  @override
+  String get conntectedToWhatsappServer => 'Conntected To Whatsapp Server';
+
+  @override
+  String get notConntectedToWhatsappServer =>
+      'Not Conntected To Whatsapp Server';
+
+  @override
+  String get patientVisits => 'Patient Visits';
 }

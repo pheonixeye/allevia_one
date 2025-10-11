@@ -341,7 +341,7 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                               children: [
                                 const Icon(Icons.sick_sharp),
                                 SizedBox(width: 4),
-                                Text(context.loc.previousPatientVisits),
+                                Text(context.loc.patientVisits),
                               ],
                             ),
                             onTap: () async {

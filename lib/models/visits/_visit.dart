@@ -152,10 +152,7 @@ class Visit extends Equatable {
   factory Visit.fromRecordModel(RecordModel e) {
     final _clinic =
         Clinic.fromJson(e.get<RecordModel>('expand.clinic_id').toJson());
-    // final _clinic_schedule = _clinic.clinic_schedule
-    //     .firstWhere((x) => x.id == e.getStringValue('clinic_schedule_id'));
-    // final _schedule_shift = _clinic_schedule.shifts.firstWhere(
-    //     (x) => x.id == e.getStringValue('clinic_schedule_shift_id'));
+
     return Visit(
       id: e.id,
       patient:

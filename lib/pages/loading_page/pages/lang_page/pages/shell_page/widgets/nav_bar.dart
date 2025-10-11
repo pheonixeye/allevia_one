@@ -1,7 +1,9 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/widgets/monthly_visits_calendar_dialog.dart';
+import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
@@ -60,6 +62,35 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 const Spacer(),
+                Consumer<PxWhatsapp>(
+                  builder: (context, w, _) {
+                    while (w.serverResult == null) {
+                      return const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return IconButton.outlined(
+                      tooltip: w.isConnectedToServer
+                          ? context.loc.conntectedToWhatsappServer
+                          : context.loc.notConntectedToWhatsappServer,
+                      style: IconButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.white),
+                      ),
+                      onPressed: null,
+                      icon: Icon(
+                        w.isConnectedToServer
+                            ? FontAwesomeIcons.whatsapp
+                            : Icons.wifi_off_rounded,
+                        color:
+                            w.isConnectedToServer ? Colors.green : Colors.red,
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(width: 20),
                 IconButton.outlined(
                   tooltip: context.loc.visitsCalender,
                   style: IconButton.styleFrom(

@@ -12,7 +12,7 @@ class PatientPreviousVisitsApi {
   static const collection = 'visits';
 
   static const _expand =
-      'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id';
+      'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id, visit_schedule_id';
 
   Future<ApiResult<List<Visit>>> fetchPatientVisits({
     required int page,
