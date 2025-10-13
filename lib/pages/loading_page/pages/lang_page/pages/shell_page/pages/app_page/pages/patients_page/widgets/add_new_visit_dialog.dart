@@ -312,84 +312,6 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                   ListTile(
                     title: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(context.loc.pickClinicScheduleShift),
-                    ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FormField<ScheduleShift>(
-                        validator: (value) {
-                          if (_scheduleShift == null) {
-                            return context.loc.pickClinicScheduleShift;
-                          }
-                          return null;
-                        },
-                        builder: (field) {
-                          return Column(
-                            spacing: 8,
-                            children: [
-                              if (_clinicSchedule != null)
-                                ..._clinicSchedule!.shifts.map((e) {
-                                  bool _isSelected = e == _scheduleShift;
-                                  return RadioListTile<ScheduleShift>(
-                                    shape: _tileBorder(_isSelected),
-                                    selected: _isSelected,
-                                    tileColor: _unSelectedColor,
-                                    selectedTileColor: _selectedColor,
-                                    title: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            e.formattedFromTo(context),
-                                          ),
-                                        ),
-                                        if (_visitDate != null &&
-                                            v.remainingVisitsPerClinicShiftVar !=
-                                                null &&
-                                            _isSelected)
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8.0),
-                                            child: Tooltip(
-                                              message:
-                                                  context.loc.dayVisitCount,
-                                              child: v.isUpdating
-                                                  ? CupertinoActivityIndicator()
-                                                  : Text(
-                                                      '${v.remainingVisitsPerClinicShiftVar} / ${e.visit_count}'
-                                                          .toArabicNumber(
-                                                              context),
-                                                    ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                    value: e,
-                                    groupValue: _scheduleShift,
-                                    onChanged: (value) async {
-                                      setState(() {
-                                        _scheduleShift = value;
-                                      });
-                                      await v
-                                          .calculateRemainingVisitsPerClinicShift(
-                                        _clinicSchedule,
-                                        _scheduleShift,
-                                        _visitDate,
-                                      );
-                                    },
-                                  );
-                                }),
-                              _validationErrorWidget(field),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
                       child: Text(context.loc.pickVisitDate),
                     ),
                     subtitle: Padding(
@@ -454,6 +376,100 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(context.loc.pickClinicScheduleShift),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FormField<ScheduleShift>(
+                        validator: (value) {
+                          if (_scheduleShift == null) {
+                            return context.loc.pickClinicScheduleShift;
+                          }
+                          return null;
+                        },
+                        builder: (field) {
+                          return Column(
+                            spacing: 8,
+                            children: [
+                              if (_clinicSchedule != null)
+                                ..._clinicSchedule!.shifts.map((e) {
+                                  //todo: disable tile if _isDisabled
+                                  bool _isSelected = e == _scheduleShift;
+                                  bool _isDisabled = _isSelected &&
+                                      (v.remainingVisitsPerClinicShiftVar !=
+                                              null &&
+                                          v.remainingVisitsPerClinicShiftVar! >=
+                                              e.visit_count);
+                                  return RadioListTile<ScheduleShift>(
+                                    shape: _tileBorder(_isSelected),
+                                    selected: _isSelected,
+                                    tileColor: _unSelectedColor,
+                                    selectedTileColor: _selectedColor,
+                                    title: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            e.formattedFromTo(context),
+                                            style: !_isDisabled
+                                                ? null
+                                                : TextStyle(
+                                                    color: Colors.red,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                          ),
+                                        ),
+                                        if (_visitDate != null &&
+                                            v.remainingVisitsPerClinicShiftVar !=
+                                                null &&
+                                            _isSelected)
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0,
+                                            ),
+                                            child: Tooltip(
+                                              message:
+                                                  context.loc.dayVisitCount,
+                                              child: v.isUpdating
+                                                  ? CupertinoActivityIndicator()
+                                                  : Text(
+                                                      '${v.remainingVisitsPerClinicShiftVar} / ${e.visit_count}'
+                                                          .toArabicNumber(
+                                                              context),
+                                                    ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                    value: e,
+                                    groupValue: _scheduleShift,
+                                    onChanged: _isDisabled
+                                        ? null
+                                        : (value) async {
+                                            setState(() {
+                                              _scheduleShift = value;
+                                            });
+                                            await v
+                                                .calculateRemainingVisitsPerClinicShift(
+                                              _clinicSchedule,
+                                              _scheduleShift,
+                                              _visitDate,
+                                            );
+                                          },
+                                  );
+                                }),
+                              _validationErrorWidget(field),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -581,7 +597,8 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                     });
                                   },
                                 );
-                              })
+                              }),
+                              _validationErrorWidget(field),
                             ],
                           ),
                         );
