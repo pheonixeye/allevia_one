@@ -65,6 +65,7 @@ class VisitsApi {
   }
 
   Future<void> addNewVisit(VisitCreateDto dto) async {
+    //TODO: error prone logic - multiple requests can fail;
     //create visit reference
     final _result = await PocketbaseHelper.pb.collection(collection).create(
           body: dto.toJson(),

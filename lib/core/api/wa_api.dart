@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:allevia_one/functions/dprint.dart';
 import 'package:allevia_one/models/whatsapp_models/Whatsapp_image_request.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_device.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_login_result.dart';
@@ -9,6 +10,8 @@ import 'package:http_parser/http_parser.dart';
 
 class WaApi {
   const WaApi();
+  //TODO: implement logger class
+  //TODO: handle catch cases
 
   static const String _wa_url = String.fromEnvironment('WA_URL');
   static const String _wa_user = String.fromEnvironment('WA_USER');
@@ -34,7 +37,7 @@ class WaApi {
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
 
-      print(_result);
+      dprint(_result);
 
       return WhatsappServerResponse<WhatsappLoginResult?>(
         code: _result['code'],
@@ -47,7 +50,7 @@ class WaApi {
               ),
       );
     } catch (e) {
-      print(e);
+      dprint(e);
       throw Exception(e.toString());
     }
   }
@@ -62,7 +65,7 @@ class WaApi {
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
 
-      print(_result);
+      dprint(_result);
 
       return WhatsappServerResponse<List<WhatsappDevice>>(
         code: _result['code'],
@@ -74,7 +77,7 @@ class WaApi {
                 .toList(),
       );
     } catch (e) {
-      print(e);
+      dprint(e);
       throw Exception(e.toString());
     }
   }
@@ -89,14 +92,14 @@ class WaApi {
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
 
-      print(_result);
+      dprint(_result);
 
       return WhatsappServerResponse(
         code: _result['code'],
         message: _result['message'],
       );
     } catch (e) {
-      print(e);
+      dprint(e);
       throw Exception(e.toString());
     }
   }
@@ -111,14 +114,14 @@ class WaApi {
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
 
-      print(_result);
+      dprint(_result);
 
       return WhatsappServerResponse(
         code: _result['code'],
         message: _result['message'],
       );
     } catch (e) {
-      print(e);
+      dprint(e);
       throw Exception(e.toString());
     }
   }
@@ -136,14 +139,14 @@ class WaApi {
 
       final _result = jsonDecode(_response.body) as Map<String, dynamic>;
 
-      print(_result);
+      dprint(_result);
 
       return WhatsappServerResponse(
         code: _result['code'],
         message: _result['message'],
       );
     } catch (e) {
-      print(e);
+      dprint(e);
       throw Exception(e.toString());
     }
   }
@@ -179,14 +182,14 @@ class WaApi {
       final _result = jsonDecode(await _requestSend.stream.bytesToString())
           as Map<String, dynamic>;
 
-      print(_result);
+      dprint(_result);
 
       return WhatsappServerResponse(
         code: _result['code'],
         message: _result['message'],
       );
     } catch (e) {
-      print(e);
+      dprint(e);
       throw Exception(e.toString());
     }
   }

@@ -1,7 +1,7 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:allevia_one/models/app_constants/document_type.dart';
-import 'package:hive_ce/hive.dart';
+// import 'package:hive_ce/hive.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/models/app_constants/account_type.dart';
 import 'package:allevia_one/models/app_constants/_app_constants.dart';
@@ -13,7 +13,7 @@ import 'package:allevia_one/models/app_constants/visit_type.dart';
 
 class ConstantsApi {
   const ConstantsApi();
-  static final _n = DateTime.now();
+  // static final _n = DateTime.now();
   static const _perPage = 200;
 
   static const String account_types = 'account_types';
@@ -27,8 +27,8 @@ class ConstantsApi {
   static const String collection = 'constants';
   static String collectionSaveDate = 'constants_save_date';
 
-  static final _box = Hive.box<String>(collection);
-  static final _boxSaveDate = Hive.box<String>(collectionSaveDate);
+  // static final _box = Hive.box<String>(collection);
+  // static final _boxSaveDate = Hive.box<String>(collectionSaveDate);
 
   Future<AppConstants> fetchConstants() async {
     AppConstants? _constants;

@@ -108,7 +108,7 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
                           ],
                         ),
                         onTap: () async {
-                          //TODO: show previous patient Documents
+                          //todo: show previous patient Documents
                           await showDialog<void>(
                             context: context,
                             builder: (context) {

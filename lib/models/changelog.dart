@@ -112,9 +112,26 @@ class Changelog extends Equatable {
       ],
     );
   }
+  factory Changelog.v005() {
+    return Changelog(
+      version: '0.0.5',
+      //TODO: add changelog
+      entries: [
+        ChangelogEntry(
+          ar: 'تمت إضافة مؤشر يشير إلى أن جدول العيادة مشغول أثناء إضافة زيارة جديدة.',
+          en: 'Added Indicator That a Clinic Schedule Is Occupied While Adding a New Visit.',
+        ),
+        ChangelogEntry(
+          ar: 'تمت إضافة تكامل خادم WhatsApp، يمكنك الآن إرسال بطاقة هوية المريض عبر WhatsApp مباشرة.',
+          en: 'Added Whatsapp Server Integration, You Can Now Send The Patient Id Card Via Whatsapp Directly.',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v005(),
   Changelog.v0045(),
   Changelog.v0044(),
   Changelog.v004(),
