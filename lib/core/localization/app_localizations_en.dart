@@ -1068,4 +1068,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get patientVisits => 'Patient Visits';
+
+  @override
+  String get send => 'Send';
 }

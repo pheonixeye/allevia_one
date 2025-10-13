@@ -370,5 +370,6 @@
     "noConnectedDevices" : "لا يوجد اجهزة متصلة",
     "conntectedToWhatsappServer" : "متصل بخادم الواتس ابب",
     "notConntectedToWhatsappServer" : "غير متصل بالواتس ابب",
-    "patientVisits" : "زيارات المريض"
+    "patientVisits" : "زيارات المريض",
+    "send" : "ارسال"
 }

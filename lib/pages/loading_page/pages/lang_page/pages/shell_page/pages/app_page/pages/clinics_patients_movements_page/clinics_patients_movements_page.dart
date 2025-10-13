@@ -88,7 +88,7 @@ class _ClinicsPatientsMovementsPageState
           return CentralLoading();
         }
         //TODO: add shifts in the top beside the clinics
-        //TODO: change ui or make tabs animate on timer
+        //todo: change ui or make tabs animate on timer
         return Scaffold(
           body: ChangeNotifierProvider(
             create: (context) => PxTodayPatientProgress(

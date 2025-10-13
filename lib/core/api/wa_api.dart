@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:allevia_one/models/whatsapp_models/Whatsapp_image_request.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_device.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_login_result.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_server_response.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_text_request.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 class WaApi {
   const WaApi();
@@ -16,6 +18,11 @@ class WaApi {
     "Authorization":
         "Basic ${base64.encode('$_wa_user:$_wa_password'.codeUnits)}"
   };
+
+  static final _imageHeaders = _headers
+    ..addAll(
+      {'Content-Type': 'multipart/form-data'},
+    );
 
   Future<WhatsappServerResponse<WhatsappLoginResult?>> login() async {
     final _url = Uri.parse('$_wa_url/app/login');
@@ -141,5 +148,46 @@ class WaApi {
     }
   }
 
-  // Future<WhatsappServerResponse> sendImage() async {}
+  Future<WhatsappServerResponse> sendImage(
+    WhatsappImageRequest imageRequest,
+  ) async {
+    final _url = Uri.parse('$_wa_url/send/image');
+    try {
+      final _request = http.MultipartRequest('POST', _url);
+
+      final _formFields = _request.fields;
+
+      imageRequest.toJson().entries.map((e) {
+        _formFields[e.key] = e.value;
+      }).toList();
+
+      _request.headers.addAll({
+        ..._imageHeaders,
+      });
+
+      _request.files.add(
+        http.MultipartFile.fromBytes(
+          'image', // Field name on the server
+          imageRequest.image,
+          filename: 'image.png',
+          contentType: MediaType.parse('image/png'),
+        ),
+      );
+
+      final _requestSend = await _request.send();
+
+      final _result = jsonDecode(await _requestSend.stream.bytesToString())
+          as Map<String, dynamic>;
+
+      print(_result);
+
+      return WhatsappServerResponse(
+        code: _result['code'],
+        message: _result['message'],
+      );
+    } catch (e) {
+      print(e);
+      throw Exception(e.toString());
+    }
+  }
 }

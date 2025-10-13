@@ -371,5 +371,6 @@
     "noConnectedDevices" : "No Connected Devices",
     "conntectedToWhatsappServer" : "Conntected To Whatsapp Server",
     "notConntectedToWhatsappServer" : "Not Conntected To Whatsapp Server",
-    "patientVisits" : "Patient Visits"
+    "patientVisits" : "Patient Visits",
+    "send" : "Send"
 }

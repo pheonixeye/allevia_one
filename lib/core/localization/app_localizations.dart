@@ -2149,6 +2149,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Patient Visits'**
   String get patientVisits;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,8 @@
 import 'package:allevia_one/functions/download_image.dart';
+import 'package:allevia_one/functions/shell_function.dart';
+import 'package:allevia_one/models/whatsapp_models/Whatsapp_image_request.dart';
+import 'package:allevia_one/providers/px_whatsapp.dart';
+import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +10,7 @@ import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/models/patient.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/paient_id_card_printer_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -165,22 +170,46 @@ class _PatientIdCardDialogState extends State<PatientIdCardDialog> {
             color: Colors.green.shade100,
           ),
         ),
-        // ElevatedButton.icon(
-        //   onPressed: () async {
-        //     final _data = await _controller.capture();
-        //     if (_data != null && context.mounted) {
-        //       web.window.open(
-        //         'https://wa.me/+2${widget.patient.phone}',
-        //         '_blank',
-        //       );
-        //     }
-        //   },
-        //   label: Text(context.loc.sendViaWhatsapp),
-        //   icon: Icon(
-        //     FontAwesomeIcons.whatsapp,
-        //     color: Colors.green.shade100,
-        //   ),
-        // ),
+        Consumer<PxWhatsapp>(
+          builder: (context, w, _) {
+            return ElevatedButton.icon(
+              onPressed: () async {
+                final _data = await _controller.capture();
+                if (_data != null && context.mounted) {
+                  if (w.isConnectedToServer && w.hasConnectedDevices) {
+                    await shellFunction(
+                      context,
+                      toExecute: () async {
+                        final _imageRequest = WhatsappImageRequest(
+                          phone: widget.patient.phone,
+                          caption: 'كارت المتابعة',
+                          image: _data,
+                        );
+                        await w.sendImage(_imageRequest);
+                      },
+                    );
+                  } else {
+                    if (!w.isConnectedToServer) {
+                      showIsnackbar(context.loc.notConntectedToWhatsappServer);
+                      return;
+                    }
+                    if (!w.hasConnectedDevices) {
+                      showIsnackbar(context.loc.noConnectedDevices);
+                      return;
+                    }
+                    showIsnackbar(context.loc.error);
+                    return;
+                  }
+                }
+              },
+              label: Text(context.loc.send),
+              icon: Icon(
+                FontAwesomeIcons.whatsapp,
+                color: Colors.green.shade100,
+              ),
+            );
+          },
+        ),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/whatsapp_models/Whatsapp_image_request.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_device.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_login_result.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_server_response.dart';
@@ -59,5 +60,9 @@ class PxWhatsapp extends ChangeNotifier {
 
   Future<void> sendMessage(WhatsappTextRequest textRequest) async {
     await api.sendMessage(textRequest);
+  }
+
+  Future<void> sendImage(WhatsappImageRequest imageRequest) async {
+    await api.sendImage(imageRequest);
   }
 }

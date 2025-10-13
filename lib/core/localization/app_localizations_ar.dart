@@ -1066,4 +1066,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get patientVisits => 'زيارات المريض';
+
+  @override
+  String get send => 'ارسال';
 }
