@@ -73,8 +73,8 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                     }
                     return IconButton.outlined(
                       tooltip: w.isConnectedToServer
-                          ? context.loc.conntectedToWhatsappServer
-                          : context.loc.notConntectedToWhatsappServer,
+                          ? '${context.loc.conntectedToWhatsappServer} \n ${w.hasConnectedDevices ? w.connectedDevices?.results?.map((e) => '${e.device}\n').toList() : context.loc.noConnectedDevices}'
+                          : '${context.loc.notConntectedToWhatsappServer} \n ${context.loc.noConnectedDevices}',
                       style: IconButton.styleFrom(
                         foregroundColor: Colors.white,
                         side: const BorderSide(color: Colors.white),

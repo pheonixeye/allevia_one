@@ -1059,7 +1059,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noConnectedDevices => 'لا يوجد اجهزة متصلة';
 
   @override
-  String get conntectedToWhatsappServer => 'متصل بالواتس ابب';
+  String get conntectedToWhatsappServer => 'متصل بخادم الواتس ابب';
 
   @override
   String get notConntectedToWhatsappServer => 'غير متصل بالواتس ابب';

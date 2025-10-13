@@ -368,7 +368,7 @@
     "whatsappDevices" : "الاجهزة المتصلة",
     "showConnectedwhatsappDevices" : "اظهار اجهزة الواتس ابب المتصلة",
     "noConnectedDevices" : "لا يوجد اجهزة متصلة",
-    "conntectedToWhatsappServer" : "متصل بالواتس ابب",
+    "conntectedToWhatsappServer" : "متصل بخادم الواتس ابب",
     "notConntectedToWhatsappServer" : "غير متصل بالواتس ابب",
     "patientVisits" : "زيارات المريض"
 }
