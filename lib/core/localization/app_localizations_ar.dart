@@ -1069,4 +1069,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get send => 'ارسال';
+
+  @override
+  String get discount => 'الخصم';
+
+  @override
+  String get addDiscount => 'اضافة خصم';
+
+  @override
+  String get removeDiscount => 'ازالة خصم';
+
+  @override
+  String get discountInPounds => 'قيمة الخصم بالجنيه';
+
+  @override
+  String get noDiscountApplied => 'لا يوجد خصومات مفعلة';
 }

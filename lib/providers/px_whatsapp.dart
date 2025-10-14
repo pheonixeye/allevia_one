@@ -1,4 +1,4 @@
-import 'package:allevia_one/models/whatsapp_models/Whatsapp_image_request.dart';
+import 'package:allevia_one/models/whatsapp_models/whatsapp_image_request.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_device.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_login_result.dart';
 import 'package:allevia_one/models/whatsapp_models/whatsapp_server_response.dart';

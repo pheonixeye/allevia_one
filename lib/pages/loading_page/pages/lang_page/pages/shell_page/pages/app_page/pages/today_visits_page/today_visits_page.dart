@@ -1,3 +1,4 @@
+import 'package:allevia_one/core/api/bookkeeping_api.dart';
 import 'package:allevia_one/core/api/patients_api.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
@@ -7,6 +8,7 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/widgets/scan_patient_qr_dialog.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
@@ -160,9 +162,16 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
                             itemCount: _clinicItems.length,
                             itemBuilder: (context, index) {
                               final _item = _clinicItems[index];
-                              return VisitViewCard(
-                                visit: _item,
-                                index: index,
+                              return ChangeNotifierProvider.value(
+                                value: PxOneVisitBookkeeping(
+                                  api: BookkeepingApi(
+                                    visit_id: _item.id,
+                                  ),
+                                ),
+                                child: VisitViewCard(
+                                  visit: _item,
+                                  index: index,
+                                ),
                               );
                             },
                           );

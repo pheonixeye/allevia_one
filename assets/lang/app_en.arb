@@ -372,5 +372,10 @@
     "conntectedToWhatsappServer" : "Conntected To Whatsapp Server",
     "notConntectedToWhatsappServer" : "Not Conntected To Whatsapp Server",
     "patientVisits" : "Patient Visits",
-    "send" : "Send"
+    "send" : "Send",
+    "discount" : "Discount",
+    "addDiscount" : "Add Discount",
+    "removeDiscount" : "Remove Discount",
+    "discountInPounds" : "Discount In Pounds",
+    "noDiscountApplied" : "No Discounts Applied"
 }

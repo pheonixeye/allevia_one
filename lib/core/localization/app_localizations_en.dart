@@ -1071,4 +1071,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get send => 'Send';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get addDiscount => 'Add Discount';
+
+  @override
+  String get removeDiscount => 'Remove Discount';
+
+  @override
+  String get discountInPounds => 'Discount In Pounds';
+
+  @override
+  String get noDiscountApplied => 'No Discounts Applied';
 }

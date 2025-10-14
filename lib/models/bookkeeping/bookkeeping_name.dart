@@ -1,7 +1,10 @@
 enum BookkeepingName {
   //TODO: Add to app constants
+  //visit
   visit_create,
   visit_no_update,
+  visit_add_discount,
+  visit_remove_discount,
   //visit_attendance
   visit_attendance_update_attended,
   visit_attendance_update_not_attended,
@@ -28,6 +31,9 @@ extension ToArabic on BookkeepingName {
     return switch (this) {
       BookkeepingName.visit_create => 'الزيارات - اضافة',
       BookkeepingName.visit_no_update => "الزيارات - بدون تعديل",
+      BookkeepingName.visit_add_discount => "الزيارات - اضافة خصم للزيارة",
+      BookkeepingName.visit_remove_discount =>
+        "الزيارات - ازالة خصم من الزيارة",
       BookkeepingName.visit_attendance_update_attended =>
         "الزيارات - تم حضور الزيارة",
       BookkeepingName.visit_attendance_update_not_attended =>

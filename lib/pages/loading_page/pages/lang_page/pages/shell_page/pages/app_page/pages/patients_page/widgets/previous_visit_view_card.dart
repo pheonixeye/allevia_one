@@ -12,10 +12,12 @@ class PreviousVisitViewCard extends StatelessWidget {
     required this.item,
     required this.index,
     this.showIndexNumber = true,
+    this.showPatientName = false,
   });
   final Visit item;
   final int index;
   final bool showIndexNumber;
+  final bool showPatientName;
   @override
   Widget build(BuildContext context) {
     return Consumer<PxLocale>(
@@ -44,6 +46,24 @@ class PreviousVisitViewCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  if (showPatientName)
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 50.0),
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          Text(
+                            l.isEnglish ? 'Patient Name:' : 'اسم المريض:',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          Text(
+                            item.patient.name,
+                          ),
+                        ],
+                      ),
+                    ),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(start: 50.0),
                     child: Row(

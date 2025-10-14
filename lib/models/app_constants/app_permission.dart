@@ -93,6 +93,7 @@ enum PermissionEnum {
   User_Forms_Add, //done
   User_Forms_Modify, //done
   User_Forms_Delete; //done
+  //TODO: add wa persmissions && discount permissions
 
   factory PermissionEnum.fromString(String value) {
     return PermissionEnum.values.firstWhere((x) => x.name == value);

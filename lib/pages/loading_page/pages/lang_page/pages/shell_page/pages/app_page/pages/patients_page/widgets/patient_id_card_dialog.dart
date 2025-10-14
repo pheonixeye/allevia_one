@@ -1,6 +1,6 @@
 import 'package:allevia_one/functions/download_image.dart';
 import 'package:allevia_one/functions/shell_function.dart';
-import 'package:allevia_one/models/whatsapp_models/Whatsapp_image_request.dart';
+import 'package:allevia_one/models/whatsapp_models/whatsapp_image_request.dart';
 import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';

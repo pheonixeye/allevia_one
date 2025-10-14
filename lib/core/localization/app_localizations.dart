@@ -2155,6 +2155,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Send'**
   String get send;
+
+  /// No description provided for @discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get discount;
+
+  /// No description provided for @addDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Discount'**
+  String get addDiscount;
+
+  /// No description provided for @removeDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Discount'**
+  String get removeDiscount;
+
+  /// No description provided for @discountInPounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount In Pounds'**
+  String get discountInPounds;
+
+  /// No description provided for @noDiscountApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'No Discounts Applied'**
+  String get noDiscountApplied;
 }
 
 class _AppLocalizationsDelegate

@@ -371,5 +371,10 @@
     "conntectedToWhatsappServer" : "متصل بخادم الواتس ابب",
     "notConntectedToWhatsappServer" : "غير متصل بالواتس ابب",
     "patientVisits" : "زيارات المريض",
-    "send" : "ارسال"
+    "send" : "ارسال",
+    "discount" : "الخصم",
+    "addDiscount" : "اضافة خصم",
+    "removeDiscount" : "ازالة خصم",
+    "discountInPounds" : "قيمة الخصم بالجنيه",
+    "noDiscountApplied" : "لا يوجد خصومات مفعلة"
 }
