@@ -1,5 +1,4 @@
 import 'package:allevia_one/extensions/loc_ext.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class WhatsappQrDialog extends StatelessWidget {
@@ -39,8 +38,9 @@ class WhatsappQrDialog extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: CachedNetworkImage(
-                imageUrl: qrLink,
+              child: Image.network(
+                qrLink,
+                webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
               ),
             ),
           ],
