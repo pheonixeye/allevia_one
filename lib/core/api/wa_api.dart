@@ -19,7 +19,9 @@ class WaApi {
 
   static final _headers = {
     "Authorization":
-        "Basic ${base64.encode('$_wa_user:$_wa_password'.codeUnits)}"
+        "Basic ${base64.encode('$_wa_user:$_wa_password'.codeUnits)}",
+    "access-control-allow-origin": "*",
+    "access-control-allow-headers": "*"
   };
 
   static final _imageHeaders = _headers
