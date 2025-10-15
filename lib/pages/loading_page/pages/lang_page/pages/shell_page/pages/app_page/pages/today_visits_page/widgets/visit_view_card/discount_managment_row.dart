@@ -114,11 +114,8 @@ class DiscountManagmentRow extends StatelessWidget {
                       ),
                       onTap: () async {
                         //@permission
-                        //TODO
-
                         final _perm = context.read<PxAuth>().isActionPermitted(
-                              PermissionEnum
-                                  .User_TodayVisits_Modify_Visit_Progress,
+                              PermissionEnum.User_TodayVisits_Add_Discount,
                               context,
                             );
                         if (!_perm.isAllowed) {
@@ -154,7 +151,6 @@ class DiscountManagmentRow extends StatelessWidget {
                           await shellFunction(
                             context,
                             toExecute: () async {
-                              //todo
                               await b.addBookkeepingEntry(_dto);
                             },
                           );
@@ -176,11 +172,8 @@ class DiscountManagmentRow extends StatelessWidget {
                       ),
                       onTap: () async {
                         //@permission
-                        //TODO
-
                         final _perm = context.read<PxAuth>().isActionPermitted(
-                              PermissionEnum
-                                  .User_TodayVisits_Modify_Visit_Progress,
+                              PermissionEnum.User_TodayVisits_Remove_Discount,
                               context,
                             );
                         if (!_perm.isAllowed) {
@@ -220,7 +213,6 @@ class DiscountManagmentRow extends StatelessWidget {
                           await shellFunction(
                             context,
                             toExecute: () async {
-                              //todo
                               await b.addBookkeepingEntry(_dto);
                             },
                           );

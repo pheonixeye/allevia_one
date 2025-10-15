@@ -58,6 +58,7 @@ extension WxColorsPatientProgressStatus on PatientProgressStatus {
       'Done Consultation' => Colors.blue.shade50,
       'In Consultation' => Colors.green.shade50,
       'In Waiting' => Colors.amber.shade50,
+      'Canceled' => Colors.red.shade50,
       _ => Colors.transparent,
     };
   }

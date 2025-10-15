@@ -87,7 +87,11 @@ class PxAppConstants extends ChangeNotifier {
       _constants!.patientProgressStatus
           .firstWhere((e) => e.name_en == 'Has Not Attended Yet');
 
+  PatientProgressStatus get canceled => _constants!.patientProgressStatus
+      .firstWhere((e) => e.name_en == 'Canceled');
+
   List<PatientProgressStatus> get patientProgressStatuses => [
+        canceled,
         in_waiting,
         in_consultation,
         done_consultation,
