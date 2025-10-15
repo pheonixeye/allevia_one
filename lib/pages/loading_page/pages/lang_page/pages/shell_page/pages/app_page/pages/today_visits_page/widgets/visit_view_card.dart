@@ -280,7 +280,16 @@ class VisitViewCard extends StatelessWidget {
                                 child: const Icon(Icons.more_time_rounded),
                               ),
                               Expanded(
-                                child: Text(visit.formattedShift(context)),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0,
+                                      horizontal: 2,
+                                    ),
+                                    child: Text(visit.formattedShift(context)),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
