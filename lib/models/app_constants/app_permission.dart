@@ -93,12 +93,13 @@ enum PermissionEnum {
   User_Forms_Add, //done
   User_Forms_Modify, //done
   User_Forms_Delete, //done
-  //TODO: add wa persmissions && discount permissions
+  //TODO: add wa persmissions && discount permissions && reschedule visit
   User_TodayVisits_Add_Discount, //done
   User_TodayVisits_Remove_Discount, //done
   User_Whatsapp_Login, //done
   User_Whatsapp_Fetch_Devices, //done
-  User_Whatsapp_Logout;
+  User_Whatsapp_Logout, //done
+  User_TodayVisits_Reschedule_Visit;
 
   factory PermissionEnum.fromString(String value) {
     return PermissionEnum.values.firstWhere((x) => x.name == value);

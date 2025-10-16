@@ -1,5 +1,6 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/widgets/visit_view_card/discount_managment_row.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/widgets/visit_view_card/visit_shift_row.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:flutter/material.dart';
@@ -272,26 +273,8 @@ class VisitViewCard extends StatelessWidget {
                             ],
                           ),
                           //visit shift row
-                          Row(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: const Icon(Icons.more_time_rounded),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {},
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0,
-                                      horizontal: 2,
-                                    ),
-                                    child: Text(visit.formattedShift(context)),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          VisitShiftRow(
+                            visit: visit,
                           ),
                           //visit status toggle
                           Row(

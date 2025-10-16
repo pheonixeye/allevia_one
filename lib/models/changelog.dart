@@ -115,7 +115,6 @@ class Changelog extends Equatable {
   factory Changelog.v005() {
     return Changelog(
       version: '0.0.5',
-      //TODO: add changelog
       entries: [
         ChangelogEntry(
           ar: 'تمت إضافة مؤشر يشير إلى أن جدول العيادة مشغول أثناء إضافة زيارة جديدة.',
@@ -124,6 +123,25 @@ class Changelog extends Equatable {
         ChangelogEntry(
           ar: 'تمت إضافة تكامل خادم WhatsApp، يمكنك الآن إرسال بطاقة هوية المريض عبر WhatsApp مباشرة.',
           en: 'Added Whatsapp Server Integration, You Can Now Send The Patient Id Card Via Whatsapp Directly.',
+        ),
+      ],
+    );
+  }
+  factory Changelog.v006() {
+    return Changelog(
+      version: '0.0.6',
+      entries: [
+        ChangelogEntry(
+          ar: 'تمت إضافة القدرة على تغيير موعد الزيارة في زيارات اليوم.',
+          en: 'Added The Ability To Change Visit Schedule In Today Visits.',
+        ),
+        ChangelogEntry(
+          ar: 'يمكنك الآن إضافة الخصومات مباشرة إلى الزيارة في صفحة زيارات اليوم.',
+          en: 'You Can Now Add Disounts Direclty To A Visit In Today Visits Page.',
+        ),
+        ChangelogEntry(
+          ar: 'تمت إضافة حالة تقدم الزيارة الجديدة بناءً على طلب الدكتور أحمد => "ملغاة".',
+          en: 'A New Visit Progress Status Is Added As Requsted By Doctor Ahmed => "Canceled".',
         ),
       ],
     );

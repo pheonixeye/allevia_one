@@ -1084,4 +1084,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noDiscountApplied => 'لا يوجد خصومات مفعلة';
+
+  @override
+  String get rescheduleVisitShift => 'تعديل موعد الزيارة';
+
+  @override
+  String get sameShiftSelected => 'تم اختيار نفس الموعد';
 }

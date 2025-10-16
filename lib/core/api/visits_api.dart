@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/shift.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -88,7 +89,7 @@ class VisitsApi {
 
     //create visit_schedule reference
     final visit_schedule =
-        await PocketbaseHelper.pb.collection('visit__schedule').create(
+        await PocketbaseHelper.pb.collection(visit_schedule_collection).create(
               body: _visitSchedule.toJson(),
             );
     //update visit with visit_schedule id
@@ -175,7 +176,17 @@ class VisitsApi {
       );
     }
   }
-  //TODO: add update visit schedule function
+  //todo: add update visit schedule function
+
+  Future<void> updateVisitScheduleShift({
+    required String visit_shift_id,
+    required Shift shift,
+  }) async {
+    await PocketbaseHelper.pb.collection(visit_schedule_collection).update(
+          visit_shift_id,
+          body: shift.toJson(),
+        );
+  }
 }
 
 

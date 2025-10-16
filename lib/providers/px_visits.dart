@@ -1,4 +1,5 @@
 import 'package:allevia_one/models/clinic/clinic_schedule.dart';
+import 'package:allevia_one/models/shift.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/visits_api.dart';
@@ -120,5 +121,16 @@ class PxVisits extends ChangeNotifier {
       year: _nowMonth.year,
     );
     notifyListeners();
+  }
+
+  Future<void> updateVisitScheduleShift({
+    required String visit_shift_id,
+    required Shift shift,
+  }) async {
+    await api.updateVisitScheduleShift(
+      visit_shift_id: visit_shift_id,
+      shift: shift,
+    );
+    await _fetchVisitsOfToday();
   }
 }

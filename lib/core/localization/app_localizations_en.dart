@@ -1086,4 +1086,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noDiscountApplied => 'No Discounts Applied';
+
+  @override
+  String get rescheduleVisitShift => 'Reschedule Visit Shift';
+
+  @override
+  String get sameShiftSelected => 'Same Shift Selected';
 }

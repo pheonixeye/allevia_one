@@ -16,7 +16,7 @@ class PxOneVisitBookkeeping extends ChangeNotifier {
   Future<void> _init() async {
     _result = await api.fetchBookkeepingOfOneVisit();
     notifyListeners();
-    filterDiscounts();
+    _filterDiscounts();
   }
 
   Future<void> retry() async => await _init();
@@ -29,15 +29,18 @@ class PxOneVisitBookkeeping extends ChangeNotifier {
   List<BookkeepingItemDto>? _visitDiscounts;
   List<BookkeepingItemDto>? get visitDiscounts => _visitDiscounts;
 
-  void filterDiscounts() {
+  double? _discountTotal;
+  double? get discountTotal => _discountTotal;
+
+  void _filterDiscounts() {
     if (_result != null && _result is ApiDataResult<List<BookkeepingItemDto>>) {
       final _items = (_result as ApiDataResult<List<BookkeepingItemDto>>).data;
       _visitDiscounts =
           _items.where((e) => e.item_name.contains('discount')).toList();
+      _discountTotal = _visitDiscounts
+          ?.map((e) => e.amount)
+          .fold<double>(0, (a, b) => a + b);
       notifyListeners();
     }
   }
-
-  double? get discountTotal =>
-      _visitDiscounts?.map((e) => e.amount).fold<double>(0, (a, b) => a + b);
 }

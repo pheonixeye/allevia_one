@@ -160,6 +160,7 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
 
                           return ListView.builder(
                             itemCount: _clinicItems.length,
+                            cacheExtent: 3000,
                             itemBuilder: (context, index) {
                               final _item = _clinicItems[index];
                               return ChangeNotifierProvider.value(

@@ -377,5 +377,7 @@
     "addDiscount" : "Add Discount",
     "removeDiscount" : "Remove Discount",
     "discountInPounds" : "Discount In Pounds",
-    "noDiscountApplied" : "No Discounts Applied"
+    "noDiscountApplied" : "No Discounts Applied",
+    "rescheduleVisitShift" : "Reschedule Visit Shift",
+    "sameShiftSelected" : "Same Shift Selected"
 }

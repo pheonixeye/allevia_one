@@ -376,5 +376,7 @@
     "addDiscount" : "اضافة خصم",
     "removeDiscount" : "ازالة خصم",
     "discountInPounds" : "قيمة الخصم بالجنيه",
-    "noDiscountApplied" : "لا يوجد خصومات مفعلة"
+    "noDiscountApplied" : "لا يوجد خصومات مفعلة",
+    "rescheduleVisitShift" : "تعديل موعد الزيارة",
+    "sameShiftSelected" : "تم اختيار نفس الموعد"
 }

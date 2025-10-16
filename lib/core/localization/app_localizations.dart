@@ -2185,6 +2185,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Discounts Applied'**
   String get noDiscountApplied;
+
+  /// No description provided for @rescheduleVisitShift.
+  ///
+  /// In en, this message translates to:
+  /// **'Reschedule Visit Shift'**
+  String get rescheduleVisitShift;
+
+  /// No description provided for @sameShiftSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Same Shift Selected'**
+  String get sameShiftSelected;
 }
 
 class _AppLocalizationsDelegate
