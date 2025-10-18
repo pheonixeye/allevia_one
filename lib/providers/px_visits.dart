@@ -1,10 +1,10 @@
-import 'package:allevia_one/models/clinic/clinic_schedule.dart';
+// import 'package:allevia_one/models/clinic/clinic_schedule.dart';
 import 'package:allevia_one/models/shift.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/visits_api.dart';
 // import 'package:allevia_one/functions/first_where_or_null.dart';
-import 'package:allevia_one/models/clinic/schedule_shift.dart';
+// import 'package:allevia_one/models/clinic/schedule_shift.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/models/visits/visit_create_dto.dart';
 
@@ -63,29 +63,67 @@ class PxVisits extends ChangeNotifier {
   }
 
   //todo:
-  Future<int?> calculateRemainingVisitsPerClinicShift(
-    ClinicSchedule? schedule,
-    ScheduleShift? shift,
-    DateTime? visit_date,
+  // Future<int?> calculateRemainingVisitsPerClinicShift(
+  //   ClinicSchedule? schedule,
+  //   ScheduleShift? shift,
+  //   DateTime? visit_date,
+  // ) async {
+  //   if (schedule == null || shift == null || visit_date == null) {
+  //     return null;
+  //   }
+  //   toggleIsUpdating();
+  //   final _visits = await _fetchVisitsOfASpecificDate(visit_date)
+  //       as ApiDataResult<List<Visit>>;
+  //   final _shift_visits = _visits.data
+  //       .where((e) => e.visitSchedule.isInSameShift(schedule, shift))
+  //       .toList();
+  //   toggleIsUpdating();
+  //   _remainingVisitsPerClinicShift = _shift_visits.length;
+  //   notifyListeners();
+  //   // print(_remainingVisitsPerClinicShift);
+  //   return _shift_visits.length;
+  // }
+
+  Map<Shift, int>? _visitsPerShift;
+  Map<Shift, int>? get visitsPerShift => _visitsPerShift;
+
+  Future<void> calculateVisitsPerClinicShift(
+    String clinic_id,
+    DateTime visit_date,
   ) async {
-    if (schedule == null || shift == null || visit_date == null) {
-      return null;
-    }
     toggleIsUpdating();
     final _visits = await _fetchVisitsOfASpecificDate(visit_date)
         as ApiDataResult<List<Visit>>;
-    final _shift_visits = _visits.data
-        .where((e) => e.visitSchedule.isInSameShift(schedule, shift))
-        .toList();
-    toggleIsUpdating();
-    _remainingVisitsPerClinicShift = _shift_visits.length;
+
+    final _clinicVisits =
+        _visits.data.where((visit) => visit.clinic.id == clinic_id).toList();
+
+    final _shifts = _clinicVisits.first.clinic.clinic_schedule
+        .firstWhere((sch) => sch.intday == visit_date.weekday)
+        .shifts
+        .map((e) => Shift.fromScheduleShift(e))
+        .toSet();
+
+    _visitsPerShift = {};
+
+    _shifts.map((e) {
+      _visitsPerShift![e] = 0;
+    }).toList();
+
+    _clinicVisits.map((v) {
+      final _shift = Shift.fromVisitSchedule(v.visitSchedule);
+      _visitsPerShift!.entries.map((entry) {
+        if (entry.key == _shift) {
+          _visitsPerShift![_shift] = _visitsPerShift![_shift]! + 1;
+        }
+      }).toList();
+    }).toList();
     notifyListeners();
-    // print(_remainingVisitsPerClinicShift);
-    return _shift_visits.length;
+    toggleIsUpdating();
   }
 
-  int? _remainingVisitsPerClinicShift;
-  int? get remainingVisitsPerClinicShiftVar => _remainingVisitsPerClinicShift;
+  // int? _remainingVisitsPerClinicShift;
+  // int? get remainingVisitsPerClinicShiftVar => _remainingVisitsPerClinicShift;
 
   bool _isUpdating = false;
   bool get isUpdating => _isUpdating;

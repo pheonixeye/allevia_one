@@ -103,26 +103,34 @@ class _PatientIdCardDialogState extends State<PatientIdCardDialog> {
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 4,
                         children: [
-                          ListTile(
-                            title: Text('الاسم'),
-                            subtitle: Text(widget.patient.name),
-                            minVerticalPadding: 4,
-                            contentPadding: EdgeInsets.all(0),
+                          Text(
+                            'الاسم',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                          ListTile(
-                            title: Text('تاريخ الميلاد'),
-                            subtitle: Text(DateFormat('dd - MM - yyyy', 'ar')
-                                .format(DateTime.parse(widget.patient.dob))),
-                            minVerticalPadding: 4,
-                            contentPadding: EdgeInsets.all(0),
+                          Text(widget.patient.name),
+                          SizedBox(height: 4),
+                          Text(
+                            'تاريخ الميلاد',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                          ListTile(
-                            title: Text('الموبايل'),
-                            subtitle: Text(widget.patient.phone),
-                            minVerticalPadding: 4,
-                            contentPadding: EdgeInsets.all(0),
+                          Text(DateFormat('dd - MM - yyyy', 'ar')
+                              .format(DateTime.parse(widget.patient.dob))),
+                          SizedBox(height: 4),
+                          Text(
+                            'الموبايل',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
+                          Text(widget.patient.phone),
+                          SizedBox(height: 4),
                         ],
                       ),
                     ),

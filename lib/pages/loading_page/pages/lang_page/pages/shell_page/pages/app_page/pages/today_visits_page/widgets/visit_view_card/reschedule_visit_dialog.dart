@@ -60,7 +60,7 @@ class _RescheduleVisitDialogState extends State<RescheduleVisitDialog> {
               ),
             ],
           ),
-          scrollable: false,
+          scrollable: true,
           contentPadding: const EdgeInsets.all(8),
           insetPadding: const EdgeInsets.all(8),
           content: SizedBox(

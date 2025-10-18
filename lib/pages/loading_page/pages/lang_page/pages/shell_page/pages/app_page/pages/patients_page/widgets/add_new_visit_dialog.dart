@@ -1,4 +1,5 @@
 import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/models/shift.dart';
 import 'package:allevia_one/models/visit_schedule.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:flutter/cupertino.dart';
@@ -189,6 +190,8 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       _clinic = value;
                                       _clinicSchedule = null;
                                       _scheduleShift = null;
+                                      _visitDate = null;
+                                      _visitDateController.clear();
                                     });
                                   },
                                 );
@@ -292,13 +295,17 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       setState(() {
                                         _clinicSchedule = value;
                                         _scheduleShift = null;
+                                        _visitDate = null;
+                                        _visitDateController.clear();
                                       });
 
-                                      await v
-                                          .calculateRemainingVisitsPerClinicShift(
-                                              _clinicSchedule,
-                                              _scheduleShift,
-                                              _visitDate);
+                                      if (_clinic != null &&
+                                          _visitDate != null) {
+                                        await v.calculateVisitsPerClinicShift(
+                                          _clinic!.id,
+                                          _visitDate!,
+                                        );
+                                      }
                                     },
                                   );
                                 }),
@@ -366,11 +373,12 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                   _visitDate = _vd;
                                 });
 
-                                await v.calculateRemainingVisitsPerClinicShift(
-                                  _clinicSchedule,
-                                  _scheduleShift,
-                                  _visitDate,
-                                );
+                                if (_clinic != null && _visitDate != null) {
+                                  await v.calculateVisitsPerClinicShift(
+                                    _clinic!.id,
+                                    _visitDate!,
+                                  );
+                                }
                               },
                               child: const Icon(Icons.calendar_month),
                             ),
@@ -399,12 +407,12 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                             children: [
                               if (_clinicSchedule != null)
                                 ..._clinicSchedule!.shifts.map((e) {
+                                  final _shift = Shift.fromScheduleShift(e);
                                   //todo: disable tile if _isDisabled
                                   bool _isSelected = e == _scheduleShift;
-                                  bool _isDisabled = _isSelected &&
-                                      (v.remainingVisitsPerClinicShiftVar !=
-                                              null &&
-                                          v.remainingVisitsPerClinicShiftVar! >=
+                                  bool _isDisabled =
+                                      (v.visitsPerShift?[_shift] != null &&
+                                          v.visitsPerShift![_shift]! >=
                                               e.visit_count);
                                   return RadioListTile<ScheduleShift>(
                                     shape: _tileBorder(_isSelected),
@@ -426,9 +434,7 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                           ),
                                         ),
                                         if (_visitDate != null &&
-                                            v.remainingVisitsPerClinicShiftVar !=
-                                                null &&
-                                            _isSelected)
+                                            v.visitsPerShift?[_shift] != null)
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0,
@@ -438,10 +444,36 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                                   context.loc.dayVisitCount,
                                               child: v.isUpdating
                                                   ? CupertinoActivityIndicator()
-                                                  : Text(
-                                                      '${v.remainingVisitsPerClinicShiftVar} / ${e.visit_count}'
-                                                          .toArabicNumber(
-                                                              context),
+                                                  : Text.rich(
+                                                      TextSpan(
+                                                        text: '',
+                                                        children: [
+                                                          if (_isSelected)
+                                                            TextSpan(
+                                                              text: '${v.visitsPerShift?[_shift]} + 1'
+                                                                  .toArabicNumber(
+                                                                      context),
+                                                              style: TextStyle(
+                                                                color: _isDisabled
+                                                                    ? Colors.red
+                                                                    : Colors
+                                                                        .blue,
+                                                              ),
+                                                            )
+                                                          else
+                                                            TextSpan(
+                                                              text: '${v.visitsPerShift?[_shift]}'
+                                                                  .toArabicNumber(
+                                                                      context),
+                                                            ),
+                                                          TextSpan(text: ' / '),
+                                                          TextSpan(
+                                                            text: '${e.visit_count}'
+                                                                .toArabicNumber(
+                                                                    context),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                             ),
                                           ),
@@ -451,19 +483,18 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                         ListTileControlAffinity.leading,
                                     value: e,
                                     groupValue: _scheduleShift,
-                                    onChanged: _isDisabled
-                                        ? null
-                                        : (value) async {
-                                            setState(() {
-                                              _scheduleShift = value;
-                                            });
-                                            await v
-                                                .calculateRemainingVisitsPerClinicShift(
-                                              _clinicSchedule,
-                                              _scheduleShift,
-                                              _visitDate,
-                                            );
-                                          },
+                                    onChanged: (value) async {
+                                      setState(() {
+                                        _scheduleShift = value;
+                                      });
+                                      // if (_clinic != null &&
+                                      //     _visitDate != null) {
+                                      //   await v.calculateVisitsPerClinicShift(
+                                      //     _clinic!.id,
+                                      //     _visitDate!,
+                                      //   );
+                                      // }
+                                    },
                                   );
                                 }),
                               _validationErrorWidget(field),
