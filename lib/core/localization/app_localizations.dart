@@ -2197,6 +2197,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Same Shift Selected'**
   String get sameShiftSelected;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
 }
 
 class _AppLocalizationsDelegate

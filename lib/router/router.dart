@@ -1,4 +1,5 @@
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/assistants_page/assistants_page.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/notifications_page/notifications_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/core/api/clinics_api.dart';
@@ -89,6 +90,7 @@ class AppRouter {
   static const String patients = "patients";
   static const String clinics = "clinics";
   static const String forms = "forms";
+  static const String notifications = "notifications";
   static const String settings = "settings";
   static const String transaction = "transaction";
   static const String clinics_patients_movements = "clinics_patients_movements";
@@ -640,6 +642,15 @@ class AppRouter {
                     name: settings,
                     builder: (context, state) {
                       return SettingsPage(
+                        key: state.pageKey,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: notifications,
+                    name: notifications,
+                    builder: (context, state) {
+                      return NotificationsPage(
                         key: state.pageKey,
                       );
                     },

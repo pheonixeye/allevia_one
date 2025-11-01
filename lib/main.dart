@@ -1,4 +1,3 @@
-import 'package:allevia_one/utils/notifications/u_push.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -17,7 +16,6 @@ void main(List<String> args) async {
   await initializeDateFormatting('ar');
   await initializeDateFormatting('en');
   await Hive.initFlutter();
-  UPush().init(args.contains("--unifiedpush-bg"));
   runApp(const AppProvider());
 }
 

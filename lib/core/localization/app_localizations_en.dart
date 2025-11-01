@@ -1092,4 +1092,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sameShiftSelected => 'Same Shift Selected';
+
+  @override
+  String get notifications => 'Notifications';
 }

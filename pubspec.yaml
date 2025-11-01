@@ -47,7 +47,7 @@ dependencies:
   flutter_material_color_picker: ^1.2.0
   excel: ^4.0.6
   # unifiedpush: ^6.2.0
-  unifiedpush_platform_interface: ^4.0.0
+  # unifiedpush_platform_interface: ^4.0.0
 
 dev_dependencies:
   flutter_test:

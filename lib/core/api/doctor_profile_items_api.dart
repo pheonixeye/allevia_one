@@ -1,13 +1,13 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:hive_ce/hive.dart';
+// import 'package:hive_ce/hive.dart';
 import 'package:allevia_one/annotations/unused.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 // import 'package:allevia_one/core/api/cache/api_caching_service.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/errors/code_to_error.dart';
 import 'package:allevia_one/functions/contains_arabic.dart';
-import 'package:allevia_one/functions/dprint.dart';
+// import 'package:allevia_one/functions/dprint.dart';
 // import 'package:allevia_one/functions/dprint.dart';
 import 'package:allevia_one/models/doctor_items/doctor_drug_item.dart';
 import 'package:allevia_one/models/doctor_items/_doctor_item.dart';
@@ -26,24 +26,24 @@ class DoctorProfileItemsApi<T extends DoctorItem> {
 
   late final String collection = item.name;
 
-  late final _box = Hive.box<String>(collection);
+  // late final _box = Hive.box<String>(collection);
 
   Future<ApiResult<List<T>>> fetchDoctorProfileItems() async {
-    await Hive.openBox<String>(collection);
+    // await Hive.openBox<String>(collection);
 
-    if (_box.get(collection) != null && _box.isNotEmpty) {
-      final _items = (json.decode(_box.get(collection)!) as List<dynamic>)
-          .map<T>((e) => switch (item) {
-                ProfileSetupItem.drugs => DoctorDrugItem.fromJson(e) as T,
-                ProfileSetupItem.labs => DoctorLabItem.fromJson(e) as T,
-                ProfileSetupItem.rads => DoctorRadItem.fromJson(e) as T,
-                ProfileSetupItem.procedures =>
-                  DoctorProcedureItem.fromJson(e) as T,
-                ProfileSetupItem.supplies => DoctorSupplyItem.fromJson(e) as T,
-              })
-          .toList();
-      return ApiDataResult<List<T>>(data: _items);
-    }
+    // if (_box.get(collection) != null && _box.isNotEmpty) {
+    //   final _items = (json.decode(_box.get(collection)!) as List<dynamic>)
+    //       .map<T>((e) => switch (item) {
+    //             ProfileSetupItem.drugs => DoctorDrugItem.fromJson(e) as T,
+    //             ProfileSetupItem.labs => DoctorLabItem.fromJson(e) as T,
+    //             ProfileSetupItem.rads => DoctorRadItem.fromJson(e) as T,
+    //             ProfileSetupItem.procedures =>
+    //               DoctorProcedureItem.fromJson(e) as T,
+    //             ProfileSetupItem.supplies => DoctorSupplyItem.fromJson(e) as T,
+    //           })
+    //       .toList();
+    //   return ApiDataResult<List<T>>(data: _items);
+    // }
 
     try {
       final _result = await PocketbaseHelper.pb.collection(collection).getList(
@@ -66,12 +66,12 @@ class DoctorProfileItemsApi<T extends DoctorItem> {
               })
           .toList();
 
-      try {
-        await _box.put(
-            collection, json.encode(_items.map((x) => x.toJson()).toList()));
-      } catch (e) {
-        dprint('caching Error => ${e.toString()}');
-      }
+      // try {
+      //   await _box.put(
+      //       collection, json.encode(_items.map((x) => x.toJson()).toList()));
+      // } catch (e) {
+      //   dprint('caching Error => ${e.toString()}');
+      // }
       return ApiDataResult<List<T>>(data: _items);
     } catch (e) {
       return ApiErrorResult<List<T>>(
@@ -85,7 +85,7 @@ class DoctorProfileItemsApi<T extends DoctorItem> {
     await PocketbaseHelper.pb.collection(collection).create(
           body: item,
         );
-    await _box.clear();
+    // await _box.clear();
   }
 
   Future<void> updateItem(Map<String, dynamic> item) async {
@@ -93,14 +93,14 @@ class DoctorProfileItemsApi<T extends DoctorItem> {
           item['id'],
           body: item,
         );
-    await _box.clear();
+    // await _box.clear();
   }
 
   Future<void> deleteItem(DoctorItem item) async {
     await PocketbaseHelper.pb.collection(collection).delete(
           item.id,
         );
-    await _box.clear();
+    // await _box.clear();
   }
 
   @Unused()

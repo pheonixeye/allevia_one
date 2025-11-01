@@ -378,5 +378,6 @@
     "discountInPounds" : "قيمة الخصم بالجنيه",
     "noDiscountApplied" : "لا يوجد خصومات مفعلة",
     "rescheduleVisitShift" : "تعديل موعد الزيارة",
-    "sameShiftSelected" : "تم اختيار نفس الموعد"
+    "sameShiftSelected" : "تم اختيار نفس الموعد",
+    "notifications" : "التنبيهات"
 }
