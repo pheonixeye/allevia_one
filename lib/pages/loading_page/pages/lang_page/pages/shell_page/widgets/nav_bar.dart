@@ -8,7 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
-import 'package:allevia_one/extensions/switch_lang.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/router/router.dart';
 import 'package:provider/provider.dart';
@@ -122,45 +121,47 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           ),
-          actions: context.isMobile
-              ? [
-                  Builder(
-                    builder: (context) {
-                      return IconButton.outlined(
-                        style: IconButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          side: const BorderSide(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Scaffold.of(context).openEndDrawer();
-                        },
-                        icon: const Icon(Icons.menu),
-                      );
-                    },
+          actions:
+              // context.isMobile ?
+              [
+            Builder(
+              builder: (context) {
+                return IconButton.outlined(
+                  style: IconButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    side: const BorderSide(color: Colors.white),
                   ),
-                  const SizedBox(width: 20),
-                ]
-              : [
-                  const VerticalDivider(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Consumer<PxLocale>(
-                      builder: (context, l, _) {
-                        return TextButton(
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {
-                            context.switchLanguage();
-                          },
-                          child: Text(l.lang == "en" ? "عربي" : "English"),
-                        );
-                      },
-                    ),
-                  ),
-                  const VerticalDivider(),
-                  const SizedBox(width: 100),
-                ],
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: const Icon(Icons.menu),
+                );
+              },
+            ),
+            const SizedBox(width: 20),
+          ]
+          // : [
+          //     const VerticalDivider(),
+          //     Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Consumer<PxLocale>(
+          //         builder: (context, l, _) {
+          //           return TextButton(
+          //             style: TextButton.styleFrom(
+          //               foregroundColor: Colors.white,
+          //             ),
+          //             onPressed: () {
+          //               context.switchLanguage();
+          //             },
+          //             child: Text(l.lang == "en" ? "عربي" : "English"),
+          //           );
+          //         },
+          //       ),
+          //     ),
+          //     const VerticalDivider(),
+          //     const SizedBox(width: 100),
+          //   ]
+          ,
         );
       },
     );

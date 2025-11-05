@@ -1,5 +1,6 @@
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
+import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/notifications/saved_notification.dart';
 import 'package:allevia_one/providers/px_auth.dart';
@@ -99,6 +100,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text('(${index + 1})'.toArabicNumber(context)),
                               if (_item.title.isNotEmpty) Text(_item.title),
                               if (_item.message.isNotEmpty) Text(_item.message)
                             ],
