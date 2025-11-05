@@ -8,7 +8,7 @@ class InAppNotification extends Equatable {
   final String? title;
   final String? message;
   final int? priority;
-  final List<String>? tags;
+  // final List<String>? tags;
 
   const InAppNotification({
     this.id,
@@ -18,7 +18,7 @@ class InAppNotification extends Equatable {
     this.title,
     this.message,
     this.priority,
-    this.tags,
+    // this.tags,
   });
 
   InAppNotification copyWith({
@@ -29,7 +29,7 @@ class InAppNotification extends Equatable {
     String? title,
     String? message,
     int? priority,
-    List<String>? tags,
+    // List<String>? tags,
   }) {
     return InAppNotification(
       id: id ?? this.id,
@@ -39,7 +39,7 @@ class InAppNotification extends Equatable {
       title: title ?? this.title,
       message: message ?? this.message,
       priority: priority ?? this.priority,
-      tags: tags ?? this.tags,
+      // tags: tags ?? this.tags,
     );
   }
 
@@ -52,7 +52,7 @@ class InAppNotification extends Equatable {
       'title': title,
       'message': message,
       'priority': priority,
-      'tags': tags,
+      // 'tags': tags,
     };
   }
 
@@ -65,9 +65,12 @@ class InAppNotification extends Equatable {
       title: map['title'] != null ? map['title'] as String : null,
       message: map['message'] != null ? map['message'] as String : null,
       priority: map['priority'] != null ? map['priority'] as int : null,
-      tags: map['tags'] != null
-          ? List<String>.from((map['tags'] as List<String>))
-          : null,
+      // tags: map['tags'] != null
+      //     ? (map['tags'] as JSArray<JSAny>)
+      //         .toDart
+      //         .map((e) => e.toString())
+      //         .toList()
+      //     : null,
     );
   }
 
@@ -84,7 +87,7 @@ class InAppNotification extends Equatable {
       title,
       message,
       priority,
-      tags,
+      // tags,
     ];
   }
 }

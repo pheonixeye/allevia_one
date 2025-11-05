@@ -1,6 +1,7 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/widgets/monthly_visits_calendar_dialog.dart';
+import 'package:allevia_one/providers/px_notifications.dart';
 import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,8 +18,8 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PxLocale>(
-      builder: (context, l, _) {
+    return Consumer2<PxNotifications, PxLocale>(
+      builder: (context, n, l, _) {
         return AppBar(
           automaticallyImplyLeading: false,
           title: InkWell(

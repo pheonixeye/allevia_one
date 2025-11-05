@@ -46,8 +46,7 @@ dependencies:
   flutter_drawing_board: ^0.9.8
   flutter_material_color_picker: ^1.2.0
   excel: ^4.0.6
-  # unifiedpush: ^6.2.0
-  # unifiedpush_platform_interface: ^4.0.0
+  # minisound: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -65,10 +64,12 @@ flutter:
     - assets/images/
     - assets/images/profile_setup/
     - assets/images/subscription_icons/
+    - assets/images/loaders/
     - assets/fonts/
     - assets/fonts/IBM/
     - assets/lang/
     - assets/json/
+    - assets/sounds/
 
   fonts:
     - family: IBM

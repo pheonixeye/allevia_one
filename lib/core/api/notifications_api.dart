@@ -1,13 +1,28 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:allevia_one/core/api/_api_result.dart';
+import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
+import 'package:allevia_one/errors/code_to_error.dart';
+// import 'package:allevia_one/functions/dprint.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
-import 'package:allevia_one/models/notifications/notification_endpoints.dart';
+import 'package:allevia_one/models/notifications/notification_request.dart';
+import 'package:allevia_one/models/notifications/notification_topic.dart';
+import 'package:allevia_one/models/notifications/saved_notification.dart';
 import 'package:http/http.dart' as http;
 import 'package:web/web.dart';
 
 class NotificationsApi {
   const NotificationsApi();
+
+  static const String collection = 'notifications';
+
+  static const _expandList = [
+    'read_by.account_type_id',
+    'read_by.app_permissions_ids',
+  ];
+
+  static final _expand = _expandList.join(',');
 
   final _url = const String.fromEnvironment('NOTIFICATIONS_URL');
 
@@ -20,15 +35,15 @@ class NotificationsApi {
   };
 
   Future<Map<String, dynamic>> sendNotification({
-    required NotificationEndpoints endpoint,
-    required InAppNotification inAppNotification,
+    required NotificationTopic topic,
+    required NotificationRequest request,
   }) async {
-    final uri = Uri.parse('$_url/${endpoint.toEndPoint()}');
+    final uri = Uri.parse('$_url/${topic.toTopic()}');
 
     final _response = await http.post(
       uri,
       headers: sendHeaders,
-      body: inAppNotification.toJson(),
+      body: request.toJson(),
     );
 
     if (_response.statusCode == HttpStatus.ok) {
@@ -45,12 +60,12 @@ class NotificationsApi {
   }
 
   Future<Stream<InAppNotification>> listenToNotifications({
-    required NotificationEndpoints endpoint,
+    required NotificationTopic topic,
   }) async {
     StreamController<InAppNotification> _notificationStreamController =
         StreamController.broadcast();
 
-    final uri = Uri.parse('$_url/${endpoint.toEndPoint()}/json');
+    final uri = Uri.parse('$_url/${topic.toTopic()}/json');
 
     final _request = http.Request("GET", uri);
 
@@ -63,21 +78,79 @@ class NotificationsApi {
     // print('response stream : ${_response.stream}');
 
     _response.stream.listen((event) {
+      // ignore: unnecessary_null_comparison
       if (event != null && event.isNotEmpty) {
         try {
           final _string = utf8.decode(event);
           final _json = jsonDecode(_string);
           if (_json != null) {
-            print('json : $_json');
+            // print('json : $_json');
             final _notification = InAppNotification.fromJson(_json);
             _notificationStreamController.add(_notification);
           }
         } catch (e) {
+          //@handle
           print(e);
         }
       }
     });
 
     return _notificationStreamController.stream;
+  }
+
+  Future<ApiResult<List<SavedNotification>>> fetchNotifications({
+    required int page,
+    required int perPage,
+  }) async {
+    try {
+      final _response =
+          await PocketbaseHelper.pb.collection(collection).getList(
+                page: page,
+                perPage: perPage,
+                expand: _expand,
+                sort: '-created',
+              );
+      // prettyPrint(_response);
+
+      final _notifications =
+          _response.items.map(SavedNotification.fromRecordModel).toList();
+
+      return ApiDataResult<List<SavedNotification>>(data: _notifications);
+    } catch (e) {
+      return ApiErrorResult<List<SavedNotification>>(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<ApiResult<SavedNotification>> readNotification(
+    String id,
+    String user_id,
+  ) async {
+    try {
+      final _response = await PocketbaseHelper.pb.collection(collection).update(
+            id,
+            body: {
+              '+read_by': user_id,
+            },
+            expand: _expand,
+          );
+
+      final _notification = SavedNotification.fromRecordModel(_response);
+
+      return ApiDataResult(data: _notification);
+    } catch (e) {
+      return ApiErrorResult<SavedNotification>(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<void> saveNotification(SavedNotification savedNotification) async {
+    await PocketbaseHelper.pb
+        .collection(collection)
+        .create(body: savedNotification.toDto());
   }
 }

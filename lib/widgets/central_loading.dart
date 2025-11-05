@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:allevia_one/extensions/model_url_ext.dart';
+import 'package:allevia_one/assets/assets.dart';
 import 'package:allevia_one/providers/px_speciality.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +61,7 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   Timer? _timer;
-  static int _index = 0;
+  static int _index = 1;
   static const _duration = Duration(milliseconds: 2000);
 
   @override
@@ -76,8 +75,8 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
     )..repeat();
     _timer = Timer.periodic(_duration, (ti) {
       setState(() {
-        if (_index >= 37) {
-          _index = 0;
+        if (_index >= 5) {
+          _index = 1;
         } else {
           _index++;
         }
@@ -112,14 +111,15 @@ class _CoreCentralLoadingState extends State<CoreCentralLoading>
               child: child,
             );
           },
-          child: CachedNetworkImage(
-            key: ValueKey(s.specialities![_index].imageUrl),
-            cacheKey: s.specialities![_index].imageUrl,
-            imageUrl: s.specialities![_index].imageUrl,
+          child: Image.asset(
+            AppAssets.loaders(_index),
+            key: ValueKey(AppAssets.loaders(_index)),
+            cacheWidth: 50,
+            cacheHeight: 50,
             height: 50,
             width: 50,
-            fadeInDuration: Duration.zero,
-            fadeOutDuration: Duration.zero,
+            // fadeInDuration: Duration.zero,
+            // fadeOutDuration: Duration.zero,
           ),
         );
       },

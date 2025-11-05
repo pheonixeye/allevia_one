@@ -1,6 +1,11 @@
+import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/notifications_api.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
-import 'package:allevia_one/models/notifications/notification_endpoints.dart';
+import 'package:allevia_one/models/notifications/notification_request.dart';
+import 'package:allevia_one/models/notifications/notification_topic.dart';
+import 'package:allevia_one/models/notifications/saved_notification.dart';
+import 'package:allevia_one/providers/px_overlay.dart';
+import 'package:allevia_one/widgets/notification_overlay.dart';
 import 'package:flutter/material.dart';
 
 class PxNotifications extends ChangeNotifier {
@@ -8,15 +13,16 @@ class PxNotifications extends ChangeNotifier {
 
   PxNotifications({required this.api}) {
     _init();
+    _fetchNotifications();
   }
 
   Future<void> sendNotification({
-    required NotificationEndpoints endpoint,
-    required InAppNotification inAppNotification,
+    required NotificationTopic topic,
+    required NotificationRequest request,
   }) async {
     await api.sendNotification(
-      endpoint: endpoint,
-      inAppNotification: inAppNotification,
+      topic: topic,
+      request: request,
     );
   }
 
@@ -24,17 +30,87 @@ class PxNotifications extends ChangeNotifier {
   Map<String, Stream<InAppNotification>> get stream => _stream;
 
   Future<void> _listenToNotifications({
-    required NotificationEndpoints endpoint,
+    required NotificationTopic topic,
   }) async {
-    _stream[endpoint.toEndPoint()] =
-        await api.listenToNotifications(endpoint: endpoint);
+    _stream[topic.toTopic()] = await api.listenToNotifications(topic: topic);
     notifyListeners();
-    print(_stream);
   }
 
   Future<void> _init() async {
-    NotificationEndpoints.values.map((e) async {
-      await _listenToNotifications(endpoint: e);
+    NotificationTopic.values.map((e) async {
+      await _listenToNotifications(topic: e);
+      await _displayNotifiationsOnArrivalThenSaveToDb(topic: e);
     }).toList();
+  }
+
+  Future<void> get init => _init();
+
+  Future<void> _displayNotifiationsOnArrivalThenSaveToDb({
+    required NotificationTopic topic,
+  }) async {
+    _stream[topic.toTopic()]?.listen((notification) {
+      if (notification.event == 'message') {
+        //show notification overlay
+        PxOverlay.toggleOverlay(
+            id: notification.id ?? '',
+            child: NotificationOverlayCard(
+              notification: notification,
+            ));
+        //todo: save notifications in pocketbase
+        api.saveNotification(
+            SavedNotification.fromInAppNotification(notification));
+      }
+    });
+  }
+
+  ApiResult<List<SavedNotification>>? _notifications;
+  ApiResult<List<SavedNotification>>? get notifications => _notifications;
+
+  int _page = 1;
+  int get page => _page;
+
+  final int _perPage = 20;
+
+  Future<void> _fetchNotifications() async {
+    _notifications = await api.fetchNotifications(
+      page: page,
+      perPage: _perPage,
+    );
+    notifyListeners();
+  }
+
+  Future<void> retry() async => await _fetchNotifications();
+
+  Future<void> nextPage() async {
+    if ((_notifications as ApiDataResult<List<SavedNotification>>).data.length <
+        _perPage) {
+      return;
+    }
+    _page++;
+    notifyListeners();
+    _fetchNotifications();
+  }
+
+  Future<void> previousPage() async {
+    if (_page <= 1) {
+      return;
+    }
+    _page--;
+    notifyListeners();
+    _fetchNotifications();
+  }
+
+  Future<void> readNotification(String id, String user_id) async {
+    final _item = (_notifications as ApiDataResult<List<SavedNotification>>)
+        .data
+        .firstWhere((e) => e.id == id);
+    final _index = (_notifications as ApiDataResult<List<SavedNotification>>)
+        .data
+        .indexOf(_item);
+    (_notifications as ApiDataResult<List<SavedNotification>>).data[_index] =
+        (await api.readNotification(id, user_id)
+                as ApiDataResult<SavedNotification>)
+            .data;
+    notifyListeners();
   }
 }

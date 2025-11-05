@@ -46,6 +46,7 @@ final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(
     create: (context) => PxLocale(),
   ),
+
   ChangeNotifierProvider(
     create: (context) => PxWhatsapp(
       api: WaApi(),

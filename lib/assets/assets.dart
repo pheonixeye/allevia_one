@@ -35,4 +35,10 @@ class AppAssets {
 
   ///after purchase thankyou
   static const String after_purchase = 'assets/images/after_purchase.svg';
+
+  ///central loading images
+  static String loaders(int index) => 'assets/images/loaders/$index.jpg';
+
+  ///notification sound
+  static const String notification_sound = 'assets/sounds/notification.wav';
 }
