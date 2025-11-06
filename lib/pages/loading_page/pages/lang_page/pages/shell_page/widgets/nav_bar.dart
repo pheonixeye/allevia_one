@@ -121,9 +121,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           ),
-          actions:
-              // context.isMobile ?
-              [
+          actions: [
             Builder(
               builder: (context) {
                 return IconButton.outlined(
@@ -139,29 +137,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             const SizedBox(width: 20),
-          ]
-          // : [
-          //     const VerticalDivider(),
-          //     Padding(
-          //       padding: const EdgeInsets.all(8.0),
-          //       child: Consumer<PxLocale>(
-          //         builder: (context, l, _) {
-          //           return TextButton(
-          //             style: TextButton.styleFrom(
-          //               foregroundColor: Colors.white,
-          //             ),
-          //             onPressed: () {
-          //               context.switchLanguage();
-          //             },
-          //             child: Text(l.lang == "en" ? "عربي" : "English"),
-          //           );
-          //         },
-          //       ),
-          //     ),
-          //     const VerticalDivider(),
-          //     const SizedBox(width: 100),
-          //   ]
-          ,
+          ],
         );
       },
     );

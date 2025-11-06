@@ -29,30 +29,29 @@ class _NotificationOverlayCardState extends State<NotificationOverlayCard>
     with AfterLayoutMixin {
   Timer? timer;
   static const _duration = Duration(milliseconds: 10);
-  double _progress = 0;
+  final ValueNotifier<double> _progress = ValueNotifier(0);
 
   @override
   void didChangeDependencies() {
     timer = Timer.periodic(_duration, (timer) {
-      setState(() {
-        _progress += 0.001;
-        if (_progress >= 1.0) {
-          timer.cancel();
-          PxOverlay.removeOverlay(widget.notification.id ?? '');
-        }
-      });
+      _progress.value += 0.001;
+      if (_progress.value >= 1.0) {
+        timer.cancel();
+        PxOverlay.removeOverlay(widget.notification.id ?? '');
+      }
     });
     super.didChangeDependencies();
   }
 
   @override
-  Future<void> afterFirstLayout(BuildContext context) async {
+  void afterFirstLayout(BuildContext context) {
     SoundHelper.playSound();
   }
 
   @override
   void dispose() {
     timer?.cancel();
+    _progress.dispose();
     super.dispose();
   }
 
@@ -113,13 +112,18 @@ class _NotificationOverlayCardState extends State<NotificationOverlayCard>
                         Text(widget.notification.message ?? ''),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: LinearProgressIndicator(
-                            backgroundColor: Colors.cyanAccent,
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                              Colors.red,
-                            ),
-                            value: _progress,
-                          ),
+                          child: ValueListenableBuilder(
+                              valueListenable: _progress,
+                              builder: (context, value, child) {
+                                return LinearProgressIndicator(
+                                  backgroundColor: Colors.cyanAccent,
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                    Colors.red,
+                                  ),
+                                  value: value,
+                                );
+                              }),
                         ),
                       ],
                     ),

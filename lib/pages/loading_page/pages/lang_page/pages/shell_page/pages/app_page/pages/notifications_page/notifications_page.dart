@@ -100,7 +100,29 @@ class _NotificationsPageState extends State<NotificationsPage> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('(${index + 1})'.toArabicNumber(context)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                spacing: 4,
+                                children: [
+                                  Text(
+                                      '(${index + 1})'.toArabicNumber(context)),
+                                  Card.outlined(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(l.isEnglish
+                                          ? _item.notification_topic.en
+                                          : _item.notification_topic.ar),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  if (_isNotificationRead)
+                                    const Icon(
+                                      Icons.check,
+                                      color: Colors.green,
+                                    ),
+                                  const SizedBox(width: 10),
+                                ],
+                              ),
                               if (_item.title.isNotEmpty) Text(_item.title),
                               if (_item.message.isNotEmpty) Text(_item.message)
                             ],
