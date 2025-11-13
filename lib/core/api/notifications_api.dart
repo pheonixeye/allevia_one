@@ -9,11 +9,14 @@ import 'package:allevia_one/models/notifications/in_app_notification.dart';
 import 'package:allevia_one/models/notifications/notification_request.dart';
 import 'package:allevia_one/models/notifications/notification_topic.dart';
 import 'package:allevia_one/models/notifications/saved_notification.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:web/web.dart';
 
 class NotificationsApi {
   const NotificationsApi();
+
+  static late final Box<String> _box;
 
   static const String collection = 'notifications';
 
@@ -35,15 +38,23 @@ class NotificationsApi {
   };
 
   Future<Map<String, dynamic>> sendNotification({
-    required NotificationTopic topic,
+    // required NotificationTopic topic,
     required NotificationRequest request,
   }) async {
-    final uri = Uri.parse('$_url/${topic.toTopic()}');
+    final uri = Uri.parse(_url);
 
     final _response = await http.post(
       uri,
       headers: sendHeaders,
-      body: request.toJson(),
+      body: jsonEncode(request.toRequestJson()),
+    );
+
+    //todo: too much function call per notification
+    await saveNotification(
+      SavedNotification.fromNotificationRequest(
+        request,
+        jsonDecode(_response.body)['id'] as String,
+      ),
     );
 
     if (_response.statusCode == HttpStatus.ok) {
@@ -152,5 +163,28 @@ class NotificationsApi {
     await PocketbaseHelper.pb
         .collection(collection)
         .create(body: savedNotification.toDto());
+  }
+
+  Future<void> initFavoriteNotificationTemplateStore() async {
+    _box = await Hive.openBox<String>(collection);
+  }
+
+  Future<void> addFavoriteNotification(NotificationRequest request) async {
+    final _data = request.toJson();
+    print(_data);
+    await _box.put(request.title, jsonEncode(_data));
+  }
+
+  Future<void> removeFavoriteNotification(String title) async {
+    await _box.delete(title);
+  }
+
+  Future<List<NotificationRequest>> getFavoriteNotifications() async {
+    final _result = _box.values.toList();
+
+    print(_result);
+    return _result
+        .map((e) => NotificationRequest.fromJson(jsonDecode(e)))
+        .toList();
   }
 }

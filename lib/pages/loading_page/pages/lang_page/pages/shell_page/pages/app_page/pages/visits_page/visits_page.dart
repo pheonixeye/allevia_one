@@ -70,6 +70,7 @@ class _VisitsPageState extends State<VisitsPage> {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //TODO: add filter by doctor, clinic
               VisitsFilterHeader(),
               Expanded(
                 child: Builder(

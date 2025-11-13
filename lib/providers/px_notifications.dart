@@ -14,6 +14,7 @@ class PxNotifications extends ChangeNotifier {
   PxNotifications({required this.api}) {
     _init();
     _fetchNotifications();
+    _initFavoriteNotificationStore();
   }
 
   Future<void> sendNotification({
@@ -21,7 +22,7 @@ class PxNotifications extends ChangeNotifier {
     required NotificationRequest request,
   }) async {
     await api.sendNotification(
-      topic: topic,
+      // topic: topic,
       request: request,
     );
   }
@@ -48,7 +49,7 @@ class PxNotifications extends ChangeNotifier {
   Future<void> _displayNotifiationsOnArrivalThenSaveToDb({
     required NotificationTopic topic,
   }) async {
-    _stream[topic.toTopic()]?.listen((notification) {
+    _stream[topic.toTopic()]?.listen((notification) async {
       if (notification.event == 'message') {
         //show notification overlay
         PxOverlay.toggleOverlay(
@@ -57,8 +58,6 @@ class PxNotifications extends ChangeNotifier {
               notification: notification,
             ));
         //todo: save notifications in pocketbase
-        api.saveNotification(
-            SavedNotification.fromInAppNotification(notification));
       }
     });
   }
@@ -112,5 +111,29 @@ class PxNotifications extends ChangeNotifier {
                 as ApiDataResult<SavedNotification>)
             .data;
     notifyListeners();
+  }
+
+  List<NotificationRequest>? _favoriteNotifications;
+  List<NotificationRequest>? get favoriteNotifications =>
+      _favoriteNotifications;
+
+  Future<void> _initFavoriteNotificationStore() async {
+    await api.initFavoriteNotificationTemplateStore();
+    await _fetchFavoriteNotifications();
+  }
+
+  Future<void> _fetchFavoriteNotifications() async {
+    _favoriteNotifications = await api.getFavoriteNotifications();
+    notifyListeners();
+  }
+
+  Future<void> saveFavoriteNotification(NotificationRequest request) async {
+    await api.addFavoriteNotification(request);
+    await _fetchFavoriteNotifications();
+  }
+
+  Future<void> removeFavoriteNotification(String title) async {
+    await api.removeFavoriteNotification(title);
+    await _fetchFavoriteNotifications();
   }
 }

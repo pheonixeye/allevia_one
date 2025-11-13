@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:allevia_one/core/api/_api_result.dart';
+import 'package:allevia_one/extensions/after_layout.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -10,6 +13,7 @@ import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class NotificationsPage extends StatefulWidget {
@@ -19,13 +23,19 @@ class NotificationsPage extends StatefulWidget {
   State<NotificationsPage> createState() => _NotificationsPageState();
 }
 
-class _NotificationsPageState extends State<NotificationsPage> {
+class _NotificationsPageState extends State<NotificationsPage>
+    with AfterLayoutMixin {
   late final ScrollController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    await context.read<PxNotifications>().retry();
   }
 
   @override
@@ -109,9 +119,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                   Card.outlined(
                                     child: Padding(
                                       padding: const EdgeInsets.all(4.0),
-                                      child: Text(l.isEnglish
-                                          ? _item.notification_topic.en
-                                          : _item.notification_topic.ar),
+                                      child: Text(
+                                        l.isEnglish
+                                            ? _item.notification_topic.en
+                                            : _item.notification_topic.ar,
+                                      ),
                                     ),
                                   ),
                                   const Spacer(),
@@ -123,8 +135,21 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                   const SizedBox(width: 10),
                                 ],
                               ),
-                              if (_item.title.isNotEmpty) Text(_item.title),
-                              if (_item.message.isNotEmpty) Text(_item.message)
+                              if (_item.title.isNotEmpty)
+                                Text(
+                                  _item.title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              if (_item.message.isNotEmpty) Text(_item.message),
+                              Text(
+                                DateFormat('dd/MM/yyyy-HH:MM', l.lang)
+                                    .format(DateTime.parse(_item.created)),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                ),
+                              )
                             ],
                           ),
                         ),

@@ -1093,4 +1093,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifications => 'التنبيهات';
+
+  @override
+  String get addNewNotification => 'اضافة تنبيه جديد';
+
+  @override
+  String get notificationTitle => 'عنوان التنبيه';
+
+  @override
+  String get notificationMessage => 'تفاصيل التنبيه';
+
+  @override
+  String get saveToFavorites => 'اضافة للمفضلة';
 }

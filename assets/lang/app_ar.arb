@@ -379,5 +379,9 @@
     "noDiscountApplied" : "لا يوجد خصومات مفعلة",
     "rescheduleVisitShift" : "تعديل موعد الزيارة",
     "sameShiftSelected" : "تم اختيار نفس الموعد",
-    "notifications" : "التنبيهات"
+    "notifications" : "التنبيهات",
+    "addNewNotification" : "اضافة تنبيه جديد",
+    "notificationTitle" : "عنوان التنبيه",
+    "notificationMessage" : "تفاصيل التنبيه",
+    "saveToFavorites" : "اضافة للمفضلة"
 }

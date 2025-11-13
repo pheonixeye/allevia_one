@@ -71,10 +71,10 @@ OverlayEntry retryOverlayEntry(Function toRetry) {
         hitTestBehavior: HitTestBehavior.opaque,
         dragAnchorStrategy: pointerDragAnchorStrategy,
         onDragUpdate: (details) {
-          if (details.delta.distance * 100 > 250 &&
-              // ignore: unnecessary_null_comparison
-              _overlay != null &&
-              _overlay.toClose != null) {
+          // ignore: unnecessary_null_comparison
+          if (_overlay != null &&
+              _overlay.toClose != null &&
+              details.delta.distance * 100 > 250) {
             //close
             _overlay.toClose!();
           }

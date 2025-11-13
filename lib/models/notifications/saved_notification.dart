@@ -1,6 +1,7 @@
 import 'package:allevia_one/models/app_constants/account_type.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
+import 'package:allevia_one/models/notifications/notification_request.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:allevia_one/models/notifications/notification_topic.dart';
@@ -14,6 +15,7 @@ class SavedNotification extends Equatable {
   final String message;
   final List<User> read_by;
   final NotificationTopic notification_topic;
+  final String created;
 
   const SavedNotification({
     required this.id,
@@ -22,6 +24,7 @@ class SavedNotification extends Equatable {
     required this.message,
     required this.read_by,
     required this.notification_topic,
+    required this.created,
   });
 
   SavedNotification copyWith({
@@ -31,6 +34,7 @@ class SavedNotification extends Equatable {
     String? message,
     List<User>? read_by,
     NotificationTopic? notification_topic,
+    String? created,
   }) {
     return SavedNotification(
       id: id ?? this.id,
@@ -39,6 +43,7 @@ class SavedNotification extends Equatable {
       message: message ?? this.message,
       read_by: read_by ?? this.read_by,
       notification_topic: notification_topic ?? this.notification_topic,
+      created: created ?? this.created,
     );
   }
 
@@ -88,6 +93,7 @@ class SavedNotification extends Equatable {
       notification_topic: NotificationTopic.fromString(
         record.getStringValue('notification_topic'),
       ),
+      created: record.getStringValue('created'),
     );
   }
 
@@ -101,6 +107,22 @@ class SavedNotification extends Equatable {
       read_by: [],
       notification_topic:
           NotificationTopic.fromString(inAppNotification.topic ?? ''),
+      created: '',
+    );
+  }
+
+  factory SavedNotification.fromNotificationRequest(
+    NotificationRequest request,
+    String server_id,
+  ) {
+    return SavedNotification(
+      id: '',
+      server_id: server_id,
+      title: request.title ?? '',
+      message: request.message ?? '',
+      read_by: [],
+      notification_topic: request.topic,
+      created: '',
     );
   }
 
@@ -116,6 +138,7 @@ class SavedNotification extends Equatable {
       message,
       read_by,
       notification_topic,
+      created,
     ];
   }
 }

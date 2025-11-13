@@ -1095,4 +1095,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifications => 'Notifications';
+
+  @override
+  String get addNewNotification => 'Add New Notification';
+
+  @override
+  String get notificationTitle => 'Notification Title';
+
+  @override
+  String get notificationMessage => 'Notification Message';
+
+  @override
+  String get saveToFavorites => 'Save To Favorites';
 }

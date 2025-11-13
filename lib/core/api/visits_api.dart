@@ -1,3 +1,5 @@
+import 'package:allevia_one/core/api/notifications_api.dart';
+import 'package:allevia_one/models/notifications/notification_request.dart';
 import 'package:allevia_one/models/shift.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -104,6 +106,14 @@ class VisitsApi {
 
     //todo: parse result
     final _visit = Visit.fromRecordModel(_updatedResult);
+
+    //todo: send inclinic notification
+    final _notificationRequest = NotificationRequest.fromVisit(_visit);
+
+    await NotificationsApi().sendNotification(
+      // topic: _notificationRequest.topic,
+      request: _notificationRequest,
+    );
 
     //todo: initialize transformer
     final _bk_transformer = BookkeepingTransformer(

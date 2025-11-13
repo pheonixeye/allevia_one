@@ -2203,6 +2203,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications'**
   String get notifications;
+
+  /// No description provided for @addNewNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Notification'**
+  String get addNewNotification;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Title'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Message'**
+  String get notificationMessage;
+
+  /// No description provided for @saveToFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Save To Favorites'**
+  String get saveToFavorites;
 }
 
 class _AppLocalizationsDelegate
