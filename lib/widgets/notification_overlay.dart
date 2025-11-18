@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:allevia_one/extensions/after_layout.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_overlay.dart';
 import 'package:allevia_one/utils/sound_helper.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,15 +26,22 @@ class NotificationOverlayCard extends StatefulWidget implements EquatableMixin {
   bool? get stringify => true;
 }
 
-class _NotificationOverlayCardState extends State<NotificationOverlayCard> {
+class _NotificationOverlayCardState extends State<NotificationOverlayCard>
+    with AfterLayoutMixin {
   Timer? timer;
   static const _duration = Duration(milliseconds: 10);
   final ValueNotifier<double> _progress = ValueNotifier(0);
+  late final AudioPlayer player;
 
   @override
   void initState() {
     super.initState();
-    SoundHelper.playSound();
+    player = AudioPlayer();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    await SoundHelper.playSound(player);
   }
 
   @override
@@ -51,6 +60,7 @@ class _NotificationOverlayCardState extends State<NotificationOverlayCard> {
   void dispose() {
     timer?.cancel();
     _progress.dispose();
+    player.dispose();
     super.dispose();
   }
 

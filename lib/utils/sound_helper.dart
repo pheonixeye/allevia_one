@@ -10,13 +10,11 @@ class SoundHelper {
     return _instance;
   }
 
-  static final _player = AudioPlayer();
-
   static final _src = AssetSource(
     AppAssets.notification_sound,
   );
 
-  static void playSound() async {
-    await _player.play(_src);
+  static Future<void> playSound(AudioPlayer player) async {
+    await player.play(_src);
   }
 }
