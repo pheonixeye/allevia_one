@@ -1,5 +1,5 @@
 import 'package:allevia_one/assets/assets.dart';
-import 'package:web/web.dart' as web;
+import 'package:audioplayers/audioplayers.dart';
 
 class SoundHelper {
   const SoundHelper._();
@@ -10,8 +10,13 @@ class SoundHelper {
     return _instance;
   }
 
-  static void playSound() {
-    final audio = web.HTMLAudioElement()..src = AppAssets.notification_sound;
-    audio.play();
+  static final _player = AudioPlayer();
+
+  static final _src = AssetSource(
+    AppAssets.notification_sound,
+  );
+
+  static void playSound() async {
+    await _player.play(_src);
   }
 }
