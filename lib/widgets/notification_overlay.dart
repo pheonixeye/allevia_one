@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:allevia_one/extensions/after_layout.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -25,11 +24,16 @@ class NotificationOverlayCard extends StatefulWidget implements EquatableMixin {
   bool? get stringify => true;
 }
 
-class _NotificationOverlayCardState extends State<NotificationOverlayCard>
-    with AfterLayoutMixin {
+class _NotificationOverlayCardState extends State<NotificationOverlayCard> {
   Timer? timer;
   static const _duration = Duration(milliseconds: 10);
   final ValueNotifier<double> _progress = ValueNotifier(0);
+
+  @override
+  void initState() {
+    super.initState();
+    SoundHelper.playSound();
+  }
 
   @override
   void didChangeDependencies() {
@@ -41,11 +45,6 @@ class _NotificationOverlayCardState extends State<NotificationOverlayCard>
       }
     });
     super.didChangeDependencies();
-  }
-
-  @override
-  void afterFirstLayout(BuildContext context) {
-    SoundHelper.playSound();
   }
 
   @override

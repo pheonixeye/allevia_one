@@ -90,6 +90,7 @@ class _AddNewNotificationRequestDialogState
                     hintText: context.loc.notificationMessage,
                   ),
                   minLines: 2,
+                  maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return '${context.loc.enter} ${context.loc.notificationMessage}';

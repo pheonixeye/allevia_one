@@ -1,4 +1,5 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
@@ -21,8 +22,12 @@ class ClinicsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<PxClinics, PxLocale>(
-      builder: (context, c, l, _) {
+    return Consumer3<PxClinics, PxAppConstants, PxLocale>(
+      builder: (context, c, cc, l, _) {
+        while (cc.constants == null) {
+          return const CentralLoading();
+        }
+
         //@permission
         final _perm = context.read<PxAuth>().isActionPermitted(
               PermissionEnum.User_Clinics_Read,
@@ -89,7 +94,7 @@ class ClinicsPage extends StatelessWidget {
                 Expanded(
                   child: Builder(
                     builder: (context) {
-                      while (c.result == null) {
+                      while (cc.constants == null || c.result == null) {
                         return const CentralLoading();
                       }
 

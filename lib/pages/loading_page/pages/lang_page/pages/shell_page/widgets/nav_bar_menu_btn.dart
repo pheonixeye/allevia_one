@@ -156,13 +156,13 @@ class NavBarMenuBtn extends StatelessWidget {
                                         child: LinearProgressIndicator(),
                                       );
                                     }
-                                    final _favoriteNotifications =
-                                        n.favoriteNotifications!;
+
                                     return Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        ..._favoriteNotifications.map((fav) {
-                                          final _index = _favoriteNotifications
+                                        ...n.favoriteNotifications!.map((fav) {
+                                          final _index = n
+                                              .favoriteNotifications!
                                               .indexOf(fav);
                                           return Padding(
                                             padding: const EdgeInsets.all(4.0),

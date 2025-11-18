@@ -146,9 +146,22 @@ class Changelog extends Equatable {
       ],
     );
   }
+  factory Changelog.v007() {
+    return Changelog(
+      version: '0.0.7',
+      entries: [
+        ChangelogEntry(
+          ar: 'تمت إضافة الإشعارات إلى التطبيق، يمكنك الآن إرسال واستقبال الإشعارات داخل التطبيق',
+          en: 'Added Notifications To The App, You Can Now Send And Recieve Notifications In-App',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v007(),
+  Changelog.v006(),
   Changelog.v005(),
   Changelog.v0045(),
   Changelog.v0044(),

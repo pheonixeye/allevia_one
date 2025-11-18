@@ -97,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   width: 10,
                                 ),
                                 const Text(
-                                  'Allevia-One',
+                                  String.fromEnvironment('APPLICATION_NAME'),
                                   style: TextStyle(
                                     fontSize: 32,
                                     fontWeight: FontWeight.bold,

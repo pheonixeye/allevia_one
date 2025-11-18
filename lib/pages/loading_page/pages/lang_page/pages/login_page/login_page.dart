@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                                   width: 10,
                                 ),
                                 const Text(
-                                  'Allevia-One',
+                                  String.fromEnvironment('APPLICATION_NAME'),
                                   style: TextStyle(
                                     fontSize: 32,
                                     fontWeight: FontWeight.bold,

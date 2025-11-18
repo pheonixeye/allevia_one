@@ -39,7 +39,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(width: 20),
                 const Text.rich(
                   TextSpan(
-                    text: "Allevia-One",
+                    text: String.fromEnvironment('APPLICATION_NAME'),
                     children: [
                       TextSpan(
                         text: '\n',
