@@ -2227,6 +2227,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save To Favorites'**
   String get saveToFavorites;
+
+  /// No description provided for @doctorAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor Accounts'**
+  String get doctorAccounts;
+
+  /// No description provided for @noDoctorsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Doctor Accounts Found'**
+  String get noDoctorsFound;
 }
 
 class _AppLocalizationsDelegate

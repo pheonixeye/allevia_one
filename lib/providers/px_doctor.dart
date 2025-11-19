@@ -21,8 +21,11 @@ class PxDoctor extends ChangeNotifier {
       _allDoctors = await api.fetchAllDoctors();
       notifyListeners();
     } else {
+      _allDoctors = await api.fetchAllDoctors();
       _doctor = await api.fetchDoctorProfile();
       notifyListeners();
     }
   }
+
+  Future<void> retry() async => await _init();
 }

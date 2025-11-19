@@ -1105,4 +1105,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get saveToFavorites => 'اضافة للمفضلة';
+
+  @override
+  String get doctorAccounts => 'حسابات الاطباء';
+
+  @override
+  String get noDoctorsFound => 'لم يتم العثور علي حسابات للاطباء';
 }

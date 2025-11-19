@@ -384,5 +384,7 @@
     "addNewNotification" : "Add New Notification",
     "notificationTitle" : "Notification Title",
     "notificationMessage" : "Notification Message",
-    "saveToFavorites" : "Save To Favorites"
+    "saveToFavorites" : "Save To Favorites",
+    "doctorAccounts" : "Doctor Accounts",
+    "noDoctorsFound" : "No Doctor Accounts Found"
 }

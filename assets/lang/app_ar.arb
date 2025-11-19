@@ -383,5 +383,7 @@
     "addNewNotification" : "اضافة تنبيه جديد",
     "notificationTitle" : "عنوان التنبيه",
     "notificationMessage" : "تفاصيل التنبيه",
-    "saveToFavorites" : "اضافة للمفضلة"
+    "saveToFavorites" : "اضافة للمفضلة",
+    "doctorAccounts" : "حسابات الاطباء",
+    "noDoctorsFound" : "لم يتم العثور علي حسابات للاطباء"
 }

@@ -6,9 +6,9 @@ import 'package:allevia_one/models/notifications/in_app_notification.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_overlay.dart';
 import 'package:allevia_one/utils/sound_helper.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 class NotificationOverlayCard extends StatefulWidget implements EquatableMixin {

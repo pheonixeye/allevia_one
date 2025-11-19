@@ -1,5 +1,5 @@
 import 'package:allevia_one/assets/assets.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class SoundHelper {
   const SoundHelper._();
@@ -10,11 +10,8 @@ class SoundHelper {
     return _instance;
   }
 
-  static final _src = AssetSource(
-    AppAssets.notification_sound,
-  );
-
   static Future<void> playSound(AudioPlayer player) async {
-    await player.play(_src);
+    await player.setAsset(AppAssets.notification_sound);
+    await player.play();
   }
 }

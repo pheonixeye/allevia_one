@@ -1107,4 +1107,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveToFavorites => 'Save To Favorites';
+
+  @override
+  String get doctorAccounts => 'Doctor Accounts';
+
+  @override
+  String get noDoctorsFound => 'No Doctor Accounts Found';
 }
