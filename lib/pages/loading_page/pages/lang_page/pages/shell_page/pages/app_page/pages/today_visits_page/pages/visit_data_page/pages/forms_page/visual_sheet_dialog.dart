@@ -11,16 +11,26 @@ import 'package:flutter_drawing_board/paint_contents.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum ShowWhichSide {
-  front,
-  back,
-  side;
+  front(0),
+  back(1),
+  side(2);
 
-  factory ShowWhichSide.next(ShowWhichSide side) {
-    try {
-      return ShowWhichSide.values[side.index + 1];
-    } catch (e) {
-      return ShowWhichSide.values[0];
-    }
+  final int i;
+
+  const ShowWhichSide(this.i);
+
+  String get asset => switch (this) {
+        ShowWhichSide.front => AppAssets.body_front,
+        ShowWhichSide.back => AppAssets.body_back,
+        ShowWhichSide.side => AppAssets.body_side,
+      };
+
+  static ShowWhichSide next(ShowWhichSide value) {
+    return switch (value) {
+      ShowWhichSide.front => back,
+      ShowWhichSide.back => side,
+      ShowWhichSide.side => front,
+    };
   }
 }
 
@@ -39,12 +49,6 @@ class _VisualSheetDialogState extends State<VisualSheetDialog> {
   late final _controller = DrawingController();
   Uint8List? _backgroudImage;
   ShowWhichSide _showWhichSide = ShowWhichSide.front;
-
-  String get asset => switch (_showWhichSide) {
-        ShowWhichSide.front => AppAssets.body_front,
-        ShowWhichSide.back => AppAssets.body_back,
-        ShowWhichSide.side => AppAssets.body_side,
-      };
 
   @override
   void dispose() {
@@ -175,9 +179,9 @@ class _VisualSheetDialogState extends State<VisualSheetDialog> {
             decoration: BoxDecoration(
               color: Colors.white,
               image: DecorationImage(
-                image: _backgroudImage == null
-                    ? AssetImage(asset)
-                    : MemoryImage(_backgroudImage!),
+                image: _backgroudImage != null
+                    ? MemoryImage(_backgroudImage!)
+                    : AssetImage(_showWhichSide.asset),
                 fit: BoxFit.contain,
               ),
             ),

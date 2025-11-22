@@ -6,5 +6,5 @@ class AppBusinessConstants {
   //TODO: REMOVE CONSTANT
   static const String ASSISTANT_ACCOUNT_TYPE_ID = 'hznce83j7q2n746';
   //TODO: change version on every release
-  static const String ALLEVIA_VERSION = '0.0.7+3';
+  static const String ALLEVIA_VERSION = '0.0.7+4';
 }
