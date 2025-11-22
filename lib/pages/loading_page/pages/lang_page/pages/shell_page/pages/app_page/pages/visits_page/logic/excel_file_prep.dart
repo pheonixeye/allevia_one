@@ -7,7 +7,13 @@ import 'package:intl/intl.dart';
 
 class ExcelFilePrep {
   final List<Visit> visits;
-  ExcelFilePrep(this.visits) {
+  final DateTime from;
+  final DateTime to;
+  ExcelFilePrep({
+    required this.visits,
+    required this.from,
+    required this.to,
+  }) {
     _initSheet();
   }
 
@@ -45,13 +51,16 @@ class ExcelFilePrep {
   }
 
   Future<void> _appendVisits() async {
+    final _data = await _fetchNonZeroBookKeepingOfDuration(from: from, to: to);
+    await Future.delayed(const Duration(seconds: 1));
     for (final visit in visits) {
-      final _amount = await _fetchAndCalculateVisitBookkeepingEntries(visit.id);
+      final _visitIndex = visits.indexOf(visit);
+      final _amount = _calculateVisitBookkeepingEntries(visit.id, _data);
       _visitsSheet.appendRow([
         ..._columns.map((e) {
-          final _index = _columns.indexOf(e);
-          return switch (_index) {
-            0 => TextCellValue('${_index + 1}'),
+          final _columnIndex = _columns.indexOf(e);
+          return switch (_columnIndex) {
+            0 => TextCellValue('${_visitIndex + 1}'),
             1 => TextCellValue(
                 DateFormat('dd - MM - yyyy', 'ar').format(visit.visit_date)),
             2 => TextCellValue(visit.patient.name),
@@ -89,18 +98,29 @@ class ExcelFilePrep {
     );
   }
 
-  Future<double> _fetchAndCalculateVisitBookkeepingEntries(
+  Future<List<BookkeepingItemDto>> _fetchNonZeroBookKeepingOfDuration({
+    required DateTime from,
+    required DateTime to,
+  }) async {
+    final _api = BookkeepingApi();
+    final _result = await _api.fetchNonZeroBookkeepingOfDuration(
+      from: from,
+      to: to,
+    );
+    return (_result as ApiDataResult<List<BookkeepingItemDto>>).data;
+  }
+
+  double _calculateVisitBookkeepingEntries(
     String visit_id,
-  ) async {
-    final _api = BookkeepingApi(visit_id: visit_id);
-    final _result = await _api.fetchBookkeepingOfOneVisit();
-    if (_result is ApiDataResult<List<BookkeepingItemDto>>) {
-      final _data = _result.data
-          .map((e) => e.amount)
-          .toList()
-          .fold<double>(0, (a, b) => a + b);
-      return _data;
-    }
-    return 0;
+    List<BookkeepingItemDto> data,
+  ) {
+    final _visitItems = data.where((e) => e.item_id == visit_id).toList();
+
+    final _result = _visitItems
+        .map((e) => e.amount)
+        .toList()
+        .fold<double>(0, (a, b) => a + b);
+
+    return _result;
   }
 }

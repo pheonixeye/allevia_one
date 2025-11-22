@@ -11,6 +11,8 @@ class BookkeepingApi {
   final String? visit_id;
 
   late final String collection = 'bookkeeping';
+  //TODO: CHANGE CONSTANT
+  static const _batch = 5000;
 
   Future<void> addBookkeepingItem(BookkeepingItemDto item) async {
     await PocketbaseHelper.pb.collection(collection).create(
@@ -39,8 +41,7 @@ class BookkeepingApi {
             filter: "created >= '$formattedFrom' && created <= '$formattedTo'",
             sort: '-created',
             expand: _expand,
-            //TODO: CHANGE CONSTANT
-            batch: 5000,
+            batch: _batch,
           );
 
       final _items =
@@ -89,6 +90,35 @@ class BookkeepingApi {
           await PocketbaseHelper.pb.collection(collection).getFullList(
                 filter: "item_id = '$visit_id' && amount != 0",
                 sort: 'created',
+              );
+
+      final _items = _response
+          .map((e) => BookkeepingItemDto.fromJson(e.toJson()))
+          .toList();
+
+      return ApiDataResult<List<BookkeepingItemDto>>(data: _items);
+    } on ClientException catch (e) {
+      return ApiErrorResult<List<BookkeepingItemDto>>(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<ApiResult<List<BookkeepingItemDto>>>
+      fetchNonZeroBookkeepingOfDuration({
+    required DateTime from,
+    required DateTime to,
+  }) async {
+    final formattedFrom = DateFormat('yyyy-MM-dd', 'en').format(from);
+    final formattedTo = DateFormat('yyyy-MM-dd', 'en').format(to);
+    try {
+      final _response =
+          await PocketbaseHelper.pb.collection(collection).getFullList(
+                filter:
+                    "created >= '$formattedFrom' && created <= '$formattedTo' && amount != 0",
+                sort: 'created',
+                batch: _batch,
               );
 
       final _items = _response

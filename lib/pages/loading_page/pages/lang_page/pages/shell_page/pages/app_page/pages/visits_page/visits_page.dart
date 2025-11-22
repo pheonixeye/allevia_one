@@ -362,7 +362,11 @@ class _VisitsPageState extends State<VisitsPage> {
                 return;
               }
               final _visits = (v.visits as ApiDataResult<List<Visit>>).data;
-              final _excel = ExcelFilePrep(_visits);
+              final _excel = ExcelFilePrep(
+                visits: _visits,
+                from: v.from,
+                to: v.to,
+              );
               await shellFunction(
                 context,
                 toExecute: () async {
