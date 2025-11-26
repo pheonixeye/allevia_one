@@ -1111,4 +1111,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noDoctorsFound => 'لم يتم العثور علي حسابات للاطباء';
+
+  @override
+  String get toogleAccountActivityPrompt =>
+      'تغيير نشاط الحساب؟ قد يُعطّل هذا قدرة هذا المستخدم على تسجيل الدخول إلى النظام - هل أنت متأكد؟';
+
+  @override
+  String get editAccountName => 'تعديل اسم الحساب';
+
+  @override
+  String get openVisit => 'فتح الزيارة';
 }

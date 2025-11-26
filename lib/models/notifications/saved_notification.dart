@@ -81,6 +81,9 @@ class SavedNotification extends Equatable {
             (e) => User(
               id: e.getStringValue('id'),
               email: e.getStringValue('email'),
+              name: e.getStringValue('name'),
+              verified: e.getBoolValue('verified'),
+              is_active: e.getBoolValue('is_active'),
               account_type: AccountType.fromJson(
                   e.get<RecordModel>('expand.account_type_id').toJson()),
               app_permissions: e

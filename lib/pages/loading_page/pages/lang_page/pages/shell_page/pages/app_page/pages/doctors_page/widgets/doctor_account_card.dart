@@ -2,6 +2,7 @@ import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/models/doctor.dart';
 import 'package:allevia_one/providers/px_locale.dart';
+import 'package:allevia_one/widgets/themed_popupmenu_btn.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,10 +62,12 @@ class DoctorAccountCard extends StatelessWidget {
                   ),
                 ],
               ),
-              trailing: FloatingActionButton.small(
-                heroTag: doctor.id,
-                onPressed: null,
-                child: const Icon(Icons.menu),
+              trailing: ThemedPopupmenuBtn<void>(
+                tooltip: context.loc.settings,
+                icon: const Icon(Icons.menu),
+                itemBuilder: (context) {
+                  return [];
+                },
               ),
             ),
           ),

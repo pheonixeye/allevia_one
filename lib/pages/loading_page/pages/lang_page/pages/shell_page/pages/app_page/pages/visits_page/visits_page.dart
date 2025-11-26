@@ -1,25 +1,20 @@
-import 'package:allevia_one/core/api/bookkeeping_api.dart';
 import 'package:allevia_one/extensions/visit_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/logic/excel_file_prep.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/reciept_prepare_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_options_btn.dart';
 import 'package:allevia_one/providers/px_auth.dart';
-import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
-import 'package:allevia_one/core/api/visit_data_api.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_data_view_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visits_filter_header.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_locale.dart';
-import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/providers/px_visit_filter.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
@@ -159,100 +154,8 @@ class _VisitsPageState extends State<VisitsPage> {
                                               ),
                                             ),
                                             DataCell(
-                                              Center(
-                                                child: Row(
-                                                  children: [
-                                                    InkWell(
-                                                      hoverColor:
-                                                          Colors.amber.shade50,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12),
-                                                      onTap: () async {
-                                                        //todo: Go to visit Data View Dialog
-                                                        await showDialog<void>(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return ChangeNotifierProvider(
-                                                              create: (context) =>
-                                                                  PxVisitData(
-                                                                api:
-                                                                    VisitDataApi(
-                                                                  visit_id:
-                                                                      x.id,
-                                                                ),
-                                                              ),
-                                                              child:
-                                                                  VisitDataViewDialog(
-                                                                visit: x,
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Text(
-                                                            x.patient.name),
-                                                      ),
-                                                    ),
-                                                    const Spacer(),
-                                                    FloatingActionButton.small(
-                                                      tooltip: context
-                                                          .loc.printReciept,
-                                                      key: UniqueKey(),
-                                                      onPressed: () async {
-                                                        //@permission
-                                                        final _perm = context
-                                                            .read<PxAuth>()
-                                                            .isActionPermitted(
-                                                              PermissionEnum
-                                                                  .User_Visits_PrintReciept,
-                                                              context,
-                                                            );
-                                                        if (!_perm.isAllowed) {
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return NotPermittedDialog(
-                                                                permission: _perm
-                                                                    .permission,
-                                                              );
-                                                            },
-                                                          );
-                                                          return;
-                                                        }
-
-                                                        await showDialog<void>(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return ChangeNotifierProvider
-                                                                .value(
-                                                              value:
-                                                                  PxOneVisitBookkeeping(
-                                                                api:
-                                                                    BookkeepingApi(
-                                                                  visit_id:
-                                                                      x.id,
-                                                                ),
-                                                              ),
-                                                              child:
-                                                                  RecieptPrepareDialog(
-                                                                visit: x,
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.receipt_long,
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
+                                              VisitOptionsBtn(
+                                                x: x,
                                               ),
                                             ),
                                             DataCell(

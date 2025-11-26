@@ -32,11 +32,11 @@ class VisitPrescriptionPage extends StatelessWidget {
       body: Consumer5<PxVisits, PxVisitData, PxClinics,
           PxVisitPrescriptionState, PxLocale>(
         builder: (context, v, vd, c, s, l, _) {
-          while (vd.result == null || c.result == null) {
+          while (v.visits == null || vd.result == null || c.result == null) {
             return const CentralLoading();
           }
           final visit_data = (vd.result as ApiDataResult<VisitData>).data;
-          final visit = (v.visits as ApiDataResult<List<Visit>>)
+          final visit = (v.monthlyVisits as ApiDataResult<List<Visit>>)
               .data
               .firstWhereOrNull((x) => x.id == visit_data.visit_id);
           final clinics = (c.result as ApiDataResult<List<Clinic>>).data;
@@ -58,12 +58,14 @@ class VisitPrescriptionPage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            clinic.prescriptionFileUrl(),
-                          ),
-                          fit: BoxFit.contain,
-                        ),
+                        image: clinic.prescriptionFileUrl().isEmpty
+                            ? null
+                            : DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                  clinic.prescriptionFileUrl(),
+                                ),
+                                fit: BoxFit.contain,
+                              ),
                       ),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
@@ -474,7 +476,7 @@ class VisitPrescriptionPage extends StatelessWidget {
                                         .screenshotControllerWithImage
                                         .capture();
                                     //TODO: Add to patient documents collection
-                                    //todo: Send patient the link => no need / can login through portal
+                                    //TODO: Send patient the link VIA WHATSAPP
                                     _bytesWithoutImage = await s
                                         .screenshotControllerWithoutImage
                                         .capture();

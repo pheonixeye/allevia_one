@@ -67,23 +67,25 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           ),
-          actions: [
-            Builder(
-              builder: (context) {
-                return IconButton.outlined(
-                  style: IconButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    side: const BorderSide(color: Colors.white),
+          actions: context.isMobile
+              ? [
+                  Builder(
+                    builder: (context) {
+                      return IconButton.outlined(
+                        style: IconButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        icon: const Icon(Icons.menu),
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                  icon: const Icon(Icons.menu),
-                );
-              },
-            ),
-            const SizedBox(width: 20),
-          ],
+                  const SizedBox(width: 20),
+                ]
+              : [],
         );
       },
     );

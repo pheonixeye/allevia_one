@@ -19,11 +19,13 @@ class PxVisitPrescriptionState extends ChangeNotifier {
 
   static final Map<String, double> _fontSizedSessionCache = {};
 
-  final ScreenshotController _screenshotController1 = ScreenshotController();
+  late final ScreenshotController _screenshotController1 =
+      ScreenshotController();
   ScreenshotController get screenshotControllerWithImage =>
       _screenshotController1;
 
-  final ScreenshotController _screenshotController2 = ScreenshotController();
+  late final ScreenshotController _screenshotController2 =
+      ScreenshotController();
   ScreenshotController get screenshotControllerWithoutImage =>
       _screenshotController2;
 

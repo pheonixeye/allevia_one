@@ -1,9 +1,11 @@
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
+import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/models/user/user.dart';
 import 'package:allevia_one/models/user/user_with_password.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/assistants_page/widgets/add_assistant_account_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/assistants_page/widgets/update_account_name_dialog.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_assistant_accounts.dart';
 import 'package:allevia_one/providers/px_auth.dart';
@@ -11,7 +13,9 @@ import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/prompt_dialog.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -104,11 +108,118 @@ class AssistantsPage extends StatelessWidget {
                                         child: Text('${index + 1}'),
                                       ),
                                     ),
-                                    Text(item.email),
+                                    Text(
+                                      item.name,
+                                      style: TextStyle(
+                                        decoration: item.is_active
+                                            ? null
+                                            : TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    IconButton.outlined(
+                                      onPressed: () async {
+                                        //@permission
+                                        final _perm = context
+                                            .read<PxAuth>()
+                                            .isActionPermitted(
+                                              PermissionEnum
+                                                  .User_AccountSettings_Modify,
+                                              context,
+                                            );
+                                        if (!_perm.isAllowed) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return NotPermittedDialog(
+                                                permission: _perm.permission,
+                                              );
+                                            },
+                                          );
+                                          return;
+                                        }
+                                        final _name = await showDialog<String?>(
+                                          context: context,
+                                          builder: (context) {
+                                            return const UpdateAccountNameDialog();
+                                          },
+                                        );
+
+                                        if (_name == null) {
+                                          return;
+                                        }
+
+                                        if (context.mounted) {
+                                          await shellFunction(
+                                            context,
+                                            toExecute: () async {
+                                              await c.updateAccountName(
+                                                  item.id, _name);
+                                            },
+                                          );
+                                        }
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                    ),
+                                    const Spacer(),
+                                    Checkbox(
+                                      value: item.is_active,
+                                      onChanged: (val) async {
+                                        //@permission
+                                        final _perm = context
+                                            .read<PxAuth>()
+                                            .isActionPermitted(
+                                              PermissionEnum
+                                                  .User_AccountSettings_Modify,
+                                              context,
+                                            );
+                                        if (!_perm.isAllowed) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return NotPermittedDialog(
+                                                permission: _perm.permission,
+                                              );
+                                            },
+                                          );
+                                          return;
+                                        }
+                                        final _toToogle =
+                                            await showDialog<bool?>(
+                                          context: context,
+                                          builder: (context) {
+                                            return PromptDialog(
+                                              message: context.loc
+                                                  .toogleAccountActivityPrompt,
+                                            );
+                                          },
+                                        );
+                                        if (_toToogle == null ||
+                                            _toToogle == false) {
+                                          return;
+                                        }
+                                        if (context.mounted) {
+                                          await shellFunction(
+                                            context,
+                                            toExecute: () async {
+                                              await c.toogleActivity(
+                                                item.id,
+                                                !item.is_active,
+                                              );
+                                            },
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    const SizedBox(width: 10),
                                   ],
                                 ),
-                                subtitle: const Divider(
-                                  color: Colors.grey,
+                                subtitle: ListTile(
+                                  leading: const SizedBox(),
+                                  title: Text(item.email),
+                                  subtitle: const Divider(
+                                    color: Colors.grey,
+                                  ),
                                 ),
                                 children: [
                                   ...a.constants!.appPermission.map((perm) {

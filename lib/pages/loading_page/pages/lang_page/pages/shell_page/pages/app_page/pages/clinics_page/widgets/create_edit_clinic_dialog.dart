@@ -24,6 +24,7 @@ class _CreateEditClinicDialogState extends State<CreateEditClinicDialog> {
   late final TextEditingController _followupFeesController;
   late final TextEditingController _procedureFeesController;
   late final TextEditingController _followupDurationController;
+  List<String> _doc_id = [];
 
   bool? _is_main;
 
@@ -45,6 +46,7 @@ class _CreateEditClinicDialogState extends State<CreateEditClinicDialog> {
     _followupDurationController = TextEditingController(
         text: widget.clinic?.followup_duration.toString() ?? '');
     _is_main = widget.clinic?.is_main ?? false;
+    _doc_id = widget.clinic?.doc_id ?? [];
   }
 
   @override
@@ -273,7 +275,8 @@ class _CreateEditClinicDialogState extends State<CreateEditClinicDialog> {
                 id: widget.clinic?.id ?? '',
                 name_en: _nameEnController.text,
                 name_ar: _nameArController.text,
-                doc_id: [PxAuth.doc_id_static_getter],
+                doc_id:
+                    _doc_id.isEmpty ? [PxAuth.doc_id_static_getter] : _doc_id,
                 phone_number: _phoneController.text,
                 consultation_fees: int.parse(_consultationFeesController.text),
                 followup_fees: int.parse(_followupFeesController.text),

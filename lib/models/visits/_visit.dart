@@ -166,6 +166,10 @@ class Visit extends Equatable {
       added_by: User(
         id: e.get<RecordModel>('expand.added_by_id').toJson()['id'],
         email: e.get<RecordModel>('expand.added_by_id').toJson()['email'],
+        name: e.get<RecordModel>('expand.added_by_id').toJson()['name'],
+        verified: e.get<RecordModel>('expand.added_by_id').toJson()['verified'],
+        is_active:
+            e.get<RecordModel>('expand.added_by_id').toJson()['is_active'],
         account_type: AccountType.fromJson(e
             .get<RecordModel>('expand.added_by_id.expand.account_type_id')
             .toJson()),

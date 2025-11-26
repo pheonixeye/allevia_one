@@ -93,9 +93,31 @@ class AssistantAccountsApi {
     );
   }
 
-  Future<void> deleteAccount(String account_id) async {
-    await PocketbaseHelper.pb.collection(collection).delete(
-          account_id,
-        );
+  // Future<void> deleteAccount(String account_id) async {
+  //   await PocketbaseHelper.pb.collection(collection).delete(
+  //         account_id,
+  //       );
+  // }
+
+  Future<RecordModel?> toogleActivity(String user_id, bool is_active) async {
+    final result = await PocketbaseHelper.pb.collection(collection).update(
+      user_id,
+      body: {
+        'is_active': is_active,
+      },
+    );
+
+    return result;
+  }
+
+  Future<RecordModel?> updateAccountName(String user_id, String name) async {
+    final result = await PocketbaseHelper.pb.collection(collection).update(
+      user_id,
+      body: {
+        'name': name,
+      },
+    );
+
+    return result;
   }
 }

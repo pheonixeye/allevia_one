@@ -185,15 +185,17 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       ListTileControlAffinity.leading,
                                   value: e,
                                   groupValue: _clinic,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _clinic = value;
-                                      _clinicSchedule = null;
-                                      _scheduleShift = null;
-                                      _visitDate = null;
-                                      _visitDateController.clear();
-                                    });
-                                  },
+                                  onChanged: e.is_active
+                                      ? (value) {
+                                          setState(() {
+                                            _clinic = value;
+                                            _clinicSchedule = null;
+                                            _scheduleShift = null;
+                                            _visitDate = null;
+                                            _visitDateController.clear();
+                                          });
+                                        }
+                                      : null,
                                 );
                               }),
                               _validationErrorWidget<Clinic>(field),

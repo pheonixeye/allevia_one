@@ -86,13 +86,13 @@ class EndDrawer extends StatelessWidget {
                 selected: selected(AppRouter.clinics),
               ),
               //TODO: add when done
-              // const ThinDivider(),
-              // DrawerNavBtn(
-              //   title: context.loc.doctorAccounts,
-              //   icondata: FontAwesomeIcons.userDoctor,
-              //   routePath: AppRouter.doctors,
-              //   selected: selected(AppRouter.doctors),
-              // ),
+              const ThinDivider(),
+              DrawerNavBtn(
+                title: context.loc.doctorAccounts,
+                icondata: FontAwesomeIcons.userDoctor,
+                routePath: AppRouter.doctors,
+                selected: selected(AppRouter.doctors),
+              ),
               const ThinDivider(),
               DrawerNavBtn(
                 title: context.loc.patientMovementProgress,

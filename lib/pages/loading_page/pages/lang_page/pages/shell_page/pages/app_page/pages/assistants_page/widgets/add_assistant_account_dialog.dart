@@ -21,6 +21,7 @@ class AddAssistantAccountDialog extends StatefulWidget {
 class _AddAssistantAccountDialogState extends State<AddAssistantAccountDialog> {
   final formKey = GlobalKey<FormState>();
   late final TextEditingController _emailController;
+  late final TextEditingController _nameController;
   late final TextEditingController _passwordController;
   late final TextEditingController _passwordConfirmController;
 
@@ -30,6 +31,7 @@ class _AddAssistantAccountDialogState extends State<AddAssistantAccountDialog> {
   void initState() {
     super.initState();
     _emailController = TextEditingController();
+    _nameController = TextEditingController();
     _passwordController = TextEditingController();
     _passwordConfirmController = TextEditingController();
   }
@@ -37,6 +39,7 @@ class _AddAssistantAccountDialogState extends State<AddAssistantAccountDialog> {
   @override
   void dispose() {
     _emailController.dispose();
+    _nameController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();
     super.dispose();
@@ -94,6 +97,25 @@ class _AddAssistantAccountDialogState extends State<AddAssistantAccountDialog> {
                       }
                       if (!EmailValidator.validate(value)) {
                         return context.loc.invalidEmailAddress;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(context.loc.arabicName),
+                  ),
+                  subtitle: TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(
+                      hintText: 'محمد احمد',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return context.loc.enterArabicName;
                       }
                       return null;
                     },
@@ -187,8 +209,11 @@ class _AddAssistantAccountDialogState extends State<AddAssistantAccountDialog> {
                   final _account = User(
                     id: '',
                     email: _emailController.text,
+                    name: _nameController.text,
                     account_type: a.assistantAccountType,
                     app_permissions: [a.user],
+                    verified: false,
+                    is_active: true,
                   );
 
                   final UserWithPassword _data = UserWithPassword(

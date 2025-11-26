@@ -385,5 +385,8 @@
     "notificationMessage" : "تفاصيل التنبيه",
     "saveToFavorites" : "اضافة للمفضلة",
     "doctorAccounts" : "حسابات الاطباء",
-    "noDoctorsFound" : "لم يتم العثور علي حسابات للاطباء"
+    "noDoctorsFound" : "لم يتم العثور علي حسابات للاطباء",
+    "toogleAccountActivityPrompt" : "تغيير نشاط الحساب؟ قد يُعطّل هذا قدرة هذا المستخدم على تسجيل الدخول إلى النظام - هل أنت متأكد؟",
+    "editAccountName" : "تعديل اسم الحساب",
+    "openVisit" : "فتح الزيارة"
 }

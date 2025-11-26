@@ -2239,6 +2239,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Doctor Accounts Found'**
   String get noDoctorsFound;
+
+  /// No description provided for @toogleAccountActivityPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Toogle Account Activity ? This May Disable This User\'s Ability To Log Into The System - Are You Sure ?'**
+  String get toogleAccountActivityPrompt;
+
+  /// No description provided for @editAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Account Name'**
+  String get editAccountName;
+
+  /// No description provided for @openVisit.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Visit'**
+  String get openVisit;
 }
 
 class _AppLocalizationsDelegate

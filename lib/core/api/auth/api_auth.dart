@@ -106,4 +106,18 @@ class AuthApi {
     PocketbaseHelper.pb.authStore.clear();
     asyncPrefs.remove('token');
   }
+
+  Future<RecordModel?> toogleAccountActivation(
+    String user_id,
+    bool is_active,
+  ) async {
+    final result = await PocketbaseHelper.pb.collection('users').update(
+      user_id,
+      body: {
+        'is_active': is_active,
+      },
+    );
+
+    return result;
+  }
 }

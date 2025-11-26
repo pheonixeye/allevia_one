@@ -31,10 +31,10 @@ class PxAssistantAccounts extends ChangeNotifier {
     await _fetchAssistantAccounts();
   }
 
-  Future<void> deleteAccount(String account_id) async {
-    await api.deleteAccount(account_id);
-    await _fetchAssistantAccounts();
-  }
+  // Future<void> deleteAccount(String account_id) async {
+  //   await api.deleteAccount(account_id);
+  //   await _fetchAssistantAccounts();
+  // }
 
   Future<void> addAccountPermission(
     String account_id,
@@ -55,6 +55,22 @@ class PxAssistantAccounts extends ChangeNotifier {
       account_id,
       permission_id,
     );
+    await _fetchAssistantAccounts();
+  }
+
+  Future<void> toogleActivity(
+    String user_id,
+    bool is_active,
+  ) async {
+    await api.toogleActivity(user_id, is_active);
+    await _fetchAssistantAccounts();
+  }
+
+  Future<void> updateAccountName(
+    String user_id,
+    String name,
+  ) async {
+    await api.updateAccountName(user_id, name);
     await _fetchAssistantAccounts();
   }
 }

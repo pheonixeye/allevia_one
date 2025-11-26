@@ -386,5 +386,8 @@
     "notificationMessage" : "Notification Message",
     "saveToFavorites" : "Save To Favorites",
     "doctorAccounts" : "Doctor Accounts",
-    "noDoctorsFound" : "No Doctor Accounts Found"
+    "noDoctorsFound" : "No Doctor Accounts Found",
+    "toogleAccountActivityPrompt" : "Toogle Account Activity ? This May Disable This User's Ability To Log Into The System - Are You Sure ?",
+    "editAccountName" : "Edit Account Name",
+    "openVisit" : "Open Visit"
 }

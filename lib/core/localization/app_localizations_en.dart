@@ -1113,4 +1113,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noDoctorsFound => 'No Doctor Accounts Found';
+
+  @override
+  String get toogleAccountActivityPrompt =>
+      'Toogle Account Activity ? This May Disable This User\'s Ability To Log Into The System - Are You Sure ?';
+
+  @override
+  String get editAccountName => 'Edit Account Name';
+
+  @override
+  String get openVisit => 'Open Visit';
 }
