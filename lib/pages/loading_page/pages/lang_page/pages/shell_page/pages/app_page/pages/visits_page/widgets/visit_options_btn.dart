@@ -112,6 +112,8 @@ class VisitOptionsBtn extends StatelessWidget {
                       },
                     ),
                     PopupMenuItem<void>(
+                      onTap: null,
+                      padding: const EdgeInsets.all(0),
                       child: ChangeNotifierProvider(
                         create: (context) => PxVisitData(
                           api: VisitDataApi(
@@ -162,6 +164,8 @@ class VisitOptionsBtn extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem<void>(
+                      onTap: null,
+                      padding: const EdgeInsets.all(0),
                       child: ChangeNotifierProvider(
                         create: (context) => PxPatientDocuments(
                           api: PatientDocumentApi(

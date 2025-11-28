@@ -401,7 +401,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noClinicsFound => 'No Clinics Found.';
 
   @override
-  String get toogleClinicActivity => 'Toogle Clinic Activity';
+  String get toogleClinicActivity => 'Toggle Clinic Activity';
 
   @override
   String get clinicSchedule => 'Clinic Schedule';
@@ -1116,11 +1116,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toogleAccountActivityPrompt =>
-      'Toogle Account Activity ? This May Disable This User\'s Ability To Log Into The System - Are You Sure ?';
+      'Toggle Account Activity ? This May Disable This User\'s Ability To Log Into The System - Are You Sure ?';
 
   @override
   String get editAccountName => 'Edit Account Name';
 
   @override
   String get openVisit => 'Open Visit';
+
+  @override
+  String get needSuperAdminPermission => 'Need \'SuperAdmin\' Permission';
+
+  @override
+  String get addNewDoctorAccount => 'Add New Doctor Account';
+
+  @override
+  String get inactive => 'InActive';
+
+  @override
+  String get clinicDoctors => 'Clinic Doctors';
+
+  @override
+  String get cannotRemoveSelfFromClinicWhileLoggedIn =>
+      'Cannot Remove Self From Clinic While LoggedIn';
+
+  @override
+  String get removeDoctorFromClinicPrompt =>
+      'Remove Doctor Access To This Clinic ? Are You Sure ?';
+
+  @override
+  String get toogleAccountActivity => 'Toggle Account Activity';
+
+  @override
+  String get cannotDeactivateSuperAdminAccount =>
+      'Cannot Deactivate \'SuperAdmin\' Account';
 }

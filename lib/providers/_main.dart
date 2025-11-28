@@ -4,6 +4,7 @@ import 'package:allevia_one/core/api/notifications_api.dart';
 import 'package:allevia_one/core/api/wa_api.dart';
 import 'package:allevia_one/providers/px_assistant_accounts.dart';
 import 'package:allevia_one/providers/px_notifications.dart';
+import 'package:allevia_one/providers/px_speciality.dart';
 import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/auth/api_auth.dart';
@@ -58,8 +59,11 @@ final List<SingleChildWidget> providers = [
     ),
   ),
   ChangeNotifierProvider(
+    create: (context) => PxSpec(),
+  ),
+  ChangeNotifierProvider(
     create: (context) => PxAppConstants(
-      api: ConstantsApi(),
+      api: const ConstantsApi(),
     ),
   ),
   ChangeNotifierProvider(
@@ -69,7 +73,10 @@ final List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => PxDoctor(
-      api: DoctorApi(doc_id: context.read<PxAuth>().doc_id),
+      api: DoctorApi(
+        doc_id: context.read<PxAuth>().doc_id,
+        assistantAccountTypeId: AppBusinessConstants.ASSISTANT_ACCOUNT_TYPE_ID,
+      ),
     ),
   ),
   ChangeNotifierProvider(

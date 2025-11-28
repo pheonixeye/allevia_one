@@ -1121,4 +1121,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get openVisit => 'فتح الزيارة';
+
+  @override
+  String get needSuperAdminPermission => 'تحتاج صلاحيات مدير العيادات';
+
+  @override
+  String get addNewDoctorAccount => 'اضافة حساب طبيب جديد';
+
+  @override
+  String get inactive => 'حساب غير مفعل';
+
+  @override
+  String get clinicDoctors => 'اطباء العيادة';
+
+  @override
+  String get cannotRemoveSelfFromClinicWhileLoggedIn =>
+      'لا يمكن ازالة الحساب الخاص اثناء تسجيل الدخول';
+
+  @override
+  String get removeDoctorFromClinicPrompt =>
+      'تاكيد ازالة وصول الطبيب للعيادة ؟ هل انت متأكد؟';
+
+  @override
+  String get toogleAccountActivity => 'تعديل نشاط الحساب';
+
+  @override
+  String get cannotDeactivateSuperAdminAccount =>
+      'لا يمكن تعديل نشاط حساب مدير العيادات';
 }

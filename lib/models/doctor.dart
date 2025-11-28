@@ -48,6 +48,17 @@ class Doctor extends Equatable {
     };
   }
 
+  Map<String, dynamic> toPbRecordJson() {
+    return <String, dynamic>{
+      'id': id,
+      'name_en': name_en,
+      'name_ar': name_ar,
+      'phone': phone,
+      'speciality_id': speciality.id,
+      'email': email,
+    };
+  }
+
   factory Doctor.fromJson(Map<String, dynamic> map) {
     return Doctor(
       id: map['id'] as String,

@@ -851,7 +851,7 @@ abstract class AppLocalizations {
   /// No description provided for @toogleClinicActivity.
   ///
   /// In en, this message translates to:
-  /// **'Toogle Clinic Activity'**
+  /// **'Toggle Clinic Activity'**
   String get toogleClinicActivity;
 
   /// No description provided for @clinicSchedule.
@@ -2243,7 +2243,7 @@ abstract class AppLocalizations {
   /// No description provided for @toogleAccountActivityPrompt.
   ///
   /// In en, this message translates to:
-  /// **'Toogle Account Activity ? This May Disable This User\'s Ability To Log Into The System - Are You Sure ?'**
+  /// **'Toggle Account Activity ? This May Disable This User\'s Ability To Log Into The System - Are You Sure ?'**
   String get toogleAccountActivityPrompt;
 
   /// No description provided for @editAccountName.
@@ -2257,6 +2257,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open Visit'**
   String get openVisit;
+
+  /// No description provided for @needSuperAdminPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Need \'SuperAdmin\' Permission'**
+  String get needSuperAdminPermission;
+
+  /// No description provided for @addNewDoctorAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Doctor Account'**
+  String get addNewDoctorAccount;
+
+  /// No description provided for @inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'InActive'**
+  String get inactive;
+
+  /// No description provided for @clinicDoctors.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinic Doctors'**
+  String get clinicDoctors;
+
+  /// No description provided for @cannotRemoveSelfFromClinicWhileLoggedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot Remove Self From Clinic While LoggedIn'**
+  String get cannotRemoveSelfFromClinicWhileLoggedIn;
+
+  /// No description provided for @removeDoctorFromClinicPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Doctor Access To This Clinic ? Are You Sure ?'**
+  String get removeDoctorFromClinicPrompt;
+
+  /// No description provided for @toogleAccountActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle Account Activity'**
+  String get toogleAccountActivity;
+
+  /// No description provided for @cannotDeactivateSuperAdminAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot Deactivate \'SuperAdmin\' Account'**
+  String get cannotDeactivateSuperAdminAccount;
 }
 
 class _AppLocalizationsDelegate

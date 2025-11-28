@@ -135,7 +135,7 @@
     "isMain": "Is Primary Clinic",
     "@@clinics_page": "",
     "noClinicsFound": "No Clinics Found.",
-    "toogleClinicActivity": "Toogle Clinic Activity",
+    "toogleClinicActivity": "Toggle Clinic Activity",
     "clinicSchedule": "Clinic Schedule",
     "deleteClinic": "Delete Clinic",
     "deleteClinicPrompt": "Deleting This Clinic Will Remove All The Clinic Information And All Visits/Schedules Related To This Clinic In Different Parts Of The Application, This Action Is Irreversible, Are You Sure?",
@@ -387,7 +387,17 @@
     "saveToFavorites" : "Save To Favorites",
     "doctorAccounts" : "Doctor Accounts",
     "noDoctorsFound" : "No Doctor Accounts Found",
-    "toogleAccountActivityPrompt" : "Toogle Account Activity ? This May Disable This User's Ability To Log Into The System - Are You Sure ?",
+    "toogleAccountActivityPrompt" : "Toggle Account Activity ? This May Disable This User's Ability To Log Into The System - Are You Sure ?",
     "editAccountName" : "Edit Account Name",
-    "openVisit" : "Open Visit"
+    "openVisit" : "Open Visit",
+    "@@doctors_page": "",
+    "needSuperAdminPermission" : "Need 'SuperAdmin' Permission",
+    "addNewDoctorAccount" : "Add New Doctor Account",
+    "inactive" : "InActive",
+    "@@clinics_page": "",
+    "clinicDoctors" : "Clinic Doctors",
+    "cannotRemoveSelfFromClinicWhileLoggedIn" : "Cannot Remove Self From Clinic While LoggedIn",
+    "removeDoctorFromClinicPrompt" : "Remove Doctor Access To This Clinic ? Are You Sure ?",
+    "toogleAccountActivity" : "Toggle Account Activity",
+    "cannotDeactivateSuperAdminAccount" : "Cannot Deactivate 'SuperAdmin' Account"
 }

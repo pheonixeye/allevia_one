@@ -98,8 +98,19 @@ class PxAppConstants extends ChangeNotifier {
         has_not_attended_yet,
       ];
 //app permissions
+  AppPermission get superadmin =>
+      _constants!.appPermission.firstWhere((e) => e.name_en == 'SuperAdmin');
   AppPermission get admin =>
       _constants!.appPermission.firstWhere((e) => e.name_en == 'Admin');
   AppPermission get user =>
       _constants!.appPermission.firstWhere((e) => e.name_en == 'User');
+
+  List<AppPermission> get _unChangablePermissions => [
+        superadmin,
+        admin,
+        user,
+      ];
+
+  bool isUnchangablePermission(String permission_id) =>
+      _unChangablePermissions.any((p) => p.id == permission_id);
 }

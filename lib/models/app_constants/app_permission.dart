@@ -47,6 +47,7 @@ class AppPermission extends Equatable {
 }
 
 enum PermissionEnum {
+  SuperAdmin,
   Admin,
   User,
   User_Patient_AddNew, //done

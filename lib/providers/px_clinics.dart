@@ -62,7 +62,7 @@ class PxClinics extends ChangeNotifier {
     await _fetchDoctorClinics();
   }
 
-  Clinic? _clinic;
+  static Clinic? _clinic;
   Clinic? get clinic => _clinic;
 
   void selectClinic(Clinic? value) {
@@ -181,5 +181,18 @@ class PxClinics extends ChangeNotifier {
           _clinic!.clinic_schedule.firstWhereOrNull((e) => e.id == _sch?.id);
       notifyListeners();
     }
+  }
+
+  Future<void> addOrRemoveDoctorFromClinic(
+    String doc_id,
+  ) async {
+    if (_clinic == null) {
+      return;
+    }
+    await api.addOrRemoveDoctorFromClinic(
+      clinic!,
+      doc_id,
+    );
+    await _fetchDoctorClinics();
   }
 }

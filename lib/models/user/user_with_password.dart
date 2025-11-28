@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
+import 'package:allevia_one/models/doctor.dart';
 import 'package:allevia_one/models/user/user.dart';
 
 class UserWithPassword extends Equatable {
@@ -19,5 +20,21 @@ class UserWithPassword extends Equatable {
         user,
         password,
         confirmPassword,
+      ];
+}
+
+class UserWithPasswordAndDoctorAccount extends Equatable {
+  final UserWithPassword userWithPassword;
+  final Doctor doctor;
+
+  const UserWithPasswordAndDoctorAccount({
+    required this.userWithPassword,
+    required this.doctor,
+  });
+
+  @override
+  List<Object> get props => [
+        userWithPassword,
+        doctor,
       ];
 }

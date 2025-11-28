@@ -235,8 +235,8 @@ class AssistantsPage extends StatelessWidget {
                                       value:
                                           item.app_permissions.contains(perm),
                                       onChanged: (val) async {
-                                        if (perm.id == a.admin.id ||
-                                            perm.id == a.user.id) {
+                                        if (a
+                                            .isUnchangablePermission(perm.id)) {
                                           showIsnackbar(context
                                               .loc.cannotChangeAccountType);
                                           return;

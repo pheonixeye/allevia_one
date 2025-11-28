@@ -1,7 +1,13 @@
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:allevia_one/providers/px_locale.dart';
+import 'package:allevia_one/widgets/prompt_dialog.dart';
+import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:allevia_one/widgets/themed_popupmenu_btn.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +24,18 @@ class DoctorAccountCard extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    return Consumer<PxLocale>(
-      builder: (context, l, _) {
+    return Consumer3<PxAppConstants, PxDoctor, PxLocale>(
+      builder: (context, a, d, l, _) {
+        final _docUser = d.allDoctorsAuth?.firstWhere((e) => e.id == doctor.id);
+        while (_docUser == null) {
+          return const SizedBox(
+            height: 8,
+            child: LinearProgressIndicator(),
+          );
+        }
         return Card.outlined(
           elevation: 6,
+          color: _docUser.is_active ? null : Colors.red.shade50,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
@@ -41,6 +55,10 @@ class DoctorAccountCard extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
+                  if (!_docUser.is_active) ...[
+                    Text(' - '),
+                    Text('(${context.loc.inactive})'),
+                  ]
                 ],
               ),
               subtitle: Row(
@@ -66,7 +84,63 @@ class DoctorAccountCard extends StatelessWidget {
                 tooltip: context.loc.settings,
                 icon: const Icon(Icons.menu),
                 itemBuilder: (context) {
-                  return [];
+                  return [
+                    PopupMenuItem(
+                      child: Row(
+                        children: [
+                          const Icon(Icons.person_add_alt),
+                          Text(
+                            context.loc.toogleAccountActivity,
+                          ),
+                        ],
+                      ),
+                      onTap: () async {
+                        final _isSuperAdmin =
+                            PxAuth.isLoggedInUserSuperAdmin(context);
+
+                        if (!_isSuperAdmin) {
+                          showIsnackbar(context.loc.needSuperAdminPermission);
+                          return;
+                        }
+
+                        if (doctor.id == PxAuth.doc_id_static_getter &&
+                            _isSuperAdmin) {
+                          showIsnackbar(
+                              context.loc.cannotDeactivateSuperAdminAccount);
+                          return;
+                        }
+
+                        final _toDeactivate = _docUser.is_active == true;
+
+                        if (_toDeactivate == true) {
+                          final _toToggle = await showDialog<bool>(
+                            context: context,
+                            builder: (context) {
+                              return PromptDialog(
+                                message:
+                                    context.loc.toogleAccountActivityPrompt,
+                              );
+                            },
+                          );
+
+                          if (_toToggle == null || _toToggle == false) {
+                            return;
+                          }
+                        }
+                        if (context.mounted) {
+                          await shellFunction(
+                            context,
+                            toExecute: () async {
+                              await d.toogleAccountActivation(
+                                doctor.id,
+                                !_docUser.is_active,
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ];
                 },
               ),
             ),

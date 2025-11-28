@@ -1,6 +1,8 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/clinic_doctors_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/clinic_inventory_api.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -381,6 +383,38 @@ class ClinicViewCard extends StatelessWidget {
                             });
                           },
                         ),
+                        PopupMenuItem<void>(
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.warehouse_rounded,
+                              ),
+                              Text(
+                                context.loc.clinicDoctors,
+                              ),
+                            ],
+                          ),
+                          onTap: () async {
+                            final _isSuperAdmin =
+                                PxAuth.isLoggedInUserSuperAdmin(context);
+
+                            if (!_isSuperAdmin) {
+                              showIsnackbar(
+                                  context.loc.needSuperAdminPermission);
+                              return;
+                            }
+                            c.selectClinic(clinic);
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const ClinicDoctorsDialog();
+                              },
+                            ).whenComplete(() {
+                              c.selectClinic(null);
+                            });
+                          },
+                        ),
+                        PopupMenuDivider(),
                         PopupMenuItem(
                           child: Row(
                             children: [

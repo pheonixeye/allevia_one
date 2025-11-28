@@ -243,4 +243,18 @@ class ClinicsApi {
       },
     );
   }
+
+  Future<void> addOrRemoveDoctorFromClinic(
+    Clinic clinic,
+    String doc_id,
+  ) async {
+    final _isDoctorPresent = clinic.doc_id.contains(doc_id);
+    final _update =
+        _isDoctorPresent ? {'doc_id-': doc_id} : {'doc_id+': doc_id};
+
+    await PocketbaseHelper.pb.collection(_collection).update(
+          clinic.id,
+          body: _update,
+        );
+  }
 }

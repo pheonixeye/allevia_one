@@ -1,20 +1,32 @@
+import 'package:allevia_one/models/user/user.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/models/doctor.dart';
 
 class DoctorApi {
-  const DoctorApi({required this.doc_id});
+  const DoctorApi({
+    required this.doc_id,
+    required this.assistantAccountTypeId,
+  });
 
   final String doc_id;
+  final String assistantAccountTypeId;
 
   static const String collection = 'doctors';
 
-  static const String expand = 'speciality_id';
+  static const String doctor_expand = 'speciality_id';
+
+  static const _user_expandList = [
+    'account_type_id',
+    'app_permissions_ids',
+  ];
+
+  static final _user_expand = _user_expandList.join(',');
 
   Future<Doctor> fetchDoctorProfile() async {
     final _response = await PocketbaseHelper.pb.collection(collection).getOne(
           doc_id,
-          expand: expand,
+          expand: doctor_expand,
         );
 
     final doctor = Doctor.fromJson({
@@ -25,10 +37,21 @@ class DoctorApi {
     return doctor;
   }
 
+  Future<User> fetchDoctorAuthUser() async {
+    final _response = await PocketbaseHelper.pb.collection('users').getOne(
+          doc_id,
+          expand: _user_expand,
+        );
+
+    final _user = User.fromRecordModel(_response);
+
+    return _user;
+  }
+
   Future<List<Doctor>> fetchAllDoctors() async {
     final _response =
         await PocketbaseHelper.pb.collection(collection).getFullList(
-              expand: expand,
+              expand: doctor_expand,
             );
 
     // prettyPrint(_response);
@@ -40,5 +63,30 @@ class DoctorApi {
     }).toList();
 
     return _doctors;
+  }
+
+  Future<List<User>> fetchAllDoctorsAuthAccounts() async {
+    final result = await PocketbaseHelper.pb.collection('users').getList(
+          filter: "account_type_id != '$assistantAccountTypeId'",
+          expand: _user_expand,
+        );
+
+    // prettyPrint(result);
+
+    final _users = result.items.map((e) => User.fromRecordModel(e)).toList();
+
+    return _users;
+  }
+
+  Future<void> toogleAccountActivation(
+    String user_id,
+    bool is_active,
+  ) async {
+    await PocketbaseHelper.pb.collection('users').update(
+      user_id,
+      body: {
+        'is_active': is_active,
+      },
+    );
   }
 }

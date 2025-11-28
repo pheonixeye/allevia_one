@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/user/user_with_password.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:allevia_one/core/api/auth/auth_exception.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
@@ -40,6 +41,57 @@ class AuthApi {
       dprint(e.toString());
       throw AuthException(e);
     }
+  }
+
+  Future<RecordModel> createDoctorAccount(
+    UserWithPasswordAndDoctorAccount dto,
+  ) async {
+    late RecordModel _userCreateResult;
+    try {
+      _userCreateResult = await PocketbaseHelper.pb.collection('users').create(
+        body: {
+          'name': dto.userWithPassword.user.name,
+          'email': dto.userWithPassword.user.email,
+          'password': dto.userWithPassword.password,
+          'passwordConfirm': dto.userWithPassword.confirmPassword,
+          'emailVisibility': true,
+          'account_type_id': dto.userWithPassword.user.account_type.id,
+          'app_permissions_ids': [
+            ...dto.userWithPassword.user.app_permissions.map((e) => e.id)
+          ],
+          'is_active': dto.userWithPassword.user.is_active,
+        },
+        expand: _expand,
+      );
+    } on ClientException catch (e) {
+      dprint(e.toString());
+      throw AuthException(e);
+    }
+    try {
+      await PocketbaseHelper.pb.collection('doctors').create(
+        body: {
+          ...dto.doctor
+              .copyWith(
+                id: _userCreateResult.id,
+              )
+              .toPbRecordJson()
+        },
+      );
+    } on ClientException catch (e) {
+      dprint(e.toString());
+      throw AuthException(e);
+    }
+
+    try {
+      await PocketbaseHelper.pb
+          .collection('users')
+          .requestVerification(_userCreateResult.getStringValue('email'));
+    } on ClientException catch (e) {
+      dprint(e.toString());
+      throw AuthException(e);
+    }
+
+    return _userCreateResult;
   }
 
   //# normal login flow

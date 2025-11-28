@@ -3,6 +3,7 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_password_btn.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/single_btn_tile.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/whatsapp_tile/whatsapp_tile.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:flutter/gestures.dart';
@@ -30,8 +31,8 @@ class SettingsPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                Consumer2<PxAuth, PxLocale>(
-                  builder: (context, a, l, _) {
+                Consumer3<PxAuth, PxAppConstants, PxLocale>(
+                  builder: (context, auth, a, l, _) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card.outlined(
@@ -44,15 +45,28 @@ class SettingsPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 spacing: 8,
                                 children: [
-                                  if (a.user == null)
+                                  if (auth.user == null)
                                     SizedBox(
                                       height: 10,
                                       child: LinearProgressIndicator(),
                                     )
                                   else ...[
-                                    Text('${a.user?.email}'),
+                                    if (PxAuth.isLoggedInUserSuperAdmin(
+                                        context))
+                                      Card.outlined(
+                                        elevation: 6,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            l.isEnglish
+                                                ? a.superadmin.name_en
+                                                : a.superadmin.name_ar,
+                                          ),
+                                        ),
+                                      ),
+                                    Text('${auth.user?.email}'),
                                     Text(
-                                        '${l.isEnglish ? a.user?.account_type.name_en : a.user?.account_type.name_ar}'),
+                                        '${l.isEnglish ? auth.user?.account_type.name_en : auth.user?.account_type.name_ar}'),
                                   ]
                                 ],
                               ),

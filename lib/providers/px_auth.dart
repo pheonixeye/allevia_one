@@ -5,6 +5,7 @@ import 'package:allevia_one/functions/dprint.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/models/dto_create_doctor_account.dart';
 import 'package:allevia_one/models/user/user.dart';
+import 'package:allevia_one/models/user/user_with_password.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -25,6 +26,10 @@ class PxAuth extends ChangeNotifier {
 
   Future<void> createAccount(DtoCreateDoctorAccount dto) async {
     await api.createAccount(dto);
+  }
+
+  Future<void> createDoctorAccount(UserWithPasswordAndDoctorAccount dto) async {
+    await api.createDoctorAccount(dto);
   }
 
   Future<void> loginWithEmailAndPassword(
@@ -78,6 +83,17 @@ class PxAuth extends ChangeNotifier {
 
   static bool get isUserNotDoctor =>
       _user?.account_type.id == AppBusinessConstants.ASSISTANT_ACCOUNT_TYPE_ID;
+
+  static bool isLoggedInUserSuperAdmin(BuildContext context) {
+    final _appPermissions =
+        context.read<PxAppConstants>().constants?.appPermission;
+
+    final _superAdminPermission =
+        _appPermissions?.firstWhere((e) => e.name_en == 'SuperAdmin');
+
+    return _user != null &&
+        _user!.app_permissions.contains(_superAdminPermission);
+  }
 
   PermissionWithPermission isActionPermitted(
     PermissionEnum permission,
