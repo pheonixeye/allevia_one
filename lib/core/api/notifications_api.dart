@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/errors/code_to_error.dart';
+import 'package:allevia_one/models/blob_file.dart';
 // import 'package:allevia_one/functions/dprint.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
 import 'package:allevia_one/models/notifications/notification_request.dart';
@@ -109,7 +111,7 @@ class NotificationsApi {
     return _notificationStreamController.stream;
   }
 
-  Future<ApiResult<List<SavedNotification>>> fetchNotifications({
+  Future<ApiResult<List<SavedNotification>>> fetchNotificationsFromDatabase({
     required int page,
     required int perPage,
   }) async {
@@ -171,7 +173,6 @@ class NotificationsApi {
 
   Future<void> addFavoriteNotification(NotificationRequest request) async {
     final _data = request.toJson();
-    print(_data);
     await _box.put(request.title, jsonEncode(_data));
   }
 
@@ -181,10 +182,20 @@ class NotificationsApi {
 
   Future<List<NotificationRequest>> getFavoriteNotifications() async {
     final _result = _box.values.toList();
-
-    print(_result);
     return _result
         .map((e) => NotificationRequest.fromJson(jsonDecode(e)))
         .toList();
+  }
+
+  Future<Uint8List> fetchNotificationSoundBlob() async {
+    final _result = await PocketbaseHelper.pb
+        .collection('blobs')
+        .getFirstListItem("name = 'notification_sound'");
+
+    final _blob = BlobFile.fromRecordModel(_result);
+
+    final _fileRequest = await http.get(Uri.parse(_blob.fileUrl));
+
+    return _fileRequest.bodyBytes;
   }
 }

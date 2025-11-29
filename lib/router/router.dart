@@ -42,7 +42,6 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/settings_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/my_subscription_page/my_subscription_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/shell_page.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/thankyou_page/thankyou_screen.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
 import 'package:allevia_one/providers/px_doctor_profile_items.dart';
@@ -82,7 +81,7 @@ class AppRouter {
   static const String lang = ":lang";
   static const String login = "login";
   static const String register = "register";
-  static const String thankyou = "thankyou";
+  // static const String thankyou = "thankyou";
   //main_routes
   static const String mysubscription = "subscription";
   static const String orderdetails = "orderdetails";
@@ -258,15 +257,15 @@ class AppRouter {
               //     return null;
               //   },
               // ),
-              GoRoute(
-                path: thankyou, // /:lang/thankyou
-                name: thankyou,
-                builder: (context, state) {
-                  return ThankyouPage(
-                    key: state.pageKey,
-                  );
-                },
-              ),
+              // GoRoute(
+              //   path: thankyou, // /:lang/thankyou
+              //   name: thankyou,
+              //   builder: (context, state) {
+              //     return ThankyouPage(
+              //       key: state.pageKey,
+              //     );
+              //   },
+              // ),
               ShellRoute(
                 builder: (context, state, child) {
                   return ShellPage(

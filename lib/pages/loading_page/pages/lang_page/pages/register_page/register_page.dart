@@ -408,12 +408,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 if (context.mounted) {
                                                   //todo: navigate to thankyou page
 
-                                                  GoRouter.of(context).goNamed(
-                                                    AppRouter.thankyou,
-                                                    pathParameters:
-                                                        defaultPathParameters(
-                                                            context),
-                                                  );
+                                                  // GoRouter.of(context).goNamed(
+                                                  //   AppRouter.thankyou,
+                                                  //   pathParameters:
+                                                  //       defaultPathParameters(
+                                                  //           context),
+                                                  // );
                                                 }
                                               }
                                             } catch (e) {

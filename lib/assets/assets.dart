@@ -40,5 +40,5 @@ class AppAssets {
   static String loaders(int index) => 'assets/images/loaders/$index.jpg';
 
   ///notification sound
-  static const String notification_sound = 'sounds/notification.mp4';
+  static const String notification_sound = 'sounds/notification.mp3';
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:allevia_one/extensions/after_layout.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
@@ -12,8 +13,13 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 class NotificationOverlayCard extends StatefulWidget implements EquatableMixin {
-  const NotificationOverlayCard({super.key, required this.notification});
+  const NotificationOverlayCard({
+    super.key,
+    required this.notification,
+    this.fileBlob,
+  });
   final InAppNotification notification;
+  final Uint8List? fileBlob;
 
   @override
   State<NotificationOverlayCard> createState() =>
@@ -41,7 +47,7 @@ class _NotificationOverlayCardState extends State<NotificationOverlayCard>
 
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) async {
-    await SoundHelper.playSound(player);
+    await SoundHelper.playSound(player, widget.fileBlob);
   }
 
   @override

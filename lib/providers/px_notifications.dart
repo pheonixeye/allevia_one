@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/notifications_api.dart';
 import 'package:allevia_one/models/notifications/in_app_notification.dart';
@@ -15,6 +17,9 @@ class PxNotifications extends ChangeNotifier {
     _init();
     _fetchNotifications();
     _initFavoriteNotificationStore();
+    if (_fileBlob == null) {
+      _fetchNotificationSoundBlobUrl();
+    }
   }
 
   Future<void> sendNotification({
@@ -56,6 +61,7 @@ class PxNotifications extends ChangeNotifier {
             id: notification.id ?? '',
             child: NotificationOverlayCard(
               notification: notification,
+              fileBlob: _fileBlob,
             ));
         //todo: save notifications in pocketbase
       }
@@ -71,7 +77,7 @@ class PxNotifications extends ChangeNotifier {
   final int _perPage = 20;
 
   Future<void> _fetchNotifications() async {
-    _notifications = await api.fetchNotifications(
+    _notifications = await api.fetchNotificationsFromDatabase(
       page: page,
       perPage: _perPage,
     );
@@ -135,5 +141,14 @@ class PxNotifications extends ChangeNotifier {
   Future<void> removeFavoriteNotification(String title) async {
     await api.removeFavoriteNotification(title);
     await _fetchFavoriteNotifications();
+  }
+
+  static Uint8List? _fileBlob;
+  Uint8List? get fileBlob => _fileBlob;
+
+  Future<void> _fetchNotificationSoundBlobUrl() async {
+    _fileBlob = await api.fetchNotificationSoundBlob();
+    // print('PxNotifications()._fetchNotificationSoundBlobUrl($_fileUrl)');
+    notifyListeners();
   }
 }
