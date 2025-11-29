@@ -1,3 +1,4 @@
+import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -22,7 +23,7 @@ class DiscountManagmentRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<PxAppConstants, PxOneVisitBookkeeping>(
       builder: (context, a, b, _) {
-        while (a.constants == null) {
+        while (a.constants == null || b.result == null) {
           return const Row(
             children: [
               Expanded(
@@ -45,10 +46,21 @@ class DiscountManagmentRow extends StatelessWidget {
               ),
               Builder(
                 builder: (context) {
-                  while (b.visitDiscounts == null || b.discountTotal == null) {
+                  while (b.result is ApiErrorResult) {
                     return Expanded(
                       flex: 3,
-                      child: LinearProgressIndicator(),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.error),
+                          Text(
+                            context.loc.error,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   }
                   //todo: calculate discounts

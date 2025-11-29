@@ -2,7 +2,6 @@ import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/notifications/notification_request.dart';
-import 'package:allevia_one/models/notifications/notification_topic.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/widgets/add_new_notification_request_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/widgets/monthly_visits_calendar_dialog.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -200,29 +199,29 @@ class NavBarMenuBtn extends StatelessWidget {
                   ),
                 ),
               ),
-              PopupMenuDivider(),
-              PopupMenuItem(
-                child: ListTile(
-                  title: Text('sendTestNotification'),
-                  onTap: () async {
-                    final _request = NotificationRequest(
-                      topic: NotificationTopic.allevia_testing,
-                      title: 'test-notification-sound',
-                      message:
-                          'Discover 10 groundbreaking AI-driven technologies that are reshaping how organizations perform maintenance, engage with customers, secure data, deliver healthcare, and more.',
-                    );
-                    await shellFunction(
-                      context,
-                      toExecute: () async {
-                        await n.sendNotification(
-                          topic: _request.topic,
-                          request: _request,
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
+              // PopupMenuDivider(),
+              // PopupMenuItem(
+              //   child: ListTile(
+              //     title: Text('sendTestNotification'),
+              //     onTap: () async {
+              //       final _request = NotificationRequest(
+              //         topic: NotificationTopic.allevia_testing,
+              //         title: 'test-notification-sound',
+              //         message:
+              //             'Discover 10 groundbreaking AI-driven technologies that are reshaping how organizations perform maintenance, engage with customers, secure data, deliver healthcare, and more.',
+              //       );
+              //       await shellFunction(
+              //         context,
+              //         toExecute: () async {
+              //           await n.sendNotification(
+              //             topic: _request.topic,
+              //             request: _request,
+              //           );
+              //         },
+              //       );
+              //     },
+              //   ),
+              // ),
             ];
           },
         );

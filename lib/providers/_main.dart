@@ -141,7 +141,7 @@ final List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => PxClinics(
-      context: context,
+      // context: context,
       api: ClinicsApi(
         doc_id: context.read<PxAuth>().doc_id,
       ),

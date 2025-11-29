@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:allevia_one/providers/px_app_constants.dart';
+// import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -10,15 +10,15 @@ import 'package:allevia_one/models/clinic/clinic.dart';
 import 'package:allevia_one/models/clinic/clinic_schedule.dart';
 import 'package:allevia_one/models/clinic/prescription_details.dart';
 import 'package:allevia_one/models/clinic/schedule_shift.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class PxClinics extends ChangeNotifier {
   final ClinicsApi api;
-  final BuildContext context;
+  // final BuildContext context;
 
   PxClinics({
     required this.api,
-    required this.context,
+    // required this.context,
   }) {
     _fetchDoctorClinics();
   }
@@ -27,10 +27,19 @@ class PxClinics extends ChangeNotifier {
   ApiResult<List<Clinic>>? get result => _result;
 
   Future<void> _fetchDoctorClinics({int retries = 3}) async {
-    if (!context.mounted || context.read<PxAppConstants>().constants == null) {
-      await Future.delayed(const Duration(seconds: 1));
-      await _fetchDoctorClinics(retries: retries - 1);
-    }
+    //TODO: why did i use this snippet ??
+
+    // while (
+    //     !context.mounted || context.read<PxAppConstants>().constants == null) {
+    //   await Future.delayed(const Duration(seconds: 1));
+    //   await _fetchDoctorClinics(retries: retries - 1);
+    //   if (_result != null) {
+    //     break;
+    //   }
+    //   if (retries <= 0) {
+    //     break;
+    //   }
+    // }
     if (PxAuth.isUserNotDoctor) {
       _result = await api.fetchAllClinics();
       notifyListeners();
