@@ -35,7 +35,7 @@ class WhatsappServerResponse<T> extends Equatable {
     return WhatsappServerResponse(
       code: map['code'] as String,
       message: map['message'] as String,
-      results: map['results'] as dynamic,
+      results: map['results'] as T?,
     );
   }
 

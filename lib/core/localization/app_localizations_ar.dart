@@ -1148,4 +1148,7 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get cannotDeactivateSuperAdminAccount =>
       'لا يمكن تعديل نشاط حساب مدير العيادات';
+
+  @override
+  String get viewDocument => 'فتح المستند';
 }

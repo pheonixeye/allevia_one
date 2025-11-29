@@ -1,12 +1,15 @@
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/bookkeeping_api.dart';
+import 'package:allevia_one/functions/first_where_or_null.dart';
+import 'package:allevia_one/models/app_constants/_app_constants.dart';
 import 'package:allevia_one/models/bookkeeping/bookkeeping_item_dto.dart';
-import 'package:allevia_one/models/visits/_visit.dart';
+import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/models/visits/concised_visit.dart';
 import 'package:excel/excel.dart';
 import 'package:intl/intl.dart';
 
 class ExcelFilePrep {
-  final List<Visit> visits;
+  final List<ConcisedVisit> visits;
   final DateTime from;
   final DateTime to;
   ExcelFilePrep({
@@ -50,25 +53,33 @@ class ExcelFilePrep {
     _visitsSheet.appendRow([..._columns.map((e) => TextCellValue(e))]);
   }
 
-  Future<void> _appendVisits() async {
+  Future<void> _appendVisits(
+    AppConstants constants,
+    List<Doctor> doctors,
+  ) async {
     final _data = await _fetchNonZeroBookKeepingOfDuration(from: from, to: to);
     await Future.delayed(const Duration(seconds: 1));
     for (final visit in visits) {
       final _visitIndex = visits.indexOf(visit);
       final _amount = _calculateVisitBookkeepingEntries(visit.id, _data);
+      final _visit_status = constants.visitStatus
+          .firstWhereOrNull((e) => e.id == visit.visit_status_id);
+      final _visit_type = constants.visitType
+          .firstWhereOrNull((e) => e.id == visit.visit_type_id);
+      final _doctor = doctors.firstWhereOrNull((e) => e.id == visit.doc_id);
       _visitsSheet.appendRow([
         ..._columns.map((e) {
           final _columnIndex = _columns.indexOf(e);
           return switch (_columnIndex) {
             0 => TextCellValue('${_visitIndex + 1}'),
-            1 => TextCellValue(
-                DateFormat('dd - MM - yyyy', 'ar').format(visit.visit_date)),
+            1 => TextCellValue(DateFormat('dd - MM - yyyy', 'ar')
+                .format(DateTime.parse(visit.visit_date))),
             2 => TextCellValue(visit.patient.name),
             3 => TextCellValue(visit.patient.phone),
-            4 => TextCellValue(visit.doctor.name_ar),
-            5 => TextCellValue(visit.visit_type.name_ar),
-            6 => TextCellValue(visit.visit_status.name_ar),
-            7 => TextCellValue(visit.added_by.email),
+            4 => TextCellValue(_doctor?.name_ar ?? ''),
+            5 => TextCellValue(_visit_type?.name_ar ?? ''),
+            6 => TextCellValue(_visit_status?.name_ar ?? ''),
+            7 => TextCellValue(visit.added_by.name),
             8 => TextCellValue(_amount.toString()),
             _ => TextCellValue(''),
           };
@@ -90,8 +101,11 @@ class ExcelFilePrep {
     }
   }
 
-  Future<List<int>?> save() async {
-    await _appendVisits();
+  Future<List<int>?> save({
+    required AppConstants constants,
+    required List<Doctor> doctors,
+  }) async {
+    await _appendVisits(constants, doctors);
     return _excel.save(
       fileName:
           '${DateFormat('dd_MM_yyyy__hh__mm', 'en').format(DateTime.now())}.xlsx',

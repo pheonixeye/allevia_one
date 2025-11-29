@@ -18,20 +18,25 @@ class VisitDataPage extends StatefulWidget {
 class _VisitDataPageState extends State<VisitDataPage> {
   bool _isExtended = false;
   late final _items = VisitDataNavItem.items(context);
+  final ValueNotifier<double> _dragY = ValueNotifier(0);
+  final _dragThreshold = 300;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onVerticalDragDown: (details) {
-          //TODO: test vertical drag down
-          if (details.localPosition.dy >
-                  (MediaQuery.sizeOf(context).height / 2) &&
-              details.localPosition.direction.isNegative) {
+        onVerticalDragUpdate: (details) {
+          _dragY.value += details.delta.dy;
+        },
+        onVerticalDragEnd: (details) {
+          //todo: test vertical drag down
+          if (_dragY.value.abs() >= _dragThreshold) {
             GoRouter.of(context).goNamed(
               AppRouter.app,
               pathParameters: defaultPathParameters(context),
             );
+          } else {
+            _dragY.value = 0;
           }
         },
         child: Row(

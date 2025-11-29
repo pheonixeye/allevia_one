@@ -399,5 +399,6 @@
     "cannotRemoveSelfFromClinicWhileLoggedIn" : "Cannot Remove Self From Clinic While LoggedIn",
     "removeDoctorFromClinicPrompt" : "Remove Doctor Access To This Clinic ? Are You Sure ?",
     "toogleAccountActivity" : "Toggle Account Activity",
-    "cannotDeactivateSuperAdminAccount" : "Cannot Deactivate 'SuperAdmin' Account"
+    "cannotDeactivateSuperAdminAccount" : "Cannot Deactivate 'SuperAdmin' Account",
+    "viewDocument" : "View Document"
 }

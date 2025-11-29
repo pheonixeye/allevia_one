@@ -13,7 +13,7 @@ class PatientDocumentApi {
   final String patient_id;
 
   static const collection = 'patient__documents';
-
+  //TODO: refactor this expand - too much info requested
   static const _expandList = [
     'patient_id',
     'document_type_id',
@@ -75,6 +75,29 @@ class PatientDocumentApi {
       final _result =
           await PocketbaseHelper.pb.collection(collection).getFullList(
                 filter: "patient_id = '$patient_id'",
+                expand: _expand,
+              );
+
+      final _docs = _result
+          .map((e) => ExpandedPatientDocument.fromRecordModel(e))
+          .toList();
+
+      return ApiDataResult<List<ExpandedPatientDocument>>(data: _docs);
+    } on ClientException catch (e) {
+      return ApiErrorResult<List<ExpandedPatientDocument>>(
+        errorCode: AppErrorCode.clientException.code,
+        originalErrorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<ApiResult<List<ExpandedPatientDocument>>>
+      fetchPatientDocumentsOfOneVisit(String visit_id) async {
+    try {
+      final _result =
+          await PocketbaseHelper.pb.collection(collection).getFullList(
+                filter:
+                    "patient_id = '$patient_id' && related_visit_id = '$visit_id'",
                 expand: _expand,
               );
 

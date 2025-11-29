@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/visits/concised_visit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -5,7 +6,6 @@ import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
-import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_visit_filter.dart';
 import 'package:provider/provider.dart';
@@ -80,11 +80,13 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                   SizedBox(width: 10),
                   Builder(
                     builder: (context) {
-                      while (v.visits == null) {
+                      while (v.concisedVisits == null) {
                         return CupertinoActivityIndicator();
                       }
-                      final _length =
-                          (v.visits as ApiDataResult<List<Visit>>).data.length;
+                      final _length = (v.concisedVisits
+                              as ApiDataResult<List<ConcisedVisit>>)
+                          .data
+                          .length;
                       return Text('($_length)'.toArabicNumber(context));
                     },
                   ),

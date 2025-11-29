@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:allevia_one/models/clinic/clinic_schedule.dart';
 import 'package:allevia_one/models/clinic/schedule_shift.dart';
 import 'package:equatable/equatable.dart';

@@ -1,9 +1,13 @@
-import 'package:allevia_one/extensions/visit_ext.dart';
+import 'package:allevia_one/extensions/visit_schedule_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/models/clinic/clinic.dart';
+import 'package:allevia_one/models/visits/concised_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/logic/excel_file_prep.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_options_btn.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_clinics.dart';
+import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +15,6 @@ import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
-import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visits_filter_header.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -48,9 +51,13 @@ class _VisitsPageState extends State<VisitsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<PxVisitFilter, PxAppConstants, PxLocale>(
-      builder: (context, v, a, l, _) {
-        while (v.visits == null || a.constants == null) {
+    return Consumer5<PxAppConstants, PxDoctor, PxClinics, PxVisitFilter,
+        PxLocale>(
+      builder: (context, a, d, c, v, l, _) {
+        while (a.constants == null ||
+            d.allDoctors == null ||
+            c.result == null ||
+            v.concisedVisits == null) {
           return CentralLoading();
         }
         //@permission
@@ -70,17 +77,18 @@ class _VisitsPageState extends State<VisitsPage> {
               Expanded(
                 child: Builder(
                   builder: (context) {
-                    while (v.visits == null || a.constants == null) {
+                    while (v.concisedVisits == null || a.constants == null) {
                       return CentralLoading();
                     }
-                    while (v.visits is ApiErrorResult) {
+                    while (v.concisedVisits is ApiErrorResult) {
                       return CentralError(
-                        code: (v.visits as ApiErrorResult).errorCode,
+                        code: (v.concisedVisits as ApiErrorResult).errorCode,
                         toExecute: v.retry,
                       );
                     }
                     final _items =
-                        (v.visits as ApiDataResult<List<Visit>>).data;
+                        (v.concisedVisits as ApiDataResult<List<ConcisedVisit>>)
+                            .data;
                     while (_items.isEmpty) {
                       return CentralNoItems(
                         message: context.loc.noVisitsFoundForSelectedDateRange,
@@ -153,17 +161,27 @@ class _VisitsPageState extends State<VisitsPage> {
                                                     .toArabicNumber(context)),
                                               ),
                                             ),
+                                            //todo
                                             DataCell(
                                               VisitOptionsBtn(
-                                                x: x,
+                                                concisedVisit: x,
                                               ),
                                             ),
                                             DataCell(
                                               Center(
-                                                child: Text(
-                                                  l.isEnglish
-                                                      ? x.doctor.name_en
-                                                      : x.doctor.name_ar,
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final _doctor = d.allDoctors
+                                                        ?.firstWhere((e) =>
+                                                            e.id == x.doc_id);
+                                                    return Text(
+                                                      l.isEnglish
+                                                          ? _doctor?.name_en ??
+                                                              ''
+                                                          : _doctor?.name_ar ??
+                                                              '',
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ),
@@ -171,8 +189,8 @@ class _VisitsPageState extends State<VisitsPage> {
                                               Builder(
                                                 builder: (context) {
                                                   final _isAttended =
-                                                      x.visit_status ==
-                                                          a.attended;
+                                                      x.visit_status_id ==
+                                                          a.attended.id;
                                                   return Center(
                                                     child: Icon(
                                                       _isAttended
@@ -191,39 +209,65 @@ class _VisitsPageState extends State<VisitsPage> {
                                                 child: Text(
                                                   DateFormat('dd - MM - yyyy',
                                                           l.lang)
-                                                      .format(x.visit_date),
+                                                      .format(DateTime.parse(
+                                                          x.visit_date)),
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final _visitType = a
+                                                        .constants?.visitType
+                                                        .firstWhere((e) =>
+                                                            e.id ==
+                                                            x.visit_type_id);
+                                                    return Text(
+                                                      l.isEnglish
+                                                          ? _visitType
+                                                                  ?.name_en ??
+                                                              ''
+                                                          : _visitType
+                                                                  ?.name_ar ??
+                                                              '',
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final _clinic = (c.result
+                                                            as ApiDataResult<
+                                                                List<Clinic>>)
+                                                        .data
+                                                        .firstWhere((e) =>
+                                                            e.id ==
+                                                            x.clinic_id);
+                                                    return Text(
+                                                      l.isEnglish
+                                                          ? _clinic.name_en
+                                                          : _clinic.name_ar,
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ),
                                             DataCell(
                                               Center(
                                                 child: Text(
-                                                  l.isEnglish
-                                                      ? x.visit_type.name_en
-                                                      : x.visit_type.name_ar,
+                                                  x.visit_schedule
+                                                      .formattedShift(context),
                                                 ),
                                               ),
                                             ),
                                             DataCell(
                                               Center(
                                                 child: Text(
-                                                  l.isEnglish
-                                                      ? x.clinic.name_en
-                                                      : x.clinic.name_ar,
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Center(
-                                                child: Text(
-                                                  x.formattedShift(context),
-                                                ),
-                                              ),
-                                            ),
-                                            DataCell(
-                                              Center(
-                                                child: Text(
-                                                  x.added_by.email,
+                                                  x.added_by.name,
                                                 ),
                                               ),
                                             ),
@@ -264,7 +308,8 @@ class _VisitsPageState extends State<VisitsPage> {
                 );
                 return;
               }
-              final _visits = (v.visits as ApiDataResult<List<Visit>>).data;
+              final _visits =
+                  (v.concisedVisits as ApiDataResult<List<ConcisedVisit>>).data;
               final _excel = ExcelFilePrep(
                 visits: _visits,
                 from: v.from,
@@ -273,7 +318,10 @@ class _VisitsPageState extends State<VisitsPage> {
               await shellFunction(
                 context,
                 toExecute: () async {
-                  await _excel.save();
+                  await _excel.save(
+                    constants: a.constants!,
+                    doctors: d.allDoctors!,
+                  );
                 },
               );
             },

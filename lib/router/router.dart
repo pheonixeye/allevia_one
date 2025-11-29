@@ -21,7 +21,6 @@ import 'package:allevia_one/pages/loading_page/loading_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/login_page/login_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/patient_portal_page/pages/patient_information_page/patient_information_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/patient_portal_page/patient_portal_page.dart';
-// import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/register_page/register_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/app_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/app_profile_setup/app_profile_setup.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/app_profile_setup/pages/profile_item_page/profile_item_page.dart';
@@ -50,7 +49,6 @@ import 'package:allevia_one/providers/px_doctor_profile_items.dart';
 import 'package:allevia_one/providers/px_forms.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_patients.dart';
-// import 'package:allevia_one/providers/px_speciality.dart';
 import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/providers/px_visit_filter.dart';
 import 'package:allevia_one/providers/px_visit_prescription_state.dart';
@@ -453,9 +451,13 @@ class AppRouter {
                                             name: visit_prescription,
                                             builder: (context, state) {
                                               try {
-                                                return ChangeNotifierProvider(
-                                                  create: (context) =>
-                                                      PxVisitPrescriptionState(),
+                                                return MultiProvider(
+                                                  providers: [
+                                                    ChangeNotifierProvider(
+                                                      create: (context) =>
+                                                          PxVisitPrescriptionState(),
+                                                    ),
+                                                  ],
                                                   child: VisitPrescriptionPage(
                                                     key: state.pageKey,
                                                   ),
@@ -501,7 +503,7 @@ class AppRouter {
                             builder: (context, state) {
                               return ChangeNotifierProvider(
                                 create: (context) => PxVisitFilter(
-                                  api: VisitFilterApi(),
+                                  api: const VisitFilterApi(),
                                 ),
                                 child: VisitsPage(
                                   key: state.pageKey,

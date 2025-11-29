@@ -1,5 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:allevia_one/core/api/patient_document_api.dart';
+import 'package:allevia_one/models/patient_document/patient_document.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
+import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -29,10 +33,13 @@ class VisitPrescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer5<PxVisits, PxVisitData, PxClinics,
+      body: Consumer6<PxAppConstants, PxVisits, PxVisitData, PxClinics,
           PxVisitPrescriptionState, PxLocale>(
-        builder: (context, v, vd, c, s, l, _) {
-          while (v.visits == null || vd.result == null || c.result == null) {
+        builder: (context, a, v, vd, c, s, l, _) {
+          while (a.constants == null ||
+              v.visits == null ||
+              vd.result == null ||
+              c.result == null) {
             return const CentralLoading();
           }
           final visit_data = (vd.result as ApiDataResult<VisitData>).data;
@@ -459,6 +466,60 @@ class VisitPrescriptionPage extends StatelessWidget {
                               ),
                             ),
                           ],
+                          Builder(
+                            builder: (context) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: FloatingActionButton.small(
+                                  tooltip: context.loc.save,
+                                  heroTag: UniqueKey(),
+                                  onPressed: () async {
+                                    //todo: Print
+                                    Uint8List? _bytesWithImage;
+                                    await shellFunction(
+                                      context,
+                                      toExecute: () async {
+                                        _bytesWithImage = await s
+                                            .screenshotControllerWithImage
+                                            .capture();
+                                        //todo: Add to patient documents collection
+                                        if (_bytesWithImage == null) {
+                                          if (context.mounted) {
+                                            showIsnackbar(context.loc.error);
+                                            return;
+                                          }
+                                        }
+                                        final _docType = a
+                                            .constants!.documentType
+                                            .firstWhere((e) =>
+                                                e.name_en == 'Prescription');
+                                        final _patientDocument =
+                                            PatientDocument(
+                                          id: '',
+                                          patient_id: visit!.patient.id,
+                                          related_visit_id: visit.id,
+                                          related_visit_data_id: visit_data.id,
+                                          document_type_id: _docType.id,
+                                          document: '',
+                                        );
+                                        await PatientDocumentApi(
+                                          patient_id: visit.patient.id,
+                                        ).addPatientDocument(
+                                          _patientDocument,
+                                          _bytesWithImage!,
+                                          '${intl.DateFormat('dd_MM_yyyy', 'en').format(DateTime.now())}.jpg',
+                                        );
+                                      },
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                    );
+                                  },
+                                  child: const Icon(Icons.save),
+                                ),
+                              );
+                            },
+                          ),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
@@ -475,8 +536,6 @@ class VisitPrescriptionPage extends StatelessWidget {
                                     _bytesWithImage = await s
                                         .screenshotControllerWithImage
                                         .capture();
-                                    //TODO: Add to patient documents collection
-                                    //TODO: Send patient the link VIA WHATSAPP
                                     _bytesWithoutImage = await s
                                         .screenshotControllerWithoutImage
                                         .capture();

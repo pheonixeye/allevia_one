@@ -398,5 +398,6 @@
     "cannotRemoveSelfFromClinicWhileLoggedIn" : "لا يمكن ازالة الحساب الخاص اثناء تسجيل الدخول",
     "removeDoctorFromClinicPrompt" : "تاكيد ازالة وصول الطبيب للعيادة ؟ هل انت متأكد؟",
     "toogleAccountActivity" : "تعديل نشاط الحساب",
-    "cannotDeactivateSuperAdminAccount" : "لا يمكن تعديل نشاط حساب مدير العيادات"
+    "cannotDeactivateSuperAdminAccount" : "لا يمكن تعديل نشاط حساب مدير العيادات",
+    "viewDocument" : "فتح المستند"
 }

@@ -6,13 +6,16 @@ class ThemedPopupmenuBtn<T> extends StatelessWidget {
     required this.itemBuilder,
     required this.icon,
     required this.tooltip,
+    this.onOpened,
   });
   final List<PopupMenuEntry<T>> Function(BuildContext) itemBuilder;
   final Icon icon;
   final String tooltip;
+  final void Function()? onOpened;
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<T>(
+      onOpened: onOpened,
       tooltip: tooltip,
       icon: icon,
       itemBuilder: itemBuilder,

@@ -1150,4 +1150,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cannotDeactivateSuperAdminAccount =>
       'Cannot Deactivate \'SuperAdmin\' Account';
+
+  @override
+  String get viewDocument => 'View Document';
 }

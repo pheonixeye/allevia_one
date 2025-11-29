@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 
 class PxPatientDocuments extends ChangeNotifier {
   final PatientDocumentApi api;
+  final String? visit_id;
 
-  PxPatientDocuments({required this.api}) {
+  PxPatientDocuments({
+    required this.api,
+    this.visit_id,
+  }) {
     _init();
   }
 
@@ -24,15 +28,13 @@ class PxPatientDocuments extends ChangeNotifier {
       _groupedDocuments;
 
   Future<void> _init() async {
-    _documents = await api.fetchPatientDocuments();
+    _documents = visit_id == null
+        ? await api.fetchPatientDocuments()
+        : await api.fetchPatientDocumentsOfOneVisit(visit_id!);
     notifyListeners();
-    try {
-      _filteredDocuments =
-          (_documents as ApiDataResult<List<ExpandedPatientDocument>>).data;
-      notifyListeners();
-    } catch (e) {
-      //TODO: handle
-    }
+    _filteredDocuments =
+        (_documents as ApiDataResult<List<ExpandedPatientDocument>>).data;
+    notifyListeners();
   }
 
   Future<void> retry() async => await _init();

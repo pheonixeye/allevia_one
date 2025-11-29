@@ -2305,6 +2305,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot Deactivate \'SuperAdmin\' Account'**
   String get cannotDeactivateSuperAdminAccount;
+
+  /// No description provided for @viewDocument.
+  ///
+  /// In en, this message translates to:
+  /// **'View Document'**
+  String get viewDocument;
 }
 
 class _AppLocalizationsDelegate

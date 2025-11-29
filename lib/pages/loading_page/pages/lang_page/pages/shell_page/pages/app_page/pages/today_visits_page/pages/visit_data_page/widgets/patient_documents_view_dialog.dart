@@ -1,14 +1,13 @@
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/models/patient_document/expanded_patient_document.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/image_view_download_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/document_action_btn.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -196,36 +195,8 @@ class _PatientDocumentsViewDialogState
                                             spacing: 8,
                                             children: [
                                               ...docs.value.map((doc) {
-                                                return InkWell(
-                                                  onTap: () async {
-                                                    await showDialog<void>(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return ImageViewDownloadDialog(
-                                                          document: doc,
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Card.outlined(
-                                                    elevation: 6,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Hero(
-                                                        tag: doc.imageUrl,
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          imageUrl:
-                                                              doc.imageUrl,
-                                                          width: 100,
-                                                          height: 100,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
+                                                return DocumentActionBtn(
+                                                    document: doc);
                                               })
                                             ],
                                           ),

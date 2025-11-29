@@ -524,6 +524,7 @@ class VisitViewCard extends StatelessWidget {
                               ..addAll({
                                 'visit_id': visit.id,
                               }),
+                            extra: visit.patient.id,
                           );
                         },
                         child: const Icon(Icons.arrow_forward),
