@@ -1,4 +1,5 @@
 import 'package:allevia_one/models/visits/concised_visit.dart';
+import 'package:allevia_one/models/visits/visits_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -14,11 +15,14 @@ class PxVisitFilter extends ChangeNotifier {
     _fetchConcisedVisitsOfDateRange();
   }
 
-  static ApiResult<Visit>? _expandedVisit;
-  ApiResult<Visit>? get expandedVisit => _expandedVisit;
+  static ApiResult<Visit>? _expandedSingleVisit;
+  ApiResult<Visit>? get expandedSingleVisit => _expandedSingleVisit;
 
   ApiResult<List<ConcisedVisit>>? _concisedVisits;
   ApiResult<List<ConcisedVisit>>? get concisedVisits => _concisedVisits;
+
+  final List<ConcisedVisit> _filteredConcisedVisits = [];
+  List<ConcisedVisit> get filteredConcisedVisits => _filteredConcisedVisits;
 
   final _now = DateTime.now();
 
@@ -37,7 +41,10 @@ class PxVisitFilter extends ChangeNotifier {
       from: formattedFrom,
       to: formattedTo,
     );
+    _filteredConcisedVisits.clear();
     notifyListeners();
+    filterVisits(_filter, _filterId);
+    // notifyListeners();
   }
 
   Future<void> retry() async => await _fetchConcisedVisitsOfDateRange();
@@ -50,15 +57,56 @@ class PxVisitFilter extends ChangeNotifier {
     _to = to;
     notifyListeners();
     await _fetchConcisedVisitsOfDateRange();
+    // filterVisits(_filter, _filterId);
   }
 
   Future<void> fetchOneExpandedVisit(String visit_id) async {
-    _expandedVisit = await api.fetchOneExpandedVisit(visit_id);
+    _expandedSingleVisit = await api.fetchOneExpandedVisit(visit_id);
     notifyListeners();
   }
 
   Future<void> nullifyExpandedVisit() async {
-    _expandedVisit = null;
+    _expandedSingleVisit = null;
+    notifyListeners();
+  }
+
+  VisitsFilter _filter = VisitsFilter.no_filter;
+  VisitsFilter get filter => _filter;
+
+  String _filterId = '';
+  String get filterId => _filterId;
+
+  void _setVisitsfilter(VisitsFilter value, [String filterId = '']) {
+    _filter = value;
+    _filterId = filterId;
+    notifyListeners();
+  }
+
+  List<ConcisedVisit> _filterByDoctor(
+    List<ConcisedVisit> data,
+    String doc_id,
+  ) {
+    return data.where((e) => e.doc_id == doc_id).toList();
+  }
+
+  List<ConcisedVisit> _filterByClinic(
+    List<ConcisedVisit> data,
+    String clinic_id,
+  ) {
+    return data.where((e) => e.clinic_id == clinic_id).toList();
+  }
+
+  void filterVisits(VisitsFilter value, String id) {
+    _setVisitsfilter(value, id);
+    _filteredConcisedVisits.clear();
+    notifyListeners();
+    final _data = (_concisedVisits as ApiDataResult<List<ConcisedVisit>>).data;
+    final _filtered = switch (_filter) {
+      VisitsFilter.no_filter => _data,
+      VisitsFilter.by_doctor => _filterByDoctor(_data, id),
+      VisitsFilter.by_clinic => _filterByClinic(_data, id),
+    };
+    _filteredConcisedVisits.addAll(_filtered);
     notifyListeners();
   }
 }

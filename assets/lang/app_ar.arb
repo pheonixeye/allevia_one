@@ -399,5 +399,6 @@
     "removeDoctorFromClinicPrompt" : "تاكيد ازالة وصول الطبيب للعيادة ؟ هل انت متأكد؟",
     "toogleAccountActivity" : "تعديل نشاط الحساب",
     "cannotDeactivateSuperAdminAccount" : "لا يمكن تعديل نشاط حساب مدير العيادات",
-    "viewDocument" : "فتح المستند"
+    "viewDocument" : "فتح المستند",
+    "filterVisits" : "فلترة الزيارات"
 }

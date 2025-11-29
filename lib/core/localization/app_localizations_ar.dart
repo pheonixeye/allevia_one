@@ -1151,4 +1151,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewDocument => 'فتح المستند';
+
+  @override
+  String get filterVisits => 'فلترة الزيارات';
 }

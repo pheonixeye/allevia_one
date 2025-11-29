@@ -2,7 +2,6 @@ import 'package:allevia_one/extensions/visit_schedule_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/models/clinic/clinic.dart';
-import 'package:allevia_one/models/visits/concised_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/logic/excel_file_prep.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_options_btn.dart';
 import 'package:allevia_one/providers/px_auth.dart';
@@ -86,9 +85,7 @@ class _VisitsPageState extends State<VisitsPage> {
                         toExecute: v.retry,
                       );
                     }
-                    final _items =
-                        (v.concisedVisits as ApiDataResult<List<ConcisedVisit>>)
-                            .data;
+                    final _items = v.filteredConcisedVisits;
                     while (_items.isEmpty) {
                       return CentralNoItems(
                         message: context.loc.noVisitsFoundForSelectedDateRange,
@@ -308,8 +305,7 @@ class _VisitsPageState extends State<VisitsPage> {
                 );
                 return;
               }
-              final _visits =
-                  (v.concisedVisits as ApiDataResult<List<ConcisedVisit>>).data;
+              final _visits = v.filteredConcisedVisits;
               final _excel = ExcelFilePrep(
                 visits: _visits,
                 from: v.from,

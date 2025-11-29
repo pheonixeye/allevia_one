@@ -60,7 +60,8 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                       toExecute: () async {
                         await v.fetchOneExpandedVisit(widget.concisedVisit.id);
                         _expandedVisit =
-                            (v.expandedVisit as ApiDataResult<Visit>).data;
+                            (v.expandedSingleVisit as ApiDataResult<Visit>)
+                                .data;
                       },
                     );
                   }
@@ -96,7 +97,8 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                       toExecute: () async {
                         await v.fetchOneExpandedVisit(widget.concisedVisit.id);
                         _expandedVisit =
-                            (v.expandedVisit as ApiDataResult<Visit>).data;
+                            (v.expandedSingleVisit as ApiDataResult<Visit>)
+                                .data;
                       },
                     );
                   }
@@ -244,8 +246,8 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                               },
                             );
                             //todo: get patient documents
-                            //TODO: print prescription
-                            //TODO: Send patient the link VIA WHATSAPP
+                            //todo: print prescription
+                            //todo: Send patient the link VIA WHATSAPP
                           },
                         ),
                       ),

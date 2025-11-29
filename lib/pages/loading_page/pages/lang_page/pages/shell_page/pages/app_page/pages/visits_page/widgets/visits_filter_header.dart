@@ -1,8 +1,13 @@
-import 'package:allevia_one/models/visits/concised_visit.dart';
+import 'package:allevia_one/core/api/_api_result.dart';
+import 'package:allevia_one/models/clinic/clinic.dart';
+import 'package:allevia_one/models/doctor.dart';
+import 'package:allevia_one/models/visits/visits_filter.dart';
+import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/providers/px_clinics.dart';
+import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -20,6 +25,8 @@ class VisitsFilterHeader extends StatefulWidget {
 class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
   late final TextEditingController _fromController;
   late final TextEditingController _toController;
+  final ValueNotifier<Doctor?> _docNotifier = ValueNotifier(null);
+  final ValueNotifier<Clinic?> _clinicNotifier = ValueNotifier(null);
 
   @override
   void initState() {
@@ -46,6 +53,7 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
       child: Consumer2<PxVisitFilter, PxLocale>(
         builder: (context, v, l, _) {
           return ExpansionTile(
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
             title: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -83,10 +91,7 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                       while (v.concisedVisits == null) {
                         return CupertinoActivityIndicator();
                       }
-                      final _length = (v.concisedVisits
-                              as ApiDataResult<List<ConcisedVisit>>)
-                          .data
-                          .length;
+                      final _length = v.filteredConcisedVisits.length;
                       return Text('($_length)'.toArabicNumber(context));
                     },
                   ),
@@ -182,6 +187,176 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                   ),
                 ],
               ),
+              SizedBox(height: 4),
+              if (PxAuth.isLoggedInUserSuperAdmin(context))
+                Card.outlined(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                    side: BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      children: [
+                        const Icon(Icons.filter_alt_rounded),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 8.0),
+                        //   child: Text(context.loc.filterVisits),
+                        // ),
+                        ...VisitsFilter.values.map((filter) {
+                          return FilterChip.elevated(
+                            label: Text(
+                              l.isEnglish ? filter.en : filter.ar,
+                            ),
+                            onSelected: (value) {
+                              v.filterVisits(filter, '');
+                            },
+                            selected: v.filter == filter,
+                            selectedColor: Colors.amber.shade50,
+                          );
+                        }),
+                        switch (v.filter) {
+                          VisitsFilter.no_filter => SizedBox(),
+                          VisitsFilter.by_doctor => Consumer<PxDoctor>(
+                              builder: (context, d, _) {
+                                while (d.allDoctors == null) {
+                                  return const SizedBox(
+                                    width: 10,
+                                    height: 10,
+                                    child: LinearProgressIndicator(),
+                                  );
+                                }
+                                final _doctors = d.allDoctors;
+                                return ValueListenableBuilder<Doctor?>(
+                                    valueListenable: _docNotifier,
+                                    builder: (context, value, child) {
+                                      return DropdownButtonHideUnderline(
+                                        child: DropdownButtonFormField<Doctor>(
+                                          isExpanded: true,
+                                          alignment: Alignment.center,
+                                          hint: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(context.loc.pickDoctor),
+                                            ],
+                                          ),
+                                          items: [
+                                            if (_doctors != null)
+                                              ..._doctors.map((doc) {
+                                                return DropdownMenuItem<Doctor>(
+                                                  alignment: Alignment.center,
+                                                  value: doc,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Text(
+                                                        l.isEnglish
+                                                            ? doc.name_en
+                                                            : doc.name_ar,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                          ],
+                                          value: _docNotifier.value,
+                                          onChanged: (val) {
+                                            if (val != null) {
+                                              _docNotifier.value = val;
+                                              v.filterVisits(
+                                                VisitsFilter.by_doctor,
+                                                val.id,
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    });
+                              },
+                            ),
+                          VisitsFilter.by_clinic => Consumer<PxClinics>(
+                              builder: (context, c, _) {
+                                while (c.result == null) {
+                                  return const SizedBox(
+                                    width: 10,
+                                    height: 10,
+                                    child: LinearProgressIndicator(),
+                                  );
+                                }
+                                final _clinics =
+                                    (c.result as ApiDataResult<List<Clinic>>)
+                                        .data;
+                                return ValueListenableBuilder<Clinic?>(
+                                    valueListenable: _clinicNotifier,
+                                    builder: (context, value, child) {
+                                      return DropdownButtonHideUnderline(
+                                        child: DropdownButtonFormField<Clinic>(
+                                          isExpanded: true,
+                                          alignment: Alignment.center,
+                                          hint: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(context.loc.pickClinic),
+                                            ],
+                                          ),
+                                          value: _clinicNotifier.value,
+                                          items: [
+                                            ..._clinics.map((clinic) {
+                                              return DropdownMenuItem<Clinic>(
+                                                alignment: Alignment.center,
+                                                value: clinic,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      l.isEnglish
+                                                          ? clinic.name_en
+                                                          : clinic.name_ar,
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            }),
+                                          ],
+                                          onChanged: (val) {
+                                            if (val != null) {
+                                              _clinicNotifier.value = val;
+                                              v.filterVisits(
+                                                VisitsFilter.by_clinic,
+                                                val.id,
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    });
+                              },
+                            ),
+                        },
+                      ],
+                    ),
+                  ),
+                ),
             ],
           );
         },

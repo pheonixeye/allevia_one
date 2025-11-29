@@ -2311,6 +2311,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Document'**
   String get viewDocument;
+
+  /// No description provided for @filterVisits.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Visits'**
+  String get filterVisits;
 }
 
 class _AppLocalizationsDelegate

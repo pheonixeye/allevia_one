@@ -1153,4 +1153,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewDocument => 'View Document';
+
+  @override
+  String get filterVisits => 'Filter Visits';
 }

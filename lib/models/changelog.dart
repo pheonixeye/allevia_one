@@ -157,9 +157,62 @@ class Changelog extends Equatable {
       ],
     );
   }
+
+  factory Changelog.v008() {
+    return Changelog(
+      version: '0.0.8',
+      entries: [
+        ChangelogEntry(
+          ar: 'إصلاح: تعطل النموذج التشريحي المرئي بعد دورات متعددة',
+          en: 'Fix : Visual Anatomical Model Crashing After Multiple Rotations',
+        ),
+        ChangelogEntry(
+          ar: 'تمت إضافة ميزة النشاط للمستخدمين للسماح بإلغاء تنشيط الحسابات ومنع تسجيل الدخول إلى التطبيق دون حذف الحساب',
+          en: 'Added Activity Feature To Users To Allow Deactivating Accounts And Prevent Login To The Application Without Deleting The Account',
+        ),
+        ChangelogEntry(
+          ar: 'تمت إضافة اسم للمستخدمين / ميزة تحرير الاسم',
+          en: 'Added Name To Users / Name Edit Feature',
+        ),
+        ChangelogEntry(
+          ar: 'السماح بفتح الزيارات القديمة من صفحة الزيارات',
+          en: 'Allow Opening Older Visit From Visits Page',
+        ),
+        ChangelogEntry(
+          ar: 'إصلاح: تغيير المستخدمين في العيادة عند التحديث',
+          en: 'Fix : Clinic Changing Users On Update',
+        ),
+        ChangelogEntry(
+          ar: 'إمكانية إضافة أو إزالة الأطباء من العيادة عبر حساب "SuperAdmin"',
+          en: 'Can Add / Remove Doctors From Clinic Via The "SuperAdmin" Account ',
+        ),
+        ChangelogEntry(
+          ar: 'إصلاح: تحميل الزيارات البطيء عند البحث في صفحة الزيارات',
+          en: 'Fix : Slow Visits Loading When Searching In Visits Page',
+        ),
+        ChangelogEntry(
+          ar: 'يمكنك الآن طباعة/حفظ/إرسال/عرض المستندات من صفحة الزيارات',
+          en: 'Can Now Print/Save/Send/View Documents From Visits Page',
+        ),
+        ChangelogEntry(
+          ar: 'إصلاح: إعادة تحميل شريط الخصومات عدة مرات',
+          en: 'Fix : Discounts Bar Reloading Multiple Times',
+        ),
+        ChangelogEntry(
+          ar: 'إصلاح: إعادة نشر خادم WhatsApp - (قيد الاختبار)',
+          en: 'Fix: WhatsApp Server Redeployed - (Under Testing)',
+        ),
+        ChangelogEntry(
+          ar: 'فلترة الزيارات حسب العيادة أو الطبيب',
+          en: 'Filtering Visits By Clinic Or Doctor',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v008(),
   Changelog.v007(),
   Changelog.v006(),
   Changelog.v005(),

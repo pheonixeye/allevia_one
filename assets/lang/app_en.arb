@@ -400,5 +400,6 @@
     "removeDoctorFromClinicPrompt" : "Remove Doctor Access To This Clinic ? Are You Sure ?",
     "toogleAccountActivity" : "Toggle Account Activity",
     "cannotDeactivateSuperAdminAccount" : "Cannot Deactivate 'SuperAdmin' Account",
-    "viewDocument" : "View Document"
+    "viewDocument" : "View Document",
+    "filterVisits" : "Filter Visits"
 }
