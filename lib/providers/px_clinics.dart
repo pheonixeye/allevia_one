@@ -26,8 +26,10 @@ class PxClinics extends ChangeNotifier {
   static ApiResult<List<Clinic>>? _result;
   ApiResult<List<Clinic>>? get result => _result;
 
-  Future<void> _fetchDoctorClinics({int retries = 3}) async {
-    //TODO: why did i use this snippet ??
+  Future<void> _fetchDoctorClinics(
+      // {int retries = 3}
+      ) async {
+    //HACK: why did i use this snippet ??
 
     // while (
     //     !context.mounted || context.read<PxAppConstants>().constants == null) {

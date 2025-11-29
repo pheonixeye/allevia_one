@@ -57,9 +57,46 @@ class NavBarMenuBtn extends StatelessWidget {
                         spacing: 4,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(w.isConnectedToServer
-                              ? '${context.loc.conntectedToWhatsappServer} \n ${w.hasConnectedDevices ? w.connectedDevices?.results?.map((e) => '${e.device}\n').toList() : context.loc.noConnectedDevices}'
-                              : '${context.loc.notConntectedToWhatsappServer} \n ${context.loc.noConnectedDevices}'),
+                          if (!w.isConnectedToServer)
+                            Text.rich(
+                              TextSpan(
+                                text: context.loc.notConntectedToWhatsappServer,
+                                children: [
+                                  TextSpan(text: '\n'),
+                                  TextSpan(
+                                    text: context.loc.noConnectedDevices,
+                                  ),
+                                ],
+                              ),
+                            )
+                          else
+                            Text.rich(
+                              TextSpan(
+                                text: context.loc.conntectedToWhatsappServer,
+                                children: w.hasConnectedDevices
+                                    ? [
+                                        TextSpan(text: '\n'),
+                                        if (w.connectedDevices != null)
+                                          ...w.connectedDevices!.results!
+                                              .map((e) {
+                                            final dev = e.device.split('@');
+                                            return TextSpan(
+                                              text: dev[0],
+                                              children: [
+                                                TextSpan(text: '\n'),
+                                                TextSpan(text: dev[1]),
+                                              ],
+                                            );
+                                          }),
+                                      ]
+                                    : [
+                                        TextSpan(text: '\n'),
+                                        TextSpan(
+                                          text: context.loc.noConnectedDevices,
+                                        ),
+                                      ],
+                              ),
+                            ),
                         ],
                       ),
                     );
