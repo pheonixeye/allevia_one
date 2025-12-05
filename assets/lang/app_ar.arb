@@ -400,5 +400,9 @@
     "toogleAccountActivity" : "تعديل نشاط الحساب",
     "cannotDeactivateSuperAdminAccount" : "لا يمكن تعديل نشاط حساب مدير العيادات",
     "viewDocument" : "فتح المستند",
-    "filterVisits" : "فلترة الزيارات"
+    "filterVisits" : "فلترة الزيارات",
+    "link" : "الرابط",
+    "operationsDetails" : "تفاصيل العمليات",
+    "operationTime" : "وقت العملية",
+    "duplicateVisitPrompt" : "تم العثور علي زيارة مسجلة لهذا المريض بنفس العيادة و في نفس التاريخ - هل ترغب بالاستمرار ؟"
 }

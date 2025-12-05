@@ -125,6 +125,9 @@ class AppTheme {
     //   iconColor: Colors.white,
     //   elevation: 8,
     // ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: Colors.blue.shade50,
+    ),
   );
 
   static ThemeData get theme => _theme;

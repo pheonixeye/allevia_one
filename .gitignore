@@ -49,3 +49,4 @@ makefile
 pb*
 test/
 schema.json
+.last_built_project

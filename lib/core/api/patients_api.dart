@@ -46,7 +46,7 @@ class PatientsApi {
     try {
       final _response = await PocketbaseHelper.pb
           .collection(_collection)
-          .getList(filter: 'phone = $query');
+          .getList(filter: "phone = '$query'");
 
       final patients =
           _response.items.map((e) => Patient.fromJson(e.toJson())).toList();

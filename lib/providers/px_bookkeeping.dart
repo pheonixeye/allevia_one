@@ -25,6 +25,7 @@ class PxBookkeeping extends ChangeNotifier {
   Future<void> _fetchDetailedItems() async {
     _result = await api.fetchDetailedItems(from: from, to: to);
     notifyListeners();
+    _foldBookKeeping();
   }
 
   Future<void> retry() async => await _fetchDetailedItems();
@@ -43,4 +44,37 @@ class PxBookkeeping extends ChangeNotifier {
     await api.addBookkeepingItem(dto);
     await _fetchDetailedItems();
   }
+
+  BookkeepingViewType _viewType = BookkeepingViewType.detailed;
+  BookkeepingViewType get viewType => _viewType;
+
+  void toggleView() {
+    _viewType = _viewType == BookkeepingViewType.detailed
+        ? BookkeepingViewType.focused
+        : BookkeepingViewType.detailed;
+    notifyListeners();
+  }
+
+  final Map<String, double> _foldedBookkeeping = {};
+  Map<String, double> get foldedBookkeeping => _foldedBookkeeping;
+
+  void _foldBookKeeping() {
+    if (_result != null && _result! is ApiDataResult) {
+      final _data = (_result as ApiDataResult<List<BookkeepingItem>>).data;
+      _data.map((e) {
+        if (_foldedBookkeeping['${e.item_id}-${e.collection_id}'] == null) {
+          _foldedBookkeeping['${e.item_id}-${e.collection_id}'] = 0;
+        } else {
+          _foldedBookkeeping['${e.item_id}-${e.collection_id}'] =
+              _foldedBookkeeping['${e.item_id}-${e.collection_id}']! + e.amount;
+        }
+      }).toList();
+      notifyListeners();
+    }
+  }
+}
+
+enum BookkeepingViewType {
+  detailed,
+  focused;
 }

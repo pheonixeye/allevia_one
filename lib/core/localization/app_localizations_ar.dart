@@ -1154,4 +1154,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get filterVisits => 'فلترة الزيارات';
+
+  @override
+  String get link => 'الرابط';
+
+  @override
+  String get operationsDetails => 'تفاصيل العمليات';
+
+  @override
+  String get operationTime => 'وقت العملية';
+
+  @override
+  String get duplicateVisitPrompt =>
+      'تم العثور علي زيارة مسجلة لهذا المريض بنفس العيادة و في نفس التاريخ - هل ترغب بالاستمرار ؟';
 }

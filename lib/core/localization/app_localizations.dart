@@ -2317,6 +2317,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Filter Visits'**
   String get filterVisits;
+
+  /// No description provided for @link.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get link;
+
+  /// No description provided for @operationsDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Operations Details'**
+  String get operationsDetails;
+
+  /// No description provided for @operationTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation Time'**
+  String get operationTime;
+
+  /// No description provided for @duplicateVisitPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?'**
+  String get duplicateVisitPrompt;
 }
 
 class _AppLocalizationsDelegate

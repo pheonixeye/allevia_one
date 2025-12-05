@@ -1156,4 +1156,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterVisits => 'Filter Visits';
+
+  @override
+  String get link => 'Link';
+
+  @override
+  String get operationsDetails => 'Operations Details';
+
+  @override
+  String get operationTime => 'Operation Time';
+
+  @override
+  String get duplicateVisitPrompt =>
+      'This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?';
 }

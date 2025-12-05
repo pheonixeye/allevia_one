@@ -22,6 +22,7 @@ class PxVisits extends ChangeNotifier {
   static const int _page = 1;
   int get page => _page;
 
+  //TODO: remove constant
   static const perPage = 100;
 
   Future<ApiResult<List<Visit>>> _fetchVisitsOfASpecificDate(
@@ -47,7 +48,10 @@ class PxVisits extends ChangeNotifier {
     await _fetchVisitsOfToday();
   }
 
-  Future<int> nextEntryNumber(
+  ///fetch visits of this date and clinic
+  ///formulate [entry_number] && alert if that
+  ///patient already has a visit in this clinic
+  Future<List<Visit>> preCreateVisitRequest(
     DateTime visit_date,
     String clinic_id,
   ) async {
@@ -59,7 +63,7 @@ class PxVisits extends ChangeNotifier {
         _result.where((e) => e.clinic.id == clinic_id).toList();
 
     toggleIsUpdating();
-    return _clinicVisits.length + 1;
+    return _clinicVisits;
   }
 
   //todo:
@@ -97,6 +101,14 @@ class PxVisits extends ChangeNotifier {
 
     final _clinicVisits =
         _visits.data.where((visit) => visit.clinic.id == clinic_id).toList();
+
+    if (_clinicVisits.isEmpty) {
+      //TODO
+      _visitsPerShift = {};
+      notifyListeners();
+      toggleIsUpdating();
+      return;
+    }
 
     final _shifts = _clinicVisits.first.clinic.clinic_schedule
         .firstWhere((sch) => sch.intday == visit_date.weekday)

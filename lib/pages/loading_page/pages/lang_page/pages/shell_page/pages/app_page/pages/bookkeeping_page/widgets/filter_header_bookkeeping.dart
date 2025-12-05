@@ -11,15 +11,15 @@ import 'package:allevia_one/providers/px_bookkeeping.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:provider/provider.dart';
 
-class BookkeepingFilterHeader extends StatefulWidget {
-  const BookkeepingFilterHeader({super.key});
+class FilterHeaderBookkeeping extends StatefulWidget {
+  const FilterHeaderBookkeeping({super.key});
 
   @override
-  State<BookkeepingFilterHeader> createState() =>
-      _BookkeepingFilterHeaderState();
+  State<FilterHeaderBookkeeping> createState() =>
+      _FilterHeaderBookkeepingState();
 }
 
-class _BookkeepingFilterHeaderState extends State<BookkeepingFilterHeader> {
+class _FilterHeaderBookkeepingState extends State<FilterHeaderBookkeeping> {
   late final TextEditingController _fromController;
   late final TextEditingController _toController;
 
@@ -74,6 +74,18 @@ class _BookkeepingFilterHeaderState extends State<BookkeepingFilterHeader> {
                             FloatingActionButton.small(
                               heroTag: UniqueKey(),
                               onPressed: () async {
+                                await shellFunction(
+                                  context,
+                                  toExecute: () {
+                                    b.toggleView();
+                                  },
+                                );
+                              },
+                              child: const Icon(Icons.table_view),
+                            ),
+                            FloatingActionButton.small(
+                              heroTag: UniqueKey(),
+                              onPressed: () async {
                                 if (context.mounted) {
                                   await showDialog(
                                     context: context,
@@ -112,6 +124,8 @@ class _BookkeepingFilterHeaderState extends State<BookkeepingFilterHeader> {
                       },
                     ),
                   ),
+                  //TODO: Add filter to show only income or only expenses
+                  //TODO: think about adding graphs detailing expenses vs income
                 ],
               ),
             ),

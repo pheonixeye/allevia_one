@@ -401,5 +401,9 @@
     "toogleAccountActivity" : "Toggle Account Activity",
     "cannotDeactivateSuperAdminAccount" : "Cannot Deactivate 'SuperAdmin' Account",
     "viewDocument" : "View Document",
-    "filterVisits" : "Filter Visits"
+    "filterVisits" : "Filter Visits",
+    "link" : "Link",
+    "operationsDetails" : "Operations Details",
+    "operationTime" : "Operation Time",
+    "duplicateVisitPrompt" : "This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?"
 }

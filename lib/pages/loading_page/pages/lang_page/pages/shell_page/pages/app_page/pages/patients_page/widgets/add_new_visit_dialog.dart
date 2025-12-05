@@ -1,7 +1,10 @@
+import 'package:allevia_one/extensions/datetime_ext.dart';
 import 'package:allevia_one/models/doctor.dart';
 import 'package:allevia_one/models/shift.dart';
 import 'package:allevia_one/models/visit_schedule.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
+import 'package:allevia_one/widgets/central_error.dart';
+import 'package:allevia_one/widgets/prompt_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,6 +41,7 @@ class AddNewVisitDialog extends StatefulWidget {
 }
 
 class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
+  //todo: Add validation if patient is already in same day
   late final _width = MediaQuery.sizeOf(context).width;
   late final _height = MediaQuery.sizeOf(context).height;
 
@@ -114,6 +118,15 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
             v.visits == null ||
             (PxAuth.isUserNotDoctor && d.allDoctors == null)) {
           return CentralLoading();
+        }
+        while (c.result is ApiErrorResult || v.visits is ApiErrorResult) {
+          return CentralError(
+            code: (v.visits as ApiErrorResult).errorCode,
+            toExecute: () async {
+              await c.retry();
+              await v.retry();
+            },
+          );
         }
         return AlertDialog(
           backgroundColor: Colors.blue.shade50,
@@ -416,6 +429,7 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       (v.visitsPerShift?[_shift] != null &&
                                           v.visitsPerShift![_shift]! >=
                                               e.visit_count);
+
                                   return RadioListTile<ScheduleShift>(
                                     shape: _tileBorder(_isSelected),
                                     selected: _isSelected,
@@ -435,8 +449,7 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                                   ),
                                           ),
                                         ),
-                                        if (_visitDate != null &&
-                                            v.visitsPerShift?[_shift] != null)
+                                        if (_visitDate != null)
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0,
@@ -450,24 +463,16 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                                       TextSpan(
                                                         text: '',
                                                         children: [
-                                                          if (_isSelected)
-                                                            TextSpan(
-                                                              text: '${v.visitsPerShift?[_shift]} + 1'
-                                                                  .toArabicNumber(
-                                                                      context),
-                                                              style: TextStyle(
-                                                                color: _isDisabled
-                                                                    ? Colors.red
-                                                                    : Colors
-                                                                        .blue,
-                                                              ),
-                                                            )
-                                                          else
-                                                            TextSpan(
-                                                              text: '${v.visitsPerShift?[_shift]}'
-                                                                  .toArabicNumber(
-                                                                      context),
+                                                          TextSpan(
+                                                            text: '${v.visitsPerShift?[_shift] ?? '0'} ${_isSelected ? '+ 1' : ''}'
+                                                                .toArabicNumber(
+                                                                    context),
+                                                            style: TextStyle(
+                                                              color: _isDisabled
+                                                                  ? Colors.red
+                                                                  : Colors.blue,
                                                             ),
+                                                          ),
                                                           TextSpan(text: ' / '),
                                                           TextSpan(
                                                             text: '${e.visit_count}'
@@ -489,13 +494,6 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                                       setState(() {
                                         _scheduleShift = value;
                                       });
-                                      // if (_clinic != null &&
-                                      //     _visitDate != null) {
-                                      //   await v.calculateVisitsPerClinicShift(
-                                      //     _clinic!.id,
-                                      //     _visitDate!,
-                                      //   );
-                                      // }
                                     },
                                   );
                                 }),
@@ -681,13 +679,35 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                   setState(() {
                     _isLoading = true;
                   });
-                  final _nextEntryNumber = await v.nextEntryNumber(
+                  final _dateClinicVisits = await v.preCreateVisitRequest(
                     _visitDate!,
                     _clinic!.id,
                   );
+                  final _nextEntryNumber = _dateClinicVisits.length + 1;
                   setState(() {
                     _isLoading = false;
                   });
+                  final _patientHasDuplicateVisit = _dateClinicVisits.any(
+                    (v) =>
+                        v.clinic.id == _clinic!.id &&
+                        v.visit_date.isTheSameDate(_visitDate!) &&
+                        v.patient.id == widget.patient.id,
+                  );
+
+                  if (_patientHasDuplicateVisit && context.mounted) {
+                    final _toProceed = await showDialog<bool?>(
+                      context: context,
+                      builder: (context) {
+                        return PromptDialog(
+                          message: context.loc.duplicateVisitPrompt,
+                        );
+                      },
+                    );
+                    if (_toProceed == null || _toProceed == false) {
+                      return;
+                    }
+                  }
+
                   if (context.mounted) {
                     final _visitDto = VisitCreateDto(
                       clinic_id: _clinic!.id,
