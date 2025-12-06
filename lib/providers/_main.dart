@@ -2,7 +2,9 @@ import 'package:allevia_one/constants/app_business_constants.dart';
 import 'package:allevia_one/core/api/assistant_accounts_api.dart';
 import 'package:allevia_one/core/api/notifications_api.dart';
 import 'package:allevia_one/core/api/wa_api.dart';
+import 'package:allevia_one/core/blob_api.dart';
 import 'package:allevia_one/providers/px_assistant_accounts.dart';
+import 'package:allevia_one/providers/px_blobs.dart';
 import 'package:allevia_one/providers/px_notifications.dart';
 import 'package:allevia_one/providers/px_speciality.dart';
 import 'package:allevia_one/providers/px_whatsapp.dart';
@@ -50,12 +52,12 @@ final List<SingleChildWidget> providers = [
 
   ChangeNotifierProvider(
     create: (context) => PxWhatsapp(
-      api: WaApi(),
+      api: const WaApi(),
     ),
   ),
   ChangeNotifierProvider(
     create: (context) => PxNotifications(
-      api: NotificationsApi(),
+      api: const NotificationsApi(),
     ),
   ),
   ChangeNotifierProvider(
@@ -69,6 +71,11 @@ final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(
     create: (context) => PxAuth(
       api: const AuthApi(),
+    ),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => PxBlobs(
+      api: const BlobApi(),
     ),
   ),
   ChangeNotifierProvider(
@@ -136,7 +143,7 @@ final List<SingleChildWidget> providers = [
   //profile items providers##
   ChangeNotifierProvider(
     create: (context) => PxForms(
-      api: FormsApi(),
+      api: const FormsApi(),
     ),
   ),
   ChangeNotifierProvider(
@@ -149,7 +156,7 @@ final List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => PxPatients(
-      api: PatientsApi(),
+      api: const PatientsApi(),
     ),
   ),
 

@@ -24,15 +24,22 @@ class SoundHelper {
 
   static Future<void> playSound(
     AudioPlayer player, [
-    // String? soundUrl,
     Uint8List? bytes,
   ]) async {
-    if (_assetSoundBytes != null) {
-      // print('played asset');
+    if (_assetSoundBytes != null && bytes == null) {
       await player.setAudioSource(BytesSource(_assetSoundBytes!));
       player.play();
     } else if (bytes != null) {
-      // print('played bytes');
+      await player.setAudioSource(BytesSource(bytes));
+      player.play();
+    }
+  }
+
+  static Future<void> playBytes(
+    AudioPlayer player, [
+    Uint8List? bytes,
+  ]) async {
+    if (bytes != null) {
       await player.setAudioSource(BytesSource(bytes));
       player.play();
     }

@@ -1,6 +1,7 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_log_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/change_password_btn.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/files_section.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/single_btn_tile.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/settings_page/widgets/whatsapp_tile/whatsapp_tile.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
@@ -79,6 +80,9 @@ class SettingsPage extends StatelessWidget {
                   },
                 ),
                 const WhatsappTile(),
+                //TODO: Manage notification sound and app logo
+                const FilesSection(),
+
                 SingleBtnTile(
                   title: context.loc.appLanguage,
                   btn: const LanguageBtn(),

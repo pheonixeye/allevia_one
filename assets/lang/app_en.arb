@@ -405,5 +405,10 @@
     "link" : "Link",
     "operationsDetails" : "Operations Details",
     "operationTime" : "Operation Time",
-    "duplicateVisitPrompt" : "This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?"
+    "duplicateVisitPrompt" : "This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?",
+    "addFormBeforeEditing" : "Kindly Add The Form Before Editing",
+    "notificationSound" : "Notification Sound",
+    "pickNotificationSound" : "Pick Notification Sound",
+    "appLogo" : "App Logo",
+    "pickAppLogo" : "Pick App Logo"
 }

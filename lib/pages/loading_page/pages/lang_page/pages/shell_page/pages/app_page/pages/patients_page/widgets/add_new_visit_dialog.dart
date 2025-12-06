@@ -237,27 +237,31 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                             return Column(
                               spacing: 8,
                               children: [
-                                ...(d.allDoctors as List<Doctor>).map((e) {
-                                  bool _isSelected = e == _doctor;
-                                  return RadioListTile<Doctor>(
-                                    shape: _tileBorder(_isSelected),
-                                    selected: _isSelected,
-                                    tileColor: _unSelectedColor,
-                                    selectedTileColor: _selectedColor,
-                                    title: Text(
-                                      l.isEnglish ? e.name_en : e.name_ar,
-                                    ),
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                    value: e,
-                                    groupValue: _doctor,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _doctor = value;
-                                      });
-                                    },
-                                  );
-                                }),
+                                if (_clinic != null)
+                                  ...(d.allDoctors as List<Doctor>)
+                                      .where(
+                                          (d) => _clinic!.doc_id.contains(d.id))
+                                      .map((e) {
+                                    bool _isSelected = e == _doctor;
+                                    return RadioListTile<Doctor>(
+                                      shape: _tileBorder(_isSelected),
+                                      selected: _isSelected,
+                                      tileColor: _unSelectedColor,
+                                      selectedTileColor: _selectedColor,
+                                      title: Text(
+                                        l.isEnglish ? e.name_en : e.name_ar,
+                                      ),
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                      value: e,
+                                      groupValue: _doctor,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _doctor = value;
+                                        });
+                                      },
+                                    );
+                                  }),
                                 _validationErrorWidget<Doctor>(field),
                               ],
                             );

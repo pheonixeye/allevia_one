@@ -1169,4 +1169,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get duplicateVisitPrompt =>
       'This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?';
+
+  @override
+  String get addFormBeforeEditing => 'Kindly Add The Form Before Editing';
+
+  @override
+  String get notificationSound => 'Notification Sound';
+
+  @override
+  String get pickNotificationSound => 'Pick Notification Sound';
+
+  @override
+  String get appLogo => 'App Logo';
+
+  @override
+  String get pickAppLogo => 'Pick App Logo';
 }

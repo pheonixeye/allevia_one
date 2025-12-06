@@ -15,11 +15,11 @@ import 'package:allevia_one/models/visits/visit_create_dto.dart';
 class VisitsApi {
   VisitsApi();
 
-  late final String collection = 'visits';
+  static const String collection = 'visits';
 
-  late final String visit_data_collection = 'visit__data';
+  static const String visit_data_collection = 'visit__data';
 
-  late final String visit_schedule_collection = 'visit__schedule';
+  static const String visit_schedule_collection = 'visit__schedule';
 
   static final String _expand =
       'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id, visit_schedule_id';

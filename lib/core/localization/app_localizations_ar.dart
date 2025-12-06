@@ -1167,4 +1167,19 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get duplicateVisitPrompt =>
       'تم العثور علي زيارة مسجلة لهذا المريض بنفس العيادة و في نفس التاريخ - هل ترغب بالاستمرار ؟';
+
+  @override
+  String get addFormBeforeEditing => 'برجاء اضافة النموذج للمريض قبل تعديله';
+
+  @override
+  String get notificationSound => 'صوت التنبيه';
+
+  @override
+  String get pickNotificationSound => 'اختر صوت التنبيه';
+
+  @override
+  String get appLogo => 'لوجو البرنامج';
+
+  @override
+  String get pickAppLogo => 'اختر لوجو البرنامج';
 }

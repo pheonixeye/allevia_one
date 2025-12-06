@@ -47,16 +47,43 @@ class _RetryButtonWidgetState extends State<RetryButtonWidget>
   Widget build(BuildContext context) {
     return ScaleTransition(
       scale: _animation,
-      child: FloatingActionButton.small(
-        tooltip: context.loc.retry,
-        heroTag: UniqueKey(),
-        onPressed: () {
-          widget.toRetry();
-          if (widget.toClose != null) {
-            widget.toClose!();
-          }
-        },
-        child: const Icon(Icons.refresh),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 16.0),
+              child: Text(context.loc.retry),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FloatingActionButton.small(
+              tooltip: context.loc.retry,
+              heroTag: UniqueKey(),
+              onPressed: () {
+                widget.toRetry();
+                if (widget.toClose != null) {
+                  widget.toClose!();
+                }
+              },
+              child: const Icon(Icons.refresh),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FloatingActionButton.small(
+              backgroundColor: Colors.red.shade200,
+              key: UniqueKey(),
+              onPressed: () {
+                if (widget.toClose != null) {
+                  widget.toClose!();
+                }
+              },
+              child: const Icon(Icons.close),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -67,31 +94,14 @@ OverlayEntry retryOverlayEntry(Function toRetry) {
 
   final _entry = OverlayEntry(
     builder: (context) {
-      return Draggable(
-        hitTestBehavior: HitTestBehavior.opaque,
-        dragAnchorStrategy: pointerDragAnchorStrategy,
-        onDragUpdate: (details) {
-          // ignore: unnecessary_null_comparison
-          if (_overlay != null &&
-              _overlay.toClose != null &&
-              details.delta.distance * 100 > 250) {
-            //close
-            _overlay.toClose!();
-          }
-        },
-        feedback: _overlay,
-        child: Align(
-          alignment: Alignment.center,
-          child: SizedBox(
-            height: 60,
-            width: 60,
-            child: Card.outlined(
-              color: Colors.red.withValues(alpha: 0.3),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _overlay,
-              ),
-            ),
+      return Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          height: 60,
+          width: 240,
+          child: Card.outlined(
+            color: Colors.red.withValues(alpha: 0.3),
+            child: _overlay,
           ),
         ),
       );

@@ -44,3 +44,13 @@ extension PocketbaseExt on BlobFile {
   String get fileUrl =>
       '${PocketbaseHelper.pb.baseURL}/api/files/blobs/$id/$file';
 }
+
+enum BlobNames {
+  notification_sound,
+  app_logo;
+
+  @override
+  String toString() {
+    return name.split('.').last;
+  }
+}

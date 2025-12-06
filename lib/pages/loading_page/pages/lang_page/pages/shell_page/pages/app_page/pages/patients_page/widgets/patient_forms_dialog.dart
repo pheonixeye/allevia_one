@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -215,6 +216,11 @@ class _PatientFormsDialogState extends State<PatientFormsDialog>
                                         tooltip: context.loc.fillForm,
                                         onPressed: () async {
                                           //todo: navigate to edit page with form designed
+                                          if (_formItem == null) {
+                                            showIsnackbar(context
+                                                .loc.addFormBeforeEditing);
+                                            return;
+                                          }
                                           await shellFunction(
                                             context,
                                             toExecute: () async {

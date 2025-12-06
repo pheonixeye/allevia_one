@@ -1,3 +1,4 @@
+import 'package:allevia_one/models/bookkeeping/bookkeeping_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -151,7 +152,7 @@ class _PrintBookkeepingDialogState extends State<PrintBookkeepingDialog> {
                               textAlign: pw.TextAlign.center,
                             ),
                             pw.Text(
-                              x.item_name,
+                              BookkeepingName.fromString(x.item_name).ar(),
                               textAlign: pw.TextAlign.center,
                             ),
                             pw.Text(

@@ -2341,6 +2341,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This Patient Has A Visit In The Same Clinic On The Same Date - Do You Wish To Proceed ?'**
   String get duplicateVisitPrompt;
+
+  /// No description provided for @addFormBeforeEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Kindly Add The Form Before Editing'**
+  String get addFormBeforeEditing;
+
+  /// No description provided for @notificationSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Sound'**
+  String get notificationSound;
+
+  /// No description provided for @pickNotificationSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Notification Sound'**
+  String get pickNotificationSound;
+
+  /// No description provided for @appLogo.
+  ///
+  /// In en, this message translates to:
+  /// **'App Logo'**
+  String get appLogo;
+
+  /// No description provided for @pickAppLogo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick App Logo'**
+  String get pickAppLogo;
 }
 
 class _AppLocalizationsDelegate
