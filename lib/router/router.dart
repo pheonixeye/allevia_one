@@ -1,6 +1,8 @@
+import 'package:allevia_one/core/api/reciept_info_api.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/assistants_page/assistants_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/doctors_page/doctors_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/notifications_page/notifications_page.dart';
+import 'package:allevia_one/providers/px_reciept_info.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/core/api/clinics_api.dart';
@@ -135,8 +137,8 @@ class AppRouter {
       );
     },
     redirect: (context, state) async {
-      var destination = state.uri.path;
-      print("destination : $destination");
+      // var destination = state.uri.path;
+      // print("destination : $destination");
       final _locale = context.read<PxLocale>();
       final _urlLang = state.pathParameters['lang'];
       if (_urlLang != null && _urlLang != _locale.lang) {
@@ -452,10 +454,19 @@ class AppRouter {
                             path: '/$visits',
                             name: visits,
                             builder: (context, state) {
-                              return ChangeNotifierProvider(
-                                create: (context) => PxVisitFilter(
-                                  api: const VisitFilterApi(),
-                                ),
+                              return MultiProvider(
+                                providers: [
+                                  ChangeNotifierProvider(
+                                    create: (context) => PxVisitFilter(
+                                      api: const VisitFilterApi(),
+                                    ),
+                                  ),
+                                  ChangeNotifierProvider(
+                                    create: (context) => PxRecieptInfo(
+                                      api: RecieptInfoApi(),
+                                    ),
+                                  ),
+                                ],
                                 child: VisitsPage(
                                   key: state.pageKey,
                                 ),
@@ -596,8 +607,13 @@ class AppRouter {
                     path: settings,
                     name: settings,
                     builder: (context, state) {
-                      return SettingsPage(
-                        key: state.pageKey,
+                      return ChangeNotifierProvider(
+                        create: (context) => PxRecieptInfo(
+                          api: RecieptInfoApi(),
+                        ),
+                        child: SettingsPage(
+                          key: state.pageKey,
+                        ),
                       );
                     },
                   ),

@@ -8,6 +8,7 @@ import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/extensions/visit_ext.dart';
 import 'package:allevia_one/models/blob_file.dart';
 import 'package:allevia_one/models/bookkeeping/bookkeeping_item_dto.dart';
+import 'package:allevia_one/models/reciept_info.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/providers/px_blobs.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -42,8 +43,10 @@ class RecieptPrepareDialog extends StatefulWidget {
   const RecieptPrepareDialog({
     super.key,
     required this.visit,
+    required this.info,
   });
   final Visit visit;
+  final RecieptInfo info;
 
   @override
   State<RecieptPrepareDialog> createState() => _RecieptPrepareDialogState();
@@ -92,6 +95,7 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
   Future<Uint8List> _build(
     PdfPageFormat format,
     List<BookkeepingItemDto> data,
+    RecieptInfo info,
   ) async {
     final doc = pw.Document();
     final _font_base = await _getFontBytes('base');
@@ -151,7 +155,8 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                   pw.Align(
                     alignment: pw.Alignment.center,
                     child: pw.Text(
-                      'عيادات اليفيا',
+                      info.title,
+                      // 'عيادات اليفيا', //TODO
                       style: pw.TextStyle(
                         fontSize: 20,
                         fontWeight: pw.FontWeight.bold,
@@ -162,7 +167,8 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                   pw.Align(
                     alignment: pw.Alignment.center,
                     child: pw.Text(
-                      'لعلاج الالام',
+                      info.subtitle,
+                      // 'لعلاج الالام', //TODO
                       style: pw.TextStyle(
                         fontSize: 8,
                       ),
@@ -245,7 +251,8 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                   pw.Align(
                     alignment: pw.Alignment.center,
                     child: pw.Text(
-                      'عيادات اليفيا لعلاج الالم',
+                      info.footer,
+                      // 'عيادات اليفيا لعلاج الالم', //TODO
                       style: pw.TextStyle(
                         fontSize: 8,
                       ),
@@ -255,7 +262,8 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                   pw.Align(
                     alignment: pw.Alignment.center,
                     child: pw.Text(
-                      '٧٤ شارع الملتقي العربي - مساكن شيراتون - الدور الثالث',
+                      info.address,
+                      // '٧٤ شارع الملتقي العربي - مساكن شيراتون - الدور الثالث', //TODO
                       style: pw.TextStyle(
                         fontSize: 8,
                       ),
@@ -265,7 +273,8 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                   pw.Align(
                     alignment: pw.Alignment.center,
                     child: pw.Text(
-                      '01016075325',
+                      info.phone,
+                      // '01016075325', //TODO
                       style: pw.TextStyle(
                         fontSize: 8,
                       ),
@@ -368,7 +377,11 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                 },
                 dpi: 300,
                 build: (pageFormat) async {
-                  return _build(pageFormat, _data);
+                  return _build(
+                    pageFormat,
+                    _data,
+                    widget.info,
+                  );
                 },
                 allowPrinting: true,
                 allowSharing: true,

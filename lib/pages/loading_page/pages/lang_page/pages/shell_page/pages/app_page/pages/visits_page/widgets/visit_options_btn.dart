@@ -14,6 +14,7 @@ import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
 import 'package:allevia_one/providers/px_patient_documents.dart';
+import 'package:allevia_one/providers/px_reciept_info.dart';
 import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/providers/px_visit_filter.dart';
 import 'package:allevia_one/router/router.dart';
@@ -39,8 +40,8 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
   Visit? _expandedVisit;
   @override
   Widget build(BuildContext context) {
-    return Consumer2<PxAppConstants, PxVisitFilter>(
-      builder: (context, a, v, _) {
+    return Consumer3<PxAppConstants, PxVisitFilter, PxRecieptInfo>(
+      builder: (context, a, v, r, _) {
         while (a.constants == null) {
           return const Center(
             child: LinearProgressIndicator(),
@@ -127,6 +128,11 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                             return;
                           }
 
+                          if (r.info == null) {
+                            showIsnackbar(context.loc.noRecieptInfoFound);
+                            return;
+                          }
+
                           await showDialog<void>(
                             context: context,
                             builder: (context) {
@@ -138,6 +144,7 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                                 ),
                                 child: RecieptPrepareDialog(
                                   visit: _expandedVisit!,
+                                  info: r.info!,
                                 ),
                               );
                             },

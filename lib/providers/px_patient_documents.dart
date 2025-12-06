@@ -59,7 +59,9 @@ class PxPatientDocuments extends ChangeNotifier {
             .where((e) {
       return e.documentType.id == documentTypeId;
     }).toList();
+
     _filteredDocuments?.sort((a, b) => b.created.compareTo(a.created));
+
     _groupedDocuments = Map.fromEntries(_filteredDocuments!.map((doc) {
       //todo: check grouping implementation
       final date = doc.created;

@@ -1184,4 +1184,69 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pickAppLogo => 'Pick App Logo';
+
+  @override
+  String get recieptSettings => 'Reciept Settings';
+
+  @override
+  String get storedReciepts => 'Stored Reciepts';
+
+  @override
+  String get addRecieptInfo => 'Add Reciept Info';
+
+  @override
+  String get recieptSubtitle => 'Reciept Subtitle';
+
+  @override
+  String get recieptFooter => 'Reciept Footer';
+
+  @override
+  String get recieptAddress => 'Reciept Address';
+
+  @override
+  String get recieptPhone => 'Reciept Phone';
+
+  @override
+  String get addNewRecieptInfo => 'Add New Reciept Info';
+
+  @override
+  String get recieptTitle => 'Reciept Title';
+
+  @override
+  String get enterRecieptTitle => 'Enter Reciept Title';
+
+  @override
+  String get enterValidTitleForReciept => 'Enter a Valid Title For The Reciept';
+
+  @override
+  String get enterRecieptSubtitle => 'Enter Reciept Subtitle';
+
+  @override
+  String get enterValidSubtitleForReciept =>
+      'Enter a Valid Subtitle For The Reciept';
+
+  @override
+  String get enterRecieptAddress => 'Enter Reciept Address';
+
+  @override
+  String get enterValidAddressForReciept =>
+      'Enter a Valid Address For The Reciept';
+
+  @override
+  String get enterRecieptFooter => 'Enter Reciept Footer';
+
+  @override
+  String get enterValidFooterForReciept =>
+      'Enter a Valid Footer Text For The Reciept';
+
+  @override
+  String get enterRecieptPhone => 'Enter Reciept Phone Number';
+
+  @override
+  String get enterValidPhoneForReciept =>
+      'Enter a Valid Phone Number For The Reciept';
+
+  @override
+  String get noRecieptInfoFound =>
+      'No Selected Reciept Info Found On This Device';
 }

@@ -2371,6 +2371,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick App Logo'**
   String get pickAppLogo;
+
+  /// No description provided for @recieptSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciept Settings'**
+  String get recieptSettings;
+
+  /// No description provided for @storedReciepts.
+  ///
+  /// In en, this message translates to:
+  /// **'Stored Reciepts'**
+  String get storedReciepts;
+
+  /// No description provided for @addRecieptInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Reciept Info'**
+  String get addRecieptInfo;
+
+  /// No description provided for @recieptSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciept Subtitle'**
+  String get recieptSubtitle;
+
+  /// No description provided for @recieptFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciept Footer'**
+  String get recieptFooter;
+
+  /// No description provided for @recieptAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciept Address'**
+  String get recieptAddress;
+
+  /// No description provided for @recieptPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciept Phone'**
+  String get recieptPhone;
+
+  /// No description provided for @addNewRecieptInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Reciept Info'**
+  String get addNewRecieptInfo;
+
+  /// No description provided for @recieptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciept Title'**
+  String get recieptTitle;
+
+  /// No description provided for @enterRecieptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reciept Title'**
+  String get enterRecieptTitle;
+
+  /// No description provided for @enterValidTitleForReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Valid Title For The Reciept'**
+  String get enterValidTitleForReciept;
+
+  /// No description provided for @enterRecieptSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reciept Subtitle'**
+  String get enterRecieptSubtitle;
+
+  /// No description provided for @enterValidSubtitleForReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Valid Subtitle For The Reciept'**
+  String get enterValidSubtitleForReciept;
+
+  /// No description provided for @enterRecieptAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reciept Address'**
+  String get enterRecieptAddress;
+
+  /// No description provided for @enterValidAddressForReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Valid Address For The Reciept'**
+  String get enterValidAddressForReciept;
+
+  /// No description provided for @enterRecieptFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reciept Footer'**
+  String get enterRecieptFooter;
+
+  /// No description provided for @enterValidFooterForReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Valid Footer Text For The Reciept'**
+  String get enterValidFooterForReciept;
+
+  /// No description provided for @enterRecieptPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reciept Phone Number'**
+  String get enterRecieptPhone;
+
+  /// No description provided for @enterValidPhoneForReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Valid Phone Number For The Reciept'**
+  String get enterValidPhoneForReciept;
+
+  /// No description provided for @noRecieptInfoFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Selected Reciept Info Found On This Device'**
+  String get noRecieptInfoFound;
 }
 
 class _AppLocalizationsDelegate

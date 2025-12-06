@@ -194,7 +194,8 @@ class _PatientDocumentsViewDialogState
                                             children: [
                                               ...docs.value.map((doc) {
                                                 return DocumentActionBtn(
-                                                    document: doc);
+                                                  document: doc,
+                                                );
                                               })
                                             ],
                                           ),

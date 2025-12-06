@@ -1182,4 +1182,67 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pickAppLogo => 'اختر لوجو البرنامج';
+
+  @override
+  String get recieptSettings => 'اعدادات الايصال';
+
+  @override
+  String get storedReciepts => 'الايصالات المسجلة';
+
+  @override
+  String get addRecieptInfo => 'اضافة تفاصيل ايصال';
+
+  @override
+  String get recieptSubtitle => 'العنوان الثانوي';
+
+  @override
+  String get recieptFooter => 'العبارة التوديعية';
+
+  @override
+  String get recieptAddress => 'العنوان علي الايصال';
+
+  @override
+  String get recieptPhone => 'التليفون علي الايصال';
+
+  @override
+  String get addNewRecieptInfo => 'اضافة تفاصيل ايصال جديدة';
+
+  @override
+  String get recieptTitle => 'عنوان الايصال';
+
+  @override
+  String get enterRecieptTitle => 'ادخل عنوان الايصال';
+
+  @override
+  String get enterValidTitleForReciept => 'برجاء ادخال عنوان صالح';
+
+  @override
+  String get enterRecieptSubtitle => 'ادخل العنوان الثانوي';
+
+  @override
+  String get enterValidSubtitleForReciept => 'برجاء ادخال عنوان ثانوي صالح';
+
+  @override
+  String get enterRecieptAddress => 'ادخل عنوان العيادة علي الايصال';
+
+  @override
+  String get enterValidAddressForReciept =>
+      'برجاء ادخال عنوان العيادة بصورة صحيحة';
+
+  @override
+  String get enterRecieptFooter => 'ادخل العبارة التوديعية';
+
+  @override
+  String get enterValidFooterForReciept => 'برجاء ادخال العبارة التوديعية';
+
+  @override
+  String get enterRecieptPhone => 'ادخل رقم الموبايل علي الايصال';
+
+  @override
+  String get enterValidPhoneForReciept =>
+      'برجاء ادخال رقم الموبايل بصورة صحيحة';
+
+  @override
+  String get noRecieptInfoFound =>
+      'لم يتم العثور علي تفاصيل الايصال الاولية علي هذا الجهاز - برجاء اختيار التفاصيل من صفحة الاعدادات';
 }

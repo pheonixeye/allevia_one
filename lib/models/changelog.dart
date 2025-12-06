@@ -209,9 +209,63 @@ class Changelog extends Equatable {
       ],
     );
   }
+
+  factory Changelog.v0081() {
+    return Changelog(
+      version: '0.0.8+1',
+      entries: [
+        ChangelogEntry(
+          ar: 'تمت إضافة عرض مُركز لصفحة المحاسبة',
+          en: 'added focused view to bookkeeping page',
+        ),
+        ChangelogEntry(
+          ar: 'إصلاح: عدم حساب عدد الزيارات لكل وردية عند عدم العثور على أي زيارات في تاريخ محدد',
+          en: 'fix: visits per shift not calculating when no visits are found on a specific date',
+        ),
+        ChangelogEntry(
+          ar: 'تمت إضافة تاكيد عند اضافة نفس المريض في نفس العيادة و التاريخ',
+          en: 'added duplicate patient/visit/clinic/date prompt',
+        ),
+        ChangelogEntry(
+          ar: 'تغيير اظهار اسماء عمليات الحسابات بناء علي لغة البرنامج',
+          en: 'show translated bookkeeping names',
+        ),
+        ChangelogEntry(
+          ar: 'إصلاح: عدم تنفيذ البحث عن طريق استعلام هاتف المريض بشكل صحيح',
+          en: 'fix: searching by patient phone query not executing correctly',
+        ),
+      ],
+    );
+  }
+
+  factory Changelog.v0082() {
+    return Changelog(
+      version: '0.0.8+2',
+      entries: [
+        ChangelogEntry(
+          ar: 'اضافة امكانية تغيير لوجو البرنامج و صوت التنبيه',
+          en: 'can now change notification sound and application logo',
+        ),
+        ChangelogEntry(
+          ar: 'اعادة بناء واجهة اعادة المحاولة عند فشل طلب عبر الشبكة',
+          en: 'rebuilt interface for when a network request fails',
+        ),
+        ChangelogEntry(
+          ar: 'اصلاحات محدودة للواجهات',
+          en: 'minor visual ui improvements',
+        ),
+        ChangelogEntry(
+          ar: 'اضافة امكانية تغيير بيانات الايصال الاساسية من صفحة الاعدادات',
+          en: 'you can now change the reciept details for each clinic',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v0082(),
+  Changelog.v0081(),
   Changelog.v008(),
   Changelog.v007(),
   Changelog.v006(),
