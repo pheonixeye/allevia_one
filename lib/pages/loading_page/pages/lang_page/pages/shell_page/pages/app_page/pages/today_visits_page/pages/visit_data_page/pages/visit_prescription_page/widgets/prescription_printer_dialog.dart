@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -110,8 +111,7 @@ class _PrescriptionPrinterDialogState extends State<PrescriptionPrinterDialog> {
             canChangePageFormat: false,
             canDebug: false,
           ),
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: UniqueKey(),
+          floatingActionButton: SmBtn(
             onPressed: () {
               setState(() {
                 _imageWithData = !_imageWithData;

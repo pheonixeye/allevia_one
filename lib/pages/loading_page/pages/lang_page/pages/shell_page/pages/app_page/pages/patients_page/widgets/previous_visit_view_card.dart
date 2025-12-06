@@ -2,6 +2,7 @@ import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_locale.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -33,9 +34,7 @@ class PreviousVisitViewCard extends StatelessWidget {
                   Row(
                     spacing: 8,
                     children: [
-                      FloatingActionButton.small(
-                        onPressed: null,
-                        heroTag: UniqueKey(),
+                      SmBtn(
                         child: showIndexNumber
                             ? Text('${index + 1}'.toArabicNumber(context))
                             : SizedBox(),

@@ -1,4 +1,5 @@
 // ignore: must_be_immutable
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/random_curved_animation.dart';
@@ -58,9 +59,8 @@ class _RetryButtonWidgetState extends State<RetryButtonWidget>
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton.small(
+            child: SmBtn(
               tooltip: context.loc.retry,
-              heroTag: UniqueKey(),
               onPressed: () {
                 widget.toRetry();
                 if (widget.toClose != null) {
@@ -72,7 +72,7 @@ class _RetryButtonWidgetState extends State<RetryButtonWidget>
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton.small(
+            child: SmBtn(
               backgroundColor: Colors.red.shade200,
               key: UniqueKey(),
               onPressed: () {

@@ -18,7 +18,7 @@ class PxNotifications extends ChangeNotifier {
     _fetchNotifications();
     _initFavoriteNotificationStore();
     if (_fileBlob == null) {
-      _fetchNotificationSoundBlobUrl();
+      _fetchNotificationSoundFileBytes();
     }
   }
 
@@ -146,7 +146,7 @@ class PxNotifications extends ChangeNotifier {
   static Uint8List? _fileBlob;
   Uint8List? get fileBlob => _fileBlob;
 
-  Future<void> _fetchNotificationSoundBlobUrl() async {
+  Future<void> _fetchNotificationSoundFileBytes() async {
     _fileBlob = await api.fetchNotificationSoundBlob();
     // print('PxNotifications()._fetchNotificationSoundBlobUrl($_fileUrl)');
     notifyListeners();

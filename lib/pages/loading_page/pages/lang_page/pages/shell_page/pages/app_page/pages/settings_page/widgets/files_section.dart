@@ -6,6 +6,7 @@ import 'package:allevia_one/providers/px_blobs.dart';
 import 'package:allevia_one/utils/sound_helper.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/image_view_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -69,7 +70,7 @@ class FilesSection extends StatelessWidget {
                     ),
                     trailing: Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
-                      child: FloatingActionButton.small(
+                      child: SmBtn(
                         tooltip: context.loc.pickNotificationSound,
                         key: UniqueKey(),
                         onPressed: () async {
@@ -147,9 +148,8 @@ class FilesSection extends StatelessWidget {
                     ),
                     trailing: Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
-                      child: FloatingActionButton.small(
+                      child: SmBtn(
                         tooltip: context.loc.pickAppLogo,
-                        key: UniqueKey(),
                         onPressed: () async {
                           final _result = await FilePicker.platform.pickFiles(
                             dialogTitle: context.loc.pickAppLogo,

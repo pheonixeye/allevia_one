@@ -5,6 +5,7 @@ import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -66,9 +67,8 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
               }
             ],
           ),
-          floatingActionButton: FloatingActionButton.small(
+          floatingActionButton: SmBtn(
             tooltip: context.loc.addBookkeepingEntry,
-            heroTag: UniqueKey(),
             onPressed: () async {
               //@permission
               final _perm = context.read<PxAuth>().isActionPermitted(

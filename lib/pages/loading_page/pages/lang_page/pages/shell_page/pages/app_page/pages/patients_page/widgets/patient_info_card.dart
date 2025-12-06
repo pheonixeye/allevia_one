@@ -9,6 +9,7 @@ import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/providers/px_patient_previous_visits.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -71,8 +72,7 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
               );
             }
             return ListTile(
-              leading: FloatingActionButton.small(
-                heroTag: widget.patient.id,
+              leading: SmBtn(
                 onPressed: null,
                 child: Text('${widget.index + 1}'),
               ),
@@ -80,9 +80,8 @@ class _PatientInfoCardState extends State<PatientInfoCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(child: Text(widget.patient.name)),
-                  FloatingActionButton.small(
+                  SmBtn(
                     tooltip: context.loc.editPatientData,
-                    heroTag: '${widget.patient.id}+${widget.index}',
                     onPressed: () async {
                       //todo: edit patient name/phone/dob
                       //@permission

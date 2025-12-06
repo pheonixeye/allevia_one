@@ -1,5 +1,6 @@
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/patients_page/widgets/previous_visit_view_card.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -82,8 +83,7 @@ class VisitDataViewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       initiallyExpanded: true,
-                      leading: FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      leading: SmBtn(
                         onPressed: null,
                       ),
                       title: Text(context.loc.visitForms),
@@ -143,8 +143,7 @@ class VisitDataViewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       initiallyExpanded: true,
-                      leading: FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      leading: SmBtn(
                         onPressed: null,
                       ),
                       title: Text(context.loc.visitDrugs),
@@ -185,8 +184,7 @@ class VisitDataViewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       initiallyExpanded: true,
-                      leading: FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      leading: SmBtn(
                         onPressed: null,
                       ),
                       title: Text(context.loc.visitLabs),
@@ -215,8 +213,7 @@ class VisitDataViewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       initiallyExpanded: true,
-                      leading: FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      leading: SmBtn(
                         onPressed: null,
                       ),
                       title: Text(context.loc.visitRads),
@@ -245,8 +242,7 @@ class VisitDataViewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       initiallyExpanded: true,
-                      leading: FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      leading: SmBtn(
                         onPressed: null,
                       ),
                       title: Text(context.loc.visitProcedures),
@@ -275,8 +271,7 @@ class VisitDataViewDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       initiallyExpanded: true,
-                      leading: FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      leading: SmBtn(
                         onPressed: null,
                       ),
                       title: Text(context.loc.visitSupplies),

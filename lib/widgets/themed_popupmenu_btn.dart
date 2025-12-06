@@ -15,7 +15,6 @@ class ThemedPopupmenuBtn<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<T>(
-      key: UniqueKey(),
       onOpened: onOpened,
       tooltip: tooltip,
       icon: icon,

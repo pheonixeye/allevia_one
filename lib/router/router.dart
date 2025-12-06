@@ -19,8 +19,6 @@ import 'package:allevia_one/pages/loading_page/pages/error_page/error_page.dart'
 import 'package:allevia_one/pages/loading_page/pages/lang_page/lang_page.dart';
 import 'package:allevia_one/pages/loading_page/loading_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/login_page/login_page.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/patient_portal_page/pages/patient_information_page/patient_information_page.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/patient_portal_page/patient_portal_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/app_page.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/app_profile_setup/app_profile_setup.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/app_profile_setup/pages/profile_item_page/profile_item_page.dart';
@@ -117,9 +115,9 @@ class AppRouter {
   static const String rads = "rads";
   static const String procedures = "procedures";
   static const String supplies = "supplies";
-  //profile_setup_routes
-  static const String patient_portal = 'patient_portal';
-  static const String patient_id = ':patient_id';
+  // patient_portal_routes
+  // static const String patient_portal = 'patient_portal';
+  // static const String patient_id = ':patient_id';
 
   String? get currentRouteName =>
       router.routerDelegate.currentConfiguration.last.route.name;
@@ -137,6 +135,8 @@ class AppRouter {
       );
     },
     redirect: (context, state) async {
+      var destination = state.uri.path;
+      print("destination : $destination");
       final _locale = context.read<PxLocale>();
       final _urlLang = state.pathParameters['lang'];
       if (_urlLang != null && _urlLang != _locale.lang) {
@@ -204,26 +204,6 @@ class AppRouter {
             },
             routes: [
               GoRoute(
-                path: patient_portal,
-                name: patient_portal,
-                builder: (context, state) {
-                  return PatientPortalPage(
-                    key: state.pageKey,
-                  );
-                },
-                routes: [
-                  GoRoute(
-                    path: patient_id,
-                    name: patient_id,
-                    builder: (context, state) {
-                      return PatientInformationPage(
-                        key: state.pageKey,
-                      );
-                    },
-                  ),
-                ],
-              ),
-              GoRoute(
                 path: login, // /:lang/login
                 name: login,
                 builder: (context, state) {
@@ -238,34 +218,6 @@ class AppRouter {
                   return null;
                 },
               ),
-              // GoRoute(
-              //   path: register, // /:lang/register
-              //   name: register,
-              //   builder: (context, state) {
-              //     return ChangeNotifierProvider.value(
-              //       key: state.pageKey,
-              //       value: PxSpec(),
-              //       child: RegisterPage(
-              //         key: state.pageKey,
-              //       ),
-              //     );
-              //   },
-              //   redirect: (context, state) {
-              //     if (context.read<PxAuth>().isLoggedIn) {
-              //       return '/${state.pathParameters['lang']}/$app';
-              //     }
-              //     return null;
-              //   },
-              // ),
-              // GoRoute(
-              //   path: thankyou, // /:lang/thankyou
-              //   name: thankyou,
-              //   builder: (context, state) {
-              //     return ThankyouPage(
-              //       key: state.pageKey,
-              //     );
-              //   },
-              // ),
               ShellRoute(
                 builder: (context, state, child) {
                   return ShellPage(
@@ -317,7 +269,7 @@ class AppRouter {
                                 name: visit_data,
                                 builder: (context, state) {
                                   return CentralLoading(
-                                    key: state.pageKey,
+                                    key: ValueKey('${state.pageKey}-loading'),
                                   );
                                 },
                                 redirect: (context, state) {

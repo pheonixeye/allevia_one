@@ -80,7 +80,7 @@ class SettingsPage extends StatelessWidget {
                   },
                 ),
                 const WhatsappTile(),
-                //TODO: Manage notification sound and app logo
+                //todo: Manage notification sound and app logo
                 const FilesSection(),
 
                 SingleBtnTile(
@@ -103,7 +103,8 @@ class SettingsPage extends StatelessWidget {
             children: [
               Text.rich(
                 TextSpan(
-                  text: 'Allevia-One v${AppBusinessConstants.ALLEVIA_VERSION}',
+                  text:
+                      '${String.fromEnvironment('APPLICATION_NAME')} v${AppBusinessConstants.ALLEVIA_VERSION}',
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async {
                       await showDialog(

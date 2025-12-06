@@ -3,6 +3,7 @@ import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -39,8 +40,7 @@ class _PatientsPageState extends State<PatientsPage> {
     return Consumer<PxPatients>(
       builder: (context, p, _) {
         return Scaffold(
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: 'add-new-patient',
+          floatingActionButton: SmBtn(
             tooltip: context.loc.addNewPatient,
             onPressed: () async {
               //todo: Add new patient file dialog

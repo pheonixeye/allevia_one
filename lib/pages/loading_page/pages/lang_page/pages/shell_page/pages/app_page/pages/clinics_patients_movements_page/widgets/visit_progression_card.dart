@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
@@ -51,8 +52,7 @@ class _VisitProgressionCardState extends State<VisitProgressionCard> {
               title: Row(
                 spacing: 16,
                 children: [
-                  FloatingActionButton.small(
-                    heroTag: UniqueKey(),
+                  SmBtn(
                     onPressed: null,
                     child: Text('${widget.item.patient_entry_number}'
                         .toArabicNumber(context)),

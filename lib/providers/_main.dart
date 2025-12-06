@@ -52,32 +52,33 @@ final List<SingleChildWidget> providers = [
 
   ChangeNotifierProvider(
     create: (context) => PxWhatsapp(
-      api: const WaApi(),
+      api: WaApi(),
     ),
   ),
   ChangeNotifierProvider(
     create: (context) => PxNotifications(
-      api: const NotificationsApi(),
+      api: NotificationsApi(),
     ),
   ),
   ChangeNotifierProvider(
     create: (context) => PxSpec(),
   ),
   ChangeNotifierProvider(
+    create: (context) => PxBlobs(
+      api: BlobApi(),
+    ),
+  ),
+  ChangeNotifierProvider(
     create: (context) => PxAppConstants(
-      api: const ConstantsApi(),
+      api: ConstantsApi(),
     ),
   ),
   ChangeNotifierProvider(
     create: (context) => PxAuth(
-      api: const AuthApi(),
+      api: AuthApi(),
     ),
   ),
-  ChangeNotifierProvider(
-    create: (context) => PxBlobs(
-      api: const BlobApi(),
-    ),
-  ),
+
   ChangeNotifierProvider(
     create: (context) => PxDoctor(
       api: DoctorApi(
@@ -143,7 +144,7 @@ final List<SingleChildWidget> providers = [
   //profile items providers##
   ChangeNotifierProvider(
     create: (context) => PxForms(
-      api: const FormsApi(),
+      api: FormsApi(),
     ),
   ),
   ChangeNotifierProvider(
@@ -156,7 +157,7 @@ final List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => PxPatients(
-      api: const PatientsApi(),
+      api: PatientsApi(),
     ),
   ),
 

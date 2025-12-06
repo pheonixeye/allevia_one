@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/switch_lang.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -8,8 +9,7 @@ class LanguageBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.small(
-      heroTag: 'language-btn',
+    return SmBtn(
       onPressed: () {
         context.switchLanguage();
       },

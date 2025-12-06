@@ -357,7 +357,7 @@ class _TodayVisitsPageState extends State<TodayVisitsPage>
 }
 
 
-// FloatingActionButton.small(
+// SmBtn(
 //   heroTag: 'add-new-visit-nav',
 //   tooltip: context.loc.addNewVisit,
 //   onPressed: () {

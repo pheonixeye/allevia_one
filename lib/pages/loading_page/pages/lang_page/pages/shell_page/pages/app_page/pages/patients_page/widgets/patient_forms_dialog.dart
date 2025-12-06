@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -211,8 +212,7 @@ class _PatientFormsDialogState extends State<PatientFormsDialog>
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: FloatingActionButton.small(
-                                        heroTag: _pcForm.id,
+                                      child: SmBtn(
                                         tooltip: context.loc.fillForm,
                                         onPressed: () async {
                                           //todo: navigate to edit page with form designed
@@ -318,11 +318,7 @@ class _PatientFormsDialogState extends State<PatientFormsDialog>
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child:
-                                                    FloatingActionButton.small(
-                                                  heroTag: _formField.id +
-                                                      _formField
-                                                          .field_type.name,
+                                                child: SmBtn(
                                                   onPressed: () async {
                                                     final _toUpdate =
                                                         _patientFormData

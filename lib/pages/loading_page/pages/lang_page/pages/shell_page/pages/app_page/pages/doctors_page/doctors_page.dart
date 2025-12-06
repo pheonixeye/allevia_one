@@ -11,6 +11,7 @@ import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,8 +80,7 @@ class DoctorsPage extends StatelessWidget {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: UniqueKey(),
+          floatingActionButton: SmBtn(
             tooltip: context.loc.addNewDoctorAccount,
             onPressed: () async {
               final _isSuperAdmin = PxAuth.isLoggedInUserSuperAdmin(context);

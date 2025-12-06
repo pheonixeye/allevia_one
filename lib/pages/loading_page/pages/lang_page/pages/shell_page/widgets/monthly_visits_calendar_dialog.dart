@@ -2,6 +2,7 @@ import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/clinic_schedule_shift_ext.dart';
 import 'package:allevia_one/extensions/datetime_ext.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
+import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/clinic/clinic.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
@@ -11,6 +12,7 @@ import 'package:allevia_one/providers/px_visits.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -119,8 +121,7 @@ class _MonthlyVisitsCalendarDialogState
                           ),
                         ),
                         SizedBox(width: 10),
-                        FloatingActionButton.small(
-                          heroTag: UniqueKey(),
+                        SmBtn(
                           tooltip: context.loc.pickStartingDate,
                           onPressed: () async {
                             //TODO: change implementation to pick month and year only
@@ -187,10 +188,12 @@ class _MonthlyVisitsCalendarDialogState
                               padding: const EdgeInsets.all(8.0),
                               child: ListTile(
                                 titleAlignment: ListTileTitleAlignment.top,
-                                leading: FloatingActionButton.small(
+                                leading: SmBtn(
                                   key: UniqueKey(),
                                   onPressed: null,
-                                  child: Text('${index + 1}'),
+                                  child: Text(
+                                    '${index + 1}'.toArabicNumber(context),
+                                  ),
                                 ),
                                 title: Text.rich(
                                   TextSpan(

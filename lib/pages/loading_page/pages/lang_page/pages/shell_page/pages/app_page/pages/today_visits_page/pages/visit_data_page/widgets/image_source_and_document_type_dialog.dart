@@ -2,6 +2,7 @@ import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -70,10 +71,7 @@ class _ImageSourceAndDocumentTypeDialogState
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       titleAlignment: ListTileTitleAlignment.titleHeight,
-                      leading: FloatingActionButton.small(
-                        onPressed: null,
-                        key: UniqueKey(),
-                      ),
+                      leading: const SmBtn(),
                       title: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(context.loc.pickImageSource),
@@ -131,7 +129,7 @@ class _ImageSourceAndDocumentTypeDialogState
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       titleAlignment: ListTileTitleAlignment.titleHeight,
-                      leading: FloatingActionButton.small(
+                      leading: SmBtn(
                         onPressed: null,
                         key: UniqueKey(),
                       ),

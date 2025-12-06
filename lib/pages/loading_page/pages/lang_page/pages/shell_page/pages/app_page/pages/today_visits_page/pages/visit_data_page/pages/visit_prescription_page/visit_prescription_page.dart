@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:allevia_one/core/api/patient_document_api.dart';
 import 'package:allevia_one/models/patient_document/patient_document.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -430,9 +431,8 @@ class VisitPrescriptionPage extends StatelessWidget {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: FloatingActionButton.small(
+                            child: SmBtn(
                               tooltip: context.loc.toggleFormsView,
-                              heroTag: UniqueKey(),
                               onPressed: () {
                                 //todo: Toggle View
                                 s.toggleView();
@@ -444,8 +444,7 @@ class VisitPrescriptionPage extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: FloatingActionButton.small(
-                                heroTag: UniqueKey(),
+                              child: SmBtn(
                                 onPressed: () {
                                   s.toggleAxisAlignment();
                                 },
@@ -456,8 +455,7 @@ class VisitPrescriptionPage extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: FloatingActionButton.small(
-                                heroTag: UniqueKey(),
+                              child: SmBtn(
                                 onPressed: () {
                                   s.toggleTextAlignment();
                                 },
@@ -471,9 +469,8 @@ class VisitPrescriptionPage extends StatelessWidget {
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: FloatingActionButton.small(
+                                child: SmBtn(
                                   tooltip: context.loc.save,
-                                  heroTag: UniqueKey(),
                                   onPressed: () async {
                                     //todo: Print
                                     Uint8List? _bytesWithImage;
@@ -523,9 +520,8 @@ class VisitPrescriptionPage extends StatelessWidget {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: FloatingActionButton.small(
+                            child: SmBtn(
                               tooltip: context.loc.printPrescription,
-                              heroTag: UniqueKey(),
                               onPressed: () async {
                                 //todo: Print
                                 Uint8List? _bytesWithImage;
@@ -576,11 +572,10 @@ class VisitPrescriptionPage extends StatelessWidget {
                                         }
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: FloatingActionButton.small(
+                                          child: SmBtn(
                                             tooltip: l.isEnglish
                                                 ? e.value.name_en
                                                 : e.value.name_ar,
-                                            heroTag: ValueKey(e),
                                             onPressed: () {
                                               s.toggleVisibility(e.key);
                                             },

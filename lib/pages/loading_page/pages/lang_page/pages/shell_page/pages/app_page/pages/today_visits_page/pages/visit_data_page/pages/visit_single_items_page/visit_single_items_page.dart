@@ -1,3 +1,5 @@
+import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -113,10 +115,9 @@ class VisitSingleItemsPage<T extends DoctorItem> extends StatelessWidget {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: FloatingActionButton.small(
+                            child: SmBtn(
                               tooltip: context.loc.clearSearch,
                               backgroundColor: Colors.red.shade200,
-                              heroTag: UniqueKey(),
                               onPressed: () {
                                 p.clearSearch();
                               },
@@ -157,10 +158,11 @@ class VisitSingleItemsPage<T extends DoctorItem> extends StatelessWidget {
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
-                                          child: FloatingActionButton.small(
-                                            heroTag: UniqueKey(),
-                                            onPressed: null,
-                                            child: Text('${index + 1}'),
+                                          child: SmBtn(
+                                            child: Text(
+                                              '${index + 1}'
+                                                  .toArabicNumber(context),
+                                            ),
                                           ),
                                         ),
                                         Expanded(

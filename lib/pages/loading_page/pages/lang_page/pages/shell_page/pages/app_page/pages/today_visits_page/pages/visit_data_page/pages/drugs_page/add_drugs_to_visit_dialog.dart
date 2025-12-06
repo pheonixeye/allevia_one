@@ -1,3 +1,5 @@
+import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
@@ -91,9 +93,8 @@ class _AddDrugsToVisitDialogState extends State<AddDrugsToVisitDialog> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: FloatingActionButton.small(
+                          child: SmBtn(
                             tooltip: context.loc.clearSearch,
-                            heroTag: 'clear-doctor-drugs-filter',
                             backgroundColor: Colors.red.shade300,
                             onPressed: () {
                               p.clearSearch();
@@ -120,10 +121,10 @@ class _AddDrugsToVisitDialogState extends State<AddDrugsToVisitDialog> {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
-                                  child: FloatingActionButton.small(
-                                    heroTag: '$_item _ ${index * index}',
-                                    onPressed: null,
-                                    child: Text('${index + 1}'),
+                                  child: SmBtn(
+                                    child: Text(
+                                      '${index + 1}'.toArabicNumber(context),
+                                    ),
                                   ),
                                 ),
                                 Expanded(

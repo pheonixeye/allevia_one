@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -80,8 +81,7 @@ class ClinicInventoryDialog extends StatelessWidget {
                             title: Row(
                               spacing: 16,
                               children: [
-                                FloatingActionButton.small(
-                                  heroTag: UniqueKey(),
+                                SmBtn(
                                   onPressed: null,
                                   child: Text('${index + 1}'),
                                 ),
@@ -114,8 +114,7 @@ class ClinicInventoryDialog extends StatelessWidget {
                       .data
                       .map((e) => e)
                       .toList();
-              return FloatingActionButton.small(
-                heroTag: UniqueKey(),
+              return SmBtn(
                 tooltip: context.loc.addItemsWithCount,
                 onPressed: () async {
                   final _inventoryItems =

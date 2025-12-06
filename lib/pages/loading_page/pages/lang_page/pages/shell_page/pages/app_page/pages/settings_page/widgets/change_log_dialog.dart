@@ -1,6 +1,7 @@
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/models/changelog.dart';
 import 'package:allevia_one/providers/px_locale.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,10 +48,7 @@ class ChangeLogDialog extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       titleAlignment: ListTileTitleAlignment.top,
-                      leading: FloatingActionButton.small(
-                        onPressed: null,
-                        heroTag: UniqueKey(),
-                      ),
+                      leading: const SmBtn(),
                       title: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(_item.version),

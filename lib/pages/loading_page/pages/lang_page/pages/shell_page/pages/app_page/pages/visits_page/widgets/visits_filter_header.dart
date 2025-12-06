@@ -5,6 +5,7 @@ import 'package:allevia_one/models/visits/visits_filter.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -115,8 +116,7 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                       ),
                     ),
                   ),
-                  FloatingActionButton.small(
-                    heroTag: UniqueKey(),
+                  SmBtn(
                     tooltip: context.loc.pickStartingDate,
                     onPressed: () async {
                       final _from = await showDatePicker(
@@ -156,9 +156,8 @@ class _VisitsFilterHeaderState extends State<VisitsFilterHeader> {
                       ),
                     ),
                   ),
-                  FloatingActionButton.small(
+                  SmBtn(
                     tooltip: context.loc.pickEndingDate,
-                    heroTag: UniqueKey(),
                     onPressed: () async {
                       final _to = await showDatePicker(
                         context: context,

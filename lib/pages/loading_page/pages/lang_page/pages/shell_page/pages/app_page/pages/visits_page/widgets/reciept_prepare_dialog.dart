@@ -6,8 +6,10 @@ import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/extensions/number_translator.dart';
 import 'package:allevia_one/extensions/visit_ext.dart';
+import 'package:allevia_one/models/blob_file.dart';
 import 'package:allevia_one/models/bookkeeping/bookkeeping_item_dto.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
+import 'package:allevia_one/providers/px_blobs.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_one_visit_bookkeeping.dart';
 import 'package:allevia_one/widgets/central_error.dart';
@@ -49,6 +51,7 @@ class RecieptPrepareDialog extends StatefulWidget {
 
 class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
   ByteData? _logoBytes;
+  Uint8List? _logoBlobBytes;
 
   @override
   void initState() {
@@ -57,8 +60,14 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
   }
 
   Future<void> _loadLogo() async {
+    final _b = context.read<PxBlobs>();
+
     _logoBytes = await rootBundle.load(AppAssets.icon);
-    setState(() {});
+
+    if (_b.files[BlobNames.app_logo.toString()] != null &&
+        _b.files[BlobNames.app_logo.toString()]!.isNotEmpty) {
+      _logoBlobBytes = _b.files[BlobNames.app_logo.toString()]!;
+    }
   }
 
   pw.Widget _buildInfoRow(String title, String info) {
@@ -113,17 +122,29 @@ class _RecieptPrepareDialogState extends State<RecieptPrepareDialog> {
                         maxHeight: 100,
                         maxWidth: 100,
                       ),
-                      child: pw.Image(
-                        pw.MemoryImage(
-                          _logoBytes == null
-                              ? Uint8List(0)
-                              : Uint8List.sublistView(_logoBytes!),
-                        ),
-                        width: 100,
-                        height: 100,
-                        dpi: 300,
-                        fit: pw.BoxFit.cover,
-                      ),
+                      child: pw.Builder(builder: (_) {
+                        if (_logoBlobBytes == null) {
+                          return pw.Image(
+                            pw.MemoryImage(
+                              _logoBytes == null
+                                  ? Uint8List(0)
+                                  : Uint8List.sublistView(_logoBytes!),
+                            ),
+                            width: 100,
+                            height: 100,
+                            dpi: 300,
+                            fit: pw.BoxFit.cover,
+                          );
+                        } else {
+                          return pw.Image(
+                            pw.MemoryImage(_logoBlobBytes!),
+                            width: 100,
+                            height: 100,
+                            dpi: 300,
+                            fit: pw.BoxFit.cover,
+                          );
+                        }
+                      }),
                     ),
                   ),
                   pw.SizedBox(height: 4),

@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/has_numbers.dart';
@@ -63,8 +64,7 @@ class _SearchPatientsHeaderState extends State<SearchPatientsHeader> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FloatingActionButton.small(
-                      heroTag: 'patient-search-button',
+                    child: SmBtn(
                       tooltip: context.loc.findPatient,
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
@@ -85,9 +85,8 @@ class _SearchPatientsHeaderState extends State<SearchPatientsHeader> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FloatingActionButton.small(
+                    child: SmBtn(
                       tooltip: context.loc.clearSearch,
-                      heroTag: 'patient-clear-search-button',
                       backgroundColor: Colors.red.shade300,
                       onPressed: () async {
                         _controller.clear();

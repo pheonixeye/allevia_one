@@ -8,6 +8,7 @@ import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -112,10 +113,7 @@ class _PatientDocumentsViewDialogState
                         child: Row(
                           spacing: 8,
                           children: [
-                            FloatingActionButton.small(
-                              onPressed: null,
-                              key: UniqueKey(),
-                            ),
+                            const SmBtn(),
                             Text(context.loc.pickDocumentType),
                           ],
                         ),

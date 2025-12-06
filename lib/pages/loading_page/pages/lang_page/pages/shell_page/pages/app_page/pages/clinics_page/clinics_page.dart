@@ -3,6 +3,7 @@ import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -37,8 +38,7 @@ class ClinicsPage extends StatelessWidget {
           return NotPermittedTemplatePage(title: context.loc.clinics);
         }
         return Scaffold(
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: 'create-clinic-btn',
+          floatingActionButton: SmBtn(
             tooltip: context.loc.addNewClinic,
             onPressed: () async {
               //@permission

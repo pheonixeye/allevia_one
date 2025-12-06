@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -13,9 +14,8 @@ class LogoutBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PxAuth>(
       builder: (context, a, _) {
-        return FloatingActionButton.small(
+        return SmBtn(
           tooltip: context.loc.logout,
-          heroTag: 'logout-btn',
           onPressed: () async {
             final _toLogout = await showDialog<bool>(
               context: context,

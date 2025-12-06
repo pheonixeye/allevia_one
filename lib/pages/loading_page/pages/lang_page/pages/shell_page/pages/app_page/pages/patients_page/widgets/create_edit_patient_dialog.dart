@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -150,8 +151,7 @@ class _CreateEditPatientDialogState extends State<CreateEditPatientDialog> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: FloatingActionButton.small(
-                        heroTag: 'patient-dob-picker',
+                      child: SmBtn(
                         onPressed: () async {
                           _dob = await showDatePicker(
                             context: context,

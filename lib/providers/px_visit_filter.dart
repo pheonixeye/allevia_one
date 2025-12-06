@@ -15,7 +15,7 @@ class PxVisitFilter extends ChangeNotifier {
     _fetchConcisedVisitsOfDateRange();
   }
 
-  static ApiResult<Visit>? _expandedSingleVisit;
+  ApiResult<Visit>? _expandedSingleVisit;
   ApiResult<Visit>? get expandedSingleVisit => _expandedSingleVisit;
 
   ApiResult<List<ConcisedVisit>>? _concisedVisits;

@@ -1,6 +1,7 @@
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/providers/px_auth.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/providers/px_locale.dart';
@@ -11,8 +12,7 @@ class ChangePasswordBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.small(
-      heroTag: 'reset-password-btn',
+    return SmBtn(
       onPressed: () async {
         await shellFunction(
           context,

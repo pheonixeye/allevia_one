@@ -1,3 +1,5 @@
+import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/first_where_or_null.dart';
@@ -48,10 +50,10 @@ class _VisitFormViewEditCardState extends State<VisitFormViewEditCard> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: FloatingActionButton.small(
-                      heroTag: widget.form,
-                      onPressed: null,
-                      child: Text('${widget.index + 1}'),
+                    child: SmBtn(
+                      child: Text(
+                        '${widget.index + 1}'.toArabicNumber(context),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -61,10 +63,9 @@ class _VisitFormViewEditCardState extends State<VisitFormViewEditCard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: FloatingActionButton.small(
+                    child: SmBtn(
                       tooltip: context.loc.deleteForm,
                       backgroundColor: Colors.red.shade200,
-                      heroTag: 'detach${widget.form.name_en}${widget.index}',
                       onPressed: () async {
                         //todo: detach Form
                         final _toDetach = await showDialog<bool?>(

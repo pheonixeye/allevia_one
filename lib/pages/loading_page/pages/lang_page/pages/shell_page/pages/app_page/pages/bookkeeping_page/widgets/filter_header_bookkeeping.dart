@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -71,8 +72,7 @@ class _FilterHeaderBookkeepingState extends State<FilterHeaderBookkeeping> {
                         return Row(
                           spacing: 16,
                           children: [
-                            FloatingActionButton.small(
-                              heroTag: UniqueKey(),
+                            SmBtn(
                               onPressed: () async {
                                 await shellFunction(
                                   context,
@@ -83,8 +83,7 @@ class _FilterHeaderBookkeepingState extends State<FilterHeaderBookkeeping> {
                               },
                               child: const Icon(Icons.table_view),
                             ),
-                            FloatingActionButton.small(
-                              heroTag: UniqueKey(),
+                            SmBtn(
                               onPressed: () async {
                                 if (context.mounted) {
                                   await showDialog(
@@ -101,8 +100,7 @@ class _FilterHeaderBookkeepingState extends State<FilterHeaderBookkeeping> {
                               },
                               child: const Icon(Icons.monetization_on),
                             ),
-                            FloatingActionButton.small(
-                              heroTag: UniqueKey(),
+                            SmBtn(
                               onPressed: () async {
                                 if (context.mounted) {
                                   await showDialog(
@@ -146,8 +144,7 @@ class _FilterHeaderBookkeepingState extends State<FilterHeaderBookkeeping> {
                       ),
                     ),
                   ),
-                  FloatingActionButton.small(
-                    heroTag: UniqueKey(),
+                  SmBtn(
                     tooltip: context.loc.pickStartingDate,
                     onPressed: () async {
                       final _from = await showDatePicker(
@@ -187,9 +184,8 @@ class _FilterHeaderBookkeepingState extends State<FilterHeaderBookkeeping> {
                       ),
                     ),
                   ),
-                  FloatingActionButton.small(
+                  SmBtn(
                     tooltip: context.loc.pickEndingDate,
-                    heroTag: UniqueKey(),
                     onPressed: () async {
                       final _to = await showDatePicker(
                         context: context,

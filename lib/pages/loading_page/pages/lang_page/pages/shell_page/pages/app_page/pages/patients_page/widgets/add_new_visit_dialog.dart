@@ -5,6 +5,7 @@ import 'package:allevia_one/models/visit_schedule.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/prompt_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -365,8 +366,7 @@ class _AddNewVisitDialogState extends State<AddNewVisitDialog> {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: FloatingActionButton.small(
-                              heroTag: 'pick-visit-date',
+                            child: SmBtn(
                               onPressed: () async {
                                 final _vd = await showDatePicker(
                                   context: context,

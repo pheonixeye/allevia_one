@@ -1,4 +1,5 @@
 import 'package:allevia_one/router/router.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -80,8 +81,7 @@ class _AppPageState extends State<AppPage> with SingleTickerProviderStateMixin {
                 },
                 trailing: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: FloatingActionButton.small(
-                    heroTag: 'nav-rail-exp-btn--app',
+                  child: SmBtn(
                     onPressed: () {
                       setState(() {
                         _isExtended = !_isExtended;

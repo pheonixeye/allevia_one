@@ -2,6 +2,7 @@ import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/clinics_page/widgets/clinic_doctors_dialog.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/clinic_inventory_api.dart';
@@ -44,8 +45,7 @@ class ClinicViewCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               titleAlignment: ListTileTitleAlignment.top,
-              leading: FloatingActionButton.small(
-                heroTag: '${clinic.id}$index',
+              leading: SmBtn(
                 onPressed: null,
                 child: Text('${index + 1}'),
               ),
@@ -79,8 +79,7 @@ class ClinicViewCard extends StatelessWidget {
                             ),
                     ),
                   ),
-                  FloatingActionButton.small(
-                    heroTag: clinic.id,
+                  SmBtn(
                     tooltip: context.loc.editClinic,
                     onPressed: () async {
                       //@permission

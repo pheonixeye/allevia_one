@@ -1,12 +1,17 @@
+import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/extensions/visit_schedule_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/models/clinic/clinic.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/logic/excel_file_prep.dart';
-import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_data_table_rows_columns.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_data_table_columns.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_options_btn.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_clinics.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -17,6 +22,7 @@ import 'package:allevia_one/providers/px_visit_filter.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class VisitsPage extends StatefulWidget {
@@ -117,14 +123,125 @@ class _VisitsPageState extends State<VisitsPage> {
                                     rows: [
                                       ..._items.map((x) {
                                         final index = _items.indexOf(x);
-                                        return buildVisitDataRow(
-                                          context,
-                                          x: x,
-                                          index: index,
-                                          l: l,
-                                          a: a,
-                                          c: c,
-                                          d: d,
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Center(
+                                                child: Text('${index + 1}'
+                                                    .toArabicNumber(context)),
+                                              ),
+                                            ),
+                                            //todo
+                                            DataCell(
+                                              VisitOptionsBtn(
+                                                concisedVisit: x,
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final _doctor = d.allDoctors
+                                                        ?.firstWhere((e) =>
+                                                            e.id == x.doc_id);
+                                                    return Text(
+                                                      l.isEnglish
+                                                          ? _doctor?.name_en ??
+                                                              ''
+                                                          : _doctor?.name_ar ??
+                                                              '',
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Builder(
+                                                builder: (context) {
+                                                  final _isAttended =
+                                                      x.visit_status_id ==
+                                                          a.attended.id;
+                                                  return Center(
+                                                    child: Icon(
+                                                      _isAttended
+                                                          ? Icons.check
+                                                          : Icons.close,
+                                                      color: _isAttended
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  DateFormat('dd - MM - yyyy',
+                                                          l.lang)
+                                                      .format(DateTime.parse(
+                                                          x.visit_date)),
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final _visitType = a
+                                                        .constants?.visitType
+                                                        .firstWhere((e) =>
+                                                            e.id ==
+                                                            x.visit_type_id);
+                                                    return Text(
+                                                      l.isEnglish
+                                                          ? _visitType
+                                                                  ?.name_en ??
+                                                              ''
+                                                          : _visitType
+                                                                  ?.name_ar ??
+                                                              '',
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final _clinic = (c.result
+                                                            as ApiDataResult<
+                                                                List<Clinic>>)
+                                                        .data
+                                                        .firstWhere((e) =>
+                                                            e.id ==
+                                                            x.clinic_id);
+                                                    return Text(
+                                                      l.isEnglish
+                                                          ? _clinic.name_en
+                                                          : _clinic.name_ar,
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  x.visit_schedule
+                                                      .formattedShift(context),
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  x.added_by.name,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         );
                                       }),
                                     ],
@@ -141,8 +258,7 @@ class _VisitsPageState extends State<VisitsPage> {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: UniqueKey(),
+          floatingActionButton: SmBtn(
             tooltip: context.loc.exportToExcel,
             onPressed: () async {
               //@permission

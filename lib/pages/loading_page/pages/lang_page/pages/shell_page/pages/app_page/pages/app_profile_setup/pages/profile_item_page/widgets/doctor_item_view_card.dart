@@ -1,6 +1,7 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/doctor_item_widgets_ext.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -46,9 +47,7 @@ class DoctorItemViewCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: FloatingActionButton.small(
-                      heroTag: item.id,
-                      onPressed: null,
+                    child: SmBtn(
                       child: Text('${index + 1}'),
                     ),
                   ),
@@ -61,8 +60,7 @@ class DoctorItemViewCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8.0,
                     ),
-                    child: FloatingActionButton.small(
-                      heroTag: item.id + item.item.name,
+                    child: SmBtn(
                       onPressed: () async {
                         //@permission
                         final _perm = context.read<PxAuth>().isActionPermitted(
@@ -111,8 +109,7 @@ class DoctorItemViewCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8.0,
                     ),
-                    child: FloatingActionButton.small(
-                      heroTag: '${item.id}${item.item.name}delete',
+                    child: SmBtn(
                       onPressed: () async {
                         //@permission
                         final _perm = context.read<PxAuth>().isActionPermitted(

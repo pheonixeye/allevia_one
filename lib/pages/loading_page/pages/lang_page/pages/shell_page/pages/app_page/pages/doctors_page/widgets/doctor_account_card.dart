@@ -7,6 +7,7 @@ import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_doctor.dart';
 import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/widgets/prompt_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:allevia_one/widgets/themed_popupmenu_btn.dart';
 import 'package:flutter/gestures.dart';
@@ -40,8 +41,7 @@ class DoctorAccountCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               titleAlignment: ListTileTitleAlignment.top,
-              leading: FloatingActionButton.small(
-                heroTag: doctor,
+              leading: SmBtn(
                 onPressed: null,
                 child: Text('${index + 1}'.toArabicNumber(context)),
               ),

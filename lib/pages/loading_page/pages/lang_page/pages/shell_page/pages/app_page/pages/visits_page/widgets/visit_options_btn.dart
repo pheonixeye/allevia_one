@@ -91,17 +91,14 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
               const Spacer(),
               ThemedPopupmenuBtn<void>(
                 onOpened: () async {
-                  if (_expandedVisit == null) {
-                    await shellFunction(
-                      context,
-                      toExecute: () async {
-                        await v.fetchOneExpandedVisit(widget.concisedVisit.id);
-                        _expandedVisit =
-                            (v.expandedSingleVisit as ApiDataResult<Visit>)
-                                .data;
-                      },
-                    );
-                  }
+                  await shellFunction(
+                    context,
+                    toExecute: () async {
+                      await v.fetchOneExpandedVisit(widget.concisedVisit.id);
+                      _expandedVisit =
+                          (v.expandedSingleVisit as ApiDataResult<Visit>).data;
+                    },
+                  );
                 },
                 icon: const Icon(Icons.menu),
                 tooltip: context.loc.settings,
@@ -133,8 +130,8 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                           await showDialog<void>(
                             context: context,
                             builder: (context) {
-                              return ChangeNotifierProvider.value(
-                                value: PxOneVisitBookkeeping(
+                              return ChangeNotifierProvider(
+                                create: (context) => PxOneVisitBookkeeping(
                                   api: BookkeepingApi(
                                     visit_id: widget.concisedVisit.id,
                                   ),

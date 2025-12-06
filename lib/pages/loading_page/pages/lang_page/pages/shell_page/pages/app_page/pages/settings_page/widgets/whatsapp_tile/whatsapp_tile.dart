@@ -6,6 +6,7 @@ import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/providers/px_whatsapp.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/prompt_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:allevia_one/widgets/themed_popupmenu_btn.dart';
 import 'package:flutter/material.dart';
@@ -135,10 +136,7 @@ class WhatsappTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      leading: FloatingActionButton.small(
-                        onPressed: null,
-                        heroTag: UniqueKey(),
-                      ),
+                      leading: const SmBtn(),
                       titleAlignment: ListTileTitleAlignment.top,
                       title: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -154,9 +152,8 @@ class WhatsappTile extends StatelessWidget {
                                 elevation: 2,
                                 color: Colors.amber.shade50,
                                 child: ListTile(
-                                  leading: FloatingActionButton.small(
+                                  leading: SmBtn(
                                     onPressed: null,
-                                    heroTag: UniqueKey(),
                                   ),
                                   title: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -166,9 +163,8 @@ class WhatsappTile extends StatelessWidget {
                                     e.device,
                                     textDirection: TextDirection.ltr,
                                   ),
-                                  trailing: FloatingActionButton.small(
+                                  trailing: SmBtn(
                                     tooltip: context.loc.logout,
-                                    heroTag: UniqueKey(),
                                     onPressed: () async {
                                       //@permission
                                       final _perm = context

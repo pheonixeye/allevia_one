@@ -16,6 +16,7 @@ import 'package:allevia_one/widgets/central_no_items.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
 import 'package:allevia_one/widgets/prompt_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:allevia_one/widgets/snackbar_.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +32,7 @@ class AssistantsPage extends StatelessWidget {
           return NotPermittedTemplatePage(title: context.loc.assistantAccounts);
         }
         return Scaffold(
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: 'add-assistant-account',
+          floatingActionButton: SmBtn(
             onPressed: () async {
               final _userWithPassword = await showDialog<UserWithPassword?>(
                 context: context,
@@ -102,9 +102,7 @@ class AssistantsPage extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
+                                      child: SmBtn(
                                         child: Text('${index + 1}'),
                                       ),
                                     ),

@@ -12,6 +12,7 @@ import 'package:allevia_one/providers/px_visit_data.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
 import 'package:allevia_one/widgets/central_no_items.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -222,10 +223,7 @@ class _DetailedPreviousPatientVisitsDialogState
                                     padding: const EdgeInsets.all(8.0),
                                     child: ExpansionTile(
                                       initiallyExpanded: true,
-                                      leading: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
-                                      ),
+                                      leading: const SmBtn(),
                                       title: Text(context.loc.visitForms),
                                       children: [
                                         ..._data.forms.map((f) {
@@ -288,10 +286,7 @@ class _DetailedPreviousPatientVisitsDialogState
                                     padding: const EdgeInsets.all(8.0),
                                     child: ExpansionTile(
                                       initiallyExpanded: true,
-                                      leading: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
-                                      ),
+                                      leading: const SmBtn(),
                                       title: Text(context.loc.visitDrugs),
                                       children: [
                                         ..._data.drugs.map((x) {
@@ -332,10 +327,7 @@ class _DetailedPreviousPatientVisitsDialogState
                                     padding: const EdgeInsets.all(8.0),
                                     child: ExpansionTile(
                                       initiallyExpanded: true,
-                                      leading: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
-                                      ),
+                                      leading: const SmBtn(),
                                       title: Text(context.loc.visitLabs),
                                       children: [
                                         ..._data.labs.map((x) {
@@ -364,10 +356,7 @@ class _DetailedPreviousPatientVisitsDialogState
                                     padding: const EdgeInsets.all(8.0),
                                     child: ExpansionTile(
                                       initiallyExpanded: true,
-                                      leading: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
-                                      ),
+                                      leading: const SmBtn(),
                                       title: Text(context.loc.visitRads),
                                       children: [
                                         ..._data.rads.map((x) {
@@ -396,10 +385,7 @@ class _DetailedPreviousPatientVisitsDialogState
                                     padding: const EdgeInsets.all(8.0),
                                     child: ExpansionTile(
                                       initiallyExpanded: true,
-                                      leading: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
-                                      ),
+                                      leading: const SmBtn(),
                                       title: Text(context.loc.visitProcedures),
                                       children: [
                                         ..._data.procedures.map((x) {
@@ -428,10 +414,7 @@ class _DetailedPreviousPatientVisitsDialogState
                                     padding: const EdgeInsets.all(8.0),
                                     child: ExpansionTile(
                                       initiallyExpanded: true,
-                                      leading: FloatingActionButton.small(
-                                        heroTag: UniqueKey(),
-                                        onPressed: null,
-                                      ),
+                                      leading: const SmBtn(),
                                       title: Text(context.loc.visitSupplies),
                                       children: [
                                         ..._data.supplies.map((x) {

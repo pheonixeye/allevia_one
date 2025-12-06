@@ -33,8 +33,8 @@ class PxBlobs extends ChangeNotifier {
     (_result as ApiDataResult<List<BlobFile>>).data.map((e) async {
       final _request = await http.get(Uri.parse(e.fileUrl));
       _files[e.name] = _request.bodyBytes;
+      notifyListeners();
     }).toList();
-    notifyListeners();
   }
 
   Future<void> retry() async => await _init();

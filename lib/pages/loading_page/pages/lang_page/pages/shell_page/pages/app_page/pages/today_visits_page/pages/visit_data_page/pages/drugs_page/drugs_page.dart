@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
@@ -82,9 +83,8 @@ class VisitDrugsPage extends StatelessWidget {
               );
             },
           ),
-          floatingActionButton: FloatingActionButton.small(
+          floatingActionButton: SmBtn(
             tooltip: '${context.loc.add} ${context.loc.visitDrugs}',
-            heroTag: 'add-drugs-to-visit-btn',
             onPressed: () async {
               final _mappedIds = (v.result as ApiDataResult<VisitData>)
                   .data

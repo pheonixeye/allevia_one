@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 
 /// A material design floating action menu button.
@@ -123,8 +124,8 @@ class FloatingActionMenuBubble extends AnimatedWidget {
         /// The [mini] and [clipBehavior] arguments must not be null. Additionally,
         /// [elevation], [highlightElevation], and [disabledElevation] (if specified)
         /// must be non-negative.
-        FloatingActionButton.small(
-          heroTag: herotag ?? const _DefaultHeroTag(),
+        SmBtn(
+          // heroTag: herotag ?? const _DefaultHeroTag(),
           backgroundColor: backGroundColor,
           // iconData is mutually exclusive with animatedIconData
           // only 1 can be null at the time
@@ -207,8 +208,8 @@ class BubbleMenu extends StatelessWidget {
 }
 
 /// Creates a Default hero tag for the floating action bubble.
-class _DefaultHeroTag {
-  const _DefaultHeroTag();
-  @override
-  String toString() => '<default FloatingActionBubble tag>';
-}
+// class _DefaultHeroTag {
+//   const _DefaultHeroTag();
+//   @override
+//   String toString() => '<default FloatingActionBubble tag>';
+// }

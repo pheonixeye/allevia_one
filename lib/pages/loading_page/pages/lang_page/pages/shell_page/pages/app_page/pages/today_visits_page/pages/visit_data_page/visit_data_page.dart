@@ -1,4 +1,5 @@
 import 'package:allevia_one/router/router.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/extensions/is_mobile_context.dart';
@@ -64,8 +65,7 @@ class _VisitDataPageState extends State<VisitDataPage> {
                 },
                 trailing: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: FloatingActionButton.small(
-                    heroTag: 'nav-rail-exp-btn--visit-data',
+                  child: SmBtn(
                     onPressed: () {
                       setState(() {
                         _isExtended = !_isExtended;

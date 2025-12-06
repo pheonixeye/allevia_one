@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/core/api/subscription_payment_api/doc_sub_pay_api.dart';
@@ -79,10 +80,7 @@ class _SubscriptionDetailsCardState extends State<SubscriptionDetailsCard> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        leading: FloatingActionButton.small(
-                          heroTag: widget.sub,
-                          onPressed: null,
-                        ),
+                        leading: const SmBtn(),
                         titleAlignment: ListTileTitleAlignment.top,
                         title: Builder(
                           builder: (context) {
@@ -190,10 +188,7 @@ class _SubscriptionDetailsCardState extends State<SubscriptionDetailsCard> {
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
                 titleAlignment: ListTileTitleAlignment.top,
-                leading: FloatingActionButton.small(
-                  heroTag: widget.sub,
-                  onPressed: null,
-                ),
+                leading: const SmBtn(),
                 title: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

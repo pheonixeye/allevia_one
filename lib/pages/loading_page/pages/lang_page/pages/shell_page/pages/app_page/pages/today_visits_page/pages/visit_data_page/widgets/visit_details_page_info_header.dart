@@ -7,6 +7,7 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/patient_documents_view_dialog.dart';
 import 'package:allevia_one/providers/px_patient_documents.dart';
 import 'package:allevia_one/providers/px_patient_previous_visits.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -58,9 +59,7 @@ class VisitDetailsPageInfoHeader extends StatelessWidget {
                 ],
               ),
               subtitle: Text(title),
-              trailing: FloatingActionButton.small(
-                heroTag: UniqueKey(),
-                onPressed: null,
+              trailing: SmBtn(
                 child: PopupMenuButton<void>(
                   offset: Offset(0, 48),
                   elevation: 6,

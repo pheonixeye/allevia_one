@@ -1,7 +1,9 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
 import 'package:allevia_one/widgets/not_permitted_template_page.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,10 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
     super.dispose();
   }
 
-  Widget _buildDataTable(List<SupplyMovement> _items) {
+  Widget _buildDataTable(List<SupplyMovement>? _items) {
+    while (_items == null) {
+      return CentralLoading();
+    }
     return Scrollbar(
       thumbVisibility: true,
       controller: _verticalScroll,
@@ -283,8 +288,11 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
   @override
   Widget build(BuildContext context) {
     //todo: Change to table layout
-    return Consumer2<PxSupplyMovements, PxLocale>(
-      builder: (context, s, l, _) {
+    return Consumer3<PxSupplyMovements, PxAppConstants, PxLocale>(
+      builder: (context, s, a, l, _) {
+        while (a.constants == null) {
+          return CentralLoading();
+        }
         //@permission
         final _perm = context.read<PxAuth>().isActionPermitted(
               PermissionEnum.User_SupplyMovements_Read,
@@ -317,8 +325,7 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
                               final _items = (s.result
                                       as ApiDataResult<List<SupplyMovement>>)
                                   .data;
-                              return FloatingActionButton.small(
-                                heroTag: UniqueKey(),
+                              return SmBtn(
                                 onPressed: () async {
                                   if (context.mounted) {
                                     await showDialog(
@@ -358,8 +365,7 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
                             ),
                           ),
                         ),
-                        FloatingActionButton.small(
-                          heroTag: UniqueKey(),
+                        SmBtn(
                           tooltip: context.loc.pickStartingDate,
                           onPressed: () async {
                             final _from = await showDatePicker(
@@ -400,9 +406,8 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
                             ),
                           ),
                         ),
-                        FloatingActionButton.small(
+                        SmBtn(
                           tooltip: context.loc.pickEndingDate,
-                          heroTag: UniqueKey(),
                           onPressed: () async {
                             final _to = await showDatePicker(
                               context: context,
@@ -438,7 +443,7 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
               Expanded(
                 child: Builder(
                   builder: (context) {
-                    while (s.result == null) {
+                    while (s.result == null || a.constants == null) {
                       return const CentralLoading();
                     }
 
@@ -467,8 +472,7 @@ class _SupplyMovementsPageState extends State<SupplyMovementsPage> {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton.small(
-            heroTag: UniqueKey(),
+          floatingActionButton: SmBtn(
             tooltip: context.loc.newSupplyMovement,
             onPressed: () async {
               //@permission

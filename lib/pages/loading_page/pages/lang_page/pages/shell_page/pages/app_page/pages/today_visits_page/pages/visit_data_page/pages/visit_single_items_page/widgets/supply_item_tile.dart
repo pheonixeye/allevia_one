@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -54,9 +55,7 @@ class _SupplyItemTileState extends State<SupplyItemTile> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: FloatingActionButton.small(
-                    heroTag: UniqueKey(),
-                    onPressed: null,
+                  child: SmBtn(
                     child: Text('${widget.index + 1}'),
                   ),
                 ),
@@ -126,8 +125,7 @@ class _SupplyItemTileState extends State<SupplyItemTile> {
                     child: Row(
                       spacing: 16,
                       children: [
-                        FloatingActionButton.small(
-                          heroTag: UniqueKey(),
+                        SmBtn(
                           onPressed: () {
                             setState(() {
                               quantity =
@@ -138,8 +136,7 @@ class _SupplyItemTileState extends State<SupplyItemTile> {
                         ),
                         Text(
                             '($_item_visit_quantity) ==>> ($quantity) ${l.isEnglish ? widget.item.unit_en : widget.item.unit_ar}'),
-                        FloatingActionButton.small(
-                          heroTag: UniqueKey(),
+                        SmBtn(
                           onPressed: () {
                             setState(() {
                               quantity =

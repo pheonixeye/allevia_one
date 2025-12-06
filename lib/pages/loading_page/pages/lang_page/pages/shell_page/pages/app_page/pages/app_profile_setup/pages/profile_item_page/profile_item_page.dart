@@ -1,6 +1,7 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -59,9 +60,8 @@ class _ProfileItemPageState extends State<ProfileItemPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: FloatingActionButton.small(
+                          child: SmBtn(
                             tooltip: context.loc.back,
-                            heroTag: '${widget.profileSetupItem.name}pop',
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -93,10 +93,8 @@ class _ProfileItemPageState extends State<ProfileItemPage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: FloatingActionButton.small(
+                          child: SmBtn(
                             tooltip: context.loc.clearSearch,
-                            heroTag:
-                                '${widget.profileSetupItem.name}clear-search',
                             onPressed: () {
                               i.clearSearch();
                               _controller.clear();
@@ -154,9 +152,7 @@ class _ProfileItemPageState extends State<ProfileItemPage> {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton.small(
-            heroTag:
-                'add${widget.profileSetupItem.actionButtonTooltip(context)}',
+          floatingActionButton: SmBtn(
             tooltip: widget.profileSetupItem.actionButtonTooltip(context),
             onPressed: () async {
               //@permission

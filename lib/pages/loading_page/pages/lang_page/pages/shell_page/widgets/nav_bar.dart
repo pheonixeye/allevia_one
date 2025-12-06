@@ -1,5 +1,7 @@
 import 'package:allevia_one/constants/app_business_constants.dart';
+import 'package:allevia_one/models/blob_file.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/widgets/nav_bar_menu_btn.dart';
+import 'package:allevia_one/providers/px_blobs.dart';
 import 'package:allevia_one/providers/px_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,10 +33,29 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               children: [
                 SizedBox(width: context.isMobile ? 10 : 50),
-                Image.asset(
-                  AppAssets.icon,
-                  width: 40,
-                  height: 40,
+                Consumer<PxBlobs>(
+                  builder: (context, b, _) {
+                    while (b.result == null) {
+                      return const SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    while (b.files[BlobNames.app_logo.toString()] == null ||
+                        b.files[BlobNames.app_logo.toString()]!.isEmpty) {
+                      return Image.asset(
+                        AppAssets.icon,
+                        width: 40,
+                        height: 40,
+                      );
+                    }
+                    return Image.memory(
+                      b.files[BlobNames.app_logo.toString()]!,
+                      width: 40,
+                      height: 40,
+                    );
+                  },
                 ),
                 const SizedBox(width: 20),
                 const Text.rich(

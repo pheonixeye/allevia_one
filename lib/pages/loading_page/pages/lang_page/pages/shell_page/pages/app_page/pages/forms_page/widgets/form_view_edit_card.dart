@@ -1,6 +1,7 @@
 import 'package:allevia_one/models/app_constants/app_permission.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -40,9 +41,8 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
             child: ExpansionTile(
               shape: Border.all(),
               backgroundColor: Colors.orange.shade50,
-              leading: FloatingActionButton.small(
+              leading: SmBtn(
                 onPressed: null,
-                heroTag: widget.pcForm.id,
                 child: Text('${widget.index + 1}'),
               ),
               title: Padding(
@@ -80,9 +80,8 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                               Text(context.loc.fieldName),
                               const SizedBox(width: 10),
                               Expanded(child: Text(field.field_name)),
-                              FloatingActionButton.small(
+                              SmBtn(
                                 tooltip: context.loc.editFormFieldName,
-                                heroTag: '${field.field_name}+${field.id}',
                                 onPressed: () async {
                                   //@permission
                                   final _perm =
@@ -131,11 +130,9 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                                 child: const Icon(Icons.edit),
                               ),
                               const SizedBox(width: 10),
-                              FloatingActionButton.small(
+                              SmBtn(
                                 tooltip: context.loc.deleteFormField,
                                 backgroundColor: Colors.red.shade300,
-                                heroTag:
-                                    '${field.field_name}+${field.id}+remove',
                                 onPressed: () async {
                                   //@permission
                                   final _perm =
@@ -271,11 +268,8 @@ class _FormViewEditCardState extends State<FormViewEditCard> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: FloatingActionButton.small(
+                                        child: SmBtn(
                                           tooltip: context.loc.save,
-                                          heroTag: field.id +
-                                              field.field_name +
-                                              field.field_type.name,
                                           onPressed: () async {
                                             //@permission
                                             final _perm = context

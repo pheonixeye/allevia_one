@@ -1,3 +1,4 @@
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -74,8 +75,7 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Scaffold(
-                  floatingActionButton: FloatingActionButton.small(
-                    heroTag: 'add-clinic-day-shift',
+                  floatingActionButton: SmBtn(
                     tooltip: _controller.index == 0
                         ? context.loc.addClinicDay
                         : context.loc.addDayShift,
@@ -171,8 +171,7 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: ListTile(
-                                      leading: FloatingActionButton.small(
-                                        heroTag: _schedule.id,
+                                      leading: SmBtn(
                                         onPressed: null,
                                         child: Text('${index + 1}'),
                                       ),
@@ -190,11 +189,9 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
-                                            child: FloatingActionButton.small(
+                                            child: SmBtn(
                                               tooltip:
                                                   context.loc.deleteSchedule,
-                                              heroTag:
-                                                  'delete_${_schedule.clinic_id}${_schedule.id}',
                                               onPressed: () async {
                                                 final _toDeleteSchedule =
                                                     await showDialog<bool?>(
@@ -233,9 +230,7 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
-                                            child: FloatingActionButton.small(
-                                              heroTag: _schedule.clinic_id +
-                                                  _schedule.id,
+                                            child: SmBtn(
                                               onPressed: () {
                                                 //todo: select clinicSchedule => show it's shifts
                                                 c.setCliniSchedule(_schedule);
@@ -284,8 +279,7 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: ListTile(
-                                      leading: FloatingActionButton.small(
-                                        heroTag: 'f$_item',
+                                      leading: SmBtn(
                                         onPressed: null,
                                         child: Text('${index + 1}'),
                                       ),
@@ -299,9 +293,8 @@ class _ClinicScheduleDialogState extends State<ClinicScheduleDialog>
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
-                                            child: FloatingActionButton.small(
+                                            child: SmBtn(
                                               tooltip: context.loc.deleteShift,
-                                              heroTag: 'del$_item',
                                               backgroundColor:
                                                   Colors.red.shade300,
                                               onPressed: () async {

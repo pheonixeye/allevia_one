@@ -12,6 +12,7 @@ import 'package:allevia_one/providers/px_locale.dart';
 import 'package:allevia_one/providers/px_one_visit.dart';
 import 'package:allevia_one/widgets/central_error.dart';
 import 'package:allevia_one/widgets/central_loading.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -87,8 +88,7 @@ class OperationDetailDialog extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           titleAlignment: ListTileTitleAlignment.titleHeight,
-                          leading: FloatingActionButton.small(
-                            key: UniqueKey(),
+                          leading: SmBtn(
                             onPressed: null,
                             child: Text('${_index + 1}'),
                           ),

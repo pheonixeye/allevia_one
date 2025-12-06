@@ -3,6 +3,7 @@ import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/widgets/visit_view_card/visit_shift_row.dart';
 import 'package:allevia_one/providers/px_auth.dart';
 import 'package:allevia_one/widgets/not_permitted_dialog.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
@@ -105,8 +106,7 @@ class VisitViewCard extends StatelessWidget {
                         },
                         child: Icon(Icons.arrow_drop_up),
                       ),
-                      FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      SmBtn(
                         onPressed: null,
                         child: Text('${visit.patient_entry_number}'
                             .toArabicNumber(context)),
@@ -494,8 +494,7 @@ class VisitViewCard extends StatelessWidget {
                   //enter details page
                   Column(
                     children: [
-                      FloatingActionButton.small(
-                        heroTag: UniqueKey(),
+                      SmBtn(
                         onPressed: () async {
                           //@permission
                           final _perm =

@@ -1,3 +1,5 @@
+import 'package:allevia_one/extensions/number_translator.dart';
+import 'package:allevia_one/widgets/sm_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
@@ -69,10 +71,10 @@ class _DrugDoseViewEditCardState extends State<DrugDoseViewEditCard> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: FloatingActionButton.small(
-                      heroTag: UniqueKey(),
-                      onPressed: null,
-                      child: Text('${widget.index + 1}'),
+                    child: SmBtn(
+                      child: Text(
+                        '${widget.index + 1}'.toArabicNumber(context),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -93,9 +95,8 @@ class _DrugDoseViewEditCardState extends State<DrugDoseViewEditCard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: FloatingActionButton.small(
+                    child: SmBtn(
                       tooltip: context.loc.delete,
-                      heroTag: 'delete_drug_${widget.item.id}',
                       backgroundColor: Colors.red.shade200,
                       onPressed: () async {
                         await shellFunction(
@@ -216,9 +217,8 @@ class _DrugDoseViewEditCardState extends State<DrugDoseViewEditCard> {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: FloatingActionButton.small(
+                            child: SmBtn(
                               tooltip: context.loc.saveToDefaultDoses,
-                              heroTag: '${widget.item.id}-save-to-favorites',
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
                                   await shellFunction(
@@ -243,9 +243,8 @@ class _DrugDoseViewEditCardState extends State<DrugDoseViewEditCard> {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: FloatingActionButton.small(
+                            child: SmBtn(
                               tooltip: context.loc.save,
-                              heroTag: '${widget.item.id}-save-drug-dose',
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
                                   await shellFunction(

@@ -7,10 +7,14 @@ class AppTheme {
   static final secondaryOrangeColor =
       Colors.orange.shade500.withValues(alpha: 0.9);
 
+  static final fab_bg = Colors.orange.shade300;
+  static final fab_fg = Colors.white;
+
   static final _theme = ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
     useMaterial3: true,
     fontFamily: "IBM",
+
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         shape: WidgetStatePropertyAll(
@@ -31,6 +35,7 @@ class AppTheme {
         mouseCursor: const WidgetStatePropertyAll(SystemMouseCursors.click),
       ),
     ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         shape: WidgetStatePropertyAll(
@@ -52,6 +57,7 @@ class AppTheme {
         mouseCursor: const WidgetStatePropertyAll(SystemMouseCursors.click),
       ),
     ),
+
     dividerTheme: const DividerThemeData(
       color: Colors.white,
       thickness: 3,
@@ -59,6 +65,7 @@ class AppTheme {
       indent: 20,
       endIndent: 20,
     ),
+
     appBarTheme: AppBarTheme(
       color: appBarColor,
       elevation: 8,
@@ -70,6 +77,7 @@ class AppTheme {
         ),
       ),
     ),
+
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: <TargetPlatform, PageTransitionsBuilder>{
         TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
@@ -79,13 +87,16 @@ class AppTheme {
         TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
       },
     ),
+
     scaffoldBackgroundColor: Colors.blue.shade100.withValues(alpha: 0.5),
+
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(width: 0.8),
       ),
     ),
+
     listTileTheme: const ListTileThemeData(
       contentPadding: EdgeInsets.zero,
       titleTextStyle: TextStyle(
@@ -93,6 +104,7 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
+
     drawerTheme: const DrawerThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(
@@ -100,10 +112,16 @@ class AppTheme {
         ),
       ),
     ),
+
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.orange.shade300,
+      foregroundColor: fab_fg,
+      backgroundColor: fab_bg,
     ),
+
+    popupMenuTheme: PopupMenuThemeData(
+      iconColor: Colors.white,
+    ),
+
     // menuButtonTheme: MenuButtonThemeData(
     //   style: ButtonStyle(
     //     shape: WidgetStatePropertyAll(
