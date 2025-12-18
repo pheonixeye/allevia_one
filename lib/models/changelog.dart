@@ -261,9 +261,22 @@ class Changelog extends Equatable {
       ],
     );
   }
+
+  factory Changelog.v0083() {
+    return Changelog(
+      version: '0.0.8+3',
+      entries: [
+        ChangelogEntry(
+          ar: 'يتم تحديث زيارات اليوم تلقائيًا لجميع المستخدمين عند إجراء أي تغيير على أي زيارة من قبل أي مستخدم.',
+          en: 'Today Visits Now Updates Automatically For All Users When A Change Is Made To Any Visit By Any User.',
+        ),
+      ],
+    );
+  }
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v0083(),
   Changelog.v0082(),
   Changelog.v0081(),
   Changelog.v008(),

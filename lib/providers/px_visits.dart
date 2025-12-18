@@ -14,6 +14,7 @@ class PxVisits extends ChangeNotifier {
   PxVisits({required this.api}) {
     _fetchVisitsOfToday();
     fetchVisitsOfOneMonth();
+    _watchCollectionUpdates();
   }
 
   ApiResult<List<Visit>>? _visits;
@@ -182,5 +183,23 @@ class PxVisits extends ChangeNotifier {
       shift: shift,
     );
     await _fetchVisitsOfToday();
+  }
+
+  Future<void> Function()? _unsubscribe;
+
+  Future<void> _watchCollectionUpdates() async {
+    _unsubscribe = await api.todayVisitsSubscription((event) async {
+      toggleIsUpdating();
+      await _fetchVisitsOfToday();
+      toggleIsUpdating();
+    });
+  }
+
+  @override
+  void dispose() {
+    if (_unsubscribe != null) {
+      _unsubscribe!();
+    }
+    super.dispose();
   }
 }
