@@ -279,17 +279,16 @@ class Changelog extends Equatable {
       version: '0.0.9',
       entries: [
         ChangelogEntry(
-          ar: 'اضافة اسم الطبيب تحت اسم المريض في صفحة زيارات اليوم \n (مس/هند)',
-          en: 'Added Doctor Name In The Today Visits Page Below The Patient Name (Ms.Hend)',
+          ar: 'تم تعديل مواعيد الزيارات في نفس جدول الزيارات لتقليل عدد الطلبات علي الخادم',
+          en: 'Refactored Visit Schedule To Be In The Same Collection As Visits To Reduce Multiple Requests Failing In Sequence',
         ),
-        ChangelogEntry(
-          ar: 'اضافة ملاحظات الزيارة الي التنبيهات \n (مس/اية)',
-          en: 'Added Comments of The Visit To The Notifications (Ms.Aya)',
-        ),
-        ChangelogEntry(
-          ar: 'تعديل طريقة اختيار بيانات الايصال لوجود تعطيل لمجريات العمل \n (مستر/فتحي)',
-          en: 'Refactored Reciept Selection Process As It May Have Caused Workflow Hinderance (Mr.Fathy)',
-        ),
+      ],
+    );
+  }
+  factory Changelog.v0091() {
+    return Changelog(
+      version: '0.0.9+1',
+      entries: [
         ChangelogEntry(
           ar: 'تم تعديل مواعيد الزيارات في نفس جدول الزيارات لتقليل عدد الطلبات علي الخادم',
           en: 'Refactored Visit Schedule To Be In The Same Collection As Visits To Reduce Multiple Requests Failing In Sequence',
@@ -300,6 +299,7 @@ class Changelog extends Equatable {
 }
 
 final List<Changelog> CHANGELOG = [
+  Changelog.v0091(),
   Changelog.v009(),
   Changelog.v0083(),
   Changelog.v0082(),
