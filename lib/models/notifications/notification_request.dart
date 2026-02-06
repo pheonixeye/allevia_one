@@ -77,6 +77,7 @@ class NotificationRequest extends Equatable {
 نوع الحجز : ${visit.visit_type.name_ar}
 الطبيب المعالج : ${visit.doctor.name_ar}
 اضافة بواسطة : ${visit.added_by.email}
+ملاحظات : ${visit.comments}
 ''';
     return NotificationRequest(
       topic: NotificationTopic.allevia_bookings,

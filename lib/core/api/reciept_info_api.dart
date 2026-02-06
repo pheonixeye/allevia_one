@@ -1,24 +1,12 @@
-import 'dart:convert';
-
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/constants/pocketbase_helper.dart';
 import 'package:allevia_one/errors/code_to_error.dart';
 import 'package:allevia_one/models/reciept_info.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 class RecieptInfoApi {
-  RecieptInfoApi() {
-    _initHive();
-  }
-
+  const RecieptInfoApi();
   static const _collection = 'reciept_info';
-
-  static Box<String>? _box;
-
-  Future<void> _initHive() async {
-    _box ??= await Hive.openBox(_collection);
-  }
 
   Future<ApiResult<List<RecieptInfo>>> fetchRecieptInfo() async {
     try {
@@ -56,23 +44,5 @@ class RecieptInfoApi {
         ...reciept_info.toJson(),
       },
     );
-  }
-
-  Future<void> markInfoAsDefaultForDevice(RecieptInfo info) async {
-    if (_box != null) {
-      await _box!.put(_collection, jsonEncode(info.toJson()));
-    }
-  }
-
-  Future<RecieptInfo?> getDefaultRecieptInfoForDevice() async {
-    if (_box != null) {
-      final _result = _box!.get(_collection);
-      if (_result != null) {
-        final _decoded = json.decode(_result);
-        final _info = RecieptInfo.fromJson(_decoded);
-        return _info;
-      }
-    }
-    return null;
   }
 }

@@ -164,8 +164,20 @@ class VisitViewCard extends StatelessWidget {
                                 child: const Icon(Icons.person),
                               ),
                               Expanded(
-                                child: Text(
-                                  visit.patient.name,
+                                child: Text.rich(
+                                  TextSpan(
+                                    text: visit.patient.name,
+                                    children: [
+                                      TextSpan(text: '\n'),
+                                      TextSpan(
+                                        text:
+                                            '(${l.isEnglish ? visit.doctor.name_en : visit.doctor.name_ar})',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,

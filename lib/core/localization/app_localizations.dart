@@ -2491,6 +2491,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Selected Reciept Info Found On This Device'**
   String get noRecieptInfoFound;
+
+  /// No description provided for @selectRecieptInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reciept Info'**
+  String get selectRecieptInfo;
+
+  /// No description provided for @selectRecieptInfoBeforePrintingAReciept.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Select Reciept Info Before Printing A Reciept.'**
+  String get selectRecieptInfoBeforePrintingAReciept;
+
+  /// No description provided for @editRecieptInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Reciept Info'**
+  String get editRecieptInfo;
 }
 
 class _AppLocalizationsDelegate

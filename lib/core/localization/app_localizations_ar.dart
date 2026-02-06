@@ -1245,4 +1245,14 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noRecieptInfoFound =>
       'لم يتم العثور علي تفاصيل الايصال الاولية علي هذا الجهاز - برجاء اختيار التفاصيل من صفحة الاعدادات';
+
+  @override
+  String get selectRecieptInfo => 'اختر بيانات الايصال';
+
+  @override
+  String get selectRecieptInfoBeforePrintingAReciept =>
+      'برجاء اختيار بيانات الايصال قبل الطباعة.';
+
+  @override
+  String get editRecieptInfo => 'تعديل بيانات الايصال';
 }

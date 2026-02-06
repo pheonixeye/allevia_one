@@ -432,5 +432,8 @@
     "enterValidFooterForReciept" : "Enter a Valid Footer Text For The Reciept",
     "enterRecieptPhone" : "Enter Reciept Phone Number",
     "enterValidPhoneForReciept" : "Enter a Valid Phone Number For The Reciept",
-    "noRecieptInfoFound" : "No Selected Reciept Info Found On This Device"
+    "noRecieptInfoFound" : "No Selected Reciept Info Found On This Device",
+    "selectRecieptInfo" : "Select Reciept Info",
+    "selectRecieptInfoBeforePrintingAReciept" : "Please Select Reciept Info Before Printing A Reciept.",
+    "editRecieptInfo" : "Edit Reciept Info"
 }

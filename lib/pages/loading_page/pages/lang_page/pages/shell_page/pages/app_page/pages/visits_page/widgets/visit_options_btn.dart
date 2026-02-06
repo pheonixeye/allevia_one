@@ -1,14 +1,17 @@
 import 'package:allevia_one/core/api/_api_result.dart';
 import 'package:allevia_one/core/api/bookkeeping_api.dart';
 import 'package:allevia_one/core/api/patient_document_api.dart';
+import 'package:allevia_one/core/api/reciept_info_api.dart';
 import 'package:allevia_one/core/api/visit_data_api.dart';
 import 'package:allevia_one/extensions/loc_ext.dart';
 import 'package:allevia_one/functions/shell_function.dart';
 import 'package:allevia_one/models/app_constants/app_permission.dart';
+import 'package:allevia_one/models/reciept_info.dart';
 import 'package:allevia_one/models/visits/_visit.dart';
 import 'package:allevia_one/models/visits/concised_visit.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/today_visits_page/pages/visit_data_page/widgets/patient_documents_view_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/reciept_prepare_dialog.dart';
+import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/select_reciept_info_dialog.dart';
 import 'package:allevia_one/pages/loading_page/pages/lang_page/pages/shell_page/pages/app_page/pages/visits_page/widgets/visit_data_view_dialog.dart';
 import 'package:allevia_one/providers/px_app_constants.dart';
 import 'package:allevia_one/providers/px_auth.dart';
@@ -64,6 +67,7 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                             (v.expandedSingleVisit as ApiDataResult<Visit>)
                                 .data;
                       },
+                      duration: const Duration(milliseconds: 500),
                     );
                   }
                   if (context.mounted) {
@@ -128,27 +132,43 @@ class _VisitOptionsBtnState extends State<VisitOptionsBtn> {
                             return;
                           }
 
-                          if (r.info == null) {
-                            showIsnackbar(context.loc.noRecieptInfoFound);
-                            return;
-                          }
-
-                          await showDialog<void>(
+                          final _info = await showDialog<RecieptInfo?>(
                             context: context,
                             builder: (context) {
                               return ChangeNotifierProvider(
-                                create: (context) => PxOneVisitBookkeeping(
-                                  api: BookkeepingApi(
-                                    visit_id: widget.concisedVisit.id,
-                                  ),
+                                create: (context) => PxRecieptInfo(
+                                  api: const RecieptInfoApi(),
                                 ),
-                                child: RecieptPrepareDialog(
-                                  visit: _expandedVisit!,
-                                  info: r.info!,
-                                ),
+                                child: const SelectRecieptInfoDialog(),
                               );
                             },
                           );
+
+                          if (_info == null) {
+                            if (context.mounted) {
+                              showIsnackbar(context
+                                  .loc.selectRecieptInfoBeforePrintingAReciept);
+                            }
+                            return;
+                          }
+                          if (context.mounted) {
+                            await showDialog<void>(
+                              context: context,
+                              builder: (context) {
+                                return ChangeNotifierProvider(
+                                  create: (context) => PxOneVisitBookkeeping(
+                                    api: BookkeepingApi(
+                                      visit_id: widget.concisedVisit.id,
+                                    ),
+                                  ),
+                                  child: RecieptPrepareDialog(
+                                    visit: _expandedVisit!,
+                                    info: _info,
+                                  ),
+                                );
+                              },
+                            );
+                          }
                         },
                         child: Row(
                           children: [

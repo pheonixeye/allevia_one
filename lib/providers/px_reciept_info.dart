@@ -8,7 +8,6 @@ class PxRecieptInfo extends ChangeNotifier {
 
   PxRecieptInfo({required this.api}) {
     _init();
-    _getDefaultRecieptInfoForDevice();
   }
 
   ApiResult<List<RecieptInfo>>? _result;
@@ -39,15 +38,5 @@ class PxRecieptInfo extends ChangeNotifier {
   Future<void> updateRecieptInfo(RecieptInfo info) async {
     await api.updateRecieptInfo(info);
     await _init();
-  }
-
-  Future<void> markInfoAsDefaultForDevice(RecieptInfo info) async {
-    await api.markInfoAsDefaultForDevice(info);
-    await _getDefaultRecieptInfoForDevice();
-  }
-
-  Future<void> _getDefaultRecieptInfoForDevice() async {
-    _info = await api.getDefaultRecieptInfoForDevice();
-    notifyListeners();
   }
 }

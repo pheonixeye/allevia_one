@@ -1249,4 +1249,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noRecieptInfoFound =>
       'No Selected Reciept Info Found On This Device';
+
+  @override
+  String get selectRecieptInfo => 'Select Reciept Info';
+
+  @override
+  String get selectRecieptInfoBeforePrintingAReciept =>
+      'Please Select Reciept Info Before Printing A Reciept.';
+
+  @override
+  String get editRecieptInfo => 'Edit Reciept Info';
 }
