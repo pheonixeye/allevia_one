@@ -79,7 +79,7 @@ class VisitShiftRow extends StatelessWidget {
                   toExecute: () async {
                     //todo
                     await context.read<PxVisits>().updateVisitScheduleShift(
-                          visit_shift_id: visit.visitSchedule.id,
+                          visit_id: visit.id,
                           shift: Shift.fromScheduleShift(_shift),
                         );
                   },

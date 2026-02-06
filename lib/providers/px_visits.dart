@@ -175,11 +175,11 @@ class PxVisits extends ChangeNotifier {
   }
 
   Future<void> updateVisitScheduleShift({
-    required String visit_shift_id,
+    required String visit_id,
     required Shift shift,
   }) async {
     await api.updateVisitScheduleShift(
-      visit_shift_id: visit_shift_id,
+      visit_id: visit_id,
       shift: shift,
     );
     await _fetchVisitsOfToday();

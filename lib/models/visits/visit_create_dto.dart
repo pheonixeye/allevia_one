@@ -80,28 +80,33 @@ class VisitCreateDto extends Equatable {
       'visit_type_id': visit_type_id,
       'patient_progress_status_id': patient_progress_status_id,
       'comments': comments,
-      'visit_schedule': visit_schedule.toJson(),
+      // 'visit_schedule': visit_schedule.toJson(),
+      'intday': visit_schedule.intday,
+      'start_hour': visit_schedule.start_hour,
+      'start_min': visit_schedule.start_min,
+      'end_hour': visit_schedule.end_hour,
+      'end_min': visit_schedule.end_min,
     };
   }
 
-  factory VisitCreateDto.fromJson(Map<String, dynamic> map) {
-    return VisitCreateDto(
-      clinic_id: map['clinic_id'] as String,
-      patient_id: map['patient_id'] as String,
-      added_by_id: map['added_by_id'] as String,
-      doc_id: map['doc_id'] as String,
-      clinic_schedule_id: map['clinic_schedule_id'] as String,
-      clinic_schedule_shift_id: map['clinic_schedule_shift_id'] as String,
-      visit_date: map['visit_date'] as String,
-      patient_entry_number: map['patient_entry_number'] as int,
-      visit_status_id: map['visit_status_id'] as String,
-      visit_type_id: map['visit_type_id'] as String,
-      patient_progress_status_id: map['patient_progress_status_id'] as String,
-      comments: map['comments'] as String,
-      visit_schedule:
-          VisitSchedule.fromJson(map['visit_schedule'] as Map<String, dynamic>),
-    );
-  }
+  // factory VisitCreateDto.fromJson(Map<String, dynamic> map) {
+  //   return VisitCreateDto(
+  //     clinic_id: map['clinic_id'] as String,
+  //     patient_id: map['patient_id'] as String,
+  //     added_by_id: map['added_by_id'] as String,
+  //     doc_id: map['doc_id'] as String,
+  //     clinic_schedule_id: map['clinic_schedule_id'] as String,
+  //     clinic_schedule_shift_id: map['clinic_schedule_shift_id'] as String,
+  //     visit_date: map['visit_date'] as String,
+  //     patient_entry_number: map['patient_entry_number'] as int,
+  //     visit_status_id: map['visit_status_id'] as String,
+  //     visit_type_id: map['visit_type_id'] as String,
+  //     patient_progress_status_id: map['patient_progress_status_id'] as String,
+  //     comments: map['comments'] as String,
+  //     visit_schedule:
+  //         VisitSchedule.fromJson(map['visit_schedule'] as Map<String, dynamic>),
+  //   );
+  // }
 
   @override
   bool get stringify => true;

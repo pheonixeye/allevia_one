@@ -22,7 +22,7 @@ class VisitsApi {
   static const String visit_schedule_collection = 'visit__schedule';
 
   static final String _expand =
-      'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id, visit_schedule_id';
+      'patient_id, clinic_id, added_by_id, added_by_id.account_type_id, added_by_id.app_permissions_ids, visit_status_id, visit_type_id, patient_progress_status_id, doc_id, doc_id.speciality_id';
 
   final _now = DateTime.now();
 
@@ -68,44 +68,25 @@ class VisitsApi {
   }
 
   Future<void> addNewVisit(VisitCreateDto dto) async {
-    //TODO: error prone logic - multiple requests can fail;
-    //create visit reference
-    final _result = await PocketbaseHelper.pb.collection(collection).create(
-          body: dto.toJson(),
-          expand: _expand,
-        );
+    final _visitCreateRequest =
+        await PocketbaseHelper.pb.collection(collection).create(
+              body: dto.toJson(),
+              expand: _expand,
+            );
 
-    //create visit_data reference
     await PocketbaseHelper.pb.collection(visit_data_collection).create(
           body: VisitDataDto.initial(
-            visit_id: _result.id,
+            visit_id: _visitCreateRequest.id,
             patient_id: dto.patient_id,
             clinic_id: dto.clinic_id,
           ).toJson(),
         );
 
-    //modify visit_schedule reference with visit_id
-    final _visitSchedule = dto.visit_schedule.copyWith(
-      visit_id: _result.id,
-    );
-
-    //create visit_schedule reference
-    final visit_schedule =
-        await PocketbaseHelper.pb.collection(visit_schedule_collection).create(
-              body: _visitSchedule.toJson(),
-            );
-    //update visit with visit_schedule id
-    final _updatedResult =
-        await PocketbaseHelper.pb.collection(collection).update(
-              _result.id,
-              body: {
-                'visit_schedule_id': visit_schedule.id,
-              },
-              expand: _expand,
-            );
-
     //todo: parse result
-    final _visit = Visit.fromRecordModel(_updatedResult);
+
+    final _visit = Visit.fromRecordModel(_visitCreateRequest);
+
+    print(_visit);
 
     //todo: send inclinic notification
     final _notificationRequest = NotificationRequest.fromVisit(_visit);
@@ -115,16 +96,16 @@ class VisitsApi {
       request: _notificationRequest,
     );
 
-    //todo: initialize transformer
+    // //todo: initialize transformer
     final _bk_transformer = BookkeepingTransformer(
       item_id: _visit.id,
       collection_id: collection,
     );
 
-    //todo: initialize bk_item
+    // //todo: initialize bk_item
     final _item = _bk_transformer.fromVisitCreate(_visit);
 
-    //todo: send bookkeeping request
+    // //todo: send bookkeeping request
     await BookkeepingApi().addBookkeepingItem(_item);
   }
 
@@ -189,11 +170,11 @@ class VisitsApi {
   //todo: add update visit schedule function
 
   Future<void> updateVisitScheduleShift({
-    required String visit_shift_id,
+    required String visit_id,
     required Shift shift,
   }) async {
-    await PocketbaseHelper.pb.collection(visit_schedule_collection).update(
-          visit_shift_id,
+    await PocketbaseHelper.pb.collection(collection).update(
+          visit_id,
           body: shift.toJson(),
         );
   }

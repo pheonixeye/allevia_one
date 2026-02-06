@@ -68,8 +68,14 @@ class ConcisedVisit extends Equatable {
       visit_type_id: e.getStringValue('visit_type_id'),
       patient_progress_status_id:
           e.getStringValue('patient_progress_status_id'),
-      visit_schedule: VisitSchedule.fromJson(
-        e.get<RecordModel>('expand.visit_schedule_id').toJson(),
+      visit_schedule: VisitSchedule(
+        clinic_id: e.getStringValue('clinic_id'),
+        visit_id: e.id,
+        intday: e.get<int>('intday'),
+        start_hour: e.get<int>('start_hour'),
+        start_min: e.get<int>('start_min'),
+        end_hour: e.get<int>('end_hour'),
+        end_min: e.get<int>('end_min'),
       ),
       created: e.getStringValue('created'),
     );

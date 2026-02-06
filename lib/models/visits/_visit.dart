@@ -189,8 +189,14 @@ class Visit extends Equatable {
       patient_progress_status: PatientProgressStatus.fromJson(
           e.get<RecordModel>('expand.patient_progress_status_id').toJson()),
       comments: e.getStringValue('comments'),
-      visitSchedule: VisitSchedule.fromJson(
-        e.get<RecordModel>('expand.visit_schedule_id').toJson(),
+      visitSchedule: VisitSchedule(
+        clinic_id: _clinic.id,
+        visit_id: e.id,
+        intday: e.get<int>('intday'),
+        start_hour: e.get<int>('start_hour'),
+        start_min: e.get<int>('start_min'),
+        end_hour: e.get<int>('end_hour'),
+        end_min: e.get<int>('end_min'),
       ),
     );
   }

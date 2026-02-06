@@ -3,9 +3,9 @@ import 'package:allevia_one/models/clinic/schedule_shift.dart';
 import 'package:equatable/equatable.dart';
 
 class VisitSchedule extends Equatable {
-  final String id;
-  final String clinic_id;
-  final String visit_id;
+  final String? id;
+  final String? clinic_id;
+  final String? visit_id;
   final int intday;
   final int start_hour;
   final int start_min;
@@ -13,7 +13,7 @@ class VisitSchedule extends Equatable {
   final int end_min;
 
   const VisitSchedule({
-    required this.id,
+    this.id,
     required this.clinic_id,
     required this.visit_id,
     required this.intday,
@@ -38,9 +38,9 @@ class VisitSchedule extends Equatable {
 
   factory VisitSchedule.fromJson(Map<String, dynamic> map) {
     return VisitSchedule(
-      id: map['id'] as String,
-      clinic_id: map['clinic_id'] as String,
-      visit_id: map['visit_id'] as String,
+      id: map['id'] as String?,
+      clinic_id: map['clinic_id'] as String?,
+      visit_id: map['visit_id'] as String?,
       intday: map['intday'] as int,
       start_hour: map['start_hour'] as int,
       start_min: map['start_min'] as int,
@@ -53,7 +53,7 @@ class VisitSchedule extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       clinic_id,

@@ -290,6 +290,10 @@ class Changelog extends Equatable {
           ar: 'تعديل طريقة اختيار بيانات الايصال لوجود تعطيل لمجريات العمل \n (مستر/فتحي)',
           en: 'Refactored Reciept Selection Process As It May Have Caused Workflow Hinderance (Mr.Fathy)',
         ),
+        ChangelogEntry(
+          ar: 'تم تعديل مواعيد الزيارات في نفس جدول الزيارات لتقليل عدد الطلبات علي الخادم',
+          en: 'Refactored Visit Schedule To Be In The Same Collection As Visits To Reduce Multiple Requests Failing In Sequence',
+        ),
       ],
     );
   }
