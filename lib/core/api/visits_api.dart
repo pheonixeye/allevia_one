@@ -86,7 +86,7 @@ class VisitsApi {
 
     final _visit = Visit.fromRecordModel(_visitCreateRequest);
 
-    print(_visit);
+    // print(_visit);
 
     //todo: send inclinic notification
     final _notificationRequest = NotificationRequest.fromVisit(_visit);

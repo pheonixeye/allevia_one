@@ -103,7 +103,7 @@ class NotificationsApi {
           }
         } catch (e) {
           //@handle
-          print(e);
+          // print(e);
         }
       }
     });
